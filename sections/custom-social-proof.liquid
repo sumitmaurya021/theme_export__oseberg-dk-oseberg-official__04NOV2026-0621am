@@ -120,7 +120,7 @@
     text-transform: uppercase;
     text-decoration: none;
     border: 1px solid var(--sc-btn-bg);
-    border-radius: 0;
+    border-radius: 10px;
     transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
   }
 
@@ -452,8 +452,12 @@
           <p class="sc__desc">{{ section.settings.description | escape | newline_to_br }}</p>
         {%- endif -%}
 
-        {%- if section.settings.button_text != blank and section.settings.button_link != blank -%}
-          <a href="{{ section.settings.button_link }}" class="sc__button">{{ section.settings.button_text }}</a>
+        {%- if section.settings.button_text != blank -%}
+          {%- assign insta_url = section.settings.button_link -%}
+          {%- if insta_url == blank or insta_url contains 'collections' or insta_url contains 'shopify://' -%}
+            {%- assign insta_url = 'https://www.instagram.com/oseberg.furniture/' -%}
+          {%- endif -%}
+          <a href="{{ insta_url }}" class="sc__button" target="_blank" rel="noopener noreferrer">{{ section.settings.button_text }}</a>
         {%- endif -%}
       </div>
 

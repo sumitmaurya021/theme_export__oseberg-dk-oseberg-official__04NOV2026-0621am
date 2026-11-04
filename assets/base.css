@@ -4188,3 +4188,479 @@ body:not(.custom-content-cls):has(.header-wrapper:hover) .glc-switcher-btn {
     }
     .custom-bundle-addons product-info .trust-features__content p { font-size: 11px; }
   }
+
+/* ========================================================
+   GLOBAL CONSISTENT ROUNDED BUTTONS (Client Task 2 & Checklist Audit)
+   ======================================================== */
+.button,
+.button--primary,
+.button--secondary,
+.button--tertiary,
+.custom-button,
+.custom-btn,
+.btn,
+.btn-cls,
+.btn-see-more,
+.sp__button,
+.ics__button,
+.mb__button,
+.cl__button,
+.sc__button,
+.cm__button,
+.cs__button,
+.ic__button,
+.id__button,
+.ih__button,
+.pb__button,
+.pc__button,
+.pf__button,
+.sh__button,
+.sm__button,
+.sn__button,
+.ss__button,
+.sw__button,
+.cp__button,
+.cp-btn,
+.ct-btn,
+.cbi-btn,
+.cbisb-btn,
+.book-btn,
+.custom-bg-button,
+.custom-cta-banner__button,
+.custom-exchange-button,
+.custom-img-button,
+.custom-sofa-button,
+.custom-tabbing-button,
+.col__product-btn,
+.product-form__submit,
+.cart__checkout-button,
+.shopify-challenge__button,
+.customer button,
+.newsletter-form__button,
+.contact__button,
+input[type="submit"].button {
+  border-radius: 10px !important;
+}
+
+.button:before,
+.button:after,
+.button--primary:before,
+.button--primary:after,
+.button--secondary:before,
+.button--secondary:after {
+  border-radius: 10px !important;
+}
+
+/* ========================================================
+   STEP 7: Product Price Position & "+ fragt" Shipping Popup
+   ======================================================== */
+.product__info-container > .custom-title-price-sec {
+  margin-bottom: 0.8rem !important;
+}
+
+.product__info-container > .product__price-block {
+  margin-top: 0 !important;
+  margin-bottom: 1.6rem !important;
+}
+
+/* Hide standalone description since it is now inside expandable accordion */
+.product__info-container > .product__description {
+  display: none !important;
+}
+
+/* Hide "Inkl. moms. Fri fragt i Danmark." completely */
+.product__info-container .product__tax {
+  display: none !important;
+}
+
+/* "+ fragt" clickable link */
+.product__shipping-info {
+  margin-top: 0.4rem;
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.product__shipping-trigger {
+  font-family: inherit;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #302821;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  letter-spacing: 0.02rem;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.product__shipping-trigger:hover {
+  color: #a58c76;
+}
+
+/* Shipping popup modal styling (Oseberg Scandinavian Theme) */
+.shipping-popup-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(48, 40, 33, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 2rem;
+}
+
+.shipping-popup-modal[open] {
+  display: flex !important;
+}
+
+.shipping-popup-modal__content {
+  background: #f5f1ea !important;
+  color: #302821 !important;
+  width: 100%;
+  max-width: 520px;
+  max-height: 88vh;
+  overflow-y: auto;
+  border-radius: 12px !important;
+  box-shadow: 0 24px 60px rgba(48, 40, 33, 0.25), 0 4px 12px rgba(48, 40, 33, 0.08) !important;
+  padding: 3.2rem 3.2rem 2.8rem !important;
+  position: relative;
+  border: 1px solid #ded2c3 !important;
+  animation: popupFadeIn 0.25s ease-out;
+}
+
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.shipping-popup-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 2.2rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px solid #ded2c3;
+}
+
+.shipping-popup-modal__header-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.shipping-popup-modal__eyebrow {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #a58c76;
+  margin-bottom: 0.4rem;
+}
+
+.shipping-popup-modal__title {
+  margin: 0;
+  font-size: 2.4rem;
+  font-weight: 500;
+  color: #302821;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.shipping-popup-modal__close {
+  background: #ffffff !important;
+  border: 1px solid #ded2c3 !important;
+  border-radius: 10px !important;
+  width: 3.6rem !important;
+  height: 3.6rem !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #302821 !important;
+  cursor: pointer;
+  transition: all 0.2s ease !important;
+}
+
+.shipping-popup-modal__close:hover {
+  background: #302821 !important;
+  border-color: #302821 !important;
+  color: #ffffff !important;
+}
+
+.shipping-popup-modal__close svg {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.shipping-popup-modal__body {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: #302821;
+}
+
+.shipping-popup-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.shipping-popup-card {
+  background: #ffffff;
+  border: 1px solid #ded2c3;
+  border-radius: 10px;
+  padding: 1.4rem 1.6rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.4rem;
+  transition: border-color 0.2s ease;
+}
+
+.shipping-popup-card:hover {
+  border-color: #a58c76;
+}
+
+.shipping-popup-card__icon {
+  width: 4rem;
+  height: 4rem;
+  min-width: 4rem;
+  border-radius: 8px;
+  background: #f5f1ea;
+  border: 1px solid #ded2c3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shipping-popup-card__content h4 {
+  margin: 0 0 0.3rem;
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: #302821;
+  letter-spacing: -0.01em;
+}
+
+.shipping-popup-card__content p {
+  margin: 0;
+  font-size: 1.3rem;
+  line-height: 1.5;
+  color: #5e5c5d;
+}
+
+.shipping-popup-note {
+  background: rgba(165, 140, 118, 0.12);
+  border-left: 3px solid #a58c76;
+  border-radius: 0 8px 8px 0;
+  padding: 1.2rem 1.4rem;
+  margin-top: 0.6rem;
+}
+
+.shipping-popup-note p {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: #302821;
+}
+
+.shipping-popup-note strong {
+  color: #302821;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 749px) {
+  .shipping-popup-modal__content {
+    padding: 2.4rem 2rem 2.2rem !important;
+    max-width: 92vw;
+  }
+  .shipping-popup-modal__title {
+    font-size: 2rem;
+  }
+}
+
+
+/* ========================================================
+   STEP 8: Product Expandable Accordions below Add to Cart
+   ======================================================== */
+.product__info-accordions {
+  margin-top: 2.4rem;
+  margin-bottom: 2.4rem;
+  width: 100%;
+}
+
+.product__accordion-item {
+  border-top: 1px solid #ded2c3;
+  transition: background-color 0.2s ease;
+}
+
+.product__accordion-item:last-child {
+  border-bottom: 1px solid #ded2c3;
+}
+
+.product__accordion-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.8rem 0;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+.product__accordion-summary::-webkit-details-marker,
+.product__accordion-summary::marker {
+  display: none;
+}
+
+.product__accordion-title {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #302821;
+  letter-spacing: -0.01em;
+  transition: color 0.2s ease;
+}
+
+.product__accordion-summary:hover .product__accordion-title {
+  color: #a58c76;
+}
+
+.product__accordion-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  color: #302821;
+  transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1), color 0.2s ease;
+}
+
+.product__accordion-summary:hover .product__accordion-icon {
+  color: #a58c76;
+}
+
+.product__accordion-item[open] .product__accordion-icon {
+  transform: rotate(180deg);
+  color: #a58c76;
+}
+
+.product__accordion-content {
+  padding: 0.4rem 0 2rem;
+  font-size: 1.45rem;
+  line-height: 1.65;
+  color: #4a423b;
+  animation: accordionFadeIn 0.25s ease-out;
+}
+
+@keyframes accordionFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.product__accordion-content p {
+  margin: 0 0 1rem;
+}
+
+.product__accordion-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Specs table inside accordion */
+.product__specs-table {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: #ffffff;
+  border: 1px solid #ded2c3;
+  border-radius: 10px;
+  padding: 1.6rem;
+}
+
+.product__specs-row {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #f0e9df;
+  font-size: 1.35rem;
+}
+
+.product__specs-row:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.product__specs-label {
+  font-weight: 600;
+  color: #302821;
+  min-width: 120px;
+}
+
+.product__specs-value {
+  color: #5e5c5d;
+  text-align: right;
+}
+
+.product__shipping-details p {
+  margin-bottom: 0.8rem;
+  font-size: 1.35rem;
+  line-height: 1.55;
+  color: #4a423b;
+}
+
+.product__shipping-details strong {
+  color: #302821;
+}
+
+/* Hide duplicate standalone description since it's now in the accordion */
+.product__info-container > .product__description {
+  display: none !important;
+}
+
+@media screen and (max-width: 749px) {
+  .product__specs-row {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .product__specs-value {
+    text-align: left;
+  }
+}
+
+
+/* ========================================================
+   STEP 9: Shopping Cart Price Summary
+   ======================================================== */
+.cart-drawer .tax-note,
+.cart__footer .tax-note {
+  display: none !important;
+}
+
+.cart-drawer .totals.totals--savings,
+.cart__footer .totals.totals--savings {
+  margin-top: 0.6rem !important;
+}
+
+.totals--savings .totals__savings-label,
+.totals--savings .totals__savings-value {
+  color: #e05a2b !important;
+  font-family: inherit;
+  font-weight: 500;
+}

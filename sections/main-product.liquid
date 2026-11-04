@@ -305,33 +305,128 @@
                 </div>
 
               {%- when 'price' -%}
-                <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
-                  {%- render 'price',
-                    product: product,
-                    use_variant: true,
-                    show_badges: true,
-                    price_class: 'price--large'
-                  -%}
+                <div class="product__price-block" {{ block.shopify_attributes }}>
+                  <div id="price-{{ section.id }}" role="status">
+                    {%- render 'price',
+                      product: product,
+                      use_variant: true,
+                      show_badges: true,
+                      price_class: 'price--large'
+                    -%}
+                  </div>
+                  {%- if product.quantity_price_breaks_configured? -%}
+                    <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
+                      <span>{{ 'products.product.volume_pricing.note' | t }}</span>
+                    </div>
+                  {%- endif -%}
+                  {%- if cart.taxes_included or cart.duties_included or shop.shipping_policy.body != blank -%}
+                    <div class="product__tax caption rte">
+                      {%- if cart.duties_included and cart.taxes_included -%}
+                        {{ 'products.product.duties_and_taxes_included' | t }}
+                      {%- elsif cart.taxes_included -%}
+                        {{ 'products.product.taxes_included' | t }}
+                      {%- elsif cart.duties_included -%}
+                        {{ 'products.product.duties_included' | t }}
+                      {%- endif -%}
+                      {%- if shop.shipping_policy.body != blank -%}
+                        {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                  <div class="product__shipping-info">
+                    <modal-opener data-modal="#PopupModal-shipping-{{ section.id }}">
+                      <button
+                        id="ProductShippingButton-{{ section.id }}"
+                        class="product__shipping-trigger"
+                        type="button"
+                        aria-haspopup="dialog"
+                      >
+                        <span class="product__shipping-trigger-text">+ fragt</span>
+                      </button>
+                    </modal-opener>
+                  </div>
+                  <modal-dialog id="PopupModal-shipping-{{ section.id }}" class="product-popup-modal shipping-popup-modal">
+                    <div
+                      role="dialog"
+                      aria-label="Fragt og levering"
+                      aria-modal="true"
+                      class="product-popup-modal__content shipping-popup-modal__content"
+                      tabindex="-1"
+                    >
+                      <div class="shipping-popup-modal__header">
+                        <div class="shipping-popup-modal__header-text">
+                          <span class="shipping-popup-modal__eyebrow">OSEBERG</span>
+                          <h2 class="shipping-popup-modal__title">Fragt & Levering</h2>
+                        </div>
+                        <button
+                          id="ModalClose-shipping-{{ section.id }}"
+                          type="button"
+                          class="product-popup-modal__toggle shipping-popup-modal__close"
+                          aria-label="{{ 'accessibility.close' | t }}"
+                        >
+                          <span class="svg-wrapper">
+                            {{- 'icon-close.svg' | inline_asset_content -}}
+                          </span>
+                        </button>
+                      </div>
+                      <div class="shipping-popup-modal__body">
+                        {%- if shop.shipping_policy.body != blank -%}
+                          <div class="shipping-popup-policy rte">
+                            {{ shop.shipping_policy.body }}
+                          </div>
+                        {%- else -%}
+                          <div class="shipping-popup-cards">
+                            <div class="shipping-popup-card">
+                              <div class="shipping-popup-card__icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#302821" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                  <rect x="1" y="3" width="15" height="13"></rect>
+                                  <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                                  <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                  <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                                </svg>
+                              </div>
+                              <div class="shipping-popup-card__content">
+                                <h4>Hurtig levering (2-5 hverdage)</h4>
+                                <p>Vi leverer hurtigt og sikkert i hele Danmark. Du modtager trackinglink, så snart din ordre afsendes.</p>
+                              </div>
+                            </div>
+
+                            <div class="shipping-popup-card">
+                              <div class="shipping-popup-card__icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#302821" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                  <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                                </svg>
+                              </div>
+                              <div class="shipping-popup-card__content">
+                                <h4>Levering til kantsten eller indbæring</h4>
+                                <p>Standardlevering sker til kantsten. Mulighed for tilkøb af indbæring kan vælges ved betaling.</p>
+                              </div>
+                            </div>
+
+                            <div class="shipping-popup-card">
+                              <div class="shipping-popup-card__icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#302821" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                </svg>
+                              </div>
+                              <div class="shipping-popup-card__content">
+                                <h4>14 dages fuld returret</h4>
+                                <p>Prøv din nye sofa i vante rammer derhjemme med 14 dages fuld returret.</p>
+                              </div>
+                            </div>
+
+                            <div class="shipping-popup-note">
+                              <p><strong>Fragten beregnes automatisk ved kassen:</strong> Prisen afhænger af leveringsadresse og valgte fragtservice.</p>
+                            </div>
+                          </div>
+                        {%- endif -%}
+                      </div>
+                    </div>
+                  </modal-dialog>
                 </div>
-                {%- if product.quantity_price_breaks_configured? -%}
-                  <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
-                    <span>{{ 'products.product.volume_pricing.note' | t }}</span>
-                  </div>
-                {%- endif -%}
-                {%- if cart.taxes_included or cart.duties_included or shop.shipping_policy.body != blank -%}
-                  <div class="product__tax caption rte">
-                    {%- if cart.duties_included and cart.taxes_included -%}
-                      {{ 'products.product.duties_and_taxes_included' | t }}
-                    {%- elsif cart.taxes_included -%}
-                      {{ 'products.product.taxes_included' | t }}
-                    {%- elsif cart.duties_included -%}
-                      {{ 'products.product.duties_included' | t }}
-                    {%- endif -%}
-                    {%- if shop.shipping_policy.body != blank -%}
-                      {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
-                    {%- endif -%}
-                  </div>
-                {%- endif -%}
                 <div {{ block.shopify_attributes }}>
                   {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
                   {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
@@ -671,6 +766,7 @@
                   section_id: section.id,
                   show_pickup_availability: true
                 -%}
+                {%- render 'product-accordions', product: product, section: section -%}
                 {% comment %} {%- when 'delivery_info' -%} {% endcomment %}
                 {%- comment -%}
                   Delivery info is now rendered inside buy-buttons snippet

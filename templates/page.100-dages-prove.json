@@ -25,8 +25,8 @@
     "custom_video_FxM9P6": {
       "type": "custom-video",
       "settings": {
-        "overlay_sub_text": "Bliv sikker på dit valg",
-        "overlay_text": "100 nætters prøve",
+        "overlay_sub_text": "<p>Bliv sikker på dit valg</p>",
+        "overlay_text": "<p>100 nætters prøve</p>",
         "animation_title": false,
         "button_text": "",
         "button_link": "#",

@@ -63,6 +63,30 @@
                   <p class="totals__total-value">{{ cart.total_price | money_with_currency }}</p>
                 </div>
 
+                {% assign total_saving = 0 %}
+                {% for item in cart.items %}
+                  {% assign compare_at_price = item.variant.compare_at_price | default: 0 %}
+                  {% assign price = item.variant.price | default: 0 %}
+                  {% if compare_at_price > price %}
+                    {% assign compare_line_price = compare_at_price | times: item.quantity %}
+                    {% assign line_saving = compare_line_price | minus: item.final_line_price %}
+                    {% assign total_saving = total_saving | plus: line_saving %}
+                  {% elsif item.original_line_price > item.final_line_price %}
+                    {% assign line_saving = item.original_line_price | minus: item.final_line_price %}
+                    {% assign total_saving = total_saving | plus: line_saving %}
+                  {% endif %}
+                {% endfor %}
+                {% if cart.total_discount > 0 %}
+                  {% assign total_saving = total_saving | plus: cart.total_discount %}
+                {% endif %}
+
+                {%- if total_saving > 0 -%}
+                  <div class="totals totals--savings" role="status">
+                    <h2 class="totals__total totals__savings-label">Samlet besparelse</h2>
+                    <p class="totals__total-value totals__savings-value">-{{ total_saving | money_with_currency }}</p>
+                  </div>
+                {%- endif -%}
+
                 <small class="tax-note caption-large rte">
                   {%- if cart.duties_included and cart.taxes_included -%}
                     {%- if shop.shipping_policy.body == blank -%}

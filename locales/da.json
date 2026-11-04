@@ -184,7 +184,7 @@
         "price_range": "{{ minimum }} – {{ maximum }}"
       },
       "product_variants": "Produktvarianter",
-      "taxes_included": "Inkl. moms. Fri fragt i Danmark.",
+      "taxes_included": "",
       "duties_included": "Inklusive told.",
       "duties_and_taxes_included": "Inklusive told og skatter."
     },
@@ -303,16 +303,16 @@
         "title": "Har du en konto?",
         "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Log ind</a> for at betale hurtigere."
       },
-      "estimated_total": "Estimeret totalbeløb",
-      "new_estimated_total": "Ny estimeret totalbeløb",
-      "duties_and_taxes_included_shipping_at_checkout_with_policy_html": "Inklusive told og skatter. Rabatter og <a href=\"{{ link }}\">levering</a> beregnes ved betaling.",
-      "duties_and_taxes_included_shipping_at_checkout_without_policy": "Inklusive told og skatter. Rabatter og levering beregnes ved betaling.",
-      "taxes_included_shipping_at_checkout_with_policy_html": "Inkl. moms. Fri fragt i Danmark. Rabatter og <a href=\"{{ link }}\">levering</a> beregnes ved betaling.",
-      "taxes_included_shipping_at_checkout_without_policy": "Inkl. moms. Fri fragt i Danmark. Rabatter og levering beregnes ved betaling.",
-      "duties_included_taxes_at_checkout_shipping_at_checkout_with_policy_html": "Inklusive told. Skatter, rabatter og <a href=\"{{ link }}\">levering</a> beregnes ved betaling.",
-      "duties_included_taxes_at_checkout_shipping_at_checkout_without_policy": "Inklusive told. Skatter, rabatter og levering beregnes ved betaling.",
-      "taxes_at_checkout_shipping_at_checkout_with_policy_html": "Skatter, rabatter og <a href=\"{{ link }}\">levering</a> beregnes ved betaling.",
-      "taxes_at_checkout_shipping_at_checkout_without_policy": "Skatter, rabatter og levering beregnes ved betaling."
+      "estimated_total": "Subtotal",
+      "new_estimated_total": "Ny subtotal",
+      "duties_and_taxes_included_shipping_at_checkout_with_policy_html": "",
+      "duties_and_taxes_included_shipping_at_checkout_without_policy": "",
+      "taxes_included_shipping_at_checkout_with_policy_html": "",
+      "taxes_included_shipping_at_checkout_without_policy": "",
+      "duties_included_taxes_at_checkout_shipping_at_checkout_with_policy_html": "",
+      "duties_included_taxes_at_checkout_shipping_at_checkout_without_policy": "",
+      "taxes_at_checkout_shipping_at_checkout_with_policy_html": "",
+      "taxes_at_checkout_shipping_at_checkout_without_policy": ""
     },
     "footer": {
       "payment": "Betalingsmetoder"

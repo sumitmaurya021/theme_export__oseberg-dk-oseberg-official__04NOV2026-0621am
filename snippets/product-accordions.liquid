@@ -1,0 +1,96 @@
+{% comment %}
+  Product Expandable Information Sections (Client Task 8)
+  - Beskrivelse (Description)
+  - Mål & specifikationer (Dimensions & Specifications)
+  - Levering & fragt (Delivery Information)
+{% endcomment %}
+
+<div class="product__info-accordions">
+  {%- comment -%} 1. Beskrivelse {%- endcomment -%}
+  <details class="product__accordion-item" id="Accordion-description-{{ section.id }}">
+    <summary class="product__accordion-summary">
+      <span class="product__accordion-title">Beskrivelse</span>
+      <span class="product__accordion-icon" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="2 5 7 10 12 5"></polyline>
+        </svg>
+      </span>
+    </summary>
+    <div class="product__accordion-content rte">
+      {%- if product.description != blank -%}
+        {{ product.description }}
+      {%- else -%}
+        <p>Oseberg forener tidløst skandinavisk formsprog med kompromisløs komfort og fleksibilitet. Skabt til rigtige hjem, rigtige mennesker og hverdagen, som den er.</p>
+      {%- endif -%}
+    </div>
+  </details>
+
+  {%- comment -%} 2. Mål & specifikationer {%- endcomment -%}
+  <details class="product__accordion-item" id="Accordion-specs-{{ section.id }}">
+    <summary class="product__accordion-summary">
+      <span class="product__accordion-title">Mål & specifikationer</span>
+      <span class="product__accordion-icon" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="2 5 7 10 12 5"></polyline>
+        </svg>
+      </span>
+    </summary>
+    <div class="product__accordion-content rte">
+      {%- if product.metafields.custom.specifikation_punkter != blank -%}
+        {{ product.metafields.custom.specifikation_punkter | metafield_tag }}
+      {%- elsif product.metafields.custom.specifikationer_vaerdier != blank -%}
+        <div class="product__specs-metafield">
+          {{ product.metafields.custom.specifikationer_vaerdier | metafield_tag }}
+        </div>
+      {%- else -%}
+        <div class="product__specs-table">
+          <div class="product__specs-row">
+            <span class="product__specs-label">Dimensioner</span>
+            <span class="product__specs-value">Bredde 240 cm · Dybde 105 cm · Sædehøjde 42 cm</span>
+          </div>
+          <div class="product__specs-row">
+            <span class="product__specs-label">Materiale</span>
+            <span class="product__specs-value">Bredt ribbet fløjlskvalitet (OEKO-TEX® certificeret)</span>
+          </div>
+          <div class="product__specs-row">
+            <span class="product__specs-label">Konstruktion</span>
+            <span class="product__specs-value">Massivt FSC®-certificeret fyrretræ og birkekrydsfiner</span>
+          </div>
+          <div class="product__specs-row">
+            <span class="product__specs-label">Sædekomfort</span>
+            <span class="product__specs-value">Højelastisk koldskum med fibervat for optimal støtte</span>
+          </div>
+          <div class="product__specs-row">
+            <span class="product__specs-label">Opbygning</span>
+            <span class="product__specs-value">Fleksibelt moduldesign med skjulte samlebeslag</span>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </details>
+
+  {%- comment -%} 3. Levering & fragt {%- endcomment -%}
+  <details class="product__accordion-item" id="Accordion-shipping-{{ section.id }}">
+    <summary class="product__accordion-summary">
+      <span class="product__accordion-title">Levering & fragt</span>
+      <span class="product__accordion-icon" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="2 5 7 10 12 5"></polyline>
+        </svg>
+      </span>
+    </summary>
+    <div class="product__accordion-content rte">
+      {%- if shop.shipping_policy.body != blank -%}
+        {{ shop.shipping_policy.body }}
+      {%- else -%}
+        <div class="product__shipping-details">
+          <p><strong>Hurtig levering:</strong> Vi leverer hurtigt og sikkert i hele Danmark inden for 2-5 hverdage. Du modtager trackinglink på e-mail, så snart din ordre afsendes.</p>
+          <p><strong>Leveringsmuligheder:</strong> Standardlevering sker til kantsten. Mulighed for tilkøb af indbæring til ønsket rum kan vælges ved kassen.</p>
+          <p><strong>Fragt:</strong> Fragten udregnes automatisk ved betaling baseret på din adresse og valgte leveringsmetode.</p>
+          <p><strong>14 dages fuld returret:</strong> Prøv din nye Oseberg sofa derhjemme i ro og mag med 14 dages fuld returret og tilfredshedsgaranti.</p>
+        </div>
+      {%- endif -%}
+    </div>
+  </details>
+</div>
+

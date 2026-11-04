@@ -52,6 +52,32 @@
           endunless
         -%}
       {%- endfor -%}
+
+      {%- for variant in product.variants -%}
+        {%- if variant.metafields.custom.variant_images.value != blank -%}
+          {%- for img in variant.metafields.custom.variant_images.value -%}
+            {%- assign img_source = img.preview_image | default: img -%}
+            <img
+              class="global-media-settings global-media-settings--no-shadow"
+              srcset="
+                {%- if img_source.width >= 550 -%}{{ img_source | image_url: width: 550 }} 550w,{%- endif -%}
+                {%- if img_source.width >= 1100 -%}{{ img_source | image_url: width: 1100 }} 1100w,{%- endif -%}
+                {%- if img_source.width >= 1445 -%}{{ img_source | image_url: width: 1445 }} 1445w,{%- endif -%}
+                {%- if img_source.width >= 1680 -%}{{ img_source | image_url: width: 1680 }} 1680w,{%- endif -%}
+                {%- if img_source.width >= 2048 -%}{{ img_source | image_url: width: 2048 }} 2048w,{%- endif -%}
+                {{ img_source | image_url }} {{ img_source.width }}w
+              "
+              sizes="(min-width: 750px) calc(100vw - 22rem), 1100px"
+              src="{{ img_source | image_url: width: 1445 }}"
+              alt="{{ img.alt | default: product.title | escape }}"
+              loading="lazy"
+              width="1100"
+              height="{{ 1100 | divided_by: img_source.aspect_ratio | default: 1.0 | ceil }}"
+              data-media-id="{{ section.id }}-var-{{ variant.id }}-{{ forloop.index }}"
+            >
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endfor -%}
     </div>
   </div>
 </product-modal>
