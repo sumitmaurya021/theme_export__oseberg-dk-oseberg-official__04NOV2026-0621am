@@ -1,0 +1,186 @@
+{%- liquid
+  assign mf = product.metafields.custom
+  assign ps_titles = mf.strip_titler.value | strip | newline_to_br | split: '<br />'
+  assign ps_descs = mf.strip_beskrivelser.value | strip | newline_to_br | split: '<br />'
+  assign ps_count = ps_titles.size | at_most: 4
+-%}
+
+{%- if mf.strip_titler.value != blank -%}
+
+{%- style -%}
+  #pstrip-{{ section.id }} {
+    --ps-title: {{ section.settings.title_color }};
+    --ps-desc: {{ section.settings.desc_color }};
+    background: {{ section.settings.bg_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  #pstrip-{{ section.id }} .ps__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  #pstrip-{{ section.id }} .ps__item { min-width: 0; }
+
+  #pstrip-{{ section.id }} .ps__title {
+    margin: 0 0 6px;
+    color: var(--ps-title);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    overflow-wrap: break-word;
+  }
+
+  #pstrip-{{ section.id }} .ps__desc {
+    margin: 0;
+    color: var(--ps-desc);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: normal;
+    overflow-wrap: break-word;
+  }
+
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #pstrip-{{ section.id }} .ps__grid {
+      grid-template-columns: repeat({{ ps_count | at_least: 1 | at_most: 3 }}, minmax(0, 1fr));
+      gap: 24px;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    #pstrip-{{ section.id }} .ps__grid {
+      grid-template-columns: repeat({{ ps_count | at_least: 1 }}, minmax(0, 1fr));
+      gap: clamp(24px, 3vw, 48px);
+    }
+    #pstrip-{{ section.id }} .ps__title { font-size: 13px; }
+    #pstrip-{{ section.id }} .ps__desc { font-size: 13px; }
+  }
+
+  @media screen and (max-width: 749px) {
+    #pstrip-{{ section.id }} .ps__grid { gap: 18px; }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     JS chalega to hi hide hota hai, warna content hamesha visible rahega
+     ============================================ */
+  #pstrip-{{ section.id }}.ps-anim .ps__item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: calc(var(--ps-i, 0) * 0.15s);
+    will-change: opacity, transform;
+  }
+
+  #pstrip-{{ section.id }}.ps-anim.is-visible .ps__item {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #pstrip-{{ section.id }}.ps-anim.is-done .ps__item {
+    transition-delay: 0s;
+    will-change: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #pstrip-{{ section.id }}.ps-anim .ps__item {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+{%- endstyle -%}
+
+<div id="pstrip-{{ section.id }}" class="custom-product-strip">
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+    <div class="ps__grid">
+      {%- for title in ps_titles limit: 4 -%}
+        {%- assign idx = forloop.index0 -%}
+        {%- assign t = title | strip -%}
+        {%- assign d = ps_descs[idx] | strip -%}
+        {%- if t != blank or d != blank -%}
+          <div class="ps__item">
+            {%- if t != blank -%}
+              <h3 class="ps__title">{{ t | escape }}</h3>
+            {%- endif -%}
+            {%- if d != blank -%}
+              <p class="ps__desc">{{ d | escape }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var section = document.getElementById('pstrip-{{ section.id }}');
+    if (!section) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    section.querySelectorAll('.ps__item').forEach(function (el, i) {
+      el.style.setProperty('--ps-i', i);
+    });
+
+    section.classList.add('ps-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+          window.setTimeout(function () {
+            section.classList.add('is-done');
+          }, 2200);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    observer.observe(section);
+  })();
+</script>
+
+{%- elsif request.design_mode -%}
+  <div class="page-width" style="padding: 24px 0; text-align: center; opacity: .6;">
+    Produktstrip: strip-metafelterne er tomme for dette produkt.
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Custom Product Strip",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Titles aur descriptions product ke metafields (custom.strip_*) se aate hain." },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#DED2C3" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#302821" },
+    { "type": "color", "id": "desc_color", "label": "Description Color", "default": "#302821" },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": false },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Top", "default": 24 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 24 }
+  ],
+  "presets": [
+    { "name": "Custom Product Strip" }
+  ]
+}
+{% endschema %}

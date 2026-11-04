@@ -1,0 +1,328 @@
+{%- style -%}
+  #trust-{{ section.id }} {
+    --tb-title: {{ section.settings.title_color }};
+    --tb-desc: {{ section.settings.desc_color }};
+    --tb-divider: {{ section.settings.divider_color }};
+    --tb-icon-size: {{ section.settings.icon_size }}px;
+    --tb-icon-size-mobile: {{ section.settings.icon_size_mobile }}px;
+    background: {{ section.settings.bg_color }};
+    border-top: 1px solid {{ section.settings.border_color }};
+    border-bottom: 1px solid {{ section.settings.border_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  #trust-{{ section.id }} .tb__grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns_mobile }}, minmax(0, 1fr));
+    gap: 24px 16px;
+    align-items: center;
+  }
+
+  #trust-{{ section.id }} .tb__item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+    min-width: 0;
+  }
+
+  #trust-{{ section.id }} .tb__icon {
+    flex: 0 0 var(--tb-icon-size);
+    width: var(--tb-icon-size);
+    height: var(--tb-icon-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #trust-{{ section.id }} .tb__icon img,
+  #trust-{{ section.id }} .tb__icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  #trust-{{ section.id }} .tb__text {
+    min-width: 0;
+  }
+  #trust-{{ section.id }} .tb__richtext p {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    color: inherit;
+    font-family: inherit;
+  }
+
+  #trust-{{ section.id }} .tb__title {
+    margin: 0 0 4px;
+    color: var(--tb-title);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(12px, 0.9vw, 14px);
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  #trust-{{ section.id }} .tb__desc {
+    margin: 0;
+    color: var(--tb-desc);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(12px, 0.9vw, 14px);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: normal;
+  }
+
+  /* Icon Position: Top (icon upar, content neeche) */
+  {%- if section.settings.icon_position == 'top' -%}
+    #trust-{{ section.id }} .tb__item {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    #trust-{{ section.id }} .tb__text {
+      width: 100%;
+    }
+  {%- endif -%}
+
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #trust-{{ section.id }} .tb__grid {
+      grid-template-columns: repeat({{ section.settings.columns_tablet }}, minmax(0, 1fr));
+      gap: 28px 24px;
+    }
+
+    #trust-{{ section.id }} .tb__item {
+      gap: 14px;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    #trust-{{ section.id }} .tb__grid {
+      grid-template-columns: repeat({{ section.blocks.size | at_least: 1 }}, minmax(0, 1fr));
+      gap: 0;
+    }
+
+    #trust-{{ section.id }} .tb__item {
+      justify-content: center;
+      padding: 0 24px;
+    }
+
+    {%- if section.settings.icon_position == 'top' -%}
+      #trust-{{ section.id }} .tb__item {
+        justify-content: flex-start;
+      }
+    {%- endif -%}
+
+    {%- if section.settings.show_dividers -%}
+      #trust-{{ section.id }} .tb__item + .tb__item {
+        border-left: 1px solid var(--tb-divider);
+      }
+    {%- endif -%}
+  }
+
+  @media screen and (max-width: 749px) {
+    #trust-{{ section.id }} .tb__grid {
+      gap: 20px 12px;
+    }
+
+    #trust-{{ section.id }} .tb__item {
+      gap: 12px;
+    }
+
+    #trust-{{ section.id }} .tb__icon {
+      flex-basis: var(--tb-icon-size-mobile);
+      width: var(--tb-icon-size-mobile);
+      height: var(--tb-icon-size-mobile);
+    }
+
+    #trust-{{ section.id }} .tb__title {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      margin-bottom: 3px;
+    }
+
+    #trust-{{ section.id }} .tb__desc {
+      font-size: 12px;
+    }
+  }
+
+  #trust-{{ section.id }}.tb-anim .tb__item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: calc(var(--tb-i, 0) * 0.15s);
+    will-change: opacity, transform;
+  }
+
+  #trust-{{ section.id }}.tb-anim.is-visible .tb__item {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  #trust-{{ section.id }}.tb-anim.is-done .tb__item {
+    transition-delay: 0s;
+    will-change: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #trust-{{ section.id }}.tb-anim .tb__item {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+{%- endstyle -%}
+
+<div id="trust-{{ section.id }}" class="custom-trust-badge">
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+    <div class="tb__grid">
+      {%- for block in section.blocks -%}
+        <div class="tb__item" {{ block.shopify_attributes }}>
+          {%- if block.settings.icon != blank -%}
+            <div class="tb__icon">
+              <img
+                src="{{ block.settings.icon | image_url: width: 160 }}"
+                alt="{{ block.settings.icon.alt | default: '' | escape }}"
+                width="{{ section.settings.icon_size }}"
+                height="{{ section.settings.icon_size }}"
+                loading="lazy"
+              >
+            </div>
+          {%- endif -%}
+
+          <div class="tb__text">
+            {%- if block.settings.title != blank -%}
+              <div class="tb__title tb__richtext">{{ block.settings.title }}</div>
+            {%- endif -%}
+            {%- if block.settings.description != blank -%}
+              <div class="tb__desc tb__richtext">{{ block.settings.description }}</div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var section = document.getElementById('trust-{{ section.id }}');
+    if (!section) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var items = section.querySelectorAll('.tb__item');
+
+    if (reduced || !('IntersectionObserver' in window) || !items.length) return;
+
+    items.forEach(function (item, i) {
+      item.style.setProperty('--tb-i', i);
+    });
+
+    section.classList.add('tb-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+
+          window.setTimeout(function () {
+            section.classList.add('is-done');
+          }, 2200);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    observer.observe(section);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Trust Badge",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "border_color", "label": "Top / Bottom Border Color", "default": "#DED2C3" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#302821" },
+    { "type": "color", "id": "desc_color", "label": "Description Color", "default": "#A58C76" },
+    { "type": "color", "id": "divider_color", "label": "Divider Color", "default": "#DED2C3" },
+
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "icon_position",
+      "label": "Icon Position",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left (icon, text ke saath side mein)" },
+        { "value": "top", "label": "Top (icon upar, content neeche)" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "columns_tablet",
+      "label": "Columns (Tablet)",
+      "default": "2",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns (Mobile)",
+      "default": "1",
+      "options": [
+        { "value": "1", "label": "1 (stacked)" },
+        { "value": "2", "label": "2 (side by side)" }
+      ]
+    },
+    { "type": "range", "id": "icon_size", "min": 24, "max": 80, "step": 2, "unit": "px", "label": "Icon Size (Desktop / Tablet)", "default": 40 },
+    { "type": "range", "id": "icon_size_mobile", "min": 20, "max": 60, "step": 2, "unit": "px", "label": "Icon Size (Mobile)", "default": 32 },
+    { "type": "checkbox", "id": "show_dividers", "label": "Show Dividers (Desktop)", "default": true },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": false },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Top", "default": 28 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 28 }
+  ],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Trust Badge Item",
+      "settings": [
+        { "type": "image_picker", "id": "icon", "label": "Icon (SVG upload)" },
+        { "type": "richtext", "id": "title", "label": "Title", "default": "<p>Flexible</p>" },
+        { "type": "richtext", "id": "description", "label": "Description", "default": "<p>Change the configuration as your life changes.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust Badge",
+      "blocks": [
+        { "type": "badge", "settings": { "title": "<p>Flexible</p>", "description": "<p>Change the configuration as your life changes.</p>" } },
+        { "type": "badge", "settings": { "title": "<p>Timeless design</p>", "description": "<p>Created for everyday living.</p>" } },
+        { "type": "badge", "settings": { "title": "<p>Exclusive materials</p>", "description": "<p>Carefully selected fabrics and natural tones.</p>" } },
+        { "type": "badge", "settings": { "title": "<p>Made for you</p>", "description": "<p>Choose the configuration, fabric and colour.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

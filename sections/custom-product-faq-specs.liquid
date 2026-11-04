@@ -1,0 +1,387 @@
+{%- liquid
+  assign mf = product.metafields.custom
+
+  assign mf_faq_title = mf.faq_titel.value
+  assign mf_faq_q = mf.faq_sporgsmal.value
+  assign mf_faq_a = mf.faq_svar.value
+  assign mf_specs_title = mf.specifikationer_titel.value
+  assign mf_specs_l = mf.specifikationer_betegnelser.value
+  assign mf_specs_v = mf.specifikationer_vaerdier.value
+
+  if section.settings.faq_title_override != blank
+    assign faq_title = section.settings.faq_title_override
+  elsif mf_faq_title != blank
+    assign faq_title = mf_faq_title
+  else
+    assign faq_title = 'Ofte stillede spørgsmål'
+  endif
+
+  if section.settings.faq_questions_override != blank
+    assign faq_q_raw = section.settings.faq_questions_override
+  else
+    assign faq_q_raw = mf_faq_q
+  endif
+
+  if section.settings.faq_answers_override != blank
+    assign faq_a_raw = section.settings.faq_answers_override
+  else
+    assign faq_a_raw = mf_faq_a
+  endif
+
+  if section.settings.specs_title_override != blank
+    assign specs_title = section.settings.specs_title_override
+  elsif mf_specs_title != blank
+    assign specs_title = mf_specs_title
+  else
+    assign specs_title = 'Specifikationer'
+  endif
+
+  if section.settings.specs_labels_override != blank
+    assign specs_l_raw = section.settings.specs_labels_override
+  else
+    assign specs_l_raw = mf_specs_l
+  endif
+
+  if section.settings.specs_values_override != blank
+    assign specs_v_raw = section.settings.specs_values_override
+  else
+    assign specs_v_raw = mf_specs_v
+  endif
+
+  assign faq_q_raw = faq_q_raw | default: ''
+  assign faq_a_raw = faq_a_raw | default: ''
+  assign specs_l_raw = specs_l_raw | default: ''
+  assign specs_v_raw = specs_v_raw | default: ''
+
+  assign faq_questions = faq_q_raw | newline_to_br | split: '<br />'
+  assign faq_answers = faq_a_raw | newline_to_br | split: '<br />'
+  assign specs_labels = specs_l_raw | newline_to_br | split: '<br />'
+  assign specs_values = specs_v_raw | newline_to_br | split: '<br />'
+-%}
+
+{%- if faq_q_raw != blank or specs_l_raw != blank -%}
+
+{%- style -%}
+  #fs-{{ section.id }} {
+    --fs-bg: {{ section.settings.bg_color }};
+    --fs-heading: {{ section.settings.heading_color }};
+    --fs-text: {{ section.settings.text_color }};
+    --fs-label: {{ section.settings.label_color }};
+    --fs-line: {{ section.settings.line_color }};
+    background: var(--fs-bg);
+    border-top: 1px solid {{ section.settings.border_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  #fs-{{ section.id }} .fs__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+    align-items: start;
+  }
+
+  #fs-{{ section.id }} .fs__col { min-width: 0; }
+
+  #fs-{{ section.id }} .fs__heading {
+    margin: 0 0 18px;
+    color: var(--fs-heading);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(15px, 1.2vw, 18px);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0.01em;
+  }
+
+  /* ---------- FAQ ---------- */
+  #fs-{{ section.id }} .fs__faq-item {
+    border-bottom: 1px solid var(--fs-line);
+  }
+
+  #fs-{{ section.id }} .fs__faq-item:first-of-type {
+    border-top: 1px solid var(--fs-line);
+  }
+
+  #fs-{{ section.id }} .fs__faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 0;
+    cursor: pointer;
+    list-style: none;
+    color: var(--fs-text);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(13px, 0.95vw, 14px);
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  #fs-{{ section.id }} .fs__faq-item summary::-webkit-details-marker { display: none; }
+  #fs-{{ section.id }} .fs__faq-item summary::marker { content: ''; }
+
+  #fs-{{ section.id }} .fs__chevron {
+    flex: 0 0 12px;
+    width: 12px;
+    height: 12px;
+    color: var(--fs-label);
+    transition: transform 0.35s ease;
+  }
+
+  #fs-{{ section.id }} .fs__faq-item[open] .fs__chevron { transform: rotate(180deg); }
+
+  #fs-{{ section.id }} .fs__answer {
+    margin: 0;
+    padding: 0 28px 16px 0;
+    color: var(--fs-label);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(13px, 0.95vw, 14px);
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  #fs-{{ section.id }} .fs__faq-item[open] .fs__answer {
+    animation: fs-fade-{{ section.id }} 0.4s ease;
+  }
+
+  @keyframes fs-fade-{{ section.id }} {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---------- Specs ---------- */
+  #fs-{{ section.id }} .fs__spec-row {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--fs-line);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(13px, 0.95vw, 14px);
+    line-height: 1.6;
+  }
+
+  #fs-{{ section.id }} .fs__spec-row:first-of-type {
+    border-top: 1px solid var(--fs-line);
+  }
+
+  #fs-{{ section.id }} .fs__spec-label {
+    color: var(--fs-label);
+    font-weight: 400;
+  }
+
+  #fs-{{ section.id }} .fs__spec-value {
+    color: var(--fs-text);
+    font-weight: 400;
+    overflow-wrap: break-word;
+  }
+
+  #fs-{{ section.id }} .fs__spec-value span { display: block; }
+
+  /* ---------- Tablet ---------- */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #fs-{{ section.id }} .fs__grid { gap: 48px; }
+  }
+
+  /* ---------- Desktop ---------- */
+  @media screen and (min-width: 990px) {
+    #fs-{{ section.id }} .fs__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: clamp(48px, 6vw, 96px);
+    }
+  }
+
+  /* ---------- Mobile ---------- */
+  @media screen and (max-width: 749px) {
+    #fs-{{ section.id }} .fs__grid { gap: 36px; }
+    #fs-{{ section.id }} .fs__heading { font-size: 15px; margin-bottom: 14px; }
+    #fs-{{ section.id }} .fs__faq-item summary,
+    #fs-{{ section.id }} .fs__answer,
+    #fs-{{ section.id }} .fs__spec-row { font-size: 13px; }
+    #fs-{{ section.id }} .fs__spec-row { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 12px; }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     JS chalega to hi hide hota hai, warna content hamesha visible rahega
+     ============================================ */
+  #fs-{{ section.id }}.fs-anim .fs__heading,
+  #fs-{{ section.id }}.fs-anim .fs__faq-item,
+  #fs-{{ section.id }}.fs-anim .fs__spec-row {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: calc(var(--fs-i, 0) * 0.1s);
+    will-change: opacity, transform;
+  }
+
+  #fs-{{ section.id }}.fs-anim.is-visible .fs__heading,
+  #fs-{{ section.id }}.fs-anim.is-visible .fs__faq-item,
+  #fs-{{ section.id }}.fs-anim.is-visible .fs__spec-row {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #fs-{{ section.id }}.fs-anim.is-done .fs__heading,
+  #fs-{{ section.id }}.fs-anim.is-done .fs__faq-item,
+  #fs-{{ section.id }}.fs-anim.is-done .fs__spec-row {
+    transition-delay: 0s;
+    will-change: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #fs-{{ section.id }}.fs-anim .fs__heading,
+    #fs-{{ section.id }}.fs-anim .fs__faq-item,
+    #fs-{{ section.id }}.fs-anim .fs__spec-row {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    #fs-{{ section.id }} .fs__faq-item[open] .fs__answer { animation: none; }
+  }
+{%- endstyle -%}
+
+<div id="fs-{{ section.id }}" class="custom-faq-specs">
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+    <div class="fs__grid">
+
+      {%- if faq_q_raw != blank -%}
+        <div class="fs__col fs__faq">
+          <h2 class="fs__heading" style="--fs-i: 0">{{ faq_title | escape }}</h2>
+          {%- for question in faq_questions -%}
+            {%- assign q = question | strip -%}
+            {%- assign a = faq_answers[forloop.index0] | default: '' | strip -%}
+            {%- if q != blank -%}
+              <details class="fs__faq-item" style="--fs-i: {{ forloop.index }}">
+                <summary>
+                  <span>{{ q | escape }}</span>
+                  <svg class="fs__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4.5l4 4 4-4"/></svg>
+                </summary>
+                {%- if a != blank -%}
+                  <p class="fs__answer">{{ a | escape }}</p>
+                {%- endif -%}
+              </details>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if specs_l_raw != blank -%}
+        <div class="fs__col fs__specs">
+          <h2 class="fs__heading" style="--fs-i: 0">{{ specs_title | escape }}</h2>
+          {%- for spec_label in specs_labels -%}
+            {%- assign label = spec_label | strip -%}
+            {%- assign value_line = specs_values[forloop.index0] | default: '' | strip -%}
+            {%- assign value_parts = value_line | split: ';' -%}
+            {%- if label != blank -%}
+              <div class="fs__spec-row" style="--fs-i: {{ forloop.index }}">
+                <div class="fs__spec-label">{{ label | escape }}</div>
+                <div class="fs__spec-value">
+                  {%- for part in value_parts -%}
+                    {%- assign v = part | strip -%}
+                    {%- if v != blank -%}<span>{{ v | escape }}</span>{%- endif -%}
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var section = document.getElementById('fs-{{ section.id }}');
+    if (!section) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    section.classList.add('fs-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+          window.setTimeout(function () {
+            section.classList.add('is-done');
+          }, 2200);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    observer.observe(section);
+  })();
+</script>
+
+{%- elsif request.design_mode -%}
+  <div class="page-width" style="padding: 24px 0; text-align: center; opacity: .6;">
+    FAQ & Specifikationer: faq_sporgsmal / specifikationer_betegnelser metafelterne er tomme for dette produkt.
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Custom FAQ & Specs",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Data product ke metafields (custom.faq_*, custom.specifikationer_*) se aata hai. Neeche ke override khaali chhodoge to metafield ka data dikhega. Har line = ek item. Sawaal aur Jawab ki lines ka order same rakho." },
+
+    { "type": "header", "content": "FAQ (optional override)" },
+    { "type": "text", "id": "faq_title_override", "label": "FAQ Title (override)" },
+    {
+      "type": "textarea",
+      "id": "faq_questions_override",
+      "label": "FAQ Questions (override)",
+      "info": "Har line mein ek sawaal."
+    },
+    {
+      "type": "textarea",
+      "id": "faq_answers_override",
+      "label": "FAQ Answers (override)",
+      "info": "Har line mein ek jawab, sawaal ke same order mein."
+    },
+
+    { "type": "header", "content": "Specifications (optional override)" },
+    { "type": "text", "id": "specs_title_override", "label": "Specs Title (override)" },
+    {
+      "type": "textarea",
+      "id": "specs_labels_override",
+      "label": "Specs Labels (override)",
+      "info": "Har line mein ek label."
+    },
+    {
+      "type": "textarea",
+      "id": "specs_values_override",
+      "label": "Specs Values (override)",
+      "info": "Har line mein ek value, label ke same order mein. Ek value mein kai lines ke liye ; lagao."
+    },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#FFFFFF" },
+    { "type": "color", "id": "border_color", "label": "Top Border Color", "default": "#DED2C3" },
+    { "type": "color", "id": "heading_color", "label": "Heading Color", "default": "#302821" },
+    { "type": "color", "id": "text_color", "label": "Question / Value Color", "default": "#302821" },
+    { "type": "color", "id": "label_color", "label": "Label / Answer Color", "default": "#A58C76" },
+    { "type": "color", "id": "line_color", "label": "Line Color", "default": "#DED2C3" },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": false },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Top", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 48 }
+  ],
+  "presets": [
+    { "name": "Custom FAQ & Specs" }
+  ]
+}
+{% endschema %}

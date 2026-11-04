@@ -1,0 +1,107 @@
+/* ===== OSEBERG colours + fonts (only additions) ===== */
+.custom-contact-form-container {
+  --oseberg-ivory: #F5F1EA;
+  --oseberg-sand: #DED2C3;
+  --oseberg-espresso: #302821;
+  --oseberg-taupe: #A58C76;
+  --oseberg-white: #FFFFFF;
+
+  color: var(--oseberg-espresso);
+  font-family: 'Jost', sans-serif;
+}
+
+.contact .title,
+.contact h2,
+.custom-contact-info-section h3 {
+  font-family: 'Playfair Display', serif;
+  color: var(--oseberg-espresso);
+}
+
+.contact .field__input,
+.contact .text-area {
+  color: var(--oseberg-espresso);
+  border-color: var(--oseberg-taupe);
+}
+
+.contact .field__input::placeholder {
+  color: var(--oseberg-taupe);
+}
+
+.contact .field__label {
+  font-family: 'Jost', sans-serif;
+  color: var(--oseberg-taupe);
+}
+
+.contact .field__input:focus {
+  border-color: var(--oseberg-espresso);
+}
+
+.contact .contact__field-error,
+.contact .form__message {
+  font-family: 'Jost', sans-serif;
+  color: var(--oseberg-espresso);
+}
+
+.contact .cbbutton {
+  font-family: 'Jost', sans-serif;
+  background-color: var(--oseberg-espresso);
+  color: var(--oseberg-ivory);
+  border-color: var(--oseberg-espresso);
+}
+
+.contact .cbbutton:hover {
+  background-color: var(--oseberg-taupe);
+  border-color: var(--oseberg-taupe);
+  color: var(--oseberg-white);
+}
+
+.custom-contact-info-section {
+  color: var(--oseberg-espresso);
+}
+
+.custom-contact-info-section .description,
+.custom-contact-info-section .description * {
+  font-family: 'Jost', sans-serif;
+  color: var(--oseberg-espresso);
+}
+
+/* ===== Existing code (unchanged) ===== */
+.contact img {
+  max-width: 100%;
+}
+
+.contact .form__message {
+  align-items: flex-start;
+}
+
+.contact .icon-success {
+  margin-top: 0.2rem;
+}
+
+.contact .field {
+  margin-bottom: 1.5rem;
+}
+
+@media screen and (min-width: 750px) {
+  .contact .field {
+    margin-bottom: 2rem;
+  }
+}
+
+.contact__button {
+  margin-top: 3rem;
+}
+
+@media screen and (min-width: 750px) {
+  .contact__button {
+    margin-top: 4rem;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .contact__fields {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 2rem;
+  }
+}

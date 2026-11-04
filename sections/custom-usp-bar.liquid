@@ -1,0 +1,306 @@
+{%- style -%}
+  #usp-{{ section.id }} {
+    --usp-title-color: {{ section.settings.title_color }};
+    --usp-desc-color: {{ section.settings.desc_color }};
+    --usp-border-color: {{ section.settings.border_color }};
+    --usp-icon-size: {{ section.settings.icon_size }}px;
+    --usp-icon-size-mobile: {{ section.settings.icon_size_mobile }}px;
+    background: {{ section.settings.bg_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  #usp-{{ section.id }} .usp__grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
+    align-items: stretch;
+  }
+
+  #usp-{{ section.id }} .usp__item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 16px 24px;
+  }
+
+  /* Right side border: height 50% of the block, vertically centered */
+  #usp-{{ section.id }} .usp__item::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 1px;
+    height: 50%;
+    transform: translateY(-50%);
+    background: var(--usp-border-color);
+  }
+
+  #usp-{{ section.id }} .usp__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+
+  #usp-{{ section.id }} .usp__icon img {
+    display: block;
+    width: var(--usp-icon-size);
+    height: var(--usp-icon-size);
+    object-fit: contain;
+  }
+
+  #usp-{{ section.id }} .usp__title {
+    margin: 0 0 8px;
+    color: var(--usp-title-color);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(12px, 0.9vw, 14px);
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  #usp-{{ section.id }} .usp__desc {
+    margin: 0;
+    max-width: 240px;
+    color: var(--usp-desc-color);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(12px, 0.9vw, 14px);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: normal;
+  }
+
+  /* Desktop (990px and up) */
+  @media screen and (min-width: 990px) {
+    #usp-{{ section.id }} .usp__item:nth-child({{ section.settings.columns_desktop }}n)::after,
+    #usp-{{ section.id }} .usp__item:last-child::after {
+      display: none;
+    }
+  }
+
+  /* Tablet (750px - 989px) */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #usp-{{ section.id }} .usp__grid {
+      grid-template-columns: repeat({{ section.settings.columns_tablet }}, 1fr);
+    }
+
+    #usp-{{ section.id }} .usp__item {
+      padding: 20px 16px;
+    }
+
+    #usp-{{ section.id }} .usp__item:nth-child({{ section.settings.columns_tablet }}n)::after,
+    #usp-{{ section.id }} .usp__item:last-child::after {
+      display: none;
+    }
+  }
+
+  /* Mobile (749px and below) */
+  @media screen and (max-width: 749px) {
+    #usp-{{ section.id }} .usp__grid {
+      grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr);
+    }
+
+    #usp-{{ section.id }} .usp__item {
+      padding: 18px 12px;
+    }
+
+    #usp-{{ section.id }} .usp__icon {
+      margin-bottom: 10px;
+    }
+
+    #usp-{{ section.id }} .usp__icon img {
+      width: var(--usp-icon-size-mobile);
+      height: var(--usp-icon-size-mobile);
+    }
+
+    #usp-{{ section.id }} .usp__title {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+    }
+
+    #usp-{{ section.id }} .usp__desc {
+      font-size: 12px;
+      max-width: 100%;
+    }
+
+    #usp-{{ section.id }} .usp__item:nth-child({{ section.settings.columns_mobile }}n)::after,
+    #usp-{{ section.id }} .usp__item:last-child::after {
+      display: none;
+    }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     JS chalega to hi hide hota hai, warna content hamesha visible rahega
+     ============================================ */
+
+  /* Fade-in on scroll: opacity 0 -> 1 + translateY 20px -> 0 */
+  #usp-{{ section.id }}.usp-anim .usp__item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: calc(var(--usp-i, 0) * 0.15s); /* stagger 0.15s */
+    will-change: opacity, transform;
+  }
+
+  #usp-{{ section.id }}.usp-anim.is-visible .usp__item {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Reduced motion: sab animation off */
+  @media (prefers-reduced-motion: reduce) {
+    #usp-{{ section.id }}.usp-anim .usp__item {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+{%- endstyle -%}
+
+<div id="usp-{{ section.id }}" class="custom-usp-bar">
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+    <div class="usp__grid">
+      {%- for block in section.blocks -%}
+        <div class="usp__item" {{ block.shopify_attributes }}>
+          {%- if block.settings.icon != blank -%}
+            <div class="usp__icon">
+              <img
+                src="{{ block.settings.icon | image_url: width: 160 }}"
+                alt="{{ block.settings.icon.alt | default: block.settings.title | escape }}"
+                width="{{ section.settings.icon_size }}"
+                height="{{ section.settings.icon_size }}"
+                loading="lazy"
+              >
+            </div>
+          {%- endif -%}
+
+          {%- if block.settings.title != blank -%}
+            <div class="usp__title">{{ block.settings.title }}</div>
+          {%- endif -%}
+
+          {%- if block.settings.description != blank -%}
+            <div class="usp__desc">{{ block.settings.description | newline_to_br }}</div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<!-- Scroll fade-in (stagger) -->
+<script>
+  (function () {
+    var section = document.getElementById('usp-{{ section.id }}');
+    if (!section) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var items = section.querySelectorAll('.usp__item');
+
+    if (reduced || !('IntersectionObserver' in window) || !items.length) return;
+
+    items.forEach(function (item, i) {
+      item.style.setProperty('--usp-i', i);
+    });
+
+    section.classList.add('usp-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    observer.observe(section);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Custom USP Bar",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Background Color", "default": "#F5F1EA" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#302821" },
+    { "type": "color", "id": "desc_color", "label": "Description Color", "default": "#302821" },
+    { "type": "color", "id": "border_color", "label": "Divider (Right Border) Color", "default": "#A58C76" },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "columns_desktop", "min": 2, "max": 6, "step": 1, "label": "Columns (Desktop)", "default": 4 },
+    {
+      "type": "select",
+      "id": "columns_tablet",
+      "label": "Columns (Tablet)",
+      "default": "2",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns (Mobile)",
+      "default": "2",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ]
+    },
+    { "type": "range", "id": "icon_size", "min": 20, "max": 80, "step": 2, "unit": "px", "label": "Icon Size (Desktop / Tablet)", "default": 32 },
+    { "type": "range", "id": "icon_size_mobile", "min": 20, "max": 60, "step": 2, "unit": "px", "label": "Icon Size (Mobile)", "default": 28 },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": false },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding Top", "default": 24 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 24 }
+  ],
+  "blocks": [
+    {
+      "type": "usp_item",
+      "name": "USP Item",
+      "settings": [
+        { "type": "image_picker", "id": "icon", "label": "Icon (SVG)" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Flexible" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Change the configuration as your life changes." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom USP Bar",
+      "blocks": [
+        {
+          "type": "usp_item",
+          "settings": { "title": "Flexible", "description": "Change the configuration as your life changes." }
+        },
+        {
+          "type": "usp_item",
+          "settings": { "title": "Timeless Design", "description": "Created for everyday living. Today. Tomorrow. Always." }
+        },
+        {
+          "type": "usp_item",
+          "settings": { "title": "Exclusive Materials", "description": "Carefully selected fabrics and natural tones." }
+        },
+        {
+          "type": "usp_item",
+          "settings": { "title": "Made For You", "description": "Choose the configuration, fabric and colour that fits your home." }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

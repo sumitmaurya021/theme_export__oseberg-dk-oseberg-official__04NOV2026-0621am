@@ -1,0 +1,153 @@
+<section class="swiper-section">
+  <div class="container">
+    <h2>{{ section.settings.main_heading }}</h2>
+    <p>{{ section.settings.sub_heading }}</p>
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="swiper-slide">
+            <a href="{{ block.settings.feature_link }}">
+              {% if block.settings.feature_image %}
+                <img src="{{ block.settings.feature_image | img_url: 'medium' }}" alt="{{ block.settings.feature_title }}">
+              {% endif %}
+              <h3>{{ block.settings.feature_title }}</h3>
+              <p>{{ block.settings.feature_description }}</p>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-scrollbar"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Swiper Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "main_heading",
+      "label": "Main Heading",
+      "default": "Our Features"
+    },
+    {
+      "type": "text",
+      "id": "sub_heading",
+      "label": "Subtext Heading",
+      "default": "Explore the best services we offer"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "feature_image",
+          "label": "Feature Image"
+        },
+        {
+          "type": "text",
+          "id": "feature_title",
+          "label": "Feature Title",
+          "default": "Feature Name"
+        },
+        {
+          "type": "textarea",
+          "id": "feature_description",
+          "label": "Feature Description",
+          "default": "Short description of the feature."
+        },
+        {
+          "type": "url",
+          "id": "feature_link",
+          "label": "Feature Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Swiper Section"
+    }
+  ]
+}
+{% endschema %}
+
+
+<!-- <style>
+  .swiper-section {
+    text-align: center;
+    padding: 40px 0;
+  }
+  .swiper-slide a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 20px;
+    background: #f8f8f8;
+    border-radius: 10px;
+  }
+  .swiper-slide img {
+    width: 100%;
+    max-width: 300px;
+    margin: auto;
+    display: block;
+  }
+
+  .swiper-scrollbar {
+    background: #e0e0e0; /* Light background */
+    border-radius: 10px;
+    height: 8px; /* Scrollbar thickness */
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Full width */
+}
+
+.swiper-scrollbar-drag {
+    background: #222; /* Dark scroll thumb */
+    border-radius: 10px;
+    height: 8px;
+}
+.swiper-scrollbar-drag {
+    display: block !important;
+}
+</style> -->
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev"
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true
+        },
+        scrollbar: {
+            el: ".swiper-scrollbar",
+            draggable: true,
+            hide: false
+        },
+        breakpoints: {
+            768: {
+                slidesPerView: 2
+            },
+            1024: {
+                slidesPerView: 3
+            }
+        }
+    });
+});
+</script>

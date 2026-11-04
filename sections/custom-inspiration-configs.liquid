@@ -1,0 +1,553 @@
+{%- liquid
+  assign ic_items = section.blocks | where: 'type', 'config'
+  assign ic_count = ic_items.size | at_least: 1 | at_most: 4
+-%}
+
+{%- style -%}
+  #iconfig-{{ section.id }} {
+    --ic-num: {{ section.settings.number_color }};
+    --ic-title: {{ section.settings.title_color }};
+    --ic-desc: {{ section.settings.desc_color }};
+    --ic-card-bg: {{ section.settings.card_bg }};
+    --ic-label: {{ section.settings.label_color }};
+    --ic-btn-bg: {{ section.settings.button_bg }};
+    --ic-btn-color: {{ section.settings.button_color }};
+    --ic-btn-hover-bg: {{ section.settings.button_hover_bg }};
+    --ic-btn-hover-color: {{ section.settings.button_hover_color }};
+    --ic-radius: {{ section.settings.image_radius }}px;
+    --ic-ratio: {{ section.settings.image_ratio }};
+    background: {{ section.settings.bg_color }};
+    border-top: 1px solid {{ section.settings.border_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  #iconfig-{{ section.id }} .ic__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    align-items: stretch;
+  }
+
+  /* ---------- Main image ---------- */
+  #iconfig-{{ section.id }} .ic__media {
+    position: relative;
+    min-width: 0;
+    width: 100%;
+    aspect-ratio: var(--ic-ratio);
+    overflow: hidden;
+    border-radius: var(--ic-radius);
+    background: #DED2C3;
+  }
+
+  #iconfig-{{ section.id }} .ic__media img,
+  #iconfig-{{ section.id }} .ic__media svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  #iconfig-{{ section.id }} .ic__media:hover img {
+    transform: scale(1.03);
+  }
+
+  /* ---------- Content ---------- */
+  #iconfig-{{ section.id }} .ic__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    background: var(--ic-card-bg);
+    padding: 32px 24px;
+  }
+
+  #iconfig-{{ section.id }} .ic__number {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 16px;
+    color: var(--ic-num);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  #iconfig-{{ section.id }} .ic__number::after {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.6;
+  }
+
+  #iconfig-{{ section.id }} .ic__title {
+    margin: 0 0 20px;
+    color: var(--ic-title);
+    font-family: var(--font-serif, 'Playfair Display', Georgia, 'Times New Roman', serif);
+    font-size: clamp(28px, 3.2vw, 48px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  #iconfig-{{ section.id }} .ic__desc {
+    margin: 0 0 28px;
+    max-width: 440px;
+    color: var(--ic-desc);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(14px, 1.05vw, 16px);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: normal;
+  }
+
+  #iconfig-{{ section.id }} .ic__button {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    margin: 0 0 28px;
+    padding: clamp(14px, 1.2vw, 18px) clamp(24px, 2.4vw, 36px);
+    background: var(--ic-btn-bg);
+    color: var(--ic-btn-color);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.15em;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--ic-btn-bg);
+    border-radius: 0;
+    transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  }
+
+  #iconfig-{{ section.id }} .ic__button::before,
+  #iconfig-{{ section.id }} .ic__button::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  #iconfig-{{ section.id }} .ic__button:hover {
+    background: var(--ic-btn-hover-bg);
+    color: var(--ic-btn-hover-color);
+    border-color: var(--ic-btn-hover-bg);
+  }
+
+  /* ---------- Config items (chhote images) ---------- */
+  #iconfig-{{ section.id }} .ic__configs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 12px;
+  }
+
+  #iconfig-{{ section.id }} .ic__config {
+    display: block;
+    min-width: 0;
+    color: inherit;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  #iconfig-{{ section.id }} .ic__thumb {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+  }
+
+  #iconfig-{{ section.id }} .ic__thumb img,
+  #iconfig-{{ section.id }} .ic__thumb svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  #iconfig-{{ section.id }} a.ic__config:hover .ic__thumb img {
+    transform: scale(1.06);
+  }
+
+  #iconfig-{{ section.id }} .ic__label {
+    margin: 8px 0 0;
+    color: var(--ic-label);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: normal;
+    overflow-wrap: break-word;
+  }
+
+  /* ---------- Tablet (750px - 989px) ---------- */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #iconfig-{{ section.id }} .ic__content { padding: 40px 32px; }
+    #iconfig-{{ section.id }} .ic__title { font-size: clamp(32px, 5vw, 44px); }
+    #iconfig-{{ section.id }} .ic__desc { max-width: 560px; }
+    #iconfig-{{ section.id }} .ic__configs {
+      grid-template-columns: repeat({{ ic_count }}, minmax(0, 1fr));
+      gap: 20px 16px;
+    }
+  }
+
+  /* ---------- Desktop (990px and up) : image 7 / content 5 ---------- */
+  @media screen and (min-width: 990px) {
+    {%- if section.settings.content_position == 'left' -%}
+    #iconfig-{{ section.id }} .ic__grid {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    }
+    #iconfig-{{ section.id }} .ic__content { order: 1; }
+    #iconfig-{{ section.id }} .ic__media { order: 2; }
+    {%- else -%}
+    #iconfig-{{ section.id }} .ic__grid {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    }
+    {%- endif -%}
+
+    #iconfig-{{ section.id }} .ic__content {
+      padding: clamp(24px, 3vw, 48px);
+    }
+
+    #iconfig-{{ section.id }} .ic__configs {
+      grid-template-columns: repeat({{ ic_count }}, minmax(0, 1fr));
+      gap: 0 clamp(8px, 1vw, 14px);
+    }
+  }
+
+  /* ---------- Mobile (749px and below) : image upar, content neeche ---------- */
+  @media screen and (max-width: 749px) {
+    #iconfig-{{ section.id }} .ic__media { order: 1; }
+    #iconfig-{{ section.id }} .ic__content { order: 2; padding: 28px 20px; }
+    #iconfig-{{ section.id }} .ic__title { margin-bottom: 16px; }
+    #iconfig-{{ section.id }} .ic__desc { margin-bottom: 24px; max-width: 100%; }
+    #iconfig-{{ section.id }} .ic__button { width: 100%; align-self: stretch; margin-bottom: 24px; }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     JS chalega to hi hide hota hai, warna content hamesha visible rahega
+     ============================================ */
+  #iconfig-{{ section.id }} {
+    {%- if section.settings.content_position == 'left' -%}
+    --ic-content-x: -28px;
+    --ic-media-x: 28px;
+    {%- else -%}
+    --ic-content-x: 28px;
+    --ic-media-x: -28px;
+    {%- endif %}
+  }
+
+  #iconfig-{{ section.id }}.ic-anim .ic__media {
+    opacity: 0;
+    transform: translateX(var(--ic-media-x));
+    transition:
+      opacity 1.1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1.1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  #iconfig-{{ section.id }}.ic-anim .ic__content > .ic__number,
+  #iconfig-{{ section.id }}.ic-anim .ic__content > .ic__title,
+  #iconfig-{{ section.id }}.ic-anim .ic__content > .ic__desc,
+  #iconfig-{{ section.id }}.ic-anim .ic__content > .ic__button {
+    opacity: 0;
+    transform: translateX(var(--ic-content-x));
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+    transition-delay: calc(0.15s + var(--ic-ci, 0) * 0.12s), calc(0.15s + var(--ic-ci, 0) * 0.12s), 0s, 0s, 0s;
+    will-change: opacity, transform;
+  }
+
+  #iconfig-{{ section.id }}.ic-anim .ic__config {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: calc(0.6s + var(--ic-i, 0) * 0.12s);
+    will-change: opacity, transform;
+  }
+
+  #iconfig-{{ section.id }}.ic-anim.is-visible .ic__media,
+  #iconfig-{{ section.id }}.ic-anim.is-visible .ic__content > .ic__number,
+  #iconfig-{{ section.id }}.ic-anim.is-visible .ic__content > .ic__title,
+  #iconfig-{{ section.id }}.ic-anim.is-visible .ic__content > .ic__desc,
+  #iconfig-{{ section.id }}.ic-anim.is-visible .ic__content > .ic__button {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  #iconfig-{{ section.id }}.ic-anim.is-visible .ic__config {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #iconfig-{{ section.id }}.ic-anim.is-done .ic__media,
+  #iconfig-{{ section.id }}.ic-anim.is-done .ic__content > .ic__number,
+  #iconfig-{{ section.id }}.ic-anim.is-done .ic__content > .ic__title,
+  #iconfig-{{ section.id }}.ic-anim.is-done .ic__content > .ic__desc,
+  #iconfig-{{ section.id }}.ic-anim.is-done .ic__content > .ic__button,
+  #iconfig-{{ section.id }}.ic-anim.is-done .ic__config {
+    transition-delay: 0s;
+    will-change: auto;
+  }
+
+  /* Mobile: side slide ki jagah halka fade-up */
+  @media screen and (max-width: 749px) {
+    #iconfig-{{ section.id }} {
+      --ic-content-x: 0px;
+      --ic-media-x: 0px;
+    }
+    #iconfig-{{ section.id }}.ic-anim .ic__media,
+    #iconfig-{{ section.id }}.ic-anim .ic__content > .ic__number,
+    #iconfig-{{ section.id }}.ic-anim .ic__content > .ic__title,
+    #iconfig-{{ section.id }}.ic-anim .ic__content > .ic__desc,
+    #iconfig-{{ section.id }}.ic-anim .ic__content > .ic__button {
+      transform: translateY(20px);
+    }
+    #iconfig-{{ section.id }}.ic-anim.is-visible .ic__media,
+    #iconfig-{{ section.id }}.ic-anim.is-visible .ic__content > .ic__number,
+    #iconfig-{{ section.id }}.ic-anim.is-visible .ic__content > .ic__title,
+    #iconfig-{{ section.id }}.ic-anim.is-visible .ic__content > .ic__desc,
+    #iconfig-{{ section.id }}.ic-anim.is-visible .ic__content > .ic__button {
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #iconfig-{{ section.id }}.ic-anim .ic__media,
+    #iconfig-{{ section.id }}.ic-anim .ic__content > *,
+    #iconfig-{{ section.id }}.ic-anim .ic__config {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    #iconfig-{{ section.id }} .ic__media img,
+    #iconfig-{{ section.id }} .ic__thumb img { transition: none; }
+  }
+{%- endstyle -%}
+
+<div id="iconfig-{{ section.id }}" class="custom-inspiration-configs">
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+    <div class="ic__grid">
+
+      <div class="ic__media">
+        {%- if section.settings.image != blank -%}
+          <img
+            src="{{ section.settings.image | image_url: width: 1600 }}"
+            srcset="{{ section.settings.image | image_url: width: 600 }} 600w,
+                    {{ section.settings.image | image_url: width: 900 }} 900w,
+                    {{ section.settings.image | image_url: width: 1200 }} 1200w,
+                    {{ section.settings.image | image_url: width: 1600 }} 1600w"
+            sizes="(min-width: 990px) 58vw, 100vw"
+            alt="{{ section.settings.image.alt | default: section.settings.title | escape }}"
+            width="{{ section.settings.image.width }}"
+            height="{{ section.settings.image.height }}"
+            loading="lazy"
+          >
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag }}
+        {%- endif -%}
+      </div>
+
+      <div class="ic__content">
+        {%- if section.settings.number != blank -%}
+          <p class="ic__number">{{ section.settings.number | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.title != blank -%}
+          <h2 class="ic__title">{{ section.settings.title | escape | newline_to_br }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <p class="ic__desc">{{ section.settings.description | escape | newline_to_br }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.button_text != blank and section.settings.button_link != blank -%}
+          <a href="{{ section.settings.button_link }}" class="ic__button">{{ section.settings.button_text | escape }}</a>
+        {%- endif -%}
+
+        {%- if ic_items.size > 0 -%}
+          <div class="ic__configs">
+            {%- for block in ic_items limit: 4 -%}
+              {%- liquid
+                if block.settings.link != blank
+                  assign tag = 'a'
+                else
+                  assign tag = 'div'
+                endif
+              -%}
+              <{{ tag }}{% if tag == 'a' %} href="{{ block.settings.link }}"{% endif %} class="ic__config" {{ block.shopify_attributes }}>
+                <div class="ic__thumb">
+                  {%- if block.settings.image != blank -%}
+                    <img
+                      src="{{ block.settings.image | image_url: width: 400 }}"
+                      srcset="{{ block.settings.image | image_url: width: 200 }} 200w,
+                              {{ block.settings.image | image_url: width: 300 }} 300w,
+                              {{ block.settings.image | image_url: width: 400 }} 400w,
+                              {{ block.settings.image | image_url: width: 600 }} 600w"
+                      sizes="(min-width: 990px) 10vw, (min-width: 750px) 18vw, 40vw"
+                      alt="{{ block.settings.image.alt | default: block.settings.label | escape }}"
+                      width="{{ block.settings.image.width }}"
+                      height="{{ block.settings.image.height }}"
+                      loading="lazy"
+                    >
+                  {%- else -%}
+                    {{ 'image' | placeholder_svg_tag }}
+                  {%- endif -%}
+                </div>
+                {%- if block.settings.label != blank -%}
+                  <p class="ic__label">{{ block.settings.label | escape }}</p>
+                {%- endif -%}
+              </{{ tag }}>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var section = document.getElementById('iconfig-{{ section.id }}');
+    if (!section) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    section.querySelectorAll('.ic__content > .ic__number, .ic__content > .ic__title, .ic__content > .ic__desc, .ic__content > .ic__button').forEach(function (el, i) {
+      el.style.setProperty('--ic-ci', i);
+    });
+    section.querySelectorAll('.ic__config').forEach(function (el, i) {
+      el.style.setProperty('--ic-i', i);
+    });
+
+    section.classList.add('ic-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+          window.setTimeout(function () {
+            section.classList.add('is-done');
+          }, 2600);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    observer.observe(section);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Custom Inspiration Con",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "header", "content": "Main Image" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "number", "label": "Small Number / Label", "default": "02" },
+    { "type": "textarea", "id": "title", "label": "Title (new line = line break)", "default": "Én sofa. Flere muligheder." },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description (new line = line break)",
+      "default": "Oseberg-sofaerne er skabt til at passe ind i dit liv. Den modulære opbygning giver dig fleksibilitet, så du kan skabe den løsning, der passer til dit hjem – uanset om du drømmer om en stor, åben stue eller en mere intim og hyggelig indretning."
+    },
+    { "type": "text", "id": "button_text", "label": "Button Text", "default": "Se alle sofaer →" },
+    { "type": "url", "id": "button_link", "label": "Button Link" },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "card_bg", "label": "Content Card Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "border_color", "label": "Top Border Color", "default": "#A58C76" },
+    { "type": "color", "id": "number_color", "label": "Number Color", "default": "#A58C76" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#302821" },
+    { "type": "color", "id": "desc_color", "label": "Description Color", "default": "#302821" },
+    { "type": "color", "id": "label_color", "label": "Small Image Label Color", "default": "#302821" },
+    { "type": "color", "id": "button_bg", "label": "Button Background", "default": "#302821" },
+    { "type": "color", "id": "button_color", "label": "Button Text Color", "default": "#FFFFFF" },
+    { "type": "color", "id": "button_hover_bg", "label": "Button Hover Background", "default": "#A58C76" },
+    { "type": "color", "id": "button_hover_color", "label": "Button Hover Text Color", "default": "#FFFFFF" },
+
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content Position (Desktop)",
+      "default": "right",
+      "options": [
+        { "value": "left", "label": "Content Left, Image Right" },
+        { "value": "right", "label": "Content Right, Image Left" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Main Image Shape",
+      "default": "4 / 3",
+      "options": [
+        { "value": "16 / 9", "label": "Wide (16:9)" },
+        { "value": "3 / 2", "label": "Landscape (3:2)" },
+        { "value": "4 / 3", "label": "Landscape (4:3)" },
+        { "value": "1 / 1", "label": "Square (1:1)" }
+      ]
+    },
+    { "type": "range", "id": "image_radius", "min": 0, "max": 24, "step": 2, "unit": "px", "label": "Main Image Corner Radius", "default": 0 },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": false },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Top", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 48 }
+  ],
+  "blocks": [
+    {
+      "type": "config",
+      "name": "Configuration",
+      "limit": 4,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Stor hjørnesofa" },
+        { "type": "url", "id": "link", "label": "Link (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Inspiration Configs",
+      "blocks": [
+        { "type": "config", "settings": { "label": "Stor hjørnesofa" } },
+        { "type": "config", "settings": { "label": "Åben opstilling" } },
+        { "type": "config", "settings": { "label": "Kompakt løsning" } },
+        { "type": "config", "settings": { "label": "Sofa med puf" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

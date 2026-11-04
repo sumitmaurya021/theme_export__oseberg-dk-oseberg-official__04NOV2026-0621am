@@ -1,0 +1,378 @@
+{%- liquid
+  assign tile_count = section.blocks.size | at_least: 1
+  assign grid_cols = tile_count | at_most: 3
+  assign overlay_op = section.settings.overlay_opacity | divided_by: 100.0
+-%}
+
+{%- style -%}
+  #it-{{ section.id }} {
+    --it-text: {{ section.settings.text_color }};
+    --it-icon-hover-bg: {{ section.settings.icon_hover_bg }};
+    --it-icon-hover-color: {{ section.settings.icon_hover_color }};
+    --it-ratio: {{ section.settings.tile_ratio }};
+    --it-ratio-m: {{ section.settings.tile_ratio_mobile }};
+    --it-gap: {{ section.settings.gap }}px;
+    --it-overlay: rgba(48, 40, 33, {{ overlay_op }});
+    background: {{ section.settings.bg_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  #it-{{ section.id }} .it__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--it-gap);
+  }
+
+  /* ---------- Tile ---------- */
+  #it-{{ section.id }} .it__tile {
+    position: relative;
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    aspect-ratio: var(--it-ratio-m);
+    color: var(--it-text);
+    text-decoration: none;
+    background: #DED2C3;
+    isolation: isolate;
+  }
+
+  #it-{{ section.id }} .it__media {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  #it-{{ section.id }} .it__media img,
+  #it-{{ section.id }} .it__media svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.8s ease;
+  }
+
+  #it-{{ section.id }} a.it__tile:hover .it__media img {
+    transform: scale(1.05);
+  }
+
+  /* Dark layer so the text is readable: base layer + left gradient (pseudo-element, theme can't override) */
+  #it-{{ section.id }} .it__media::after {
+    content: "" !important;
+    display: block !important;
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    z-index: 2 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    background:
+      linear-gradient(rgba(48, 40, 33, 0.25), rgba(48, 40, 33, 0.25)),
+      linear-gradient(90deg, var(--it-overlay) 0%, transparent 75%) !important;
+    pointer-events: none !important;
+  }
+
+  /* ---------- Content (top-left) ---------- */
+  #it-{{ section.id }} .it__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 90%;
+    padding: clamp(20px, 2.4vw, 32px);
+  }
+
+  #it-{{ section.id }} .it__title {
+    margin: 0 0 18px;
+    color: var(--it-text);
+    font-family: var(--font-serif, 'Playfair Display', Georgia, 'Times New Roman', serif);
+    font-size: clamp(22px, 5.6vw, 30px);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  /* ---------- Arrow icon ---------- */
+  #it-{{ section.id }} .it__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--it-text);
+    border-radius: 50%;
+    color: var(--it-text);
+    transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  }
+
+  #it-{{ section.id }} .it__icon svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  #it-{{ section.id }} a.it__tile:hover .it__icon {
+    background: var(--it-icon-hover-bg);
+    color: var(--it-icon-hover-color);
+    border-color: var(--it-icon-hover-bg);
+  }
+
+  #it-{{ section.id }} a.it__tile:hover .it__icon svg {
+    transform: translateX(3px);
+  }
+
+  /* ---------- Tablet (750px - 989px) ---------- */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #it-{{ section.id }} .it__grid {
+      grid-template-columns: repeat({{ grid_cols }}, minmax(0, 1fr));
+    }
+
+    #it-{{ section.id }} .it__tile {
+      aspect-ratio: 4 / 5;
+    }
+
+    #it-{{ section.id }} .it__title {
+      font-size: clamp(18px, 2.6vw, 24px);
+    }
+  }
+
+  /* ---------- Desktop (990px and up) ---------- */
+  @media screen and (min-width: 990px) {
+    #it-{{ section.id }} .it__grid {
+      grid-template-columns: repeat({{ grid_cols }}, minmax(0, 1fr));
+    }
+
+    #it-{{ section.id }} .it__tile {
+      aspect-ratio: var(--it-ratio);
+    }
+
+    #it-{{ section.id }} .it__title {
+      font-size: clamp(20px, 1.9vw, 30px);
+    }
+  }
+
+  /* ---------- Mobile (749px and below) ---------- */
+  @media screen and (max-width: 749px) {
+    #it-{{ section.id }} .it__content {
+      padding: 22px 20px;
+    }
+
+    #it-{{ section.id }} .it__icon {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     JS chalega to hi hide hota hai, warna content hamesha visible rahega
+     ============================================ */
+
+  /* Tiles: ek-ek karke fade-up.
+     Opacity/transform tile pe hai, image ka hover zoom (img pe) alag chalta hai, to conflict nahi hota */
+  #it-{{ section.id }}.it-anim .it__tile {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: calc(var(--it-i, 0) * 0.18s);
+    will-change: opacity, transform;
+  }
+
+  #it-{{ section.id }}.it-anim.is-visible .it__tile {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Animation ke baad delay + will-change hata do, taaki hover turant aur smooth chale */
+  #it-{{ section.id }}.it-anim.is-done .it__tile {
+    transition-delay: 0s;
+    will-change: auto;
+  }
+
+  /* Reduced motion: sab animation off */
+  @media (prefers-reduced-motion: reduce) {
+    #it-{{ section.id }}.it-anim .it__tile {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    #it-{{ section.id }} .it__media img,
+    #it-{{ section.id }} .it__icon,
+    #it-{{ section.id }} .it__icon svg {
+      transition: none;
+    }
+  }
+{%- endstyle -%}
+
+<div id="it-{{ section.id }}" class="custom-inspiration-tiles">
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+    <div class="it__grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          if block.settings.link != blank
+            assign tag = 'a'
+          else
+            assign tag = 'div'
+          endif
+        -%}
+        <{{ tag }}{% if tag == 'a' %} href="{{ block.settings.link }}"{% endif %} class="it__tile" {{ block.shopify_attributes }}>
+          <div class="it__media">
+            {%- if block.settings.image != blank -%}
+              <img
+                src="{{ block.settings.image | image_url: width: 1200 }}"
+                srcset="{{ block.settings.image | image_url: width: 500 }} 500w,
+                        {{ block.settings.image | image_url: width: 800 }} 800w,
+                        {{ block.settings.image | image_url: width: 1200 }} 1200w,
+                        {{ block.settings.image | image_url: width: 1600 }} 1600w"
+                sizes="(min-width: 990px) 33vw, 100vw"
+                alt="{{ block.settings.image.alt | default: block.settings.title | escape }}"
+                width="{{ block.settings.image.width }}"
+                height="{{ block.settings.image.height }}"
+                loading="lazy"
+              >
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag }}
+            {%- endif -%}
+          </div>
+
+          <div class="it__content">
+            {%- if block.settings.title != blank -%}
+              <h3 class="it__title">{{ block.settings.title | escape | newline_to_br }}</h3>
+            {%- endif -%}
+
+            <span class="it__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 12h16"></path>
+                <path d="M14 6l6 6-6 6"></path>
+              </svg>
+            </span>
+          </div>
+        </{{ tag }}>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<!-- Scroll fade-in (stagger) -->
+<script>
+  (function () {
+    var section = document.getElementById('it-{{ section.id }}');
+    if (!section) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    section.querySelectorAll('.it__tile').forEach(function (el, i) {
+      el.style.setProperty('--it-i', i);
+    });
+
+    section.classList.add('it-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+
+          /* animation khatam hone ke baad delay hata do, taaki hover smooth rahe */
+          window.setTimeout(function () {
+            section.classList.add('is-done');
+          }, 2200);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    observer.observe(section);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Custom Inspiration Tiles",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "text_color", "label": "Text & Icon Color", "default": "#F5F1EA" },
+    { "type": "color", "id": "icon_hover_bg", "label": "Icon Hover Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "icon_hover_color", "label": "Icon Hover Arrow Color", "default": "#302821" },
+    { "type": "range", "id": "overlay_opacity", "min": 0, "max": 80, "step": 5, "unit": "%", "label": "Dark Overlay (for text readability)", "default": 35 },
+
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "tile_ratio",
+      "label": "Tile Shape (Desktop)",
+      "default": "16 / 9",
+      "options": [
+        { "value": "16 / 9", "label": "Wide (16:9)" },
+        { "value": "3 / 2", "label": "Landscape (3:2)" },
+        { "value": "4 / 3", "label": "Landscape (4:3)" },
+        { "value": "1 / 1", "label": "Square (1:1)" },
+        { "value": "4 / 5", "label": "Portrait (4:5)" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "tile_ratio_mobile",
+      "label": "Tile Shape (Mobile)",
+      "default": "4 / 3",
+      "options": [
+        { "value": "16 / 9", "label": "Wide (16:9)" },
+        { "value": "3 / 2", "label": "Landscape (3:2)" },
+        { "value": "4 / 3", "label": "Landscape (4:3)" },
+        { "value": "1 / 1", "label": "Square (1:1)" },
+        { "value": "4 / 5", "label": "Portrait (4:5)" }
+      ]
+    },
+    { "type": "range", "id": "gap", "min": 0, "max": 24, "step": 1, "unit": "px", "label": "Gap Between Tiles", "default": 2 },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": false },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Top", "default": 0 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 48 }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "textarea", "id": "title", "label": "Title (new line = line break)", "default": "A sofa\nfor every moment." },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Inspiration Tiles",
+      "blocks": [
+        { "type": "tile", "settings": { "title": "A sofa\nfor every moment." } },
+        { "type": "tile", "settings": { "title": "Natural colours.\nTimeless style." } },
+        { "type": "tile", "settings": { "title": "Inspired by\nScandinavia." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

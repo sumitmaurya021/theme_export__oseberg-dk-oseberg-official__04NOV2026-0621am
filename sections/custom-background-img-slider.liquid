@@ -1,0 +1,194 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="custom-background-img-container section-{{ section.id }}-padding" style="background: {{ section.settings.background_color }}">
+<div class="page-width">
+  <div class="custom-swiper-bg-img swiper-container swiper">
+    <div class="swiper-wrapper">
+      {% for block in section.blocks %}
+        {% assign slide_url = block.settings.button_url %}
+        <div class="swiper-slide">
+          <a href="{{ slide_url }}" class="cbi-wrap">
+            {% if block.settings.bg_image %}<img src="{{ block.settings.bg_image | img_url: 'master' }}" alt="{{ block.settings.bg_image | img_name }}" class="cbi-bg-image">{% endif %}
+            <div class="cbi-wrap-content">
+              {% if block.settings.subtext != blank %}
+                <p class="subtext">{{ block.settings.subtext }}</p>
+              {% endif %}
+              {% if block.settings.heading != blank %}
+                <h2 class="heading">{{ block.settings.heading }}</h2>
+              {% endif %}
+              {% if block.settings.description != blank %}
+                <div class="description">{{ block.settings.description }}</div>
+              {% endif %}
+              {% comment %}
+                {% if block.settings.button_text != blank and block.settings.button_url != blank %}
+                  <a href="{{ slide_url }}" class="button">{{ block.settings.button_text }}</a>
+                {% endif %}
+              {% endcomment %}
+              {% if block.settings.button_text != blank %}
+                <span class="cbi-btn" title="{{ block.settings.button_text }}"><span>{{ block.settings.button_text }}</span></span>
+              {% endif %}
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+
+  <div class="custom-bg-img-scroll-wrap custom-bg-img-scroll-wrap-swiper swiper">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+        <div class="cbis-box-wrap swiper-slide">
+          <a href="{{  block.settings.button_url }}" class="cbis-box" style="background: {{ block.settings.block_background_color }}">
+            <div class="cbisb-img">
+              <img src="{{ block.settings.bg_image | img_url: 'large' }}" alt="{{ block.settings.bg_image | img_name }}" />
+            </div>
+            <div class="cbisb-text">
+              {% if block.settings.subtext != blank %}
+                <p class="subtext">{{ block.settings.subtext }}</p>
+              {% endif %}
+              {% if block.settings.button_text != blank %}
+                <span class="cbisb-btn" title="{{ block.settings.button_text }}"><span>{{ block.settings.button_text }}</span></span>
+              {% endif %}
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+      <!-- Swiper Navigation & Pagination -->
+      <div class="swiper-scrollbar"></div>
+  </div>
+  
+</div>
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var swiper = new Swiper('.custom-swiper-bg-img', {
+    loop: true, // Infinite loop
+    autoplay: { delay: 3000, disableOnInteraction: false }, // Autoplay every 3 sec
+    slidesPerView: 1, // Show only one slide at a time
+    pagination: { 
+      el: '.swiper-pagination', 
+      clickable: true, 
+      dynamicBullets: true // Dynamic bullets for better appearance
+    },
+    navigation: { 
+      nextEl: '.swiper-button-next', 
+      prevEl: '.swiper-button-prev' 
+    },
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    new Swiper(".custom-bg-img-scroll-wrap-swiper", {
+      slidesPerView: 1.5,
+      spaceBetween: 10,
+      loop: false,
+      scrollbar: {
+        el: ".swiper-scrollbar",
+        draggable: true,
+      },
+      breakpoints: {
+        480: { slidesPerView: 2.2, spaceBetween: 20 },
+        1024: { slidesPerView: 3, spaceBetween: 20 }
+      }
+    });
+  });
+</script>
+
+
+{% schema %}
+{
+  "name": "Custom Bg Image Slider",
+  "settings": [
+    {
+     "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#bab1a5"
+    },
+     {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+         "type": "color",
+         "id": "block_background_color",
+         "label": "Background Color",
+         "default": "#639a9a"
+        },
+        {
+          "type": "image_picker",
+          "id": "bg_image",
+          "label": "Background Image"
+        },
+        {
+          "type": "text",
+          "id": "subtext",
+          "label": "Subtext"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Bg Image Slider"
+    }
+  ]
+}
+{% endschema %}

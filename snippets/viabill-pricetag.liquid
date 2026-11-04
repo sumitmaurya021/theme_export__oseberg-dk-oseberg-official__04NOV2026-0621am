@@ -1,0 +1,95 @@
+<script>
+/* ViaBill Helper Core | vb-helper v0.5.2 */
+var _=(r,I,g)=>new Promise((C,E)=>{var $=m=>{try{P(g.next(m))}catch(S){E(S)}},q=m=>{try{P(g.throw(m))}catch(S){E(S)}},P=m=>m.done?C(m.value):Promise.resolve(m.value).then($,q);P((g=g.apply(r,I)).next())});(function(r){"use strict";function I(){return r.viabillOptions=r.viabillOptions||[],r.viabillOptions}function g(c){I().push({"pricetag.cookiesEnabled":c})}function C(c,{gracePeriod:n=200,pollInterval:a=50}={}){return new Promise((e,l)=>{if(!c){l(new Error("ViaBill code is required"));return}if(window.viabillPricetagInternal){e();return}const b=`https://pricetag.viabill.com/script/${c}`,h=Date.now(),v=setInterval(()=>{if(window.viabillPricetagInternal){clearInterval(v),e();return}Date.now()-h>=n&&(clearInterval(v),y())},a);function y(){if(document.querySelector(`script[src="${b}"]`)){const t=setInterval(()=>{window.viabillPricetagInternal&&(clearInterval(t),e())},a);return}const i=document.createElement("script");i.type="text/javascript",i.async=!0,i.src=b,i.onload=()=>e(),i.onerror=()=>l(new Error("Failed to load ViaBill script"));const s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(i,s)}})}function E(c){return new Promise(n=>{const a=document.body;if(!a){console.warn("document.body not ready yet");return}const e=document.querySelector(c);if(e){n(e);return}const l=new MutationObserver(()=>{const b=document.querySelector(c);b&&(l.disconnect(),n(b))});l.observe(a,{childList:!0,subtree:!0})})}function $(c=[]){const n=document.createElement("div");n.id="vb-hidden-prices",n.style.visibility="hidden",n.style.height="0",n.style.margin="0",n.style.padding="0",n.style.overflow="hidden",c.forEach(a=>{const{type:e}=a,l=document.createElement("input");l.type="hidden",l.id=`vb-${e}-hidden-price`,l.value="",n.appendChild(l)}),document.body.appendChild(n)}function q(c){const{containerElement:n,type:a,style:e="display:flex;justify-content:center;align-items:center;margin-top:5px;margin-bottom:5px;",currency:l="dkk",countryCode:b="dk",language:h="da"}=c,v=a.includes("basket")?"basket":a,y=`#vb-${a}-hidden-price`,u=document.createElement("div");u.id=`viabill-${a}-pricetag-wrapper`,u.style.cssText=e;const i=document.createElement("div");i.className="viabill-pricetag",i.dataset.view=v,i.dataset.dynamicPrice=y,i.dataset.dynamicPriceTriggers=y,i.dataset.language=h,i.dataset.currency=l,i.dataset.countryCode=b,u.appendChild(i),n.insertAdjacentElement("afterend",u)}function P(c,n,a){var u,i,s;const e=`${c}::${n}`;(s=(i=(u=r.vbHelper)==null?void 0:u._state)==null?void 0:i.intervals)!=null&&s[e]&&clearInterval(r.vbHelper._state.intervals[e]);const l={};function b(t){const o=document.querySelector(t);return o&&o.textContent.replace(/[^\d.,]/g,"").trim()||null}function h(t,o){const d=document.querySelector(`#viabill-${c}-pricetag-wrapper .viabill-pricetag`),f=document.querySelector(o);if(!f)return;const p=b(t);if(!p)return;const H=l[o],w=f.value;(p!==H||p!==w)&&(l[o]=p,f.value=p,d==null||d.dispatchEvent(new CustomEvent("vb-update-price",{detail:{force:!0}})))}function v(){var t,o;((o=(t=r.vbHelper)==null?void 0:t._state)==null?void 0:o.enabled)!==!1&&h(n,a)}v();const y=setInterval(v,1e3);r.vbHelper._state.intervals[e]=y}function m(c){return _(this,null,function*(){const{code:n,pricetagConfigs:a,cookiesEnabled:e,currency:l,countryCode:b,language:h}=c;(e===!1||e===!0||Array.isArray(e))&&g(e),yield C(n),$(a);const v=Object.create(null);function y(s,t=150){let o;return(...d)=>{clearTimeout(o),o=setTimeout(()=>s(...d),t)}}function u(){var s,t;return((t=(s=r.vbHelper)==null?void 0:s._state)==null?void 0:t.enabled)!==!1}function i(s){return _(this,null,function*(){var p,H;if(!u())return!1;const{type:t,priceContainerSelector:o,style:d}=s,f=document.querySelector(o);if(!f||v[t])return!1;v[t]=!0;try{const w=`#viabill-${t}-pricetag-wrapper`;return document.querySelector(w)||(q({containerElement:f,type:t,style:d,currency:l,countryCode:b,language:h}),(H=(p=window.viabillPricetagInternal)==null?void 0:p.init)==null||H.call(p,!0)),!0}finally{v[t]=!1}})}return Promise.allSettled(a.map(s=>_(this,null,function*(){const{type:t,priceContainerSelector:o,primaryPriceSelector:d,secondaryPriceSelector:f}=s,p=E(o),H=d?E(d):Promise.resolve(null),w=f?E(f):Promise.resolve(null);H.then(()=>{d&&P(t,d,`#vb-${t}-hidden-price`)}),w.then(()=>{f&&P(t,f,`#vb-${t}-hidden-price`)}),yield p,yield i(s);const O=y(()=>_(this,null,function*(){!u()||!window.viabillPricetagInternal||!document.querySelector(o)||document.querySelector(`#viabill-${t}-pricetag-wrapper`)||i(s)}),150),k=new MutationObserver(()=>{u()&&O()});return k.observe(document.documentElement,{childList:!0,subtree:!0}),r.vbHelper._state.observers[t]=k,!0})))})}function S(c){var n,a;r.vbHelper._state.enabled=!!c,r.vbHelper._state.enabled||(Object.values(r.vbHelper._state.observers).forEach(e=>{try{e.disconnect()}catch(l){}}),r.vbHelper._state.observers={},Object.values(r.vbHelper._state.intervals).forEach(e=>clearInterval(e)),r.vbHelper._state.intervals={},document.querySelectorAll("#vb-hidden-prices, [id^='viabill-'][id$='-pricetag-wrapper']").forEach(e=>e.remove()),(a=(n=r.viabillPricetagInternal)==null?void 0:n.destroy)==null||a.call(n))}r.vbHelper=r.vbHelper||{},r.vbHelper.setEnabled=S,r.vbHelper._state=r.vbHelper._state||{enabled:!0,observers:{},intervals:{}},r.vbHelper.init=m,r.vbHelper.setCookiesEnabled=g})(window);
+/* ViaBill Helper – Consent Adapter (Shopify) | vb-helper v0.5.2 */
+(function(i){"use strict";function a(e){function o(){try{return new Date().toISOString()}catch(n){return""}}return{log:function(){e&&console.log.apply(console,["[ViaBill][ShopifyConsent]",o()].concat([].slice.call(arguments)))},warn:function(){e&&console.warn.apply(console,["[ViaBill][ShopifyConsent]",o()].concat([].slice.call(arguments)))},error:function(){e&&console.error.apply(console,["[ViaBill][ShopifyConsent]",o()].concat([].slice.call(arguments)))}}}if(!i.vbHelper||typeof i.vbHelper.setCookiesEnabled!="function"){console.warn("[ViaBill] vbHelper core missing. Load vb-helper-core first.");return}function t(e,o,n){if(!e){n&&n.warn("No detail to apply (null/undefined)");return}if(n&&n.log("Applying Shopify detail:",e,"mode:",o),o==="boolean"){const l=!!e.preferencesAllowed||!!e.analyticsAllowed||!!e.marketingAllowed;n&&n.log("Computed cookiesEnabled (boolean):",l),i.vbHelper.setCookiesEnabled(l);return}const r=["necessary"];e.preferencesAllowed&&r.push("functional"),e.analyticsAllowed&&r.push("statistical"),e.marketingAllowed&&r.push("marketing"),n&&n.log("Computed cookiesEnabled (categories):",r),i.vbHelper.setCookiesEnabled(r)}function s(e){if(!i.Shopify)return e&&e.warn("window.Shopify is missing"),null;if(!i.Shopify.customerPrivacy)return e&&e.warn("Shopify.customerPrivacy is missing"),null;const o={preferencesAllowed:!!i.Shopify.customerPrivacy.preferencesProcessingAllowed(),analyticsAllowed:!!i.Shopify.customerPrivacy.analyticsProcessingAllowed(),marketingAllowed:!!i.Shopify.customerPrivacy.marketingAllowed()};return e&&e.log("Read allowed from Shopify.customerPrivacy:",o),o}function c(e,o){if(i.Shopify&&i.Shopify.customerPrivacy)return o&&o.log("Consent API already available (Shopify.customerPrivacy present)"),e();if(!i.Shopify||!i.Shopify.loadFeatures)return o&&o.warn("Shopify.loadFeatures missing (wrong surface or too early)"),e(new Error("Shopify.loadFeatures missing"));o&&o.log("Loading Shopify consent-tracking-api via Shopify.loadFeatures..."),i.Shopify.loadFeatures([{name:"consent-tracking-api",version:"0.1"}],function(n){if(n)return o&&o.error("Shopify.loadFeatures returned error:",n),e(n);if(!i.Shopify.customerPrivacy)return o&&o.error("Shopify.customerPrivacy still missing after loadFeatures"),e(new Error("Shopify.customerPrivacy missing"));o&&o.log("Consent API loaded OK (Shopify.customerPrivacy ready)"),e()})}function f(e){e=e||{};const o=e.mode||"categories",n=a(!!e.debug);i.vbHelper._shopifyConsentDebug={enabled:!!e.debug,mode:o,lastDetail:null},n.log("bindShopifyConsent called with opts:",e),n.log("Setting initial cookiesEnabled to false (strict default)"),i.vbHelper.setCookiesEnabled(!1),document.addEventListener("visitorConsentCollected",function(r){n.log("visitorConsentCollected fired:",r);const l=r&&r.detail?r.detail:s(n);i.vbHelper._shopifyConsentDebug.lastDetail=l,t(l,o,n)}),c(function(r){if(r){n.warn("ensureApi failed:",r.message||r);return}const l=s(n);i.vbHelper._shopifyConsentDebug.lastDetail=l,n.log("Applying initial consent state..."),t(l,o,n)},n)}i.vbHelper=i.vbHelper||{},i.vbHelper.bindShopifyConsent=f})(window);
+
+
+  const style = document.createElement('style');
+  style.innerHTML = `
+  #viabill-product-pricetag-wrapper {
+       display:none !important;
+    }
+    {% comment %} #viabill-product-pricetag-wrapper {
+        background-color: #ffffff;
+        border-radius: 20px;
+        padding: 20px 20px 15px;
+    }
+
+    #viabill-product-pricetag-wrapper iframe {
+        width: 100%;
+    }
+    
+    #viabill-basket-pricetag-wrapper {
+      display: flex;
+      justify-content: center;
+    } {% endcomment %}
+
+    @media (min-width: 768px) {
+      #viabill-basket-pricetag-wrapper {
+        justify-content: flex-end;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const code = "Ba%2BZnaTbFpc%3D";
+      const pricetagConfigs = [
+         {
+          type: "product",
+          priceContainerSelector: "product-info .custom-title-price-sec",
+          primaryPriceSelector: "product-info .custom-title-price-sec .price-item--regular",
+          secondaryPriceSelector: "product-info .custom-title-price-sec .price-item--sale",
+          style: "display:flex;justify-content:flex-start;"
+        },
+        {
+          type: "mini-basket",
+          priceContainerSelector: "cart-drawer .cart-drawer__footer > .totals:last-of-type",
+          primaryPriceSelector: "cart-drawer .cart-drawer__footer > .totals:last-of-type .totals__total-value",
+          style: "margin-top:10px;"
+        },
+        {
+          type: "basket",
+          priceContainerSelector: ".cart__footer-wrapper .totals",
+          primaryPriceSelector: ".cart__footer-wrapper .totals .totals__total-value",
+          style: "margin-top:10px;"
+        },
+      ];
+ function waitForVBHelper() {
+  if (window.vbHelper?.init) {
+
+    if (window.vbHelper.bindShopifyConsent) {
+      window.vbHelper.bindShopifyConsent({ mode: "categories" });
+    }
+
+    window.vbHelper.init({
+      code,
+      pricetagConfigs,
+    });
+
+    // Move ViaBill below delivery-info
+    const moveInterval = setInterval(() => {
+      const viabill = document.querySelector('#viabill-product-pricetag-wrapper');
+      const deliveryInfo = document.querySelector('.delivery-info');
+
+      if (viabill && deliveryInfo) {
+        deliveryInfo.insertAdjacentElement('afterend', viabill);
+        clearInterval(moveInterval);
+      }
+    }, 500);
+
+  } else {
+    setTimeout(waitForVBHelper, 50);
+  }
+}
+      waitForVBHelper();
+      
+    });
+</script>
+
+
+
+

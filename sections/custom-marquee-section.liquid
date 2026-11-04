@@ -1,0 +1,51 @@
+<div class="marquee" style="background-color:{{ section.settings.background_color }};">
+  <div class="track">
+    <div class="marquee-content">
+      {% for i in (1..20) %}
+        {% for block in section.blocks %}
+          <span class="marquee-gap" style="color:{{ section.settings.color }}">
+            <span>{{ block.settings.text }}</span>
+          </span>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Marquee Slide",
+  "class": "section-marquee",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color"
+    },
+    {
+      "type": "color",
+      "id": "color",
+      "label": "Text Color"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ScrollingText",
+      "name": "Scrolling Text",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "html",
+          "id": "text",
+          "label": "Scrolling Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marquee Slide"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,384 @@
+{%- style -%}
+  #ssplit-{{ section.id }} {
+    --ss-eyebrow: {{ section.settings.eyebrow_color }};
+    --ss-title: {{ section.settings.title_color }};
+    --ss-desc: {{ section.settings.desc_color }};
+    --ss-card-bg: {{ section.settings.card_bg }};
+    --ss-btn-bg: {{ section.settings.button_bg }};
+    --ss-btn-color: {{ section.settings.button_color }};
+    --ss-btn-hover-bg: {{ section.settings.button_hover_bg }};
+    --ss-btn-hover-color: {{ section.settings.button_hover_color }};
+    --ss-radius: {{ section.settings.image_radius }}px;
+    --ss-ratio: {{ section.settings.image_ratio }};
+    background: {{ section.settings.bg_color }};
+    border-top: 1px solid {{ section.settings.border_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  #ssplit-{{ section.id }} .ss__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    align-items: stretch;
+  }
+
+  /* ---------- Content ---------- */
+  #ssplit-{{ section.id }} .ss__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    background: var(--ss-card-bg);
+    padding: 32px 24px;
+  }
+
+  #ssplit-{{ section.id }} .ss__eyebrow {
+    margin: 0 0 16px;
+    color: var(--ss-eyebrow);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  #ssplit-{{ section.id }} .ss__title {
+    margin: 0 0 24px;
+    color: var(--ss-title);
+    font-family: var(--font-serif, 'Playfair Display', Georgia, 'Times New Roman', serif);
+    font-size: clamp(28px, 3.2vw, 48px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  #ssplit-{{ section.id }} .ss__desc {
+    margin: 0 0 32px;
+    max-width: 440px;
+    color: var(--ss-desc);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(14px, 1.05vw, 16px);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: normal;
+  }
+
+  #ssplit-{{ section.id }} .ss__desc:last-child {
+    margin-bottom: 0;
+  }
+
+  #ssplit-{{ section.id }} .ss__button {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    padding: clamp(14px, 1.2vw, 18px) clamp(24px, 2.4vw, 36px);
+    background: var(--ss-btn-bg);
+    color: var(--ss-btn-color);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.15em;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--ss-btn-bg);
+    border-radius: 0;
+    transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  }
+
+  #ssplit-{{ section.id }} .ss__button::before,
+  #ssplit-{{ section.id }} .ss__button::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  #ssplit-{{ section.id }} .ss__button:hover {
+    background: var(--ss-btn-hover-bg);
+    color: var(--ss-btn-hover-color);
+    border-color: var(--ss-btn-hover-bg);
+  }
+
+  /* ---------- Image ---------- */
+  #ssplit-{{ section.id }} .ss__media {
+    position: relative;
+    min-width: 0;
+    width: 100%;
+    aspect-ratio: var(--ss-ratio);
+    overflow: hidden;
+    border-radius: var(--ss-radius);
+    background: #DED2C3;
+  }
+
+  #ssplit-{{ section.id }} .ss__media img,
+  #ssplit-{{ section.id }} .ss__media svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  #ssplit-{{ section.id }} .ss__media:hover img {
+    transform: scale(1.03);
+  }
+
+  /* ---------- Tablet (750px - 989px) ---------- */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #ssplit-{{ section.id }} .ss__content { padding: 40px 32px; }
+    #ssplit-{{ section.id }} .ss__title { font-size: clamp(32px, 5vw, 44px); }
+    #ssplit-{{ section.id }} .ss__desc { max-width: 560px; }
+  }
+
+  /* ---------- Desktop (990px and up) : 50% / 50% ---------- */
+  @media screen and (min-width: 990px) {
+    #ssplit-{{ section.id }} .ss__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+
+    #ssplit-{{ section.id }} .ss__content {
+      padding: clamp(32px, 4vw, 64px);
+    }
+
+    {%- if section.settings.content_position == 'right' -%}
+    #ssplit-{{ section.id }} .ss__content { order: 2; }
+    #ssplit-{{ section.id }} .ss__media { order: 1; }
+    {%- endif -%}
+  }
+
+  /* ---------- Mobile (749px and below) : image upar, content neeche ---------- */
+  @media screen and (max-width: 749px) {
+    #ssplit-{{ section.id }} .ss__media { order: 1; }
+    #ssplit-{{ section.id }} .ss__content { order: 2; padding: 28px 20px; }
+    #ssplit-{{ section.id }} .ss__title { margin-bottom: 18px; }
+    #ssplit-{{ section.id }} .ss__desc { margin-bottom: 24px; max-width: 100%; }
+    #ssplit-{{ section.id }} .ss__desc:last-child { margin-bottom: 0; }
+    #ssplit-{{ section.id }} .ss__button { width: 100%; align-self: stretch; }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     JS chalega to hi hide hota hai, warna content hamesha visible rahega
+     ============================================ */
+  #ssplit-{{ section.id }} {
+    {%- if section.settings.content_position == 'right' -%}
+    --ss-content-x: 28px;
+    --ss-media-x: -28px;
+    {%- else -%}
+    --ss-content-x: -28px;
+    --ss-media-x: 28px;
+    {%- endif %}
+  }
+
+  #ssplit-{{ section.id }}.ss-anim .ss__content > * {
+    opacity: 0;
+    transform: translateX(var(--ss-content-x));
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+    transition-delay: calc(var(--ss-ci, 0) * 0.12s), calc(var(--ss-ci, 0) * 0.12s), 0s, 0s, 0s;
+    will-change: opacity, transform;
+  }
+
+  #ssplit-{{ section.id }}.ss-anim .ss__media {
+    opacity: 0;
+    transform: translateX(var(--ss-media-x));
+    transition:
+      opacity 1.1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1.1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: 0.25s;
+    will-change: opacity, transform;
+  }
+
+  #ssplit-{{ section.id }}.ss-anim.is-visible .ss__content > *,
+  #ssplit-{{ section.id }}.ss-anim.is-visible .ss__media {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  #ssplit-{{ section.id }}.ss-anim.is-done .ss__content > *,
+  #ssplit-{{ section.id }}.ss-anim.is-done .ss__media {
+    transition-delay: 0s;
+  }
+
+  /* Mobile: side slide ki jagah halka fade-up */
+  @media screen and (max-width: 749px) {
+    #ssplit-{{ section.id }} {
+      --ss-content-x: 0px;
+      --ss-media-x: 0px;
+    }
+    #ssplit-{{ section.id }}.ss-anim .ss__content > *,
+    #ssplit-{{ section.id }}.ss-anim .ss__media {
+      transform: translateY(20px);
+    }
+    #ssplit-{{ section.id }}.ss-anim.is-visible .ss__content > *,
+    #ssplit-{{ section.id }}.ss-anim.is-visible .ss__media {
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #ssplit-{{ section.id }}.ss-anim .ss__content > *,
+    #ssplit-{{ section.id }}.ss-anim .ss__media {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    #ssplit-{{ section.id }} .ss__media img { transition: none; }
+  }
+{%- endstyle -%}
+
+<div id="ssplit-{{ section.id }}" class="custom-story-split">
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+    <div class="ss__grid">
+
+      <div class="ss__content">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="ss__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.title != blank -%}
+          <h2 class="ss__title">{{ section.settings.title | escape | newline_to_br }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <p class="ss__desc">{{ section.settings.description | escape | newline_to_br }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.button_text != blank and section.settings.button_link != blank -%}
+          <a href="{{ section.settings.button_link }}" class="ss__button">{{ section.settings.button_text | escape }}</a>
+        {%- endif -%}
+      </div>
+
+      <div class="ss__media">
+        {%- if section.settings.image != blank -%}
+          <img
+            src="{{ section.settings.image | image_url: width: 1400 }}"
+            srcset="{{ section.settings.image | image_url: width: 600 }} 600w,
+                    {{ section.settings.image | image_url: width: 900 }} 900w,
+                    {{ section.settings.image | image_url: width: 1200 }} 1200w,
+                    {{ section.settings.image | image_url: width: 1600 }} 1600w"
+            sizes="(min-width: 990px) 50vw, 100vw"
+            alt="{{ section.settings.image.alt | default: section.settings.title | escape }}"
+            width="{{ section.settings.image.width }}"
+            height="{{ section.settings.image.height }}"
+            loading="lazy"
+          >
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag }}
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var section = document.getElementById('ssplit-{{ section.id }}');
+    if (!section) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    section.querySelectorAll('.ss__content > *').forEach(function (el, i) {
+      el.style.setProperty('--ss-ci', i);
+    });
+
+    section.classList.add('ss-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+          window.setTimeout(function () {
+            section.classList.add('is-done');
+          }, 2200);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    observer.observe(section);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Custom Story Split",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "header", "content": "Image" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Small Heading", "default": "Skabt til livet sammen" },
+    { "type": "textarea", "id": "title", "label": "Title (new line = line break)", "default": "Hverdagen er\ndet vigtigste." },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description (new line = line break)",
+      "default": "Det er i hverdagen, at livet leves – og det er her, Oseberg har sin naturlige plads. En sofa, hvor der er rum til børn, kæledyr, hverdagens små pauser og de lange, hyggelige aftener. Et sted, hvor man kan læse, se film, snakke og bare være sammen."
+    },
+    { "type": "text", "id": "button_text", "label": "Button Text (optional)" },
+    { "type": "url", "id": "button_link", "label": "Button Link (optional)" },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "card_bg", "label": "Content Card Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "border_color", "label": "Top Border Color", "default": "#A58C76" },
+    { "type": "color", "id": "eyebrow_color", "label": "Small Heading Color", "default": "#A58C76" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#302821" },
+    { "type": "color", "id": "desc_color", "label": "Description Color", "default": "#302821" },
+    { "type": "color", "id": "button_bg", "label": "Button Background", "default": "#302821" },
+    { "type": "color", "id": "button_color", "label": "Button Text Color", "default": "#FFFFFF" },
+    { "type": "color", "id": "button_hover_bg", "label": "Button Hover Background", "default": "#A58C76" },
+    { "type": "color", "id": "button_hover_color", "label": "Button Hover Text Color", "default": "#FFFFFF" },
+
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content Position (Desktop)",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Content Left, Image Right" },
+        { "value": "right", "label": "Content Right, Image Left" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image Shape",
+      "default": "4 / 3",
+      "options": [
+        { "value": "16 / 9", "label": "Wide (16:9)" },
+        { "value": "3 / 2", "label": "Landscape (3:2)" },
+        { "value": "4 / 3", "label": "Landscape (4:3)" },
+        { "value": "1 / 1", "label": "Square (1:1)" }
+      ]
+    },
+    { "type": "range", "id": "image_radius", "min": 0, "max": 24, "step": 2, "unit": "px", "label": "Image Corner Radius", "default": 0 },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": false },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Top", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 48 }
+  ],
+  "presets": [
+    { "name": "Custom Story Split" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,38 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_breadcrumb_section_JFCe6j": {
+      "type": "custom-breadcrumb-section",
+      "settings": {}
+    },
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "text_article_custom": "< Tilbage til forsiden",
+        "text_article_custom_url": "#",
+        "article_heading": "{{ blog.title }}",
+        "layout": "collage",
+        "show_image": true,
+        "image_height": "large",
+        "show_article_txt": true,
+        "show_read_more_txt": true,
+        "show_date": false,
+        "show_author": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "custom_breadcrumb_section_JFCe6j",
+    "main"
+  ]
+}

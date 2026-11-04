@@ -1,0 +1,915 @@
+{{ 'component-list-payment.css' | asset_url | stylesheet_tag }}
+{{ 'component-list-social.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign has_social_icons = false
+  if settings.social_facebook_link != blank or settings.social_instagram_link != blank or settings.social_youtube_link != blank or settings.social_tiktok_link != blank or settings.social_twitter_link != blank or settings.social_pinterest_link != blank or settings.social_snapchat_link != blank or settings.social_tumblr_link != blank or settings.social_vimeo_link != blank
+    assign has_social_icons = true
+  endif
+
+  assign show_extra_col = false
+  if section.settings.show_payment or section.settings.show_follow
+    assign show_extra_col = true
+  endif
+
+  assign col_count = section.blocks.size
+  if show_extra_col
+    assign col_count = col_count | plus: 1
+  endif
+  assign col_count = col_count | at_least: 1
+-%}
+
+{%- style -%}
+  #ft-{{ section.id }} {
+    --ft-bg: {{ section.settings.bg_color }};
+    --ft-divider: {{ section.settings.divider_color }};
+    --ft-heading: {{ section.settings.heading_color }};
+    --ft-link: {{ section.settings.link_color }};
+    --ft-link-hover: {{ section.settings.link_hover_color }};
+    --ft-tagline: {{ section.settings.tagline_color }};
+    --ft-bar-bg: {{ section.settings.bar_bg_color }};
+    --ft-bar-text: {{ section.settings.bar_text_color }};
+    --ft-sans: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+    --ft-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    margin-top: {{ section.settings.margin_top | times: 0.75 | round: 0 }}px;
+    background: var(--ft-bg);
+    color: var(--ft-link);
+    font-family: var(--ft-sans);
+  }
+
+  #ft-{{ section.id }} .ft__main {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  #ft-{{ section.id }} *,
+  #ft-{{ section.id }} *::before,
+  #ft-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  #ft-{{ section.id }} .ft__inner {
+    width: 100%;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  #ft-{{ section.id }} .ft__top {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+  }
+
+  /* ---------- Brand block ---------- */
+  #ft-{{ section.id }} .ft__brand {
+    min-width: 0;
+  }
+
+  #ft-{{ section.id }} .ft__logo {
+    display: inline-block;
+    max-width: 100%;
+    text-decoration: none;
+    color: var(--ft-heading);
+    line-height: 0;
+  }
+
+  #ft-{{ section.id }} .ft__logo img {
+    display: block;
+    width: {{ section.settings.logo_width }}px;
+    max-width: 100%;
+    height: auto;
+  }
+
+  #ft-{{ section.id }} .ft__wordmark {
+    display: block;
+    font-family: var(--ft-serif);
+    font-size: clamp(30px, 3vw, 42px);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.12em;
+    color: var(--ft-heading);
+  }
+
+  #ft-{{ section.id }} .ft__wordmark-sub {
+    display: block;
+    margin-top: 10px;
+    font-family: var(--ft-sans);
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.4em;
+    text-align: center;
+    color: var(--ft-heading);
+  }
+
+  #ft-{{ section.id }} .ft__tagline {
+    margin: 15px 0 15;
+    max-width: 320px;
+    font-family: var(--ft-sans);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: normal;
+    color: var(--ft-tagline);
+  }
+
+  #ft-{{ section.id }} .ft__brand .ft__social {
+    margin-top: 44px;
+  }
+
+  /* ---------- Columns ---------- */
+  #ft-{{ section.id }} .ft__cols {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 36px 24px;
+    min-width: 0;
+  }
+
+  #ft-{{ section.id }} .ft__col {
+    min-width: 0;
+  }
+
+  #ft-{{ section.id }} .ft__heading {
+    margin: 0 0 10px;
+    padding: 0;
+    font-family: var(--ft-sans);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ft-heading);
+  }
+
+  #ft-{{ section.id }} .ft__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #ft-{{ section.id }} .ft__list li {
+    margin: 0;
+    padding: 0;
+  }
+
+  #ft-{{ section.id }} .ft__list a {
+    display: inline-block;
+    padding: 6px 0;
+    font-family: var(--ft-sans);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: normal;
+    color: var(--ft-link);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+    transition: color 0.3s ease, opacity 0.3s ease;
+  }
+
+  #ft-{{ section.id }} .ft__list a:hover,
+  #ft-{{ section.id }} .ft__list a:focus-visible {
+    color: var(--ft-link-hover);
+    text-decoration: none;
+  }
+
+  #ft-{{ section.id }} .ft__richtext,
+  #ft-{{ section.id }} .ft__richtext p {
+    margin: 0;
+    font-family: var(--ft-sans);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.7;
+    letter-spacing: normal;
+    color: var(--ft-link);
+  }
+
+  #ft-{{ section.id }} .ft__richtext p + p {
+    margin-top: 8px;
+  }
+
+  #ft-{{ section.id }} .ft__richtext a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  #ft-{{ section.id }} .ft__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 14px 24px;
+    min-height: 44px;
+    background: var(--ft-heading);
+    color: var(--ft-bg);
+    border: 1px solid var(--ft-heading);
+    font-family: var(--ft-sans);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.15em;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.4s ease, color 0.4s ease;
+  }
+
+  #ft-{{ section.id }} .ft__cta:hover {
+    background: transparent;
+    color: var(--ft-heading);
+  }
+
+  /* ---------- Payment + social ---------- */
+  #ft-{{ section.id }} .ft__payment {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: 200px;
+  }
+
+  #ft-{{ section.id }} .ft__payment li {
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+  }
+
+  #ft-{{ section.id }} .ft__payment svg {
+    display: block;
+    width: 38px;
+    height: 24px;
+  }
+
+  #ft-{{ section.id }} .ft__follow {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid var(--ft-divider);
+    max-width: 200px;
+  }
+
+  #ft-{{ section.id }} .ft__payment + .ft__follow {
+    margin-top: 28px;
+  }
+
+  #ft-{{ section.id }} .ft__col--extra > .ft__follow:first-child {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  #ft-{{ section.id }} .ft__social .list-social,
+  #ft-{{ section.id }} .ft__social.list-social {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #ft-{{ section.id }} .ft__social .list-social__item {
+    margin: 0;
+    padding: 0;
+  }
+
+  #ft-{{ section.id }} .ft__social .list-social__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    color: var(--ft-heading);
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  #ft-{{ section.id }} .ft__social .list-social__link:hover {
+    color: var(--ft-link-hover);
+    transform: translateY(-2px);
+  }
+
+  #ft-{{ section.id }} .ft__social .list-social__link .icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  /* ---------- Bottom bar ---------- */
+  #ft-{{ section.id }} .ft__bar {
+    background: var(--ft-bar-bg);
+    color: var(--ft-bar-text);
+  }
+
+  #ft-{{ section.id }} .ft__bar-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding-top: 22px;
+    padding-bottom: 22px;
+  }
+
+  #ft-{{ section.id }} .ft__copyright {
+    margin: 0;
+    font-family: var(--ft-sans);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: var(--ft-bar-text);
+  }
+
+  #ft-{{ section.id }} .ft__legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #ft-{{ section.id }} .ft__legal li {
+    margin: 0;
+    padding: 0;
+  }
+
+  #ft-{{ section.id }} .ft__legal a {
+    display: inline-block;
+    padding: 4px 0;
+    font-family: var(--ft-sans);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--ft-bar-text);
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.3s ease;
+  }
+
+  #ft-{{ section.id }} .ft__legal a:hover,
+  #ft-{{ section.id }} .ft__legal a:focus-visible {
+    opacity: 1;
+    text-decoration: none;
+  }
+
+  #ft-{{ section.id }} .ft__locale {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+  }
+
+  #ft-{{ section.id }} .ft__locale .caption-large {
+    margin: 0 0 4px;
+    font-size: 12px;
+    color: var(--ft-bar-text);
+  }
+
+  /* ---------- Footer country / language selector fix ---------- */
+  #ft-{{ section.id }} .ft__bar-inner {
+    align-items: center;
+  }
+
+  #ft-{{ section.id }} .ft__locale {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #ft-{{ section.id }} .ft__locale form,
+  #ft-{{ section.id }} .ft__locale form > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+  }
+
+  /* Label ko inline aur chhota karo */
+  #ft-{{ section.id }} .ft__locale .caption-large {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1;
+    color: var(--ft-bar-text);
+    opacity: 1;
+    white-space: nowrap;
+  }
+
+  /* Dropdown button */
+  #ft-{{ section.id }} .ft__locale .disclosure,
+  #ft-{{ section.id }} .ft__locale .localization-selector,
+  #ft-{{ section.id }} .ft__locale .disclosure__button,
+  #ft-{{ section.id }} .ft__locale button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    width: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 4px 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    font-family: var(--ft-sans);
+    font-size: 13px;
+    line-height: 1.2;
+    color: var(--ft-bar-text);
+    text-decoration: none;
+  }
+
+  /* Badi arrow ko chhota karo */
+  #ft-{{ section.id }} .ft__locale svg,
+  #ft-{{ section.id }} .ft__locale .icon-caret {
+    position: static;
+    width: 10px;
+    height: 10px;
+    margin: 0;
+    flex-shrink: 0;
+    color: var(--ft-bar-text);
+  }
+
+  /* Dropdown list ko upar kholo (footer ke neeche jagah nahi hoti) */
+  #ft-{{ section.id }} .ft__locale .disclosure__list-wrapper {
+    bottom: 100%;
+    top: auto;
+    font-size: 13px;
+  }
+
+  /* Selector colors = baaki footer bar ke colors */
+  #ft-{{ section.id }} .ft__locale,
+  #ft-{{ section.id }} .ft__locale .caption-large,
+  #ft-{{ section.id }} .ft__locale .disclosure__button,
+  #ft-{{ section.id }} .ft__locale .disclosure__button span,
+  #ft-{{ section.id }} .ft__locale button,
+  #ft-{{ section.id }} .ft__locale button span,
+  #ft-{{ section.id }} .ft__locale select {
+    color: var(--ft-bar-text);
+  }
+
+  #ft-{{ section.id }} .ft__locale svg,
+  #ft-{{ section.id }} .ft__locale svg path {
+    fill: currentColor;
+  }
+
+  #ft-{{ section.id }} .ft__locale .disclosure__list-wrapper,
+  #ft-{{ section.id }} .ft__locale .disclosure__list {
+    background: var(--ft-bar-bg);
+    color: var(--ft-bar-text);
+  }
+
+  #ft-{{ section.id }} .ft__locale .disclosure__link,
+  #ft-{{ section.id }} .ft__locale .disclosure__item a {
+    color: var(--ft-bar-text);
+  }
+
+  /* ---------- Bottom bar: country + language group ---------- */
+  #ft-{{ section.id }} .ft__locales {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px 28px;
+    max-width: 100%;
+  }
+
+  /* ---------- Bottom bar: mobile (below 750px) ---------- */
+  @media screen and (max-width: 749px) {
+    #ft-{{ section.id }} .ft__bar-inner {
+      align-items: flex-start;
+      text-align: center;
+      gap: 10px;
+    }
+
+    #ft-{{ section.id }} .ft__copyright {
+      text-align: center;
+      max-width: 100%;
+    }
+
+    #ft-{{ section.id }} .ft__legal {
+      justify-content: center;
+      gap: 2px 20px;
+      max-width: 100%;
+    }
+
+    #ft-{{ section.id }} .ft__legal a {
+      padding: 6px 0;
+    }
+
+    #ft-{{ section.id }} .ft__locale .disclosure__list-wrapper {
+      max-width: calc(100vw - 40px);
+    }
+  }
+
+  /* ---------- Very small phones ---------- */
+  @media screen and (max-width: 339px) {
+    #ft-{{ section.id }} .ft__cols {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  /* ---------- Phones large / small tablets (480px+) ---------- */
+  @media screen and (min-width: 480px) {
+    #ft-{{ section.id }} .ft__cols {
+      gap: 40px 32px;
+    }
+  }
+
+  /* ---------- Tablet (750px+) ---------- */
+  @media screen and (min-width: 750px) {
+    #ft-{{ section.id }} .ft__main {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+
+    #ft-{{ section.id }} {
+      margin-top: {{ section.settings.margin_top }}px;
+    }
+
+    #ft-{{ section.id }} .ft__inner {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+
+    #ft-{{ section.id }} .ft__top {
+      gap: 48px;
+    }
+
+    #ft-{{ section.id }} .ft__cols {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 40px 32px;
+    }
+
+    #ft-{{ section.id }} .ft__bar-inner {
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 12px 32px;
+    }
+
+    /* Copyright left mein, country + language + legal right mein saath */
+    #ft-{{ section.id }} .ft__copyright {
+      margin-right: auto;
+    }
+
+    #ft-{{ section.id }} .ft__locales {
+      justify-content: flex-start;
+      gap: 12px 32px;
+    }
+
+    #ft-{{ section.id }} .ft__legal li {
+      position: relative;
+      padding: 0 18px;
+    }
+
+    #ft-{{ section.id }} .ft__legal li:last-child {
+      padding-right: 0;
+    }
+
+    #ft-{{ section.id }} .ft__legal li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 1px;
+      height: 14px;
+      transform: translateY(-50%);
+      background: var(--ft-bar-text);
+      opacity: 0.4;
+    }
+
+    #ft-{{ section.id }} .ft__legal {
+      gap: 6px 0;
+    }
+  }
+
+  /* ---------- Desktop (1100px+) ---------- */
+  @media screen and (min-width: 1100px) {
+    #ft-{{ section.id }} .ft__inner {
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+
+    #ft-{{ section.id }} .ft__top {
+      grid-template-columns: minmax(240px, 1.15fr) minmax(0, 4fr);
+      gap: clamp(32px, 4vw, 72px);
+      align-items: stretch;
+    }
+
+    #ft-{{ section.id }} .ft__cols {
+      grid-template-columns: repeat({{ col_count }}, minmax(0, 1fr));
+      gap: 0;
+    }
+
+    #ft-{{ section.id }} .ft__col {
+      padding-left: clamp(20px, 2.2vw, 40px);
+      padding-right: clamp(12px, 1.6vw, 28px);
+      border-left: 1px solid var(--ft-divider);
+    }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     Footer me sirf simple fade-in. JS chalega to hi hide hota hai,
+     warna content hamesha visible rahega
+     ============================================ */
+
+  #ft-{{ section.id }}.ft-anim .ft__main {
+    opacity: 0;
+    transition: opacity 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  #ft-{{ section.id }}.ft-anim.is-visible .ft__main {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #ft-{{ section.id }}.ft-anim .ft__main {
+      opacity: 1;
+      transition: none;
+    }
+
+    #ft-{{ section.id }} * {
+      transition: none !important;
+    }
+  }
+{%- endstyle -%}
+
+<footer id="ft-{{ section.id }}" class="custom-oseberg-footer">
+  <div class="ft__main">
+    <div class="ft__inner">
+      <div class="ft__top">
+
+        {%- comment -%} Brand block {%- endcomment -%}
+        <div class="ft__brand">
+          <a href="{{ routes.root_url }}" class="ft__logo" aria-label="{{ shop.name | escape }}">
+            {%- if section.settings.logo != blank -%}
+              <img
+                src="{{ section.settings.logo | image_url: width: 800 }}"
+                srcset="{{ section.settings.logo | image_url: width: 400 }} 400w, {{ section.settings.logo | image_url: width: 800 }} 800w"
+                sizes="{{ section.settings.logo_width }}px"
+                alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
+                width="{{ section.settings.logo.width }}"
+                height="{{ section.settings.logo.height }}"
+                loading="lazy"
+              >
+            {%- else -%}
+              <span class="ft__wordmark">OSEBERG</span>
+              <span class="ft__wordmark-sub">FURNITURE</span>
+            {%- endif -%}
+          </a>
+
+          {%- if section.settings.tagline != blank -%}
+            <p class="ft__tagline">{{ section.settings.tagline | escape | newline_to_br }}</p>
+          {%- endif -%}
+
+          {%- if section.settings.show_social_brand and has_social_icons -%}
+            {%- render 'social-icons', class: 'ft__social list-social' -%}
+          {%- endif -%}
+        </div>
+
+        <nav class="ft__cols" aria-label="{{ shop.name | escape }}">
+          {%- for block in section.blocks -%}
+            <div class="ft__col" {{ block.shopify_attributes }}>
+              {%- case block.type -%}
+                {%- when 'link_list' -%}
+                  {%- if block.settings.heading != blank -%}
+                    <h2 class="ft__heading">{{ block.settings.heading }}</h2>
+                  {%- endif -%}
+                  {%- if block.settings.menu != blank -%}
+                    <ul class="ft__list">
+                      {%- for link in block.settings.menu.links -%}
+                        <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+
+                {%- when 'text' -%}
+                  {%- if block.settings.heading != blank -%}
+                    <h2 class="ft__heading">{{ block.settings.heading }}</h2>
+                  {%- endif -%}
+                  {%- if block.settings.text != blank -%}
+                    <div class="ft__richtext">{{ block.settings.text }}</div>
+                  {%- endif -%}
+
+                {%- when 'cta' -%}
+                  {%- if block.settings.heading != blank -%}
+                    <h2 class="ft__heading">{{ block.settings.heading }}</h2>
+                  {%- endif -%}
+                  {%- if block.settings.text != blank -%}
+                    <div class="ft__richtext">{{ block.settings.text }}</div>
+                  {%- endif -%}
+                  {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
+                    <a href="{{ block.settings.button_link }}" class="ft__cta">{{ block.settings.button_label }}</a>
+                  {%- endif -%}
+              {%- endcase -%}
+            </div>
+          {%- endfor -%}
+
+          {%- if show_extra_col -%}
+            <div class="ft__col ft__col--extra">
+              {%- if section.settings.show_payment -%}
+                {%- if section.settings.payment_heading != blank -%}
+                  <h2 class="ft__heading">{{ section.settings.payment_heading }}</h2>
+                {%- endif -%}
+                <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
+                <ul class="ft__payment list list-payment" role="list">
+                  {%- for type in shop.enabled_payment_types -%}
+                    <li class="list-payment__item">
+                      {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+
+              {%- if section.settings.show_follow and has_social_icons -%}
+                <div class="ft__follow">
+                  {%- if section.settings.follow_heading != blank -%}
+                    <h2 class="ft__heading">{{ section.settings.follow_heading }}</h2>
+                  {%- endif -%}
+                  {%- render 'social-icons', class: 'ft__social list-social' -%}
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </nav>
+
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Dark legal bar {%- endcomment -%}
+  <div class="ft__bar">
+    <div class="ft__inner ft__bar-inner">
+      <p class="ft__copyright">&copy; {{ 'now' | date: '%Y' }} {{ section.settings.copyright_text | escape }}</p>
+
+      {%- liquid
+        assign show_country = false
+        assign show_language = false
+        if section.settings.enable_country_selector and localization.available_countries.size > 0
+          assign show_country = true
+        endif
+        if section.settings.enable_language_selector and localization.available_languages.size > 0
+          assign show_language = true
+        endif
+      -%}
+
+      {%- if show_country or show_language -%}
+        <div class="ft__locales">
+          {%- if show_country -%}
+            <div class="ft__locale">
+              <localization-form>
+                {%- form 'localization', id: 'FooterCountryForm', class: 'localization-form' -%}
+                  <div>
+                    <h2 class="caption-large text-body" id="FooterCountryLabel">{{ 'localization.country_label' | t }}</h2>
+                    {%- render 'country-localization', localPosition: 'FooterCountry' -%}
+                  </div>
+                {%- endform -%}
+              </localization-form>
+            </div>
+          {%- endif -%}
+
+          {%- if show_language -%}
+            <div class="ft__locale">
+              <localization-form>
+                {%- form 'localization', id: 'FooterLanguageForm', class: 'localization-form' -%}
+                  <div>
+                    <h2 class="caption-large text-body" id="FooterLanguageLabel">{{ 'localization.language_label' | t }}</h2>
+                    {%- render 'language-localization', localPosition: 'FooterLanguage' -%}
+                  </div>
+                {%- endform -%}
+              </localization-form>
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.legal_menu != blank and section.settings.legal_menu.links.size > 0 -%}
+        <ul class="ft__legal">
+          {%- for link in section.settings.legal_menu.links -%}
+            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+          {%- endfor -%}
+        </ul>
+      {%- elsif section.settings.show_policy -%}
+        <ul class="ft__legal">
+          {%- for policy in shop.policies -%}
+            {%- if policy != blank -%}
+              <li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+<!-- Footer fade-in -->
+<script>
+  (function () {
+    var footer = document.getElementById('ft-{{ section.id }}');
+    if (!footer) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    footer.classList.add('ft-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          footer.classList.add('is-visible');
+          observer.unobserve(footer);
+        }
+      });
+    }, { threshold: 0.05 });
+
+    observer.observe(footer);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Custom Footer",
+  "max_blocks": 5,
+  "settings": [
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Footer Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "divider_color", "label": "Divider Lines", "default": "#DED2C3" },
+    { "type": "color", "id": "heading_color", "label": "Headings / Logo / Social Icons", "default": "#302821" },
+    { "type": "color", "id": "link_color", "label": "Links / Text", "default": "#302821" },
+    { "type": "color", "id": "link_hover_color", "label": "Link Hover", "default": "#A58C76" },
+    { "type": "color", "id": "tagline_color", "label": "Brand Statement", "default": "#A58C76" },
+    { "type": "color", "id": "bar_bg_color", "label": "Bottom Bar Background", "default": "#302821" },
+    { "type": "color", "id": "bar_text_color", "label": "Bottom Bar Text", "default": "#F5F1EA" },
+
+    { "type": "header", "content": "Brand Block" },
+    { "type": "image_picker", "id": "logo", "label": "Logo (leave empty for text OSEBERG / FURNITURE)" },
+    { "type": "range", "id": "logo_width", "min": 100, "max": 400, "step": 10, "unit": "px", "label": "Logo Width", "default": 220 },
+    {
+      "type": "textarea",
+      "id": "tagline",
+      "label": "Brand Statement (new line = line break)",
+      "default": "Sofaer skabt til at blive en del af livet.\nSkandinavisk design, generøs komfort og nøje udvalgte materialer."
+    },
+    { "type": "checkbox", "id": "show_social_brand", "label": "Show social icons under brand statement", "default": true },
+
+    { "type": "header", "content": "Payment + Follow Column" },
+    { "type": "checkbox", "id": "show_payment", "label": "Show payment icons", "default": true },
+    { "type": "text", "id": "payment_heading", "label": "Payment Heading", "default": "Betaling" },
+    { "type": "checkbox", "id": "show_follow", "label": "Show social icons (Follow us)", "default": true },
+    { "type": "text", "id": "follow_heading", "label": "Follow Heading", "default": "Følg os" },
+
+    { "type": "header", "content": "Bottom Bar" },
+    { "type": "text", "id": "copyright_text", "label": "Copyright text (year is added automatically)", "default": "Oseberg Furniture. Alle rettigheder forbeholdes." },
+    { "type": "link_list", "id": "legal_menu", "label": "Legal links menu", "info": "Add Privatlivspolitik, Cookiepolitik, Handelsbetingelser etc. If empty, Shopify policies are used." },
+    { "type": "checkbox", "id": "show_policy", "label": "Use Shopify policies if no menu selected", "default": true },
+    { "type": "checkbox", "id": "enable_country_selector", "label": "Show country selector", "default": false },
+    { "type": "checkbox", "id": "enable_language_selector", "label": "Show language selector", "default": false },
+
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "margin_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Margin Top", "default": 0 },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 140, "step": 4, "unit": "px", "label": "Padding Top", "default": 72 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 140, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": "Link Column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Om Oseberg" },
+        { "type": "link_list", "id": "menu", "label": "Menu" }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text Column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Kontakt" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Bækkebrovej 23<br>Tibirke<br>3220 Tisvildeleje</p><p>kundeservice@oseberg.dk</p>" }
+      ]
+    },
+    {
+      "type": "cta",
+      "name": "Showroom CTA Column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Showroom" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Oplev Oseberg i virkeligheden</p><p>Åbent alle dage efter aftale</p>" },
+        { "type": "text", "id": "button_label", "label": "Button Text", "default": "Book besøg i showroom →" },
+        { "type": "url", "id": "button_link", "label": "Button Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Footer",
+      "blocks": [
+        { "type": "link_list", "settings": { "heading": "Om Oseberg" } },
+        { "type": "link_list", "settings": { "heading": "Hjælp & Kontakt" } },
+        { "type": "link_list", "settings": { "heading": "Shop" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

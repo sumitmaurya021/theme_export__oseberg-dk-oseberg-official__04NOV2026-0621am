@@ -1,0 +1,198 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% comment %}
+<section class="custom-bg-hover section-{{ section.id }}-padding">
+  <div class="custom-bg-slider page-width">
+    {% for block in section.blocks %}
+      <div class="custom-bg-slide" {{ block.shopify_attributes }}>
+        <a class="custom-bg-link" href="{{ block.settings.button_url }}">
+          <img src="{{ block.settings.bg_image | image_url }}" alt="{{ block.settings.text }}" class="bs-bg-image">
+          <!-- Background Image -->
+          <div class="custom-bg-image">
+            <!-- Overlay -->
+            <div class="custom-bg-overlay" style="background: {{ block.settings.overlay_color }}"></div>
+            <!-- Content -->
+            <div class="custom-bg-content">
+              <div class="custom-bg-text">
+                <span class="custom-bg-button">
+                  <span  title="{{ block.settings.text }}">{{ block.settings.text }}</span>
+                  {% if block.settings.icon != blank %}
+                    <img src="{{ block.settings.icon | image_url }}" alt="{{ block.settings.text }}" class="custom-bg-icon">
+                  {% endif %}
+                </span>
+              </div>
+              <p class="custom-bg-subtext">{{ block.settings.subtext }}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endcomment %}
+
+<section class="custom-bg-hover section-{{ section.id }}-padding">
+  <div class="page-width">
+  <div class="custom-bg-hover-swiper custom-bg-slider swiper">
+    <!-- Swiper Navigation Buttons -->
+    <div class="button-arrow">
+      <button class="swiper-button swiper-button-prev"></button>
+      <button class="swiper-button swiper-button-next"></button>
+    </div>
+    <div class="swiper-wrapper">
+      {% for block in section.blocks %}
+        <div class="swiper-slide custom-bg-slide" {{ block.shopify_attributes }}>
+          <a class="custom-bg-link" href="{{ block.settings.button_url }}">
+            <img src="{{ block.settings.bg_image | image_url }}" alt="{{ block.settings.text }}" class="bs-bg-image">
+            <!-- Background Image -->
+            <div class="custom-bg-image">
+              <!-- Overlay -->
+              <div class="custom-bg-overlay" style="background: {{ block.settings.overlay_color }}"></div>
+              <!-- Content -->
+              <div class="custom-bg-content">
+                <div class="custom-bg-text">
+                  <span class="custom-bg-button">
+                    <span title="{{ block.settings.text }}">{{ block.settings.text }}</span>
+                    {% if block.settings.icon != blank %}
+                      <img src="{{ block.settings.icon | image_url }}" alt="{{ block.settings.text }}" class="custom-bg-icon">
+                    {% endif %}
+                  </span>
+                </div>
+                <p class="custom-bg-subtext">{{ block.settings.subtext }}</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+    <!-- Swiper Navigation Scroll -->
+    <div class="swiper-scrollbar"></div>
+  </div>
+  </div>
+</section>
+
+<!-- Swiper CSS CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<!-- Swiper JS CDN -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var swiper = new Swiper(".custom-bg-hover-swiper", {
+    slidesPerView: 1,
+    spaceBetween: 10,
+    loop: false,
+    scrollbar: {
+      el: ".swiper-scrollbar",
+      hide: false,
+      draggable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    breakpoints: {
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 15,
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 20,
+      }
+    }
+  });
+});
+</script>
+
+
+{% schema %}
+{
+  "name": "Custom Background Hover",
+  "settings": [
+     {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "content_block",
+      "name": "Content Block",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "bg_image",
+          "label": "Background Image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Heading",
+          "default": "Essential"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon Image"
+        },
+        {
+          "type": "text",
+          "id": "subtext",
+          "label": "Subtext",
+          "default": "Your subtext here..."
+        },
+        {
+          "type": "color",
+          "id": "overlay_color",
+          "label": "Overlay Color",
+          "default": "#bab1a5"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Background Hover",
+      "blocks": [
+        {
+          "type": "content_block"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

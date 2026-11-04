@@ -1,0 +1,441 @@
+{% comment %}
+  snippets/free-gift-progress.liquid
+  theme.liquid </body> se pehle: {% render 'free-gift-progress', floating: true %}
+  cart-drawer.liquid se render hata do.
+{% endcomment %}
+
+{% comment %} ============ SETTINGS ============ {% endcomment %}
+ {% if settings.show_free_gift == true and settings.free_gift_product != blank %} 
+{% assign fg_threshold = 900 %}
+{% assign fg_gift_product = all_products[settings.free_gift_product] %}
+{% assign fg_gift_variant = fg_gift_product.selected_or_first_available_variant %}
+{% assign fg_gift_name = fg_gift_product.title | default: 'Breeze Cooling Pillowcase' %}
+{% assign fg_copy_missing = settings.fg_copy_missing | default: "You're" %}
+{% assign fg_copy_suffix = settings.fg_copy_suffix | default: 'away from a free' %}
+{% assign fg_copy_unlocked = settings.fg_copy_unlocked | default: "'You've unlocked your free'" %}
+{% assign fg_copy_sub = settings.fg_copy_sub | default: 'Din gratis gave er tilføjet til din kurv.' %}
+{% assign fg_color_from = settings.fg_color_from | default: '#c9a96e' %}
+{% assign fg_color_to = settings.fg_color_to | default: '#a07030' %}
+{% assign fg_color_bg = settings.fg_color_bg | default: '#e8e2d8' %}
+{% assign fg_color_banner = settings.fg_color_banner | default: '#faf8f5' %}
+{% comment %} ================================= {% endcomment %}
+
+{%- if floating == true -%}
+  <div class="fg-float">
+    <div class="fg-fw-inner">
+      <button class="fg-fw-close" onclick="this.closest('.fg-float').style.display='none'" aria-label="Luk">✕</button>
+      <div class="fg-fw-row">
+        <span class="fg-fw-icon">🎁</span>
+        <span class="fg-float-text"></span>
+      </div>
+      <div class="fg-track"><div class="fg-fill fg-float-fill"></div></div>
+    </div>
+  </div>
+{%- endif -%}
+
+<style>
+  .fg-track {
+    background: {{ fg_color_bg }};
+    border-radius: 99px;
+    height: 8px;
+    overflow: hidden;
+  }
+  .fg-fill {
+    display: block !important;
+    height: 8px !important;
+    width: 0%;
+    max-width: 100%;
+    background: linear-gradient(90deg, {{ fg_color_from }}, {{ fg_color_to }}) !important;
+    border-radius: 99px;
+    transition: width 0.45s ease;
+  }
+  .fg-banner {
+    background: {{ fg_color_banner }};
+    border-bottom: 2px solid #e0d8cc;
+    order: 0;
+    margin-bottom: 20px;
+  }
+  .fg-banner-unlocked {
+    display: none;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 10px;
+    background: #f0f7f0;
+    border: 1px solid #b8d8b8;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 13px;
+    color: #2d6a2d;
+    line-height: 1.4;
+  }
+  .fg-banner-unlocked.visible { display: flex; }
+  .fg-banner-text {
+    font-size: 13px;
+    color: #555;
+    margin: 0 0 10px;
+    line-height: 1.5;
+  }
+  .fg-amount { color: {{ fg_color_to }}; font-weight: 700; }
+  .fg-float {
+    display: none;
+    position: fixed;
+    bottom: 24px;
+    left: 20px;
+    z-index: 9999;
+    width: 236px;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(200,190,175,0.8);
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  }
+  .fg-fw-inner  { padding: 13px 14px 12px; position: relative; }
+  .fg-fw-close  { position: absolute; top: 8px; right: 10px; background: none; border: none; cursor: pointer; font-size: 14px; color: #999; padding: 2px 5px; line-height: 1; }
+  .fg-fw-row    { display: flex; align-items: flex-start; gap: 7px; margin: 0 0 9px; padding-right: 18px; }
+  .fg-fw-icon   { font-size: 18px; line-height: 1.3; flex-shrink: 0; }
+  .fg-float-text { font-size: 12px; color: #444; line-height: 1.5; }
+  .fg-float .fg-track { height: 7px; }
+  .fg-float .fg-fill  { height: 7px !important; }
+  @media (max-width: 480px) {
+    .fg-float { bottom: 80px; left: 12px; width: 210px; }
+  }
+
+  /* ── Gift row: quantity controls bilkul hide ── */
+  .fg-gift-row .cart-item__quantity-wrapper,
+  .fg-gift-row .quantity,
+  .fg-gift-row quantity-popover,
+  .fg-gift-row .cart-item__quantity,
+  .fg-gift-row .cart-quantity,
+  .fg-gift-row input[type="number"],
+  .fg-gift-row .quantity__button,
+  .fg-gift-row button[name="minus"],
+  .fg-gift-row button[name="plus"],
+  .fg-gift-row .cart-item__quantity-wrapper * {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+</style>
+
+<script>
+  (function () {
+    'use strict';
+
+    var THRESHOLD = {{ fg_threshold | times: 100 }};
+    var GIFT_VID  = {{ fg_gift_variant.id | default: 0 | json }};
+    var GIFT_NAME = {{ fg_gift_name       | json }};
+    var COPY_MISS = {{ fg_copy_missing    | json }};
+    var COPY_SUF  = {{ fg_copy_suffix     | json }};
+    var COPY_UNL  = {{ fg_copy_unlocked   | json }};
+    var COPY_SUB  = {{ fg_copy_sub        | json }};
+
+    var _lastCart    = null;
+    var _giftPending = false;
+
+    /* Single debounce */
+    var _t = null;
+    function schedule(ms) {
+      clearTimeout(_t);
+      _t = setTimeout(fetchAndRun, ms != null ? ms : 280);
+    }
+
+    function fmt(cents) {
+      return Math.round(cents / 100).toLocaleString('da-DK') + '\u00a0kr.';
+    }
+
+    function cartTotal(cart) {
+      return cart.items.reduce(function (s, i) {
+        return i.variant_id === GIFT_VID ? s : s + i.final_line_price;
+      }, 0);
+    }
+
+    /* ─── Gift row lock: class lagao, CSS kaam karega ─── */
+   function lockGiftRow() {
+  if (!GIFT_VID) return;
+  document.querySelectorAll('.cart-item').forEach(function (row) {
+    /* ID se index nikalo: CartDrawer-Item-1 → index 0 */
+    var idMatch = row.id.match(/CartDrawer-Item-(\d+)/);
+    if (!idMatch) return;
+    var idx = parseInt(idMatch[1], 10) - 1;
+
+    /* Cart items se variant id match karo */
+    if (_lastCart && _lastCart.items[idx] && _lastCart.items[idx].variant_id === GIFT_VID) {
+      var td = row.querySelector('td.cart-item__quantity');
+      if (td) {
+        td.style.setProperty('visibility', 'hidden', 'important');
+      }
+    }
+  });
+}
+
+    /* ─── Banner build & inject ─── */
+    function buildBanner() {
+      var b = document.createElement('div');
+      b.className = 'fg-banner';
+      b.innerHTML =
+        '<div class="fg-banner-unlocked">'
+        + '<span><strong class="fg-unlocked-title"></strong><br>'
+        + '</div>'
+        + '<p class="fg-banner-text"></p>'
+        + '<div class="fg-track"><div class="fg-fill fg-banner-fill"></div></div>';
+      return b;
+    }
+
+    function ensureBanner() {
+      var existing = document.querySelector('.fg-banner');
+      var header   = document.querySelector('#CartDrawer .drawer__header');
+      if (!header) return false;
+      if (!existing) {
+        header.insertAdjacentElement('afterend', buildBanner());
+      }
+      return true;
+    }
+
+    /* ─── Paint banner ─── */
+    function paintBanner(cart) {
+      var hasItems = cart.item_count > 0;
+      var drawer   = document.querySelector('cart-drawer');
+      var isOpen   = drawer && drawer.classList.contains('active');
+      var banner   = document.querySelector('.fg-banner');
+
+      if (!isOpen || !hasItems) {
+        if (banner) banner.style.display = 'none';
+        return;
+      }
+
+      if (!ensureBanner()) return;
+
+      banner = document.querySelector('.fg-banner');
+      banner.style.display = 'block';
+
+      var total     = cartTotal(cart);
+      var remaining = Math.max(THRESHOLD - total, 0);
+      var pct       = Math.min(total / THRESHOLD * 100, 100);
+      var done      = total >= THRESHOLD;
+
+      var uBox = banner.querySelector('.fg-banner-unlocked');
+      var uTit = banner.querySelector('.fg-unlocked-title');
+      var uSub = banner.querySelector('.fg-unlocked-sub');
+      var txt  = banner.querySelector('.fg-banner-text');
+      var fill = banner.querySelector('.fg-banner-fill');
+
+      if (uBox) uBox.className    = 'fg-banner-unlocked' + (done ? ' visible' : '');
+      if (uTit) uTit.textContent  = COPY_UNL + ' ' + GIFT_NAME + '! 🎉';
+      if (uSub) uSub.textContent  = COPY_SUB;
+
+      if (txt) {
+        txt.style.display = done ? 'none' : 'block';
+        if (!done) {
+          txt.innerHTML = COPY_MISS
+            + ' <strong class="fg-amount">' + fmt(remaining) + '</strong> '
+            + COPY_SUF + ' <strong>' + GIFT_NAME + '</strong> 🎁';
+        }
+      }
+
+      if (fill) fill.style.width = pct.toFixed(1) + '%';
+    }
+
+    /* ─── Paint floating widget ─── */
+    function paintFloat(cart) {
+      var fw   = document.querySelector('.fg-float');
+      var txt  = fw && fw.querySelector('.fg-float-text');
+      var fill = fw && fw.querySelector('.fg-float-fill');
+      if (!fw) return;
+
+      var total     = cartTotal(cart);
+      var remaining = Math.max(THRESHOLD - total, 0);
+      var pct       = Math.min(total / THRESHOLD * 100, 100);
+      var done      = total >= THRESHOLD;
+      var hasItems  = cart.item_count > 0;
+      var drawer    = document.querySelector('cart-drawer');
+      var isOpen    = drawer && drawer.classList.contains('active');
+
+      fw.style.display = (hasItems && !isOpen) ? 'block' : 'none';
+      if (fill) fill.style.width = pct.toFixed(1) + '%';
+
+      if (txt) {
+        txt.innerHTML = done
+          ? '<strong>' + COPY_UNL + '</strong>'
+          : COPY_MISS + ' <strong class="fg-amount">' + fmt(remaining) + '</strong> '
+            + COPY_SUF + ' <strong>' + GIFT_NAME + '</strong>';
+      }
+    }
+
+    function paintAll(cart) {
+      _lastCart = cart;
+      paintBanner(cart);
+      paintFloat(cart);
+      lockGiftRow();
+    }
+
+    /* ─── Dawn cart drawer re-render ─── */
+    function refreshDawnCart() {
+      var cartDrawer = document.querySelector('cart-drawer');
+      if (!cartDrawer) return;
+
+      var sid = (cartDrawer.dataset && cartDrawer.dataset.id)
+        ? cartDrawer.dataset.id
+        : 'cart-drawer';
+
+      fetch('/?sections=' + sid)
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (!data[sid]) return;
+          var parser   = new DOMParser();
+          var doc      = parser.parseFromString(data[sid], 'text/html');
+          var srcInner = doc.querySelector('.drawer__inner');
+          var dstInner = document.querySelector('#CartDrawer .drawer__inner');
+          if (srcInner && dstInner) {
+            dstInner.innerHTML = srcInner.innerHTML;
+          }
+          if (_lastCart) {
+            ensureBanner();
+            paintBanner(_lastCart);
+            lockGiftRow();
+          }
+        })
+        .catch(function () {});
+    }
+
+    /* ─── Gift helpers ─── */
+    function addGift() {
+      if (!GIFT_VID) return Promise.resolve();
+      return fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: [{ id: GIFT_VID, quantity: 1 }] })
+      });
+    }
+
+    function removeGift(key) {
+      return fetch('/cart/change.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: key, quantity: 0 })
+      });
+    }
+
+    function fixGiftQty(key) {
+      return fetch('/cart/change.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: key, quantity: 1 })
+      });
+    }
+
+    /* ─── Main logic ─── */
+    function fetchAndRun() {
+      if (_giftPending) return;
+
+      fetch('/cart.js')
+        .then(function (r) { return r.json(); })
+        .then(function (cart) {
+          var total    = cartTotal(cart);
+          var giftItem = cart.items.find(function (i) { return i.variant_id === GIFT_VID; });
+          var hasGift  = !!giftItem;
+
+          if (GIFT_VID) {
+
+            if (hasGift && giftItem.quantity > 1) {
+              _giftPending = true;
+              return fixGiftQty(giftItem.key)
+                .then(function () { return fetch('/cart.js'); })
+                .then(function (r) { return r.json(); })
+                .then(function (c) {
+                  _giftPending = false;
+                  paintAll(c);
+                  refreshDawnCart();
+                });
+            }
+
+            if (total >= THRESHOLD && !hasGift) {
+              _giftPending = true;
+              return addGift()
+                .then(function () { return fetch('/cart.js'); })
+                .then(function (r) { return r.json(); })
+                .then(function (c) {
+                  _giftPending = false;
+                  paintAll(c);
+                  refreshDawnCart();
+                });
+            }
+
+            if (total < THRESHOLD && hasGift) {
+              _giftPending = true;
+              return removeGift(giftItem.key)
+                .then(function () { return fetch('/cart.js'); })
+                .then(function (r) { return r.json(); })
+                .then(function (c) {
+                  _giftPending = false;
+                  paintAll(c);
+                  refreshDawnCart();
+                });
+            }
+          }
+
+          paintAll(cart);
+        })
+        .catch(function () { _giftPending = false; });
+    }
+
+    /* ─── Drawer open/close watch ─── */
+    function watchDrawerClass() {
+      var drawer = document.querySelector('cart-drawer');
+      if (!drawer) return;
+      new MutationObserver(function () {
+        if (_lastCart) paintAll(_lastCart);
+        schedule(200);
+      }).observe(drawer, { attributes: true, attributeFilter: ['class'] });
+    }
+
+    /* ─── Banner + gift row safety net ─── */
+    function watchBannerRemoval() {
+      var cartDrawerDiv = document.querySelector('#CartDrawer');
+      if (!cartDrawerDiv) return;
+      new MutationObserver(function () {
+        if (!document.querySelector('.fg-banner') && _lastCart) {
+          ensureBanner();
+          paintBanner(_lastCart);
+        }
+        lockGiftRow();
+      }).observe(cartDrawerDiv, { childList: true, subtree: true });
+    }
+
+    /* ─── Fetch interceptor ─── */
+    var _origFetch = window.fetch;
+    window.fetch = function (input, init) {
+      var url = typeof input === 'string' ? input : (input && input.url) || '';
+      var p   = _origFetch.apply(this, arguments);
+      if (/\/cart\/(add|change|update|clear)/.test(url)) {
+        p.then(function () { schedule(350); }).catch(function () {});
+      }
+      return p;
+    };
+
+    /* ─── XHR fallback ─── */
+    var _origOpen = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function (method, url) {
+      if (typeof url === 'string' && /\/cart\/(add|change|update|clear)/.test(url)) {
+        this.addEventListener('loadend', function () { schedule(350); });
+      }
+      return _origOpen.apply(this, arguments);
+    };
+
+    document.addEventListener('cart:refresh', function () { schedule(200); });
+    document.addEventListener('cart:updated', function () { schedule(200); });
+
+    function init() {
+      watchDrawerClass();
+      watchBannerRemoval();
+      schedule(100);
+    }
+
+    document.readyState === 'loading'
+      ? document.addEventListener('DOMContentLoaded', init)
+      : init();
+
+  })();
+</script>
+
+{% endif %}

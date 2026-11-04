@@ -1,0 +1,471 @@
+{%- style -%}
+  #mb-{{ section.id }} {
+    --mb-title: {{ section.settings.title_color }};
+    --mb-desc: {{ section.settings.desc_color }};
+    --mb-btn-bg: {{ section.settings.button_bg }};
+    --mb-btn-color: {{ section.settings.button_color }};
+    --mb-btn-border: {{ section.settings.button_border_color }};
+    --mb-btn-hover-bg: {{ section.settings.button_hover_bg }};
+    --mb-btn-hover-color: {{ section.settings.button_hover_color }};
+    --mb-panel: {{ section.settings.bg_color }};
+    --mb-h: {{ section.settings.min_height }}px;
+    --mb-h-m: {{ section.settings.min_height_mobile }}px;
+    --mb-pos: {{ section.settings.image_position }};
+    --mb-split-n: {{ section.settings.panel_width }};
+    position: relative;
+    background: var(--mb-panel);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  /* ---------- Image (mobile: on top, full width) ---------- */
+  #mb-{{ section.id }} .mb__bg {
+    position: relative;
+    width: 100%;
+    height: var(--mb-h-m);
+    overflow: hidden;
+  }
+
+  #mb-{{ section.id }} .mb__bg picture,
+  #mb-{{ section.id }} .mb__bg img,
+  #mb-{{ section.id }} .mb__bg svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--mb-pos);
+    display: block;
+  }
+
+  /* Soft fade between the left panel and the image (desktop / tablet only) */
+  #mb-{{ section.id }} .mb__overlay {
+    display: none;
+  }
+
+  /* ---------- Content (mobile: below the image, on solid color) ---------- */
+  #mb-{{ section.id }} .mb__inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  #mb-{{ section.id }} .mb__content {
+    width: 100%;
+    max-width: 440px;
+    min-width: 0;
+  }
+
+  #mb-{{ section.id }} .mb__title {
+    margin: 0 0 20px;
+    color: var(--mb-title);
+    font-family: var(--font-serif, 'Playfair Display', Georgia, 'Times New Roman', serif);
+    font-size: clamp(38px, 10vw, 52px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  #mb-{{ section.id }} .mb__desc {
+    margin: 0 0 28px;
+    max-width: 400px;
+    color: var(--mb-desc);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(14px, 1.05vw, 16px);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: normal;
+  }
+
+  #mb-{{ section.id }} .mb__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    padding: clamp(13px, 1.1vw, 17px) clamp(22px, 2.2vw, 34px);
+    background: var(--mb-btn-bg);
+    color: var(--mb-btn-color);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.15em;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--mb-btn-border);
+    border-radius: 0;
+    transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  }
+
+  #mb-{{ section.id }} .mb__button::before,
+  #mb-{{ section.id }} .mb__button::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  #mb-{{ section.id }} .mb__button:hover {
+    background: var(--mb-btn-hover-bg);
+    color: var(--mb-btn-hover-color);
+    border-color: var(--mb-btn-hover-bg);
+  }
+
+  /* ---------- Tablet (750px - 989px) ---------- */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #mb-{{ section.id }} {
+      --mb-split-n: 52;
+    }
+
+    #mb-{{ section.id }} .mb__title {
+      font-size: clamp(34px, 5vw, 46px);
+    }
+
+    #mb-{{ section.id }} .mb__desc {
+      font-size: 14px;
+    }
+  }
+
+  /* ---------- Desktop + Tablet (750px and up): left panel + right image ---------- */
+  @media screen and (min-width: 750px) {
+    #mb-{{ section.id }} .mb__bg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: calc(var(--mb-split-n) * 1%);
+      width: auto;
+      height: auto;
+      z-index: 0;
+    }
+
+    #mb-{{ section.id }} .mb__overlay {
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: calc(var(--mb-split-n) * 1%);
+      width: clamp(80px, 14%, 220px);
+      z-index: 1;
+      background: linear-gradient(90deg, var(--mb-panel) 0%, transparent 100%);
+      pointer-events: none;
+    }
+    #mb-{{ section.id }} .mb__content {
+      max-width: min(520px, calc(var(--mb-split-n) * 1vw - 40px));
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    #mb-{{ section.id }} .mb__title {
+      font-size: clamp(48px, 4.6vw, 76px);
+    }
+  }
+
+  /* ---------- Mobile (749px and below): content over the image ---------- */
+  @media screen and (max-width: 749px) {
+    /* Light text so it is visible over the image */
+    #mb-{{ section.id }} {
+      --mb-title: #FFFFFF;
+      --mb-desc: #FFFFFF;
+    }
+
+    #mb-{{ section.id }} .mb__bg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    /* Soft dark layer between image and text for readability */
+    #mb-{{ section.id }} .mb__overlay {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: auto;
+      z-index: 1;
+      background: rgba(0, 0, 0, 0.35);
+      pointer-events: none;
+    }
+
+    #mb-{{ section.id }} .mb__inner {
+      box-sizing: border-box;
+      min-height: var(--mb-h-m);
+    }
+
+    #mb-{{ section.id }} .mb__desc {
+      max-width: 100%;
+    }
+  }
+
+  /* Very small phones: button full width */
+  @media screen and (max-width: 479px) {
+    #mb-{{ section.id }} .mb__button {
+      width: 100%;
+    }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     JS chalega to hi hide hota hai, warna content hamesha visible rahega
+     ============================================ */
+
+  /* Image: slow fade-in + halka zoom-out.
+     'scale' property use ki hai taaki parallax ke 'transform' se conflict na ho */
+  #mb-{{ section.id }}.mb-anim .mb__bg img,
+  #mb-{{ section.id }}.mb-anim .mb__bg svg {
+    opacity: 0;
+    scale: 1.05;
+    transition:
+      opacity 1.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+      scale 2.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+    will-change: transform, opacity;
+  }
+
+  #mb-{{ section.id }}.mb-anim.is-visible .mb__bg img,
+  #mb-{{ section.id }}.mb-anim.is-visible .mb__bg svg {
+    opacity: 1;
+    scale: 1;
+  }
+
+  /* Text: title, description, button ek-ek karke fade-up */
+  #mb-{{ section.id }}.mb-anim .mb__content > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+    transition-delay: calc(0.35s + var(--mb-i, 0) * 0.15s), calc(0.35s + var(--mb-i, 0) * 0.15s), 0s, 0s, 0s;
+    will-change: opacity, transform;
+  }
+
+  #mb-{{ section.id }}.mb-anim.is-visible .mb__content > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Animation ke baad delay + will-change hata do, taaki hover turant chale */
+  #mb-{{ section.id }}.mb-anim.is-done .mb__content > * {
+    transition-delay: 0s;
+    will-change: auto;
+  }
+
+  /* Parallax (sirf desktop): image thodi badi rakhi hai taaki move hone pe gap na dikhe.
+     Ye 'Made to be lived in' section hai, to yahan parallax sabse noticeable rakha hai */
+  @media screen and (min-width: 990px) and (prefers-reduced-motion: no-preference) {
+    #mb-{{ section.id }} .mb__bg img {
+      top: -8%;
+      height: 116%;
+    }
+  }
+
+  /* Reduced motion: sab animation off */
+  @media (prefers-reduced-motion: reduce) {
+    #mb-{{ section.id }}.mb-anim .mb__bg img,
+    #mb-{{ section.id }}.mb-anim .mb__bg svg {
+      opacity: 1;
+      scale: 1;
+      transition: none;
+    }
+
+    #mb-{{ section.id }}.mb-anim .mb__content > * {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+{%- endstyle -%}
+
+<div id="mb-{{ section.id }}" class="custom-material-banner">
+
+  <div class="mb__bg">
+    {%- if section.settings.image != blank -%}
+      <picture>
+        {%- if section.settings.image_mobile != blank -%}
+          <source
+            media="(max-width: 749px)"
+            srcset="{{ section.settings.image_mobile | image_url: width: 600 }} 600w,
+                    {{ section.settings.image_mobile | image_url: width: 900 }} 900w,
+                    {{ section.settings.image_mobile | image_url: width: 1200 }} 1200w"
+            sizes="100vw"
+          >
+        {%- endif -%}
+        <img
+          src="{{ section.settings.image | image_url: width: 1800 }}"
+          srcset="{{ section.settings.image | image_url: width: 800 }} 800w,
+                  {{ section.settings.image | image_url: width: 1200 }} 1200w,
+                  {{ section.settings.image | image_url: width: 1800 }} 1800w,
+                  {{ section.settings.image | image_url: width: 2400 }} 2400w"
+          sizes="100vw"
+          alt="{{ section.settings.image.alt | default: section.settings.title | escape }}"
+          width="{{ section.settings.image.width }}"
+          height="{{ section.settings.image.height }}"
+          loading="lazy"
+        >
+      </picture>
+    {%- else -%}
+      {{ 'image' | placeholder_svg_tag }}
+    {%- endif -%}
+  </div>
+  <div class="mb__overlay"></div>
+
+  <div class="mb__inner">
+    <div class="mb__content">
+      {%- if section.settings.title != blank -%}
+        <h2 class="mb__title">{{ section.settings.title | escape | newline_to_br }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.description != blank -%}
+        <p class="mb__desc">{{ section.settings.description | escape | newline_to_br }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.button_text != blank and section.settings.button_link != blank -%}
+        <a href="{{ section.settings.button_link }}" class="mb__button">{{ section.settings.button_text }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<!-- Scroll fade-in (stagger) + slow parallax on image (desktop) -->
+<script>
+  (function () {
+    var section = document.getElementById('mb-{{ section.id }}');
+    if (!section) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (reduced.matches || !('IntersectionObserver' in window)) return;
+
+    section.querySelectorAll('.mb__content > *').forEach(function (el, i) {
+      el.style.setProperty('--mb-i', i);
+    });
+
+    section.classList.add('mb-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+
+          /* animation khatam hone ke baad delay hata do, taaki hover smooth rahe */
+          window.setTimeout(function () {
+            section.classList.add('is-done');
+          }, 2600);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    observer.observe(section);
+
+    /* Slow parallax: sirf desktop pe */
+    var bg = section.querySelector('.mb__bg');
+    var img = bg ? bg.querySelector('img') : null;
+    if (!bg || !img) return;
+
+    var desktop = window.matchMedia('(min-width: 990px)');
+    var ticking = false;
+
+    function update() {
+      ticking = false;
+
+      if (!desktop.matches || reduced.matches) {
+        img.style.transform = '';
+        return;
+      }
+
+      var rect = section.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+
+      /* viewport ke center se distance ke hisaab se move, CSS ke 8% overhang ke andar */
+      var progress = (rect.top + rect.height / 2 - window.innerHeight / 2) / window.innerHeight;
+      var maxShift = rect.height * 0.07;
+      var shift = Math.max(-maxShift, Math.min(maxShift, progress * rect.height * 0.12));
+      img.style.transform = 'translate3d(0,' + shift.toFixed(1) + 'px,0)';
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Custom Material Banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "header", "content": "Image" },
+    { "type": "image_picker", "id": "image", "label": "Image (Desktop)" },
+    { "type": "image_picker", "id": "image_mobile", "label": "Image (Mobile, optional)" },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image Focus",
+      "default": "center",
+      "options": [
+        { "value": "left center", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right center", "label": "Right" }
+      ]
+    },
+
+    { "type": "header", "content": "Content" },
+    { "type": "textarea", "id": "title", "label": "Title (new line = line break)", "default": "Made to\nbe lived in." },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description (new line = line break)",
+      "default": "Soft textures. Natural tones. Thoughtful details.\nOSEBERG is designed for real homes, real people and real life."
+    },
+    { "type": "text", "id": "button_text", "label": "Button Text", "default": "Explore Materials →" },
+    { "type": "url", "id": "button_link", "label": "Button Link" },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Left Panel Color (behind text)", "default": "#E3D9CB" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#302821" },
+    { "type": "color", "id": "desc_color", "label": "Description Color", "default": "#302821" },
+    { "type": "color", "id": "button_bg", "label": "Button Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "button_color", "label": "Button Text Color", "default": "#302821" },
+    { "type": "color", "id": "button_border_color", "label": "Button Border Color", "default": "#A58C76" },
+    { "type": "color", "id": "button_hover_bg", "label": "Button Hover Background", "default": "#302821" },
+    { "type": "color", "id": "button_hover_color", "label": "Button Hover Text Color", "default": "#FFFFFF" },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "panel_width", "min": 30, "max": 55, "step": 1, "unit": "%", "label": "Left Panel Width (Desktop)", "default": 40 },
+    { "type": "range", "id": "min_height", "min": 300, "max": 900, "step": 20, "unit": "px", "label": "Minimum Height (Desktop / Tablet)", "default": 460 },
+    { "type": "range", "id": "min_height_mobile", "min": 200, "max": 700, "step": 20, "unit": "px", "label": "Image Height (Mobile)", "default": 340 },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Padding Top", "default": 40 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 40 }
+  ],
+  "presets": [
+    {
+      "name": "Custom Material Banner"
+    }
+  ]
+}
+{% endschema %}

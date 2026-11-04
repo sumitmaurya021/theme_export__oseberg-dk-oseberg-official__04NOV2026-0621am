@@ -1,0 +1,609 @@
+{%- liquid
+  assign first_color = blank
+  for block in section.blocks
+    if block.type == 'color' and first_color == blank
+      assign first_color = block
+    endif
+  endfor
+  assign color_count = 0
+  assign model_count = 0
+  for block in section.blocks
+    if block.type == 'color'
+      assign color_count = color_count | plus: 1
+    elsif block.type == 'model'
+      assign model_count = model_count | plus: 1
+    endif
+  endfor
+-%}
+
+{%- style -%}
+  #cm-{{ section.id }} {
+    --cm-bg: {{ section.settings.bg_color }};
+    --cm-title: {{ section.settings.title_color }};
+    --cm-sub: {{ section.settings.sub_color }};
+    --cm-text: {{ section.settings.text_color }};
+    --cm-card: {{ section.settings.card_color }};
+    --cm-line: {{ section.settings.line_color }};
+    --cm-active: {{ section.settings.active_color }};
+    --cm-btn-bg: {{ section.settings.button_bg }};
+    --cm-btn-color: {{ section.settings.button_color }};
+    --cm-btn-hover-bg: {{ section.settings.button_hover_bg }};
+    --cm-btn-hover-color: {{ section.settings.button_hover_color }};
+    background: var(--cm-bg);
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  /* Richtext resets */
+  #cm-{{ section.id }} .cm__richtext p {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    color: inherit;
+    font-family: inherit;
+  }
+
+  #cm-{{ section.id }} .cm__step + .cm__step { margin-top: clamp(32px, 3.6vw, 48px); }
+
+  /* ---------- Step heading row ---------- */
+  #cm-{{ section.id }} .cm__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 20px;
+    margin-bottom: 18px;
+  }
+
+  #cm-{{ section.id }} .cm__title {
+    margin: 0;
+    color: var(--cm-title);
+    font-family: var(--font-serif, 'Playfair Display', Georgia, 'Times New Roman', serif);
+    font-size: clamp(22px, 2.2vw, 32px);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: 0.01em;
+  }
+
+  #cm-{{ section.id }} .cm__sub {
+    flex: 1 1 260px;
+    min-width: 0;
+    color: var(--cm-sub);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(12px, 0.9vw, 14px);
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  #cm-{{ section.id }} .cm__count {
+    margin-left: auto;
+    color: var(--cm-sub);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(12px, 0.9vw, 14px);
+    font-weight: 400;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+
+  /* ---------- Colors ---------- */
+  #cm-{{ section.id }} .cm__colors {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  #cm-{{ section.id }} .cm__color {
+    appearance: none;
+    -webkit-appearance: none;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    background: var(--cm-card);
+    border: 1px solid transparent;
+    border-radius: 0;
+    cursor: pointer;
+    text-align: center;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+
+  #cm-{{ section.id }} .cm__color:hover { transform: translateY(-2px); }
+
+  #cm-{{ section.id }} .cm__color.is-active {
+    border-color: var(--cm-active);
+  }
+
+  #cm-{{ section.id }} .cm__swatch {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 0.82;
+    overflow: hidden;
+  }
+
+  #cm-{{ section.id }} .cm__swatch img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #cm-{{ section.id }} .cm__color-name {
+    display: block;
+    padding: 10px 6px 12px;
+    color: var(--cm-text);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+  }
+
+  /* ---------- Models ---------- */
+  #cm-{{ section.id }} .cm__models {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  #cm-{{ section.id }} .cm__model {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: var(--cm-card);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+  }
+
+  #cm-{{ section.id }} .cm__model.is-selected { border-color: var(--cm-active); }
+
+  #cm-{{ section.id }} .cm__model-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--cm-line);
+  }
+
+  #cm-{{ section.id }} .cm__model-media img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.35s ease, transform 0.6s ease;
+  }
+
+  #cm-{{ section.id }} .cm__model-media img.is-swapping { opacity: 0; }
+  #cm-{{ section.id }} .cm__model:hover .cm__model-media img { transform: scale(1.03); }
+
+  #cm-{{ section.id }} .cm__model-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    padding: 14px 14px 14px;
+    min-width: 0;
+  }
+
+  #cm-{{ section.id }} .cm__model-name {
+    margin: 0 0 4px;
+    color: var(--cm-title);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(13px, 1vw, 15px);
+    font-weight: 500;
+    line-height: 1.35;
+  }
+
+  #cm-{{ section.id }} .cm__model-dims {
+    margin: 0 0 6px;
+    color: var(--cm-sub);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  #cm-{{ section.id }} .cm__model-price {
+    margin: 0 0 14px;
+    color: var(--cm-title);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(14px, 1.1vw, 16px);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  #cm-{{ section.id }} .cm__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: auto;
+    padding: 12px 10px;
+    background: var(--cm-btn-bg);
+    color: var(--cm-btn-color);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.15em;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--cm-btn-bg);
+    border-radius: 0;
+    cursor: pointer;
+    transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  }
+
+  #cm-{{ section.id }} .cm__button::before,
+  #cm-{{ section.id }} .cm__button::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  #cm-{{ section.id }} .cm__button:hover {
+    background: var(--cm-btn-hover-bg);
+    color: var(--cm-btn-hover-color);
+    border-color: var(--cm-btn-hover-bg);
+  }
+
+  /* ---------- Tablet (750px - 989px) ---------- */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #cm-{{ section.id }} .cm__colors { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    #cm-{{ section.id }} .cm__models { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  }
+
+  /* ---------- Desktop (990px and up) ---------- */
+  @media screen and (min-width: 990px) {
+    #cm-{{ section.id }} .cm__colors {
+      grid-template-columns: repeat({{ color_count | at_least: 1 }}, minmax(0, 1fr));
+      gap: 12px;
+    }
+    #cm-{{ section.id }} .cm__models {
+      grid-template-columns: repeat({{ model_count | at_least: 1 | at_most: 4 }}, minmax(0, 1fr));
+      gap: 14px;
+    }
+    #cm-{{ section.id }} .cm__color-name { font-size: 13px; padding: 12px 6px 14px; }
+  }
+
+  /* ---------- Mobile (749px and below) ---------- */
+  @media screen and (max-width: 749px) {
+    #cm-{{ section.id }} .cm__head { margin-bottom: 14px; }
+    #cm-{{ section.id }} .cm__count { margin-left: 0; flex: 0 0 100%; }
+    #cm-{{ section.id }} .cm__model-body { padding: 10px 10px 12px; }
+    #cm-{{ section.id }} .cm__button { font-size: 10px; letter-spacing: 0.1em; padding: 11px 6px; }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     JS chalega to hi hide hota hai, warna content hamesha visible rahega
+     ============================================ */
+  #cm-{{ section.id }}.cm-anim .cm__head,
+  #cm-{{ section.id }}.cm-anim .cm__color,
+  #cm-{{ section.id }}.cm-anim .cm__model {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      border-color 0.3s ease;
+    transition-delay: calc(var(--cm-i, 0) * 0.08s);
+    will-change: opacity, transform;
+  }
+
+  #cm-{{ section.id }}.cm-anim.is-visible .cm__head,
+  #cm-{{ section.id }}.cm-anim.is-visible .cm__color,
+  #cm-{{ section.id }}.cm-anim.is-visible .cm__model {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #cm-{{ section.id }}.cm-anim.is-done .cm__head,
+  #cm-{{ section.id }}.cm-anim.is-done .cm__color,
+  #cm-{{ section.id }}.cm-anim.is-done .cm__model {
+    transition-delay: 0s;
+    will-change: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #cm-{{ section.id }}.cm-anim .cm__head,
+    #cm-{{ section.id }}.cm-anim .cm__color,
+    #cm-{{ section.id }}.cm-anim .cm__model {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    #cm-{{ section.id }} .cm__model-media img { transition: none; }
+  }
+{%- endstyle -%}
+
+<div id="cm-{{ section.id }}" class="custom-color-model-picker">
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+
+    {%- if color_count > 0 -%}
+      <div class="cm__step cm__step--colors">
+        <div class="cm__head">
+          {%- if section.settings.step1_title != blank -%}
+            <div class="cm__title cm__richtext" role="heading" aria-level="2">{{ section.settings.step1_title }}</div>
+          {%- endif -%}
+          {%- if section.settings.step1_sub != blank -%}
+            <div class="cm__sub cm__richtext">{{ section.settings.step1_sub }}</div>
+          {%- endif -%}
+          {%- if section.settings.step1_count != blank -%}
+            <div class="cm__count cm__richtext">{{ section.settings.step1_count }}</div>
+          {%- endif -%}
+        </div>
+
+        <div class="cm__colors">
+          {%- assign ci = 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'color' -%}
+              <button
+                type="button"
+                class="cm__color{% if block == first_color %} is-active{% endif %}"
+                style="--cm-i: {{ ci | plus: 1 }}"
+                aria-pressed="{% if block == first_color %}true{% else %}false{% endif %}"
+                {%- for n in (1..4) -%}
+                  {%- assign k = 'model_' | append: n | append: '_image' -%}
+                  {%- assign im = block.settings[k] -%}
+                  {%- if im != blank %} data-img-{{ n }}="{{ im | image_url: width: 900 }}"{%- endif -%}
+                {%- endfor %}
+                {{ block.shopify_attributes }}
+              >
+                <span class="cm__swatch" style="background: {{ block.settings.swatch_color }};">
+                  {%- if block.settings.swatch_image != blank -%}
+                    <img
+                      src="{{ block.settings.swatch_image | image_url: width: 300 }}"
+                      alt="{{ block.settings.name | escape }}"
+                      width="300"
+                      height="246"
+                      loading="lazy"
+                    >
+                  {%- endif -%}
+                </span>
+                <span class="cm__color-name">{{ block.settings.name | escape }}</span>
+              </button>
+              {%- assign ci = ci | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if model_count > 0 -%}
+      <div class="cm__step cm__step--models">
+        <div class="cm__head" style="--cm-i: 0">
+          {%- if section.settings.step2_title != blank -%}
+            <div class="cm__title cm__richtext" role="heading" aria-level="2">{{ section.settings.step2_title }}</div>
+          {%- endif -%}
+          {%- if section.settings.step2_sub != blank -%}
+            <div class="cm__sub cm__richtext">{{ section.settings.step2_sub }}</div>
+          {%- endif -%}
+          {%- if section.settings.step2_count != blank -%}
+            <div class="cm__count cm__richtext">{{ section.settings.step2_count }}</div>
+          {%- endif -%}
+        </div>
+
+        <div class="cm__models">
+          {%- assign mi = 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'model' -%}
+              {%- assign mi = mi | plus: 1 -%}
+              {%- assign k = 'model_' | append: mi | append: '_image' -%}
+              {%- liquid
+                assign show_img = block.settings.default_image
+                if first_color != blank
+                  assign first_img = first_color.settings[k]
+                  if first_img != blank
+                    assign show_img = first_img
+                  endif
+                endif
+              -%}
+              <div class="cm__model{% if mi == 1 %} is-selected{% endif %}" data-model="{{ mi }}" style="--cm-i: {{ mi }}" {{ block.shopify_attributes }}>
+                <div class="cm__model-media">
+                  {%- if show_img != blank -%}
+                    <img
+                      src="{{ show_img | image_url: width: 900 }}"
+                      data-default="{{ block.settings.default_image | image_url: width: 900 }}"
+                      alt="{{ block.settings.name | strip_html | escape }}"
+                      width="{{ show_img.width }}"
+                      height="{{ show_img.height }}"
+                      loading="lazy"
+                    >
+                  {%- endif -%}
+                </div>
+                <div class="cm__model-body">
+                  {%- if block.settings.name != blank -%}
+                    <div class="cm__model-name cm__richtext">{{ block.settings.name }}</div>
+                  {%- endif -%}
+                  {%- if block.settings.dims != blank -%}
+                    <div class="cm__model-dims cm__richtext">{{ block.settings.dims }}</div>
+                  {%- endif -%}
+                  {%- if block.settings.price != blank -%}
+                    <div class="cm__model-price cm__richtext">{{ block.settings.price }}</div>
+                  {%- endif -%}
+                  {%- if block.settings.button_text != blank -%}
+                    {%- if block.settings.button_link != blank -%}
+                      <a href="{{ block.settings.button_link }}" class="cm__button">{{ block.settings.button_text | escape }}</a>
+                    {%- else -%}
+                      <button type="button" class="cm__button">{{ block.settings.button_text | escape }}</button>
+                    {%- endif -%}
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+<script>
+  (function () {
+    var section = document.getElementById('cm-{{ section.id }}');
+    if (!section) return;
+
+    /* ---------- Colour click: model images badlo ---------- */
+    var colors = section.querySelectorAll('.cm__color');
+    var models = section.querySelectorAll('.cm__model');
+
+    function applyColor(btn) {
+      colors.forEach(function (c) {
+        var on = c === btn;
+        c.classList.toggle('is-active', on);
+        c.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+
+      models.forEach(function (model) {
+        var n = model.getAttribute('data-model');
+        var img = model.querySelector('.cm__model-media img');
+        if (!img) return;
+        var next = btn.getAttribute('data-img-' + n) || img.getAttribute('data-default');
+        if (!next || img.getAttribute('src') === next) return;
+
+        img.classList.add('is-swapping');
+        var loader = new Image();
+        loader.onload = function () {
+          img.removeAttribute('srcset');
+          img.src = next;
+          img.classList.remove('is-swapping');
+        };
+        loader.onerror = function () { img.classList.remove('is-swapping'); };
+        loader.src = next;
+      });
+    }
+
+    colors.forEach(function (btn) {
+      btn.addEventListener('click', function () { applyColor(btn); });
+    });
+
+    /* ---------- Model select (border) ---------- */
+    models.forEach(function (model) {
+      model.addEventListener('click', function () {
+        models.forEach(function (m) { m.classList.toggle('is-selected', m === model); });
+      });
+    });
+
+    /* ---------- Scroll fade-up (stagger) ---------- */
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    section.classList.add('cm-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+          window.setTimeout(function () {
+            section.classList.add('is-done');
+          }, 2600);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    observer.observe(section);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Custom Color & Models",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 20,
+  "settings": [
+    { "type": "header", "content": "Step 1 (Colors)" },
+    { "type": "richtext", "id": "step1_title", "label": "Title", "default": "<p>1. Vælg farve</p>" },
+    { "type": "richtext", "id": "step1_sub", "label": "Small Text", "default": "<p>Klik på en farve for at se sofa modellerne i den valgte farve.</p>" },
+    { "type": "richtext", "id": "step1_count", "label": "Right Text", "default": "<p>9 eksklusive farver –</p>" },
+
+    { "type": "header", "content": "Step 2 (Models)" },
+    { "type": "richtext", "id": "step2_title", "label": "Title", "default": "<p>2. Vælg sofa model</p>" },
+    { "type": "richtext", "id": "step2_sub", "label": "Small Text", "default": "<p>Vælg den sofa, dit betræk skal passe til. Alle modeller kan ombygges, som du ser på billederne.</p>" },
+    { "type": "richtext", "id": "step2_count", "label": "Right Text", "default": "<p>4 sofa modeller –</p>" },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#FAF6F0" },
+    { "type": "color", "id": "card_color", "label": "Card Background", "default": "#FFFFFF" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#302821" },
+    { "type": "color", "id": "sub_color", "label": "Small Text Color", "default": "#7A6A5B" },
+    { "type": "color", "id": "text_color", "label": "Color Name Text", "default": "#302821" },
+    { "type": "color", "id": "line_color", "label": "Image Placeholder Color", "default": "#DED2C3" },
+    { "type": "color", "id": "active_color", "label": "Selected Border Color", "default": "#302821" },
+    { "type": "color", "id": "button_bg", "label": "Button Background", "default": "#A58C76" },
+    { "type": "color", "id": "button_color", "label": "Button Text Color", "default": "#FFFFFF" },
+    { "type": "color", "id": "button_hover_bg", "label": "Button Hover Background", "default": "#302821" },
+    { "type": "color", "id": "button_hover_color", "label": "Button Hover Text Color", "default": "#FFFFFF" },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": false },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Top", "default": 40 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 40 }
+  ],
+  "blocks": [
+    {
+      "type": "color",
+      "name": "Color",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Color Name", "default": "Karri gul" },
+        { "type": "image_picker", "id": "swatch_image", "label": "Swatch Image", "info": "Khaali = neeche wala swatch color dikhega." },
+        { "type": "color", "id": "swatch_color", "label": "Swatch Color (fallback)", "default": "#D9A21B" },
+        { "type": "header", "content": "Sofa images in this color" },
+        { "type": "image_picker", "id": "model_1_image", "label": "Model 1 Image" },
+        { "type": "image_picker", "id": "model_2_image", "label": "Model 2 Image" },
+        { "type": "image_picker", "id": "model_3_image", "label": "Model 3 Image" },
+        { "type": "image_picker", "id": "model_4_image", "label": "Model 4 Image" }
+      ]
+    },
+    {
+      "type": "model",
+      "name": "Sofa Model",
+      "settings": [
+        { "type": "image_picker", "id": "default_image", "label": "Default Image", "info": "Jis colour mein image nahi bhari, wahan ye dikhegi." },
+        { "type": "richtext", "id": "name", "label": "Name", "default": "<p>Oseberg Lounge Sofa 01</p>" },
+        { "type": "richtext", "id": "dims", "label": "Size", "default": "<p>B 300 × D 200 × H 70 cm</p>" },
+        { "type": "richtext", "id": "price", "label": "Price", "default": "<p>5.995 kr.</p>" },
+        { "type": "text", "id": "button_text", "label": "Button Text", "default": "Vælg denne model" },
+        { "type": "url", "id": "button_link", "label": "Button Link", "info": "Khaali = sirf card select hoga." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Color & Model Picker",
+      "blocks": [
+        { "type": "color", "settings": { "name": "Karri gul", "swatch_color": "#D9A21B" } },
+        { "type": "color", "settings": { "name": "Greige", "swatch_color": "#C9BDB3" } },
+        { "type": "color", "settings": { "name": "Salviegrøn", "swatch_color": "#8A9A83" } },
+        { "type": "color", "settings": { "name": "Mørkebrun", "swatch_color": "#4A3228" } },
+        { "type": "color", "settings": { "name": "Støvet rosa", "swatch_color": "#C98A8E" } },
+        { "type": "color", "settings": { "name": "Marineblå", "swatch_color": "#1F3B5C" } },
+        { "type": "color", "settings": { "name": "Ivory", "swatch_color": "#EFE9DE" } },
+        { "type": "color", "settings": { "name": "Rust", "swatch_color": "#B5502A" } },
+        { "type": "color", "settings": { "name": "Antracit", "swatch_color": "#2B2B2B" } },
+        { "type": "model", "settings": { "name": "<p>Oseberg Lounge Sofa 01</p>", "dims": "<p>B 300 × D 200 × H 70 cm</p>", "price": "<p>5.995 kr.</p>" } },
+        { "type": "model", "settings": { "name": "<p>Oseberg Sofa 02</p>", "dims": "<p>B 280 × D 180 × H 70 cm</p>", "price": "<p>5.495 kr.</p>" } },
+        { "type": "model", "settings": { "name": "<p>Oseberg Sofa 03</p>", "dims": "<p>B 260 × D 160 × H 70 cm</p>", "price": "<p>4.995 kr.</p>" } },
+        { "type": "model", "settings": { "name": "<p>Oseberg Sofa 04</p>", "dims": "<p>B 240 × D 240 × H 70 cm</p>", "price": "<p>5.495 kr.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

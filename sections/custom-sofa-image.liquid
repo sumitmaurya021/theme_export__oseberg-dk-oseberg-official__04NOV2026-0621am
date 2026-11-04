@@ -1,0 +1,158 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="custom-sofa-section section-{{ section.id }}-padding" style="background-color: {{ section.settings.bg_color }};">
+  <div class="page-width">
+    <div class="custom-sofa-container">
+      <div class="custom-sofa-text">
+        <span class="custom-sofa-tag">{{ section.settings.sofa_tag }}</span>
+        <h2 class="custom-sofa-title">{{ section.settings.sofa_title }}</h2>
+        <a href="{{ section.settings.button_link }}" class="custom-sofa-button">
+          <span title="{{ section.settings.button_label }}">{{ section.settings.button_label }}</span>
+        </a>
+      </div>
+      <div class="custom-sofa-image">
+        {% if section.settings.sofa_image != blank %}
+          <img src="{{ section.settings.sofa_image | img_url: '1000x' }}" alt="{{ section.settings.title }}">
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% comment %}
+<style>
+  .custom-sofa-section {
+    padding: 50px 0;
+    background-color: #F6F1EC;
+  }
+  .custom-sofa-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  @media (min-width: 768px) {
+    .custom-sofa-content {
+      display: flex;
+      flex-direction: row;
+      gap: 30px;
+    }
+    .custom-sofa-text {
+      width: 32%;
+      padding-left: 20px;
+    }
+    .custom-sofa-image {
+      width: 68%;
+      padding-left: 20px;
+    }
+  }
+  .custom-sofa-tag {
+    display: block;
+    margin-bottom: 10px;
+    color: #999;
+    text-transform: uppercase;
+    font-size: 14px;
+  }
+  .custom-sofa-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 20px;
+  }
+  .custom-sofa-button {
+    display: inline-block;
+    padding: 12px 20px;
+    border: 2px solid black;
+    color: black;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+    font-weight: bold;
+  }
+  .custom-sofa-button:hover {
+    background: white;
+    border-color: white;
+    color: black;
+  }
+  .custom-sofa-image img {
+    width: 100%;
+    border-radius: 10px;
+  }
+</style>
+{% endcomment %}
+{% schema %}
+{
+  "name": "Custom Sofa Section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#f9f3ee"
+    },
+    {
+      "type": "text",
+      "id": "sofa_tag",
+      "label": "Tag",
+      "default": "LEGESOFA"
+    },
+    {
+      "type": "text",
+      "id": "sofa_title",
+      "label": "Title",
+      "default": "Uendelige muligheder og leg med Imagine."
+    },
+    {
+      "type": "image_picker",
+      "id": "sofa_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Oplev imagine"
+    },
+     {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Sofa Section"
+    }
+  ]
+}
+{% endschema %}

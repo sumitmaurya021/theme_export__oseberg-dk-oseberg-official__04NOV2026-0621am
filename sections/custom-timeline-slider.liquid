@@ -1,0 +1,159 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+<section class="custom-timeline-section section-{{ section.id }}-padding">
+  <div class="custom-timeline-slider">
+    <div class="page-width">
+      <div class="custom-timeline-content">
+        <h3 class="subheading">{{ section.settings.timeline_sub_text }}</h3>
+        <h2 class="heading">{{ section.settings.timeline_main_text }}</h2>
+        <a href="{{ section.settings.button_link }}" class="ct-btn">
+          <span title="{{ section.settings.button_label }}">{{ section.settings.button_label }}</span>
+        </a>
+      </div>
+      <div class="custom-timeline-slider-container swiper">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            <div class="swiper-slide">
+              <div class="timeline-step">
+                <div class="step-number-wrapper">
+                  {% comment %}
+                    {% if forloop.last == false %}
+                      <div class="step-line"></div>
+                    {% endif %}
+                  {% endcomment %}
+                  <div class="step-line"></div>
+                  <div class="step-number">{{ block.settings.step_number }}</div>
+                  {% if forloop.last == true %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 23" fill="none" aria-hidden="true">
+                      <line x1="10.4199" y1="22.1933" x2="21.1933" y2="11.4199" stroke="currentColor"></line>
+                      <line x1="10.7129" y1="1.061" x2="21.4864" y2="11.8344" stroke="currentColor"></line>
+                    </svg>
+                  {% endif %}
+                </div>
+                <h3 class="step-title">{{ block.settings.step_title }}</h3>
+                <div class="step-description">{{ block.settings.step_description }}</div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <!-- Scrollbar -->
+        <div class="swiper-scrollbar"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Timeline Slider",
+  "settings": [
+{
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    },
+              {
+                 "type": "text",
+                  "id": "timeline_sub_text",
+                  "label": "Sub Text"
+              },
+              {
+                "type": "text",
+                "id": "timeline_main_text",
+                "label": "Main Heading"
+              },
+
+     {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Explore"
+        }
+],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "step_number",
+          "label": "Step Number",
+          "default": "1"
+        },
+        {
+          "type": "text",
+          "id": "step_title",
+          "label": "Step Title",
+          "default": "Step Title Here"
+        },
+        {
+          "type": "textarea",
+          "id": "step_description",
+          "label": "Step Description",
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Timeline Slider",
+      "blocks": [
+        { "type": "step" },
+        { "type": "step" },
+        { "type": "step" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<!-- Styles -->
+
+<!-- Swiper Script -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var swiper = new Swiper(".custom-timeline-slider-container", {
+      slidesPerView: 1,
+      spaceBetween: 32,
+      scrollbar: {
+        el: ".swiper-scrollbar",
+        draggable: true,
+      },
+      breakpoints: {
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 }
+      }
+    });
+  });
+</script>

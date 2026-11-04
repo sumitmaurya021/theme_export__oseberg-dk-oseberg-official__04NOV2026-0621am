@@ -1,0 +1,585 @@
+{%- liquid
+  assign card_count = section.blocks.size | at_least: 1
+  assign grid_cols = card_count | at_most: 2
+  if card_count == 1
+    assign is_single = true
+  else
+    assign is_single = false
+  endif
+-%}
+
+{%- style -%}
+  #split-{{ section.id }} {
+    --sp-eyebrow: {{ section.settings.eyebrow_color }};
+    --sp-title: {{ section.settings.title_color }};
+    --sp-desc: {{ section.settings.desc_color }};
+    --sp-btn-bg: {{ section.settings.button_bg }};
+    --sp-btn-color: {{ section.settings.button_color }};
+    --sp-btn-hover-bg: {{ section.settings.button_hover_bg }};
+    --sp-btn-hover-color: {{ section.settings.button_hover_color }};
+    --sp-label: {{ section.settings.label_color }};
+    --sp-caption: {{ section.settings.caption_color }};
+    --sp-radius: {{ section.settings.image_radius }}px;
+    --sp-ratio: {{ section.settings.image_ratio }};
+    --sp-single-max: {{ section.settings.single_image_max }}px;
+    background: {{ section.settings.bg_color }};
+    border-top: 1px solid {{ section.settings.border_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  #split-{{ section.id }} .sp__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    align-items: center;
+  }
+
+  /* ---------- Content ---------- */
+  #split-{{ section.id }} .sp__content {
+    min-width: 0;
+  }
+
+  #split-{{ section.id }} .sp__eyebrow {
+    margin: 0 0 16px;
+    color: var(--sp-eyebrow);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  #split-{{ section.id }} .sp__title {
+    margin: 0 0 24px;
+    color: var(--sp-title);
+    font-family: var(--font-serif, 'Playfair Display', Georgia, 'Times New Roman', serif);
+    font-size: clamp(28px, 3.2vw, 48px);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  #split-{{ section.id }} .sp__desc {
+    margin: 0 0 32px;
+    max-width: 440px;
+    color: var(--sp-desc);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(14px, 1.05vw, 16px);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: normal;
+  }
+
+  #split-{{ section.id }} .sp__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    padding: clamp(14px, 1.2vw, 18px) clamp(24px, 2.4vw, 36px);
+    background: var(--sp-btn-bg);
+    color: var(--sp-btn-color);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.15em;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--sp-btn-bg);
+    border-radius: 0;
+    transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  }
+
+  #split-{{ section.id }} .sp__button::before,
+  #split-{{ section.id }} .sp__button::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  #split-{{ section.id }} .sp__button:hover {
+    background: var(--sp-btn-hover-bg);
+    color: var(--sp-btn-hover-color);
+    border-color: var(--sp-btn-hover-bg);
+  }
+
+  /* ---------- Image cards ---------- */
+  #split-{{ section.id }} .sp__cards {
+    display: grid;
+    grid-template-columns: repeat({{ grid_cols }}, minmax(0, 1fr));
+    gap: clamp(12px, 1.6vw, 20px);
+    min-width: 0;
+  }
+
+  {%- if is_single -%}
+  #split-{{ section.id }} .sp__cards {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: var(--sp-single-max);
+    width: 100%;
+  }
+  {%- endif -%}
+
+  #split-{{ section.id }} .sp__card {
+    display: block;
+    min-width: 0;
+    color: inherit;
+    text-decoration: none;
+    text-align: center;
+  }
+
+  #split-{{ section.id }} .sp__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: var(--sp-ratio);
+    overflow: hidden;
+    border-radius: var(--sp-radius);
+    background: #DED2C3;
+  }
+
+  #split-{{ section.id }} .sp__media img,
+  #split-{{ section.id }} .sp__media svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #split-{{ section.id }} .sp__media img {
+    transition: transform 0.6s ease;
+  }
+
+  #split-{{ section.id }} a.sp__card:hover .sp__media img {
+    transform: scale(1.04);
+  }
+
+  #split-{{ section.id }} .sp__label {
+    margin: 16px 0 6px;
+    color: var(--sp-label);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  #split-{{ section.id }} .sp__caption {
+    margin: 0;
+    color: var(--sp-caption);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: normal;
+  }
+
+  /* ---------- Tablet (750px - 989px) ---------- */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #split-{{ section.id }} .sp__grid {
+      gap: 40px;
+    }
+
+    #split-{{ section.id }} .sp__desc {
+      max-width: 560px;
+    }
+
+    #split-{{ section.id }} .sp__title {
+      font-size: clamp(32px, 5vw, 44px);
+    }
+  }
+
+  /* ---------- Desktop (990px and up) ---------- */
+  @media screen and (min-width: 990px) {
+    #split-{{ section.id }} .sp__grid {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+      gap: clamp(32px, 4vw, 64px);
+    }
+
+    #split-{{ section.id }} .sp__label {
+      margin-top: 20px;
+    }
+
+    {%- if section.settings.content_position == 'right' -%}
+    #split-{{ section.id }} .sp__grid {
+      grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+    }
+    #split-{{ section.id }} .sp__content {
+      order: 2;
+    }
+    #split-{{ section.id }} .sp__cards {
+      order: 1;
+    }
+    {%- endif -%}
+
+    {%- if is_single -%}
+    /* Single image: content + image centered together with a tight gap */
+    #split-{{ section.id }} .sp__grid {
+      {%- if section.settings.content_position == 'right' -%}
+      grid-template-columns: minmax(0, var(--sp-single-max)) minmax(0, 440px);
+      {%- else -%}
+      grid-template-columns: minmax(0, 440px) minmax(0, var(--sp-single-max));
+      {%- endif %}
+      justify-content: center;
+      gap: 40px;
+    }
+    #split-{{ section.id }} .sp__cards {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    {%- endif -%}
+  }
+
+  /* ---------- Mobile (749px and below) ---------- */
+  @media screen and (max-width: 749px) {
+    #split-{{ section.id }} .sp__grid {
+      gap: 28px;
+    }
+
+    #split-{{ section.id }} .sp__title {
+      margin-bottom: 18px;
+    }
+
+    #split-{{ section.id }} .sp__desc {
+      margin-bottom: 24px;
+      max-width: 100%;
+    }
+
+    #split-{{ section.id }} .sp__cards {
+      grid-template-columns: repeat({{ section.settings.columns_mobile }}, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    {%- if is_single -%}
+    #split-{{ section.id }} .sp__cards {
+      grid-template-columns: minmax(0, 1fr);
+      max-width: 100%;
+      width: 100%;
+    }
+    {%- endif -%}
+
+    #split-{{ section.id }} .sp__label {
+      margin-top: 12px;
+      font-size: 11px;
+    }
+
+    #split-{{ section.id }} .sp__caption {
+      font-size: 11px;
+    }
+  }
+
+  /* Very small phones: button full width */
+  @media screen and (max-width: 479px) {
+    #split-{{ section.id }} .sp__button {
+      width: 100%;
+    }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     JS chalega to hi hide hota hai, warna content hamesha visible rahega
+     ============================================ */
+
+  /* Direction: content left hai to text left se aayega aur images right se (content right ho to ulta) */
+  #split-{{ section.id }} {
+    {%- if section.settings.content_position == 'right' -%}
+    --sp-content-x: 28px;
+    --sp-cards-x: -28px;
+    {%- else -%}
+    --sp-content-x: -28px;
+    --sp-cards-x: 28px;
+    {%- endif %}
+  }
+
+  /* Text: ek-ek line fade-in, left se halka slide */
+  #split-{{ section.id }}.sp-anim .sp__content > * {
+    opacity: 0;
+    transform: translateX(var(--sp-content-x));
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+    transition-delay: calc(var(--sp-ci, 0) * 0.12s), calc(var(--sp-ci, 0) * 0.12s), 0s, 0s, 0s;
+    will-change: opacity, transform;
+  }
+
+  /* Images: right se halka slide + fade-in, ek ke baad ek */
+  #split-{{ section.id }}.sp-anim .sp__card {
+    opacity: 0;
+    transform: translateX(var(--sp-cards-x));
+    transition:
+      opacity 1.1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1.1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: calc(0.25s + var(--sp-i, 0) * 0.2s);
+    will-change: opacity, transform;
+  }
+
+  #split-{{ section.id }}.sp-anim.is-visible .sp__content > * {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  #split-{{ section.id }}.sp-anim.is-visible .sp__card {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Hover pe delay na lage: animation ke baad normal */
+  #split-{{ section.id }}.sp-anim.is-done .sp__content > *,
+  #split-{{ section.id }}.sp-anim.is-done .sp__card {
+    transition-delay: 0s;
+  }
+
+  /* Mobile: stacked hai, to side slide ki jagah halka fade-up */
+  @media screen and (max-width: 749px) {
+    #split-{{ section.id }} {
+      --sp-content-x: 0px;
+      --sp-cards-x: 0px;
+    }
+
+    #split-{{ section.id }}.sp-anim .sp__content > *,
+    #split-{{ section.id }}.sp-anim .sp__card {
+      transform: translateY(20px);
+    }
+
+    #split-{{ section.id }}.sp-anim.is-visible .sp__content > *,
+    #split-{{ section.id }}.sp-anim.is-visible .sp__card {
+      transform: translateY(0);
+    }
+  }
+
+  /* Reduced motion: sab animation off */
+  @media (prefers-reduced-motion: reduce) {
+    #split-{{ section.id }}.sp-anim .sp__content > *,
+    #split-{{ section.id }}.sp-anim .sp__card {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    #split-{{ section.id }} .sp__media img {
+      transition: none;
+    }
+  }
+{%- endstyle -%}
+
+<div id="split-{{ section.id }}" class="custom-split-showcase">
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+    <div class="sp__grid">
+
+      <div class="sp__content">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="sp__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.title != blank -%}
+          <h2 class="sp__title">{{ section.settings.title | escape | newline_to_br }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <p class="sp__desc">{{ section.settings.description | escape | newline_to_br }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.button_text != blank and section.settings.button_link != blank -%}
+          <a href="{{ section.settings.button_link }}" class="sp__button">{{ section.settings.button_text }}</a>
+        {%- endif -%}
+      </div>
+
+      <div class="sp__cards">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            if block.settings.link != blank
+              assign tag = 'a'
+            else
+              assign tag = 'div'
+            endif
+          -%}
+          <{{ tag }}{% if tag == 'a' %} href="{{ block.settings.link }}"{% endif %} class="sp__card" {{ block.shopify_attributes }}>
+            <div class="sp__media">
+              {%- if block.settings.image != blank -%}
+                <img
+                  src="{{ block.settings.image | image_url: width: 1000 }}"
+                  srcset="{{ block.settings.image | image_url: width: 400 }} 400w,
+                          {{ block.settings.image | image_url: width: 600 }} 600w,
+                          {{ block.settings.image | image_url: width: 800 }} 800w,
+                          {{ block.settings.image | image_url: width: 1000 }} 1000w,
+                          {{ block.settings.image | image_url: width: 1400 }} 1400w"
+                  {%- if is_single %}
+                  sizes="(min-width: 990px) 480px, 100vw"
+                  {%- else %}
+                  sizes="(min-width: 990px) 36vw, (min-width: 750px) 45vw, 50vw"
+                  {%- endif %}
+                  alt="{{ block.settings.image.alt | default: block.settings.label | escape }}"
+                  width="{{ block.settings.image.width }}"
+                  height="{{ block.settings.image.height }}"
+                  loading="lazy"
+                >
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag }}
+              {%- endif -%}
+            </div>
+
+            {%- if block.settings.label != blank -%}
+              <p class="sp__label">{{ block.settings.label }}</p>
+            {%- endif -%}
+
+            {%- if block.settings.caption != blank -%}
+              <p class="sp__caption">{{ block.settings.caption }}</p>
+            {%- endif -%}
+          </{{ tag }}>
+        {%- endfor -%}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Scroll fade-in (text + images stagger) -->
+<script>
+  (function () {
+    var section = document.getElementById('split-{{ section.id }}');
+    if (!section) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var contentItems = section.querySelectorAll('.sp__content > *');
+    var cards = section.querySelectorAll('.sp__card');
+
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    contentItems.forEach(function (el, i) {
+      el.style.setProperty('--sp-ci', i);
+    });
+    cards.forEach(function (el, i) {
+      el.style.setProperty('--sp-i', i);
+    });
+
+    section.classList.add('sp-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+
+          /* animation khatam hone ke baad delay hata do, taaki hover smooth rahe */
+          window.setTimeout(function () {
+            section.classList.add('is-done');
+          }, 2200);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    observer.observe(section);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Custom Split Showcase",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "header", "content": "Left Content" },
+    { "type": "text", "id": "eyebrow", "label": "Small Heading", "default": "The Oseberg" },
+    { "type": "textarea", "id": "title", "label": "Title (new line = line break)", "default": "One sofa.\nTwo ways to live." },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description (new line = line break)",
+      "default": "Designed to move with you.\nExpand it when you need more space.\nBring it back together when you want something more intimate."
+    },
+    { "type": "text", "id": "button_text", "label": "Button Text", "default": "Explore the Oseberg →" },
+    { "type": "url", "id": "button_link", "label": "Button Link" },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "border_color", "label": "Top Border Color", "default": "#A58C76" },
+    { "type": "color", "id": "eyebrow_color", "label": "Small Heading Color", "default": "#A58C76" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#302821" },
+    { "type": "color", "id": "desc_color", "label": "Description Color", "default": "#302821" },
+    { "type": "color", "id": "button_bg", "label": "Button Background", "default": "#302821" },
+    { "type": "color", "id": "button_color", "label": "Button Text Color", "default": "#FFFFFF" },
+    { "type": "color", "id": "button_hover_bg", "label": "Button Hover Background", "default": "#A58C76" },
+    { "type": "color", "id": "button_hover_color", "label": "Button Hover Text Color", "default": "#FFFFFF" },
+    { "type": "color", "id": "label_color", "label": "Image Label Color", "default": "#302821" },
+    { "type": "color", "id": "caption_color", "label": "Image Caption Color", "default": "#302821" },
+
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content Position (Desktop)",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Content Left, Images Right" },
+        { "value": "right", "label": "Content Right, Images Left" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image Shape",
+      "default": "1 / 1",
+      "options": [
+        { "value": "5 / 4", "label": "Landscape (5:4)" },
+        { "value": "1 / 1", "label": "Square (1:1)" },
+        { "value": "4 / 5", "label": "Portrait (4:5)" },
+        { "value": "3 / 4", "label": "Tall Portrait (3:4)" }
+      ]
+    },
+    { "type": "range", "id": "single_image_max", "min": 280, "max": 800, "step": 20, "unit": "px", "label": "Max Image Width (when only 1 block, desktop)", "default": 480 },
+    { "type": "range", "id": "image_radius", "min": 0, "max": 24, "step": 2, "unit": "px", "label": "Image Corner Radius", "default": 0 },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Image Columns (Mobile)",
+      "default": "2",
+      "options": [
+        { "value": "1", "label": "1 (stacked)" },
+        { "value": "2", "label": "2 (side by side)" }
+      ]
+    },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": false },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Top", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 48 }
+  ],
+  "blocks": [
+    {
+      "type": "image_card",
+      "name": "Image Card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "label", "label": "Title", "default": "Compact" },
+        { "type": "text", "id": "caption", "label": "Description", "default": "A cozy and stylish everyday sofa." },
+        { "type": "url", "id": "link", "label": "Link (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Split Showcase",
+      "blocks": [
+        {
+          "type": "image_card",
+          "settings": { "label": "Compact", "caption": "A cozy and stylish everyday sofa." }
+        },
+        {
+          "type": "image_card",
+          "settings": { "label": "Expanded", "caption": "More space for family and friends." }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

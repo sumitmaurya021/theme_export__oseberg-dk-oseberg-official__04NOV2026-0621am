@@ -1,0 +1,73 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_breadcrumb_section_dVxYHe": {
+      "type": "custom-breadcrumb-section",
+      "settings": {
+        "background_color": "#ffffff"
+      }
+    },
+    "main": {
+      "type": "main-article",
+      "blocks": {
+        "featured_image_MdHDKx": {
+          "type": "featured_image",
+          "settings": {
+            "image_height": "adapt"
+          }
+        },
+        "title_8HGpEA": {
+          "type": "title",
+          "settings": {
+            "blog_show_date": true,
+            "blog_show_author": false
+          }
+        },
+        "content_UBGqAe": {
+          "type": "content",
+          "settings": {}
+        },
+        "share_6Q6KzP": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "featured_image_MdHDKx",
+        "title_8HGpEA",
+        "content_UBGqAe",
+        "share_6Q6KzP"
+      ],
+      "settings": {}
+    },
+    "video_cywRt4": {
+      "type": "video",
+      "settings": {
+        "heading": "Video",
+        "heading_size": "h1",
+        "enable_video_looping": false,
+        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "description": "",
+        "full_width": false,
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "custom_breadcrumb_section_dVxYHe",
+    "main",
+    "video_cywRt4"
+  ]
+}

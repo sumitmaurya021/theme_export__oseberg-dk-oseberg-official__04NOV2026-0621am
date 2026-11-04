@@ -1,0 +1,235 @@
+{% schema %}
+{
+  "name": "FAQ Popup",
+  "settings": [
+     {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section Id"
+    },
+    {
+      "type": "text",
+      "id": "dr_heading",
+      "label": "Faq Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question_text",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer_text",
+          "label": "Answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CUFAQ Popup Section"
+    }
+  ]
+}
+{% endschema %}
+
+<div id="{{ section.settings.section_id }}" class="faq-popup-section page-width">
+  <!-- Heading -->
+  <div class="main-custom-qn">
+    <div class="faq-heading-toggle" onclick="showFaqQuestions()">
+      <span>{{ section.settings.dr_heading }}</span>
+      <svg
+        id="faq-arrow-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        height="18"
+        viewBox="0 0 20 20"
+        fill="none"
+        aria-hidden="true"
+        class="faq-icon stroke-current"
+        role="img"
+        stroke="#0e1f2a"
+      >
+        <path d="M17.0711 8.07107L10.7071 14.435C10.3166 14.8256 9.68342 14.8256 9.29289 14.435L2.92893 8.07107" stroke-width="1.5" stroke-linecap="round"></path>
+        <title>chevron-down</title>
+      </svg>
+    </div>
+
+    <!-- Questions List -->
+    <div id="faqQuestions" style="display: none;">
+      {% for block in section.blocks %}
+        <div class="faq-question" onclick="openFaqModal(`{{ block.settings.answer_text | strip_newlines }}`)">
+          {{ block.settings.question_text }}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="faqModal" class="faq-modal">
+  <div class="faq-modal-content">
+    <span class="faq-close-btn" onclick="closeFaqModal()">&times;</span>
+    <div id="faqModalText"></div>
+  </div>
+</div>
+
+<style>
+        .faq-popup-section {
+          max-width: 662px;
+          margin: auto;
+          padding-top: 80px;
+          padding-bottom: 80px;
+        }
+
+        .faq-heading-toggle {
+          cursor: pointer;
+          font-size: 22px;
+          font-weight: bold;
+          margin-bottom: 10px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          justify-content:space-between;
+        }
+
+        .faq-icon {
+          transition: transform 0.3s ease;
+        }
+
+        .rotate-up {
+          transform: rotate(180deg);
+        }
+
+        .faq-question {
+          cursor: pointer;
+          padding: 15px 10px;
+          font-size: 16px;
+          font-weight: 600;
+          color: #0e1f2a;
+          line-height: 1.4;
+        }
+
+        .faq-modal {
+          display: none;
+          position: fixed;
+          z-index: 9999;
+          left: 0; top: 0;
+          width: 100%; height: 100%;
+          background: rgba(0,0,0,0.6);
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+        }
+
+        .faq-modal-content {
+          background: #fff;
+          padding: 25px;
+          max-width: 600px;
+          width: 100%;
+          position: relative;
+          border-radius: 10px;
+          text-align: left;
+        }
+
+        .faq-close-btn {
+          position: absolute;
+          top: 10px;
+          right: 12px;
+          cursor: pointer;
+          font-size: 26px;
+          color: #333;
+        }
+
+        .faq-modal-content ul {
+          margin: 20px 0;
+          padding-left: 20px;
+        }
+
+        .faq-modal-content ul li {
+          margin-bottom: 12px;
+          font-size: 16px;
+          color: #000;
+        }
+        .faq-popup-section{
+          max-width: 662px;
+          margin: auto;
+          padding: 32px 20px;
+      }
+      .faq-popup-section .main-custom-qn{
+          padding: 32px 0px;
+          border-top: 1px solid #0e1f2a;
+          border-bottom: 1px solid #0e1f2a;
+      }
+      .faq-popup-section .main-custom-qn .faq-heading-toggle{
+          margin-bottom: 0px;
+      }
+      .faq-popup-section .main-custom-qn .faq-heading-toggle span {
+          margin: 0px;
+          font-weight: 700;
+          color: #0e1f2a;
+          font-size: 16px;
+          line-height: 1.4;
+      }
+      .main-custom-qn #faqQuestions{
+          padding-top: 32px;
+      }
+      .main-custom-qn .faq-question{
+          padding: 0px;
+          color:#121212bf;
+          font-size: 16px;
+          line-height: 1.4;
+          font-weight: 400;
+      }
+      .main-custom-qn .faq-question{
+        position:relative;
+    }
+    .main-custom-qn .faq-question::before {
+        content: "•";
+        position: absolute;
+        left: -17px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 12px;
+        color: #121212bf;
+    }
+    .main-custom-qn #faqQuestions{
+      padding-left: 40px;
+    }
+    .faq-popup-section .main-custom-qn:has(#faqQuestions[style="display: block;"]){
+      padding-bottom: 16px;
+  }
+</style>
+
+<script>
+  function showFaqQuestions() {
+    var questions = document.getElementById("faqQuestions");
+    var icon = document.getElementById("faq-arrow-icon");
+
+    const isOpen = questions.style.display === "block";
+    questions.style.display = isOpen ? "none" : "block";
+
+    icon.classList.toggle("rotate-up", !isOpen);
+  }
+
+  function openFaqModal(answer) {
+    document.getElementById("faqModalText").innerHTML = answer;
+    document.getElementById("faqModal").style.display = "flex";
+  }
+
+  function closeFaqModal() {
+    document.getElementById("faqModal").style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    if (event.target == document.getElementById("faqModal")) {
+      closeFaqModal();
+    }
+  }
+</script>

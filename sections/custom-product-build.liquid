@@ -1,0 +1,253 @@
+{%- liquid
+  assign mf = product.metafields.custom
+  assign pb_title = mf.byg_titel.value
+  assign pb_desc = mf.byg_beskrivelse.value
+  assign pb_card_titles = mf.byg_kort_titler.value | strip | newline_to_br | split: '<br />'
+  assign pb_card_descs = mf.byg_kort_beskrivelser.value | strip | newline_to_br | split: '<br />'
+  assign pb_count = pb_card_titles.size | at_most: 3
+  if mf.byg_kort_titler.value == blank
+    assign pb_count = 0
+  endif
+-%}
+
+{%- if pb_title != blank or pb_count > 0 -%}
+
+{%- style -%}
+  #pbuild-{{ section.id }} {
+    --pb-title: {{ section.settings.title_color }};
+    --pb-desc: {{ section.settings.desc_color }};
+    --pb-card-bg: {{ section.settings.card_bg }};
+    --pb-card-border: {{ section.settings.card_border }};
+    --pb-card-title: {{ section.settings.card_title_color }};
+    --pb-card-desc: {{ section.settings.card_desc_color }};
+    --pb-radius: {{ section.settings.card_radius }}px;
+    background: {{ section.settings.bg_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  #pbuild-{{ section.id }} .pb__head { margin: 0 0 32px; }
+
+  #pbuild-{{ section.id }} .pb__title {
+    margin: 0 0 16px;
+    color: var(--pb-title);
+    font-family: var(--font-serif, 'Playfair Display', Georgia, 'Times New Roman', serif);
+    font-size: clamp(28px, 3.2vw, 48px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  #pbuild-{{ section.id }} .pb__desc {
+    margin: 0;
+    max-width: 640px;
+    color: var(--pb-desc);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(14px, 1.05vw, 16px);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: normal;
+  }
+
+  #pbuild-{{ section.id }} .pb__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  #pbuild-{{ section.id }} .pb__card {
+    min-width: 0;
+    padding: 24px 22px 28px;
+    background: var(--pb-card-bg);
+    border: 1px solid var(--pb-card-border);
+    border-radius: var(--pb-radius);
+  }
+
+  #pbuild-{{ section.id }} .pb__card-title {
+    margin: 0 0 12px;
+    color: var(--pb-card-title);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+    overflow-wrap: break-word;
+  }
+
+  #pbuild-{{ section.id }} .pb__card-desc {
+    margin: 0;
+    color: var(--pb-card-desc);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: normal;
+    overflow-wrap: break-word;
+  }
+
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #pbuild-{{ section.id }} .pb__title { font-size: clamp(32px, 5vw, 44px); }
+    #pbuild-{{ section.id }} .pb__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    #pbuild-{{ section.id }} .pb__grid {
+      grid-template-columns: repeat({{ pb_count | at_least: 1 }}, minmax(0, 1fr));
+      gap: clamp(16px, 2vw, 28px);
+    }
+    #pbuild-{{ section.id }} .pb__card-title { font-size: 15px; }
+    #pbuild-{{ section.id }} .pb__card { padding: 26px 24px 32px; }
+  }
+
+  @media screen and (max-width: 749px) {
+    #pbuild-{{ section.id }} .pb__head { margin-bottom: 24px; }
+    #pbuild-{{ section.id }} .pb__title { margin-bottom: 12px; }
+    #pbuild-{{ section.id }} .pb__desc { max-width: 100%; }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     JS chalega to hi hide hota hai, warna content hamesha visible rahega
+     ============================================ */
+  #pbuild-{{ section.id }}.pb-anim .pb__head > *,
+  #pbuild-{{ section.id }}.pb-anim .pb__card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: calc(var(--pb-i, 0) * 0.15s);
+    will-change: opacity, transform;
+  }
+
+  #pbuild-{{ section.id }}.pb-anim.is-visible .pb__head > *,
+  #pbuild-{{ section.id }}.pb-anim.is-visible .pb__card {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #pbuild-{{ section.id }}.pb-anim.is-done .pb__head > *,
+  #pbuild-{{ section.id }}.pb-anim.is-done .pb__card {
+    transition-delay: 0s;
+    will-change: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #pbuild-{{ section.id }}.pb-anim .pb__head > *,
+    #pbuild-{{ section.id }}.pb-anim .pb__card {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+{%- endstyle -%}
+
+<div id="pbuild-{{ section.id }}" class="custom-product-build">
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+
+    {%- if pb_title != blank or pb_desc != blank -%}
+      <div class="pb__head">
+        {%- if pb_title != blank -%}
+          <h2 class="pb__title">{{ pb_title | escape | newline_to_br }}</h2>
+        {%- endif -%}
+        {%- if pb_desc != blank -%}
+          <p class="pb__desc">{{ pb_desc | escape | newline_to_br }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if pb_count > 0 -%}
+      <div class="pb__grid">
+        {%- for title in pb_card_titles limit: 3 -%}
+          {%- assign idx = forloop.index0 -%}
+          {%- assign t = title | strip -%}
+          {%- assign d = pb_card_descs[idx] | strip -%}
+          {%- if t != blank or d != blank -%}
+            <div class="pb__card">
+              {%- if t != blank -%}
+                <h3 class="pb__card-title">{{ t | escape }}</h3>
+              {%- endif -%}
+              {%- if d != blank -%}
+                <p class="pb__card-desc">{{ d | escape }}</p>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+<script>
+  (function () {
+    var section = document.getElementById('pbuild-{{ section.id }}');
+    if (!section) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    section.querySelectorAll('.pb__head > *, .pb__card').forEach(function (el, i) {
+      el.style.setProperty('--pb-i', i);
+    });
+
+    section.classList.add('pb-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+          window.setTimeout(function () {
+            section.classList.add('is-done');
+          }, 2200);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    observer.observe(section);
+  })();
+</script>
+
+{%- elsif request.design_mode -%}
+  <div class="page-width" style="padding: 24px 0; text-align: center; opacity: .6;">
+    Produktbyg: byg-metafelterne er tomme for dette produkt.
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Custom Product Build",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Text aur cards product ke metafields (custom.byg_*) se aate hain." },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#302821" },
+    { "type": "color", "id": "desc_color", "label": "Description Color", "default": "#302821" },
+    { "type": "color", "id": "card_bg", "label": "Card Background", "default": "#FFFFFF" },
+    { "type": "color", "id": "card_border", "label": "Card Border Color", "default": "#DED2C3" },
+    { "type": "color", "id": "card_title_color", "label": "Card Title Color", "default": "#302821" },
+    { "type": "color", "id": "card_desc_color", "label": "Card Description Color", "default": "#A58C76" },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "card_radius", "min": 0, "max": 24, "step": 2, "unit": "px", "label": "Card Corner Radius", "default": 10 },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": false },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Top", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 48 }
+  ],
+  "presets": [
+    { "name": "Custom Product Build" }
+  ]
+}
+{% endschema %}

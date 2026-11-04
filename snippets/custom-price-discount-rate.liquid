@@ -1,0 +1,8 @@
+{% if product.compare_at_price > product.price %}
+  {% assign discount = product.compare_at_price
+    | minus: product.price
+    | times: 100
+    | divided_by: product.compare_at_price
+  %}
+  <span class="discount-percentage">-{{ discount }}%</span>
+{% endif %}

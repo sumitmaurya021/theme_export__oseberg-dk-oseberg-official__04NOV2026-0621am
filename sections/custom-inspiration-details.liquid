@@ -1,0 +1,392 @@
+{%- style -%}
+  #idetail-{{ section.id }} {
+    --id-num: {{ section.settings.number_color }};
+    --id-title: {{ section.settings.title_color }};
+    --id-desc: {{ section.settings.desc_color }};
+    --id-card-bg: {{ section.settings.card_bg }};
+    --id-btn-bg: {{ section.settings.button_bg }};
+    --id-btn-color: {{ section.settings.button_color }};
+    --id-btn-hover-bg: {{ section.settings.button_hover_bg }};
+    --id-btn-hover-color: {{ section.settings.button_hover_color }};
+    --id-radius: {{ section.settings.image_radius }}px;
+    --id-ratio: {{ section.settings.image_ratio }};
+    background: {{ section.settings.bg_color }};
+    border-top: 1px solid {{ section.settings.border_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  #idetail-{{ section.id }} .id__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    align-items: stretch;
+  }
+
+  /* ---------- Image ---------- */
+  #idetail-{{ section.id }} .id__media {
+    position: relative;
+    min-width: 0;
+    width: 100%;
+    aspect-ratio: var(--id-ratio);
+    overflow: hidden;
+    border-radius: var(--id-radius);
+    background: #DED2C3;
+  }
+
+  #idetail-{{ section.id }} .id__media img,
+  #idetail-{{ section.id }} .id__media svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  #idetail-{{ section.id }} .id__media:hover img {
+    transform: scale(1.03);
+  }
+
+  /* ---------- Content ---------- */
+  #idetail-{{ section.id }} .id__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    background: var(--id-card-bg);
+    padding: 32px 24px;
+  }
+
+  #idetail-{{ section.id }} .id__number {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 16px;
+    color: var(--id-num);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  #idetail-{{ section.id }} .id__number::after {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.6;
+  }
+
+  #idetail-{{ section.id }} .id__title {
+    margin: 0 0 20px;
+    color: var(--id-title);
+    font-family: var(--font-serif, 'Playfair Display', Georgia, 'Times New Roman', serif);
+    font-size: clamp(28px, 3.2vw, 48px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  #idetail-{{ section.id }} .id__desc {
+    margin: 0 0 32px;
+    max-width: 440px;
+    color: var(--id-desc);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(14px, 1.05vw, 16px);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: normal;
+  }
+
+  #idetail-{{ section.id }} .id__button {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    padding: clamp(14px, 1.2vw, 18px) clamp(24px, 2.4vw, 36px);
+    background: var(--id-btn-bg);
+    color: var(--id-btn-color);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.15em;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--id-btn-bg);
+    border-radius: 0;
+    transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  }
+
+  #idetail-{{ section.id }} .id__button::before,
+  #idetail-{{ section.id }} .id__button::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  #idetail-{{ section.id }} .id__button:hover {
+    background: var(--id-btn-hover-bg);
+    color: var(--id-btn-hover-color);
+    border-color: var(--id-btn-hover-bg);
+  }
+
+  /* ---------- Tablet (750px - 989px) ---------- */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #idetail-{{ section.id }} .id__content { padding: 40px 32px; }
+    #idetail-{{ section.id }} .id__title { font-size: clamp(32px, 5vw, 44px); }
+    #idetail-{{ section.id }} .id__desc { max-width: 560px; }
+  }
+
+  /* ---------- Desktop (990px and up) : image 5 / content 5 ---------- */
+  @media screen and (min-width: 990px) {
+    #idetail-{{ section.id }} .id__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+
+    #idetail-{{ section.id }} .id__content {
+      padding: clamp(32px, 4vw, 64px);
+    }
+
+    {%- if section.settings.content_position == 'left' -%}
+    #idetail-{{ section.id }} .id__content { order: 1; }
+    #idetail-{{ section.id }} .id__media { order: 2; }
+    {%- endif -%}
+  }
+
+  /* ---------- Mobile (749px and below) : image upar, content neeche ---------- */
+  @media screen and (max-width: 749px) {
+    #idetail-{{ section.id }} .id__media { order: 1; }
+    #idetail-{{ section.id }} .id__content { order: 2; padding: 28px 20px; }
+    #idetail-{{ section.id }} .id__title { margin-bottom: 16px; }
+    #idetail-{{ section.id }} .id__desc { margin-bottom: 24px; max-width: 100%; }
+    #idetail-{{ section.id }} .id__button { width: 100%; align-self: stretch; }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     JS chalega to hi hide hota hai, warna content hamesha visible rahega
+     ============================================ */
+  #idetail-{{ section.id }} {
+    {%- if section.settings.content_position == 'left' -%}
+    --id-content-x: -28px;
+    --id-media-x: 28px;
+    {%- else -%}
+    --id-content-x: 28px;
+    --id-media-x: -28px;
+    {%- endif %}
+  }
+
+  #idetail-{{ section.id }}.id-anim .id__content > * {
+    opacity: 0;
+    transform: translateX(var(--id-content-x));
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+    transition-delay: calc(var(--id-ci, 0) * 0.12s), calc(var(--id-ci, 0) * 0.12s), 0s, 0s, 0s;
+    will-change: opacity, transform;
+  }
+
+  #idetail-{{ section.id }}.id-anim .id__media {
+    opacity: 0;
+    transform: translateX(var(--id-media-x));
+    transition:
+      opacity 1.1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1.1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: 0.25s;
+    will-change: opacity, transform;
+  }
+
+  #idetail-{{ section.id }}.id-anim.is-visible .id__content > *,
+  #idetail-{{ section.id }}.id-anim.is-visible .id__media {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  #idetail-{{ section.id }}.id-anim.is-done .id__content > *,
+  #idetail-{{ section.id }}.id-anim.is-done .id__media {
+    transition-delay: 0s;
+  }
+
+  /* Mobile: side slide ki jagah halka fade-up */
+  @media screen and (max-width: 749px) {
+    #idetail-{{ section.id }} {
+      --id-content-x: 0px;
+      --id-media-x: 0px;
+    }
+    #idetail-{{ section.id }}.id-anim .id__content > *,
+    #idetail-{{ section.id }}.id-anim .id__media {
+      transform: translateY(20px);
+    }
+    #idetail-{{ section.id }}.id-anim.is-visible .id__content > *,
+    #idetail-{{ section.id }}.id-anim.is-visible .id__media {
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #idetail-{{ section.id }}.id-anim .id__content > *,
+    #idetail-{{ section.id }}.id-anim .id__media {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    #idetail-{{ section.id }} .id__media img { transition: none; }
+  }
+{%- endstyle -%}
+
+<div id="idetail-{{ section.id }}" class="custom-inspiration-details">
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+    <div class="id__grid">
+
+      <div class="id__media">
+        {%- if section.settings.image != blank -%}
+          <img
+            src="{{ section.settings.image | image_url: width: 1400 }}"
+            srcset="{{ section.settings.image | image_url: width: 600 }} 600w,
+                    {{ section.settings.image | image_url: width: 900 }} 900w,
+                    {{ section.settings.image | image_url: width: 1200 }} 1200w,
+                    {{ section.settings.image | image_url: width: 1600 }} 1600w"
+            sizes="(min-width: 990px) 50vw, 100vw"
+            alt="{{ section.settings.image.alt | default: section.settings.title | escape }}"
+            width="{{ section.settings.image.width }}"
+            height="{{ section.settings.image.height }}"
+            loading="lazy"
+          >
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag }}
+        {%- endif -%}
+      </div>
+
+      <div class="id__content">
+        {%- if section.settings.number != blank -%}
+          <p class="id__number">{{ section.settings.number | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.title != blank -%}
+          <h2 class="id__title">{{ section.settings.title | escape | newline_to_br }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <p class="id__desc">{{ section.settings.description | escape | newline_to_br }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.button_text != blank and section.settings.button_link != blank -%}
+          <a href="{{ section.settings.button_link }}" class="id__button">{{ section.settings.button_text | escape }}</a>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var section = document.getElementById('idetail-{{ section.id }}');
+    if (!section) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    section.querySelectorAll('.id__content > *').forEach(function (el, i) {
+      el.style.setProperty('--id-ci', i);
+    });
+
+    section.classList.add('id-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+          window.setTimeout(function () {
+            section.classList.add('is-done');
+          }, 2200);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    observer.observe(section);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Custom Inspiration Detail",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "header", "content": "Image" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "number", "label": "Small Number / Label", "default": "04" },
+    { "type": "textarea", "id": "title", "label": "Title (new line = line break)", "default": "De små detaljer, der gør forskellen" },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description (new line = line break)",
+      "default": "Puder, plaider, sofaborde og belysning er med til at skabe en helhed i stuen. Få inspiration til, hvordan små detaljer kan understrege sofaens udtryk og gøre dit hjem endnu mere personligt og indbydende."
+    },
+    { "type": "text", "id": "button_text", "label": "Button Text", "default": "Få mere inspiration →" },
+    { "type": "url", "id": "button_link", "label": "Button Link" },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "card_bg", "label": "Content Card Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "border_color", "label": "Top Border Color", "default": "#A58C76" },
+    { "type": "color", "id": "number_color", "label": "Number Color", "default": "#A58C76" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#302821" },
+    { "type": "color", "id": "desc_color", "label": "Description Color", "default": "#302821" },
+    { "type": "color", "id": "button_bg", "label": "Button Background", "default": "#302821" },
+    { "type": "color", "id": "button_color", "label": "Button Text Color", "default": "#FFFFFF" },
+    { "type": "color", "id": "button_hover_bg", "label": "Button Hover Background", "default": "#A58C76" },
+    { "type": "color", "id": "button_hover_color", "label": "Button Hover Text Color", "default": "#FFFFFF" },
+
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content Position (Desktop)",
+      "default": "right",
+      "options": [
+        { "value": "left", "label": "Content Left, Image Right" },
+        { "value": "right", "label": "Content Right, Image Left" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image Shape",
+      "default": "16 / 9",
+      "options": [
+        { "value": "21 / 9", "label": "Ultra wide (21:9)" },
+        { "value": "16 / 9", "label": "Wide (16:9)" },
+        { "value": "3 / 2", "label": "Landscape (3:2)" },
+        { "value": "4 / 3", "label": "Landscape (4:3)" },
+        { "value": "1 / 1", "label": "Square (1:1)" }
+      ]
+    },
+    { "type": "range", "id": "image_radius", "min": 0, "max": 24, "step": 2, "unit": "px", "label": "Image Corner Radius", "default": 0 },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": false },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Top", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 48 }
+  ],
+  "presets": [
+    { "name": "Custom Inspiration Details" }
+  ]
+}
+{% endschema %}

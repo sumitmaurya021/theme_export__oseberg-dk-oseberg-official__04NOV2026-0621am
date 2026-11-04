@@ -1,0 +1,535 @@
+{{ 'video-section.css' | asset_url | stylesheet_tag }}
+{{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  #video-wrap-{{ section.id }} {
+    --ov-eyebrow-color: {{ section.settings.eyebrow_color }};
+    --ov-title-color: {{ section.settings.title_color }};
+    --ov-desc-color: {{ section.settings.desc_color }};
+    --ov-btn-bg: {{ section.settings.button_bg }};
+    --ov-btn-color: {{ section.settings.button_color }};
+    --ov-btn-hover-bg: {{ section.settings.button_hover_bg }};
+    --ov-btn-hover-color: {{ section.settings.button_hover_color }};
+    --ov-btn-radius: {{ section.settings.button_radius }}px;
+    --ov-darkness: {{ section.settings.overlay_darkness | divided_by: 100.0 }};
+    --ov-header-offset: {{ section.settings.header_offset_mobile }}px;
+    --ov-header-offset-desktop: {{ section.settings.header_offset_desktop }}px;
+    position: relative;
+    width: 100%;
+    height: {{ section.settings.height_mobile }}vh;
+    overflow: hidden;
+  }
+
+  @media screen and (min-width: 750px) {
+    #video-wrap-{{ section.id }} {
+      height: {{ section.settings.height_desktop }}vh;
+      min-height: calc(var(--ov-header-offset-desktop) + 560px);
+    }
+  }
+
+  /* Video / image / iframe full cover */
+  #video-wrap-{{ section.id }} video,
+  #video-wrap-{{ section.id }} iframe,
+  #video-wrap-{{ section.id }} .video-background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 0;
+  }
+
+  /* Dark gradient so text is readable */
+  #video-wrap-{{ section.id }}::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    background: linear-gradient(135deg, rgba(9, 9, 11, 0.5), rgba(24, 24, 27, 0.5), rgba(39, 39, 42, 0.5));
+  }
+
+  /* Overlay content */
+  #video-wrap-{{ section.id }} .video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 4;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: {{ section.settings.vertical_position }};
+    align-items: {% case section.settings.text_align %}{% when 'left' %}flex-start{% when 'right' %}flex-end{% else %}center{% endcase %};
+    text-align: {{ section.settings.text_align }};
+    padding: 24px;
+    padding-top: var(--ov-header-offset);
+    box-sizing: border-box;
+    pointer-events: none;
+  }
+
+  @media screen and (min-width: 750px) {
+    #video-wrap-{{ section.id }} .video-overlay {
+      padding-top: var(--ov-header-offset-desktop);
+    }
+  }
+
+  #video-wrap-{{ section.id }} .video-overlay__inner {
+    max-width: clamp(28rem, 45vw, 90rem);
+  }
+
+  /* Richtext resets + theme ke p rule ko override karo */
+  #video-wrap-{{ section.id }} .ov-richtext p {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    color: inherit;
+  }
+
+  /* 1. Eyebrow */
+  #video-wrap-{{ section.id }} .ov-eyebrow {
+    color: var(--ov-eyebrow-color);
+    font-size: clamp(1.2rem, 1.1vw, 1.8rem);
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  /* 2. Title */
+  #video-wrap-{{ section.id }} .ov-title {
+    color: var(--ov-title-color);
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, 'Times New Roman', serif;
+    font-weight: 400;
+    font-size: clamp(3.2rem, 5.5vw, 8rem);
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  #video-wrap-{{ section.id }} .ov-title p,
+  #video-wrap-{{ section.id }} .ov-title h1,
+  #video-wrap-{{ section.id }} .ov-title h2 {
+    color: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    margin: 0;
+  }
+
+  /* Title - mobile size */
+  @media screen and (max-width: 749px) {
+    #video-wrap-{{ section.id }} .ov-title {
+      font-size: clamp(4rem, 11vw, 5.6rem);
+    }
+  }
+
+  /* 3. Description */
+  #video-wrap-{{ section.id }} .ov-desc {
+    color: var(--ov-desc-color);
+    font-size: clamp(1.5rem, 1.6vw, 2.8rem);
+    font-weight: 400;
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+
+  /* 4. Button */
+  #video-wrap-{{ section.id }} .custom-button {
+    display: inline-block;
+    position: relative;
+    text-shadow: none;
+    padding: clamp(14px, 1.2vw, 24px) clamp(24px, 2.4vw, 48px);
+    background: var(--ov-btn-bg);
+    color: var(--ov-btn-color);
+    border-radius: var(--ov-btn-radius);
+    text-decoration: none;
+    font-size: clamp(1.1rem, 1vw, 1.6rem);
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    pointer-events: auto;
+    transition: background 0.4s ease, color 0.4s ease, transform 0.4s ease;
+  }
+
+  #video-wrap-{{ section.id }} .custom-button:hover {
+    background: var(--ov-btn-hover-bg);
+    color: var(--ov-btn-hover-color);
+  }
+
+  /* Theme ke extra hover text ko band karo */
+  #video-wrap-{{ section.id }} .custom-button::before,
+  #video-wrap-{{ section.id }} .custom-button::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  /* Unmute button */
+
+  /* Unmute button */
+  #video-wrap-{{ section.id }} .custom-unmute-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 6;
+    background: none;
+    cursor: pointer;
+    border: none !important;
+    color: {{ section.settings.unmute_color }};
+  }
+
+  #video-wrap-{{ section.id }} .custom-unmute-button svg {
+    fill: currentColor;
+    stroke: currentColor;
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     ============================================ */
+
+  /* 1. Hero media: slow fade-in + very gentle zoom-out.
+     'scale' property use kiya hai taaki parallax ke 'transform' se conflict na ho */
+  #video-wrap-{{ section.id }} video,
+  #video-wrap-{{ section.id }} iframe,
+  #video-wrap-{{ section.id }} .video-background-image {
+    animation: ovMediaIn 2.8s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    will-change: transform;
+  }
+
+  @keyframes ovMediaIn {
+    from { opacity: 0; scale: 1.05; }
+    to   { opacity: 1; scale: 1; }
+  }
+
+  /* 2. Text: ek-ek line fade-up (stagger) */
+  #video-wrap-{{ section.id }} .video-overlay__inner > * {
+    animation: ovFadeUp 1.1s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  }
+
+  #video-wrap-{{ section.id }} .video-overlay__inner > *:nth-child(1) { animation-delay: 0.5s; }
+  #video-wrap-{{ section.id }} .video-overlay__inner > *:nth-child(2) { animation-delay: 0.7s; }
+  #video-wrap-{{ section.id }} .video-overlay__inner > *:nth-child(3) { animation-delay: 0.9s; }
+  #video-wrap-{{ section.id }} .video-overlay__inner > *:nth-child(4) { animation-delay: 1.1s; }
+
+  @keyframes ovFadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* 3. Unmute button late fade-in */
+  #video-wrap-{{ section.id }} .custom-unmute-button {
+    animation: ovSimpleFade 1.2s ease 1.6s both;
+  }
+
+  @keyframes ovSimpleFade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* 4. Parallax (sirf desktop). Media thoda bada rakha hai taaki move hone pe gap na dikhe */
+  @media screen and (min-width: 750px) and (prefers-reduced-motion: no-preference) {
+    #video-wrap-{{ section.id }} video,
+    #video-wrap-{{ section.id }} iframe,
+    #video-wrap-{{ section.id }} .video-background-image {
+      top: -6%;
+      height: 112%;
+    }
+  }
+
+  /* 5. Reduced motion: sab animation off */
+  @media (prefers-reduced-motion: reduce) {
+    #video-wrap-{{ section.id }} video,
+    #video-wrap-{{ section.id }} iframe,
+    #video-wrap-{{ section.id }} .video-background-image,
+    #video-wrap-{{ section.id }} .video-overlay__inner > *,
+    #video-wrap-{{ section.id }} .custom-unmute-button {
+      animation: none !important;
+    }
+    #video-wrap-{{ section.id }} .custom-button {
+      transition: none;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign video_id = section.settings.video_url.id
+  assign video_alt = section.settings.video.alt | default: section.settings.description
+  assign alt = 'sections.video.load_video' | t: description: video_alt | escape
+-%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="video-section isolate{% unless section.settings.full_width %} page-width{% endunless %} section-{{ section.id }}-padding">
+
+    {%- if section.settings.heading != blank -%}
+      <div class="title-wrapper title-wrapper--no-top-margin">
+        <h2 class="title inline-richtext {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+      </div>
+    {%- endif -%}
+
+    <div class="video-container" id="video-wrap-{{ section.id }}">
+
+      <!-- Overlay Text -->
+      <div class="video-overlay">
+        <div class="video-overlay__inner">
+
+          {%- if section.settings.overlay_sub_text != blank -%}
+            <div class="ov-eyebrow ov-richtext">{{ section.settings.overlay_sub_text }}</div>
+          {%- endif -%}
+
+          {%- if section.settings.overlay_text != blank -%}
+            <div class="ov-title ov-richtext{% if section.settings.animation_title %} animation-title{% endif %}">
+              {{ section.settings.overlay_text }}
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.overlay_description != blank -%}
+            <div class="ov-desc ov-richtext">{{ section.settings.overlay_description }}</div>
+          {%- endif -%}
+
+          {%- if section.settings.button_text != blank and section.settings.button_link != blank -%}
+            <a href="{{ section.settings.button_link }}" class="custom-button">
+              {{ section.settings.button_text }}
+            </a>
+          {%- endif -%}
+
+        </div>
+      </div>
+
+      <!-- Unmute Button -->
+      {%- if section.settings.video != null or section.settings.video_url != null -%}
+        <button id="unmute-btn-{{ section.id }}" class="custom-unmute-button" aria-label="Mute / Unmute">
+          <span class="icon-mute" style="display: none;">
+            {% render 'custom-icon-mute' %}
+          </span>
+          <span class="icon-unmute">
+            {% render 'custom-icon-unmute' %}
+          </span>
+        </button>
+      {%- endif -%}
+
+      {%- if section.settings.video != null -%}
+        {{
+          section.settings.video
+          | video_tag:
+            image_size: '1100x',
+            autoplay: true,
+            loop: section.settings.enable_video_looping,
+            muted: true,
+            playsinline: true,
+            controls: false,
+            id: 'custom-video-' | append: section.id
+        }}
+      {%- elsif section.settings.video_url != null -%}
+        {%- assign loop = ''
+        -%}
+        {%- if section.settings.enable_video_looping -%}
+          {%- assign loop = '&loop=1&playlist=' | append: video_id -%}
+        {%- endif -%}
+        <iframe
+          id="custom-video-{{ section.id }}"
+          src="{% if section.settings.video_url.type == 'youtube' %}https://www.youtube.com/embed/{{ video_id }}?enablejsapi=1&autoplay=1&mute=1&controls=0&playsinline=1{{ loop }}{% else %}https://player.vimeo.com/video/{{ video_id }}?autoplay=1&muted=1&background=1{{ loop }}{% endif %}"
+          class="js-{{ section.settings.video_url.type }}"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+          title="{{ section.settings.description | escape }}"
+        ></iframe>
+      {%- elsif section.settings.image != null -%}
+        <img
+          src="{{ section.settings.image | image_url: width: 2000 }}"
+          alt="{{ section.settings.image.alt | default: 'Background Image' | escape }}"
+          class="video-background-image"
+          loading="lazy"
+        >
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const video = document.getElementById('custom-video-{{ section.id }}');
+    const unmuteBtn = document.getElementById('unmute-btn-{{ section.id }}');
+    if (!video || !unmuteBtn) return;
+
+    const iconMute = unmuteBtn.querySelector('.icon-mute');
+    const iconUnmute = unmuteBtn.querySelector('.icon-unmute');
+    let isMuted = true;
+
+    iconMute.style.display = 'none';
+    iconUnmute.style.display = 'inline-block';
+
+    unmuteBtn.addEventListener('click', function () {
+      if (video.tagName === 'VIDEO') {
+        isMuted = !isMuted;
+        video.muted = isMuted;
+        video.play();
+      } else if (video.tagName === 'IFRAME' && video.src.includes('youtube')) {
+        const message = isMuted
+          ? '{"event":"command","func":"unMute","args":""}'
+          : '{"event":"command","func":"mute","args":""}';
+        video.contentWindow.postMessage(message, '*');
+        isMuted = !isMuted;
+      }
+
+      if (isMuted) {
+        iconMute.style.display = 'none';
+        iconUnmute.style.display = 'inline-block';
+      } else {
+        iconMute.style.display = 'inline-block';
+        iconUnmute.style.display = 'none';
+      }
+    });
+  });
+</script>
+
+<!-- Slow parallax (desktop only, reduced-motion respect karta hai) -->
+<script>
+  (function () {
+    var wrap = document.getElementById('video-wrap-{{ section.id }}');
+    if (!wrap) return;
+
+    var media = wrap.querySelector('video, iframe, .video-background-image');
+    if (!media) return;
+
+    var desktop = window.matchMedia('(min-width: 750px)');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var ticking = false;
+
+    function update() {
+      ticking = false;
+
+      if (!desktop.matches || reduced.matches) {
+        media.style.transform = '';
+        return;
+      }
+
+      var rect = wrap.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+
+      var maxShift = rect.height * 0.06; /* CSS ke 6% overhang ke andar rahega */
+      var shift = Math.min(Math.max(-rect.top * 0.08, 0), maxShift);
+      media.style.transform = 'translate3d(0,' + shift.toFixed(1) + 'px,0)';
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Custom Video",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "header", "content": "Overlay Content" },
+    {
+      "type": "richtext",
+      "id": "overlay_sub_text",
+      "label": "Top Quote / Eyebrow",
+      "default": "<p>OSEBERG</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "overlay_text",
+      "label": "Title",
+      "default": "<p>The sofa<br>that changes<br>with you.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "overlay_description",
+      "label": "Description",
+      "default": "<p>One design.<br>More than one way to live.</p>"
+    },
+    { "type": "text", "id": "button_text", "label": "Button Text", "default": "Discover the Oseberg →" },
+    { "type": "url", "id": "button_link", "label": "Button Link" },
+    { "type": "checkbox", "id": "animation_title", "label": "Animate Title", "default": false },
+
+    { "type": "header", "content": "Overlay Colors" },
+    { "type": "color", "id": "eyebrow_color", "label": "Top Quote Color", "default": "#F5F1EA" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#FFFFFF" },
+    { "type": "color", "id": "desc_color", "label": "Description Color", "default": "#F5F1EA" },
+
+    { "type": "header", "content": "Button Colors" },
+    { "type": "color", "id": "button_bg", "label": "Button Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "button_color", "label": "Button Text Color", "default": "#302821" },
+    { "type": "color", "id": "button_hover_bg", "label": "Button Hover Background", "default": "#302821" },
+    { "type": "color", "id": "button_hover_color", "label": "Button Hover Text Color", "default": "#F5F1EA" },
+    { "type": "range", "id": "button_radius", "min": 0, "max": 40, "step": 1, "unit": "px", "label": "Button Corner Radius", "default": 0 },
+
+    { "type": "header", "content": "Overlay Layout" },
+    { "type": "range", "id": "header_offset_desktop", "min": 0, "max": 400, "step": 10, "unit": "px", "label": "Top Space - Desktop (Header Offset)", "default": 240 },
+    { "type": "range", "id": "header_offset_mobile", "min": 0, "max": 300, "step": 10, "unit": "px", "label": "Top Space - Mobile (Header Offset)", "default": 140 },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text Alignment",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "vertical_position",
+      "label": "Vertical Position",
+      "default": "center",
+      "options": [
+        { "value": "flex-start", "label": "Top" },
+        { "value": "center", "label": "Middle" },
+        { "value": "flex-end", "label": "Bottom" }
+      ]
+    },
+    { "type": "range", "id": "overlay_darkness", "min": 0, "max": 80, "step": 5, "unit": "%", "label": "Dark Overlay Strength", "default": 35 },
+    { "type": "range", "id": "height_desktop", "min": 40, "max": 100, "step": 5, "unit": "vh", "label": "Desktop Height", "default": 90 },
+    { "type": "range", "id": "height_mobile", "min": 40, "max": 100, "step": 5, "unit": "vh", "label": "Mobile Height", "default": 80 },
+    { "type": "color", "id": "unmute_color", "label": "Mute/Unmute Icon Color", "default": "#FFFFFF" },
+
+    { "type": "header", "content": "Section Heading (optional)" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading" },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading Size",
+      "default": "h1",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "hxl", "label": "HXL" }
+      ]
+    },
+
+    { "type": "header", "content": "Media" },
+    { "type": "checkbox", "id": "enable_video_looping", "label": "Enable Video Looping", "default": true },
+    { "type": "video", "id": "video", "label": "Upload Video" },
+    { "type": "video_url", "id": "video_url", "label": "Video URL", "accept": ["youtube", "vimeo"] },
+    { "type": "image_picker", "id": "image", "label": "Fallback Background Image" },
+    { "type": "text", "id": "description", "label": "Video Description" },
+
+    { "type": "header", "content": "Section Style" },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": true },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color Scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding Top", "default": 0 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 0 }
+  ],
+  "presets": [
+    { "name": "Custom Video Section" }
+  ]
+}
+{% endschema %}

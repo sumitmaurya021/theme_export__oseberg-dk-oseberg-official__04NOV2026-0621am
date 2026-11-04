@@ -1,0 +1,519 @@
+{%- liquid
+  assign card_count = section.blocks.size | at_least: 1
+  assign grid_cols = card_count | at_most: 2
+-%}
+
+{%- style -%}
+  #cl-{{ section.id }} {
+    --cl-eyebrow: {{ section.settings.eyebrow_color }};
+    --cl-title: {{ section.settings.title_color }};
+    --cl-desc: {{ section.settings.desc_color }};
+    --cl-name: {{ section.settings.name_color }};
+    --cl-sub: {{ section.settings.subtitle_color }};
+    --cl-btn-color: {{ section.settings.button_color }};
+    --cl-btn-border: {{ section.settings.button_border_color }};
+    --cl-btn-hover-bg: {{ section.settings.button_hover_bg }};
+    --cl-btn-hover-color: {{ section.settings.button_hover_color }};
+    --cl-ratio: {{ section.settings.image_ratio }};
+    --cl-fit: {{ section.settings.image_fit }};
+    background: {{ section.settings.bg_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  /* ---------- Header (title left, description right) ---------- */
+  #cl-{{ section.id }} .cl__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    align-items: start;
+    margin-bottom: clamp(12px, 1.6vw, 20px);
+  }
+
+  #cl-{{ section.id }} .cl__head-left,
+  #cl-{{ section.id }} .cl__head-right {
+    min-width: 0;
+  }
+
+  #cl-{{ section.id }} .cl__eyebrow {
+    margin: 0 0 14px;
+    color: var(--cl-eyebrow);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  #cl-{{ section.id }} .cl__title {
+    margin: 0;
+    color: var(--cl-title);
+    font-family: var(--font-serif, 'Playfair Display', Georgia, 'Times New Roman', serif);
+    font-size: clamp(32px, 9vw, 44px);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: 0.005em;
+    text-transform: none;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  #cl-{{ section.id }} .cl__desc {
+    margin: 0;
+    max-width: 420px;
+    color: var(--cl-desc);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(14px, 1.05vw, 16px);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: normal;
+  }
+
+  /* ---------- Product cards ---------- */
+  #cl-{{ section.id }} .cl__cards {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns_mobile }}, minmax(0, 1fr));
+    gap: clamp(28px, 3.5vw, 64px) clamp(16px, 4vw, 72px);
+    min-width: 0;
+  }
+
+  #cl-{{ section.id }} .cl__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 0;
+    text-align: center;
+  }
+
+  #cl-{{ section.id }} .cl__media {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: var(--cl-ratio);
+    overflow: hidden;
+    background: transparent;
+    text-decoration: none;
+  }
+
+  #cl-{{ section.id }} .cl__media img,
+  #cl-{{ section.id }} .cl__media svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: var(--cl-fit);
+    object-position: center;
+    display: block;
+  }
+
+  #cl-{{ section.id }} .cl__media img {
+    transition: transform 0.7s ease;
+  }
+
+  #cl-{{ section.id }} a.cl__media:hover img {
+    transform: scale(1.03);
+  }
+
+  #cl-{{ section.id }} .cl__name {
+    margin: 8px 0 4px;
+    color: var(--cl-name);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  #cl-{{ section.id }} .cl__sub {
+    margin: 0 0 14px;
+    color: var(--cl-sub);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: normal;
+  }
+
+  #cl-{{ section.id }} .cl__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    padding: clamp(12px, 1vw, 15px) clamp(22px, 2.2vw, 34px);
+    background: transparent;
+    color: var(--cl-btn-color);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.15em;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--cl-btn-border);
+    border-radius: 0;
+    transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  }
+
+  #cl-{{ section.id }} .cl__button::before,
+  #cl-{{ section.id }} .cl__button::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  #cl-{{ section.id }} .cl__button:hover {
+    background: var(--cl-btn-hover-bg);
+    color: var(--cl-btn-hover-color);
+    border-color: var(--cl-btn-hover-bg);
+  }
+
+  /* ---------- Tablet (750px - 989px) ---------- */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #cl-{{ section.id }} .cl__head {
+      gap: 20px;
+    }
+
+    #cl-{{ section.id }} .cl__title {
+      font-size: clamp(40px, 6vw, 54px);
+    }
+
+    #cl-{{ section.id }} .cl__desc {
+      max-width: 520px;
+    }
+
+    #cl-{{ section.id }} .cl__cards {
+      grid-template-columns: repeat({{ grid_cols }}, minmax(0, 1fr));
+    }
+
+    #cl-{{ section.id }} .cl__media {
+      width: 85%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  /* ---------- Desktop (990px and up) ---------- */
+  @media screen and (min-width: 990px) {
+    #cl-{{ section.id }} .cl__head {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(32px, 4vw, 72px);
+    }
+
+    #cl-{{ section.id }} .cl__head-right {
+      padding-top: clamp(20px, 2vw, 32px);
+    }
+
+    #cl-{{ section.id }} .cl__title {
+      font-size: clamp(44px, 4.2vw, 68px);
+    }
+
+    #cl-{{ section.id }} .cl__cards {
+      grid-template-columns: repeat({{ grid_cols }}, minmax(0, 1fr));
+    }
+
+    /* Smaller sofa image on desktop */
+    #cl-{{ section.id }} .cl__media {
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #cl-{{ section.id }} .cl__name {
+      margin-top: 10px;
+    }
+  }
+
+  /* ---------- Mobile (749px and below) ---------- */
+  @media screen and (max-width: 749px) {
+    #cl-{{ section.id }} .cl__desc {
+      max-width: 100%;
+    }
+
+    #cl-{{ section.id }} .cl__name {
+      font-size: 11px;
+    }
+
+    #cl-{{ section.id }} .cl__sub {
+      font-size: 11px;
+    }
+  }
+
+  /* Very small phones: button full width */
+  @media screen and (max-width: 479px) {
+    #cl-{{ section.id }} .cl__button {
+      width: 100%;
+    }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     JS chalega to hi hide hota hai, warna content hamesha visible rahega
+     ============================================ */
+
+  /* Header (eyebrow, title, description) + product cards: fade-up, stagger.
+     Card ko ek poore block ki tarah animate kiya hai (image + name + subtitle + button) */
+  #cl-{{ section.id }}.cl-anim .cl__eyebrow,
+  #cl-{{ section.id }}.cl-anim .cl__title,
+  #cl-{{ section.id }}.cl-anim .cl__head-right,
+  #cl-{{ section.id }}.cl-anim .cl__card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: calc(var(--cl-i, 0) * 0.15s);
+    will-change: opacity, transform;
+  }
+
+  #cl-{{ section.id }}.cl-anim.is-visible .cl__eyebrow,
+  #cl-{{ section.id }}.cl-anim.is-visible .cl__title,
+  #cl-{{ section.id }}.cl-anim.is-visible .cl__head-right,
+  #cl-{{ section.id }}.cl-anim.is-visible .cl__card {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Animation ke baad delay + will-change hata do, taaki hover turant aur smooth chale */
+  #cl-{{ section.id }}.cl-anim.is-done .cl__eyebrow,
+  #cl-{{ section.id }}.cl-anim.is-done .cl__title,
+  #cl-{{ section.id }}.cl-anim.is-done .cl__head-right,
+  #cl-{{ section.id }}.cl-anim.is-done .cl__card {
+    transition-delay: 0s;
+    will-change: auto;
+  }
+
+  /* Reduced motion: sab animation off */
+  @media (prefers-reduced-motion: reduce) {
+    #cl-{{ section.id }}.cl-anim .cl__eyebrow,
+    #cl-{{ section.id }}.cl-anim .cl__title,
+    #cl-{{ section.id }}.cl-anim .cl__head-right,
+    #cl-{{ section.id }}.cl-anim .cl__card {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    #cl-{{ section.id }} .cl__media img {
+      transition: none;
+    }
+  }
+{%- endstyle -%}
+
+<div id="cl-{{ section.id }}" class="custom-collection">
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+
+    {%- if section.settings.eyebrow != blank or section.settings.title != blank or section.settings.description != blank -%}
+      <div class="cl__head">
+        <div class="cl__head-left">
+          {%- if section.settings.eyebrow != blank -%}
+            <p class="cl__eyebrow">{{ section.settings.eyebrow }}</p>
+          {%- endif -%}
+
+          {%- if section.settings.title != blank -%}
+            <h2 class="cl__title">{{ section.settings.title | escape | newline_to_br }}</h2>
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.description != blank -%}
+          <div class="cl__head-right">
+            <p class="cl__desc">{{ section.settings.description | escape | newline_to_br }}</p>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="cl__cards">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            if block.settings.link != blank
+              assign media_tag = 'a'
+            else
+              assign media_tag = 'div'
+            endif
+          -%}
+          <div class="cl__card" {{ block.shopify_attributes }}>
+            <{{ media_tag }}{% if media_tag == 'a' %} href="{{ block.settings.link }}"{% endif %} class="cl__media">
+              {%- if block.settings.image != blank -%}
+                <img
+                  src="{{ block.settings.image | image_url: width: 1200 }}"
+                  srcset="{{ block.settings.image | image_url: width: 500 }} 500w,
+                          {{ block.settings.image | image_url: width: 800 }} 800w,
+                          {{ block.settings.image | image_url: width: 1200 }} 1200w,
+                          {{ block.settings.image | image_url: width: 1600 }} 1600w"
+                  sizes="(min-width: 990px) 36vw, 100vw"
+                  alt="{{ block.settings.image.alt | default: block.settings.name | escape }}"
+                  width="{{ block.settings.image.width }}"
+                  height="{{ block.settings.image.height }}"
+                  loading="lazy"
+                >
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag }}
+              {%- endif -%}
+            </{{ media_tag }}>
+
+            {%- if block.settings.name != blank -%}
+              <p class="cl__name">{{ block.settings.name }}</p>
+            {%- endif -%}
+
+            {%- if block.settings.subtitle != blank -%}
+              <p class="cl__sub">{{ block.settings.subtitle }}</p>
+            {%- endif -%}
+
+            {%- if block.settings.button_text != blank and block.settings.link != blank -%}
+              <a href="{{ block.settings.link }}" class="cl__button">{{ block.settings.button_text }}</a>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+<!-- Scroll fade-in (stagger) -->
+<script>
+  (function () {
+    var section = document.getElementById('cl-{{ section.id }}');
+    if (!section) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    /* Stagger order: eyebrow, title, description, phir product cards */
+    var order = [];
+    ['.cl__eyebrow', '.cl__title', '.cl__head-right'].forEach(function (sel) {
+      var el = section.querySelector(sel);
+      if (el) order.push(el);
+    });
+    section.querySelectorAll('.cl__card').forEach(function (el) {
+      order.push(el);
+    });
+    order.forEach(function (el, i) {
+      el.style.setProperty('--cl-i', i);
+    });
+
+    section.classList.add('cl-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+
+          /* animation khatam hone ke baad delay hata do, taaki hover smooth rahe */
+          window.setTimeout(function () {
+            section.classList.add('is-done');
+          }, 2200);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    observer.observe(section);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Custom Collection",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "eyebrow", "label": "Small Heading", "default": "The Collection" },
+    { "type": "textarea", "id": "title", "label": "Title (new line = line break)", "default": "Two sofa designs.\nEndless possibilities." },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description (new line = line break)",
+      "default": "The Oseberg collection is intentionally focused.\nTwo designs, created to fit real homes and real life."
+    },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "eyebrow_color", "label": "Small Heading Color", "default": "#A58C76" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#302821" },
+    { "type": "color", "id": "desc_color", "label": "Description Color", "default": "#302821" },
+    { "type": "color", "id": "name_color", "label": "Product Name Color", "default": "#302821" },
+    { "type": "color", "id": "subtitle_color", "label": "Product Subtitle Color", "default": "#A58C76" },
+    { "type": "color", "id": "button_color", "label": "Button Text Color", "default": "#302821" },
+    { "type": "color", "id": "button_border_color", "label": "Button Border Color", "default": "#A58C76" },
+    { "type": "color", "id": "button_hover_bg", "label": "Button Hover Background", "default": "#302821" },
+    { "type": "color", "id": "button_hover_color", "label": "Button Hover Text Color", "default": "#FFFFFF" },
+
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image Shape",
+      "default": "5 / 2",
+      "options": [
+        { "value": "3 / 1", "label": "Extra Wide (3:1)" },
+        { "value": "5 / 2", "label": "Wide (5:2)" },
+        { "value": "2 / 1", "label": "Wide (2:1)" },
+        { "value": "5 / 3", "label": "Landscape (5:3)" },
+        { "value": "3 / 2", "label": "Landscape (3:2)" },
+        { "value": "1 / 1", "label": "Square (1:1)" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image Fit",
+      "default": "contain",
+      "options": [
+        { "value": "contain", "label": "Show full image (best for transparent sofa PNG)" },
+        { "value": "cover", "label": "Fill the box (crops edges)" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Product Columns (Mobile)",
+      "default": "1",
+      "options": [
+        { "value": "1", "label": "1 (stacked)" },
+        { "value": "2", "label": "2 (side by side)" }
+      ]
+    },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": false },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Padding Top", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 56 }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "name", "label": "Name", "default": "The Oseberg" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Modular sofa" },
+        { "type": "text", "id": "button_text", "label": "Button Text", "default": "View Product →" },
+        { "type": "url", "id": "link", "label": "Link (image + button)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Collection",
+      "blocks": [
+        {
+          "type": "product",
+          "settings": { "name": "The Oseberg", "subtitle": "Modular sofa", "button_text": "View Product →" }
+        },
+        {
+          "type": "product",
+          "settings": { "name": "Oseberg Two", "subtitle": "2-person sofa", "button_text": "View Product →" }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

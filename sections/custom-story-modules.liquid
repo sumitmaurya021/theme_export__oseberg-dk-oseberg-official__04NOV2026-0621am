@@ -1,0 +1,387 @@
+{%- style -%}
+  #smod-{{ section.id }} {
+    --sm-eyebrow: {{ section.settings.eyebrow_color }};
+    --sm-title: {{ section.settings.title_color }};
+    --sm-desc: {{ section.settings.desc_color }};
+    --sm-card-bg: {{ section.settings.card_bg }};
+    --sm-btn-bg: {{ section.settings.button_bg }};
+    --sm-btn-color: {{ section.settings.button_color }};
+    --sm-btn-hover-bg: {{ section.settings.button_hover_bg }};
+    --sm-btn-hover-color: {{ section.settings.button_hover_color }};
+    --sm-radius: {{ section.settings.image_radius }}px;
+    --sm-ratio: {{ section.settings.image_ratio }};
+    background: {{ section.settings.bg_color }};
+    border-top: 1px solid {{ section.settings.border_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  #smod-{{ section.id }} .sm__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    align-items: stretch;
+  }
+
+  /* ---------- Image ---------- */
+  #smod-{{ section.id }} .sm__media {
+    position: relative;
+    min-width: 0;
+    width: 100%;
+    aspect-ratio: var(--sm-ratio);
+    overflow: hidden;
+    border-radius: var(--sm-radius);
+    background: #DED2C3;
+  }
+
+  #smod-{{ section.id }} .sm__media img,
+  #smod-{{ section.id }} .sm__media svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  #smod-{{ section.id }} .sm__media:hover img {
+    transform: scale(1.03);
+  }
+
+  /* ---------- Content ---------- */
+  #smod-{{ section.id }} .sm__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    background: var(--sm-card-bg);
+    padding: 32px 24px;
+  }
+
+  #smod-{{ section.id }} .sm__eyebrow {
+    margin: 0 0 16px;
+    color: var(--sm-eyebrow);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  #smod-{{ section.id }} .sm__title {
+    margin: 0 0 24px;
+    color: var(--sm-title);
+    font-family: var(--font-serif, 'Playfair Display', Georgia, 'Times New Roman', serif);
+    font-size: clamp(28px, 3.2vw, 48px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  #smod-{{ section.id }} .sm__desc {
+    margin: 0 0 32px;
+    max-width: 440px;
+    color: var(--sm-desc);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(14px, 1.05vw, 16px);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: normal;
+  }
+
+  #smod-{{ section.id }} .sm__desc:last-child {
+    margin-bottom: 0;
+  }
+
+  #smod-{{ section.id }} .sm__button {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    padding: clamp(14px, 1.2vw, 18px) clamp(24px, 2.4vw, 36px);
+    background: var(--sm-btn-bg);
+    color: var(--sm-btn-color);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.15em;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--sm-btn-bg);
+    border-radius: 0;
+    transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  }
+
+  #smod-{{ section.id }} .sm__button::before,
+  #smod-{{ section.id }} .sm__button::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  #smod-{{ section.id }} .sm__button:hover {
+    background: var(--sm-btn-hover-bg);
+    color: var(--sm-btn-hover-color);
+    border-color: var(--sm-btn-hover-bg);
+  }
+
+  /* ---------- Tablet (750px - 989px) ---------- */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #smod-{{ section.id }} .sm__content { padding: 40px 32px; }
+    #smod-{{ section.id }} .sm__title { font-size: clamp(32px, 5vw, 44px); }
+    #smod-{{ section.id }} .sm__desc { max-width: 560px; }
+  }
+
+  /* ---------- Desktop (990px and up) : image 7 / content 5 ---------- */
+  @media screen and (min-width: 990px) {
+    {%- if section.settings.content_position == 'left' -%}
+    #smod-{{ section.id }} .sm__grid {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    }
+    #smod-{{ section.id }} .sm__content { order: 1; }
+    #smod-{{ section.id }} .sm__media { order: 2; }
+    {%- else -%}
+    #smod-{{ section.id }} .sm__grid {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    }
+    {%- endif -%}
+
+    #smod-{{ section.id }} .sm__content {
+      padding: clamp(32px, 4vw, 64px);
+    }
+  }
+
+  /* ---------- Mobile (749px and below) : image upar, content neeche ---------- */
+  @media screen and (max-width: 749px) {
+    #smod-{{ section.id }} .sm__media { order: 1; }
+    #smod-{{ section.id }} .sm__content { order: 2; padding: 28px 20px; }
+    #smod-{{ section.id }} .sm__title { margin-bottom: 18px; }
+    #smod-{{ section.id }} .sm__desc { margin-bottom: 24px; max-width: 100%; }
+    #smod-{{ section.id }} .sm__desc:last-child { margin-bottom: 0; }
+    #smod-{{ section.id }} .sm__button { width: 100%; align-self: stretch; }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     JS chalega to hi hide hota hai, warna content hamesha visible rahega
+     ============================================ */
+  #smod-{{ section.id }} {
+    {%- if section.settings.content_position == 'left' -%}
+    --sm-content-x: -28px;
+    --sm-media-x: 28px;
+    {%- else -%}
+    --sm-content-x: 28px;
+    --sm-media-x: -28px;
+    {%- endif %}
+  }
+
+  #smod-{{ section.id }}.sm-anim .sm__content > * {
+    opacity: 0;
+    transform: translateX(var(--sm-content-x));
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+    transition-delay: calc(var(--sm-ci, 0) * 0.12s), calc(var(--sm-ci, 0) * 0.12s), 0s, 0s, 0s;
+    will-change: opacity, transform;
+  }
+
+  #smod-{{ section.id }}.sm-anim .sm__media {
+    opacity: 0;
+    transform: translateX(var(--sm-media-x));
+    transition:
+      opacity 1.1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1.1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: 0.25s;
+    will-change: opacity, transform;
+  }
+
+  #smod-{{ section.id }}.sm-anim.is-visible .sm__content > *,
+  #smod-{{ section.id }}.sm-anim.is-visible .sm__media {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  #smod-{{ section.id }}.sm-anim.is-done .sm__content > *,
+  #smod-{{ section.id }}.sm-anim.is-done .sm__media {
+    transition-delay: 0s;
+  }
+
+  /* Mobile: side slide ki jagah halka fade-up */
+  @media screen and (max-width: 749px) {
+    #smod-{{ section.id }} {
+      --sm-content-x: 0px;
+      --sm-media-x: 0px;
+    }
+    #smod-{{ section.id }}.sm-anim .sm__content > *,
+    #smod-{{ section.id }}.sm-anim .sm__media {
+      transform: translateY(20px);
+    }
+    #smod-{{ section.id }}.sm-anim.is-visible .sm__content > *,
+    #smod-{{ section.id }}.sm-anim.is-visible .sm__media {
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #smod-{{ section.id }}.sm-anim .sm__content > *,
+    #smod-{{ section.id }}.sm-anim .sm__media {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    #smod-{{ section.id }} .sm__media img { transition: none; }
+  }
+{%- endstyle -%}
+
+<div id="smod-{{ section.id }}" class="custom-story-modules">
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+    <div class="sm__grid">
+
+      <div class="sm__media">
+        {%- if section.settings.image != blank -%}
+          <img
+            src="{{ section.settings.image | image_url: width: 1600 }}"
+            srcset="{{ section.settings.image | image_url: width: 600 }} 600w,
+                    {{ section.settings.image | image_url: width: 900 }} 900w,
+                    {{ section.settings.image | image_url: width: 1200 }} 1200w,
+                    {{ section.settings.image | image_url: width: 1600 }} 1600w"
+            sizes="(min-width: 990px) 58vw, 100vw"
+            alt="{{ section.settings.image.alt | default: section.settings.title | escape }}"
+            width="{{ section.settings.image.width }}"
+            height="{{ section.settings.image.height }}"
+            loading="lazy"
+          >
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag }}
+        {%- endif -%}
+      </div>
+
+      <div class="sm__content">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="sm__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.title != blank -%}
+          <h2 class="sm__title">{{ section.settings.title | escape | newline_to_br }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <p class="sm__desc">{{ section.settings.description | escape | newline_to_br }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.button_text != blank and section.settings.button_link != blank -%}
+          <a href="{{ section.settings.button_link }}" class="sm__button">{{ section.settings.button_text | escape }}</a>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var section = document.getElementById('smod-{{ section.id }}');
+    if (!section) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    section.querySelectorAll('.sm__content > *').forEach(function (el, i) {
+      el.style.setProperty('--sm-ci', i);
+    });
+
+    section.classList.add('sm-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+          window.setTimeout(function () {
+            section.classList.add('is-done');
+          }, 2200);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    observer.observe(section);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Custom Story Modules",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "header", "content": "Image" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Small Heading", "default": "Fleksibilitet til hele familien" },
+    { "type": "textarea", "id": "title", "label": "Title (new line = line break)", "default": "Moduler, der\nfølger livet." },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description (new line = line break)",
+      "default": "Vores modulsofaer giver dig friheden til at indrette præcis, som det passer til din hverdag. Skab en stor, åben lounge til hele familien, en hyggelig hjørnesofa eller en mere kompakt opstilling. Når livet ændrer sig, kan din Oseberg ændre sig med."
+    },
+    { "type": "text", "id": "button_text", "label": "Button Text", "default": "Oplev Lounge Sofa 01 →" },
+    { "type": "url", "id": "button_link", "label": "Button Link" },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "card_bg", "label": "Content Card Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "border_color", "label": "Top Border Color", "default": "#A58C76" },
+    { "type": "color", "id": "eyebrow_color", "label": "Small Heading Color", "default": "#A58C76" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#302821" },
+    { "type": "color", "id": "desc_color", "label": "Description Color", "default": "#302821" },
+    { "type": "color", "id": "button_bg", "label": "Button Background", "default": "#302821" },
+    { "type": "color", "id": "button_color", "label": "Button Text Color", "default": "#FFFFFF" },
+    { "type": "color", "id": "button_hover_bg", "label": "Button Hover Background", "default": "#A58C76" },
+    { "type": "color", "id": "button_hover_color", "label": "Button Hover Text Color", "default": "#FFFFFF" },
+
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content Position (Desktop)",
+      "default": "right",
+      "options": [
+        { "value": "left", "label": "Content Left, Image Right" },
+        { "value": "right", "label": "Content Right, Image Left" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image Shape",
+      "default": "4 / 3",
+      "options": [
+        { "value": "16 / 9", "label": "Wide (16:9)" },
+        { "value": "3 / 2", "label": "Landscape (3:2)" },
+        { "value": "4 / 3", "label": "Landscape (4:3)" },
+        { "value": "1 / 1", "label": "Square (1:1)" }
+      ]
+    },
+    { "type": "range", "id": "image_radius", "min": 0, "max": 24, "step": 2, "unit": "px", "label": "Image Corner Radius", "default": 0 },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": false },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Top", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 48 }
+  ],
+  "presets": [
+    { "name": "Custom Story Modules" }
+  ]
+}
+{% endschema %}

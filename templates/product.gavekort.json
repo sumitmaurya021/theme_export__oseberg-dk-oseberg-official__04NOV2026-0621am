@@ -1,0 +1,459 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_breadcrumb_section_dUtqde": {
+      "type": "custom-breadcrumb-section",
+      "settings": {
+        "background_color": "#ffffff"
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "dropdown",
+            "swatch_shape": "square"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": false
+          }
+        },
+        "delivery_info_nyeste": {
+          "type": "delivery_info",
+          "settings": {
+            "show_delivery_info": true,
+            "delivery_title": "Anslået levering: 14-10-2025",
+            "delivery_text": "<p>Ved større produkter som senge vælger du selv leveringsdag og tidspunkt, når du modtager en SMS fra fragtfirmaet. Ved mindre produkter som sengetøj får du en mail eller SMS, når pakken er på vej. Tak for din ordre ❤</p>",
+            "heart_color": "#ff0000",
+            "show_rating": true,
+            "rating_text": "4.6 af 20.000+ anmeldelser",
+            "show_guarantee": true,
+            "guarantee_text": "100 nætters prøve",
+            "show_guarantee_link": true,
+            "guarantee_link_text": "Læs mere",
+            "guarantee_link_url": "",
+            "show_rating_link": true,
+            "rating_link_text": "Læs mere",
+            "rating_link_url": ""
+          }
+        },
+        "description": {
+          "type": "description",
+          "disabled": true,
+          "settings": {}
+        },
+        "additional_product_9eyBLq": {
+          "type": "additional-product",
+          "settings": {
+            "fordele_main_heading": "Tilbehør"
+          }
+        },
+        "slide_XHmwpi": {
+          "type": "slide",
+          "settings": {
+            "fordele_main_heading": "Særligt for dig",
+            "fordele_image_1": "shopify://shop_images/SHOWROOM.00_00_08_19.Still002.jpg",
+            "fordele_heading_1": "Besøg Showroom",
+            "fordele_description_1": "Oplev komfort og design tæt på – vi står klar til at hjælpe i vores flotte showroom i Tisvildeleje.",
+            "fordele_image_2": "shopify://shop_images/IMG_5184.jpg",
+            "fordele_heading_2": "Størst på sengegavle",
+            "fordele_description_2": "Hos os finder du Danmarks største udvalg af sengegavle, så du altid har mulighed for at finde en sengegavl der passer præcis til dit hjem.",
+            "fordele_image_3": "shopify://shop_images/pexels-sebastian-189349.jpg",
+            "fordele_heading_3": "Valgfri leveringsdato",
+            "fordele_description_3": "Bestem selv, hvornår din nye seng eller andet møbel skal leveres.",
+            "fordele_image_4": "shopify://shop_images/C0166.MP4.07_38_17_15.Still001.jpg",
+            "fordele_heading_4": "Personlig rådgivning",
+            "fordele_description_4": "Få vejledning, der matcher dine behov og ønsker.",
+            "fordele_image_5": "shopify://shop_images/SHOWROOM.00_00_11_08.Still007.jpg",
+            "fordele_heading_5": "Specielle madrasser",
+            "fordele_description_5": "Tilpassede løsninger til særlige mål og behov."
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "price",
+        "variant_picker",
+        "buy_buttons",
+        "delivery_info_nyeste",
+        "description",
+        "additional_product_9eyBLq",
+        "slide_XHmwpi"
+      ],
+      "settings": {
+        "background_image": "shopify://shop_images/PRODUKTBILLEDER_0cae8f3e-13d8-420a-b145-8c596ffe98a1.png",
+        "background_color": "#ffffff",
+        "background_color_two": "#ffffff",
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked",
+        "media_position": "left",
+        "image_zoom": "none",
+        "mobile_thumbnails": "hide",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "custom_sticky_menu_Yxtat7": {
+      "type": "custom-sticky-menu",
+      "blocks": {
+        "menu_item_CARHwD": {
+          "type": "menu_item",
+          "settings": {
+            "menu_text": "Produktoverblik",
+            "menu_id": ""
+          }
+        },
+        "menu_item_hk4Hf9": {
+          "type": "menu_item",
+          "settings": {
+            "menu_text": "Showroom",
+            "menu_id": "Oplev komforten i virkeligheden – i Tisvildeleje"
+          }
+        },
+        "menu_item_RcxiA9": {
+          "type": "menu_item",
+          "settings": {
+            "menu_text": "Ofte stillede spørgsmål",
+            "menu_id": "Ofte stillede spørgsmål"
+          }
+        }
+      },
+      "block_order": [
+        "menu_item_CARHwD",
+        "menu_item_hk4Hf9",
+        "menu_item_RcxiA9"
+      ],
+      "settings": {}
+    },
+    "custom_rich_main_page_gCLD8A": {
+      "type": "custom-rich-main-page",
+      "blocks": {
+        "heading_x4Mknz": {
+          "type": "heading",
+          "settings": {
+            "heading": "Gavekort til House of Tisvilde",
+            "heading_size": "h1"
+          }
+        },
+        "text_We7Cm4": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Giv en gave, der altid rammer rigtigt. Med et gavekort til House of Tisvilde får modtageren friheden til selv at vælge blandt eksklusive boligprodukter, tekstiler og interiør i høj kvalitet.</p><p>Et gavekort er den perfekte løsning, uanset om du er i tvivl om stil, størrelse eller ønsker – eller hvis du mangler en elegant gave i sidste øjeblik. Det er nemt, fleksibelt og personligt på samme tid.</p><p>Ideelt til fødselsdage, bryllupper, indflytning eller som en særlig forkælelse til én, du holder af.</p><p>Med et gavekort giver du ikke bare en gave – du giver muligheden for at skabe et hjem med stil og komfort.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_x4Mknz",
+        "text_We7Cm4"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "custom_product_blik_BEn6RX": {
+      "type": "custom-product-blik",
+      "blocks": {
+        "content_kxBN3P": {
+          "type": "content",
+          "settings": {
+            "heading": "Lavet med bløde Lyocell-fibre",
+            "subtext": "Topmadras-betræk",
+            "description": "<p>Tencel-coveret er lavet med Lyocell-fibre, der, udover at være skånsomme mod huden, også er dobbelt så bløde som almindeligt bomuld. Biofibrene sikrer derudover betrækket gode fugtabsorberende evner, og undersiden har anti-skrid, så topmadrassen bliver liggende, hvor den skal.</p>",
+            "feature_image": "shopify://shop_images/Powernap.jpg"
+          }
+        },
+        "content_7xWGXM": {
+          "type": "content",
+          "settings": {
+            "heading": "Sengeborde",
+            "subtext": "Topmadras",
+            "description": "<p>Kernen består af en 60 mm høj kerne i komfortskum, der er OEKO-TEX®-certificeret og har en god elasticitet, der giver kroppen god støtte natten igennem. Skummets fugtabsorberende evner sikrer dig derudover et tørt og sundt sovemiljø nat efter nat.</p>",
+            "feature_image": "shopify://shop_images/100dagespr_ve-03_1.png"
+          }
+        },
+        "content_PjCd7h": {
+          "type": "content",
+          "settings": {
+            "heading": "Aflastningen din krop har brug for - hver nat",
+            "subtext": "Springmadras",
+            "description": "<p>Med pocketfjedre, 7 bedre™ zoner og 25 mm komfortskum får du den helt rette sunde støtte, som tilpasser sig din krop og bevægelser. En sund, differentieret støtte pakket ind i behageligt komfortskum som den bedste finish på springmadrassen.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "content_kxBN3P",
+        "content_7xWGXM",
+        "content_PjCd7h"
+      ],
+      "disabled": true,
+      "settings": {
+        "subtext": "Produktoverblik",
+        "heading": "Udforsk Senses",
+        "left_image": "shopify://shop_images/siri_kundeservice.png"
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "disabled": true,
+      "settings": {
+        "heading": "You may also like",
+        "heading_size": "h2",
+        
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "columns_mobile": "2",
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    },
+    "custom_image_with_text_adJEHd": {
+      "type": "custom-image-with-text",
+      "settings": {
+        "section_id": "Showroom",
+        "section_color": "#ffffff",
+        "container_color": "#ac9d89",
+        "section_image": "shopify://shop_images/WhatsApp_Image_2026-04-25_at_10.17.02.jpg",
+        "head_main": "Besøg vores Showroom",
+        "title": "Oplev komforten i virkeligheden – i Tisvildeleje",
+        "description": "Der er noget særligt ved at mærke, teste og opleve en seng i virkeligheden, før man beslutter sig. I vores showroom i Tisvildeleje kan du i rolige omgivelser tage dig god tid til at finde præcis den seng, der passer til dig. Her handler det ikke om hastige valg – men om ro, fornemmelse og personlig vejledning.\nÅbnet alle dage efter aftale.",
+        "button_link": "shopify://pages/contact",
+        "button_text": "Book dit besøg nu!",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "multicolumn_LHc8r3": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_p8cXpf": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/WhatsApp_Image_2026-04-30_at_20.17.31.jpg",
+            "title": "<strong>Vi modtager din ordre</strong>",
+            "text": "<p>Varen pakkes på vores lager, hvorefter den går videre til fragtfirmaet. Vi har gratis levering til hele landet – også til alle ikke-brofaste øer.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_n4nm9Y": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/WhatsApp_Image_2026-04-30_at_20.17.31_1.jpg",
+            "title": "<strong>Hos fragtmand</strong>",
+            "text": "<p>Fragtfirmaet får produktet ind på deres lager, hvorefter de ringer til dig og aftaler en leveringsdag der passer dig. Ved mindre produkter som dyner, lagner m.v. får du tilsendt et trackingnummer fra GLS. </p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_W6P4Me": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/WhatsApp_Image_2026-04-30_at_20.17.31_2.jpg",
+            "title": "<strong>Aftal levering</strong>",
+            "text": "<p>På selve dagen ringer fragtmanden også en halv time før, han ankommer, så du har mulighed for at være hjemme. Bemærk at mindre pakker (inkl. topmadrasser) leveres som pakkepost med track and trace.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_p8cXpf",
+        "column_n4nm9Y",
+        "column_W6P4Me"
+      ],
+      "name": "3 GRUNDE",
+      "settings": {
+        "title": "Vi lukker ikke et øje før du sover godt",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "custom_product_reality_zDEmPN": {
+      "type": "custom-product-reality",
+      "blocks": {
+        "slide_DB7enM": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Powernap.jpg",
+            "link": "shopify://products/atlas",
+            "button_text": "Shop Now",
+            "profile_image": "shopify://shop_images/siri_kundeservice.png",
+            "username": "Sofie Lundedal",
+            "handle": "@sofielundedal"
+          }
+        },
+        "slide_C7AFWE": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Powernap.jpg",
+            "link": "shopify://products/atlas",
+            "button_text": "Shop Now",
+            "profile_image": "shopify://shop_images/siri_kundeservice.png",
+            "username": "Sofie Lundedal",
+            "handle": "@sofielundedal"
+          }
+        },
+        "slide_XER4Be": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Powernap.jpg",
+            "link": "shopify://products/atlas",
+            "button_text": "Shop Now",
+            "profile_image": "shopify://shop_images/siri_kundeservice.png",
+            "username": "Sofie Lundedal",
+            "handle": "@sofielundedal"
+          }
+        },
+        "slide_JpKaVd": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Powernap.jpg",
+            "link": "shopify://products/atlas",
+            "button_text": "Shop Now",
+            "profile_image": "shopify://shop_images/siri_kundeservice.png",
+            "username": "Sofie Lundedal",
+            "handle": "@sofielundedal"
+          }
+        },
+        "slide_tBKaKw": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Powernap.jpg",
+            "link": "shopify://products/atlas",
+            "button_text": "Shop Now",
+            "profile_image": "shopify://shop_images/siri_kundeservice.png",
+            "username": "Sofie Lundedal",
+            "handle": "@sofielundedal"
+          }
+        }
+      },
+      "block_order": [
+        "slide_DB7enM",
+        "slide_C7AFWE",
+        "slide_XER4Be",
+        "slide_JpKaVd",
+        "slide_tBKaKw"
+      ],
+      "disabled": true,
+      "settings": {
+        "heading": "Anbefalet af",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "custom_faq_popup_6MykbK": {
+      "type": "custom-faq-popup",
+      "blocks": {
+        "question_caMHQJ": {
+          "type": "question",
+          "settings": {
+            "question_text": "Hvorfor er et gavekort en god gave?",
+            "answer_text": "<p>Et gavekort er en fleksibel gave, hvor modtageren selv kan vælge præcis det, de ønsker. Det gør det nemt at give en gave, der altid rammer rigtigt.</p>"
+          }
+        },
+        "question_hzXz9J": {
+          "type": "question",
+          "settings": {
+            "question_text": "Hvornår er et gavekort en god løsning?",
+            "answer_text": "<p>Gavekort er ideelle, når du er i tvivl om størrelse, stil eller behov – eller hvis du mangler en gave i sidste øjeblik, da de kan købes og sendes hurtigt digitalt.</p>"
+          }
+        },
+        "question_x6eEaL": {
+          "type": "question",
+          "settings": {
+            "question_text": "Hvor længe er et gavekort gyldigt?",
+            "answer_text": "<p>Som udgangspunkt er gavekort gyldige i op til <strong>3 år</strong>, medmindre andet er oplyst ved køb. Det giver modtageren god tid til at bruge gaven. </p>"
+          }
+        },
+        "question_9xGqqe": {
+          "type": "question",
+          "settings": {
+            "question_text": "Hvad er fordelene ved gavekort for modtageren?",
+            "answer_text": "<p>Modtageren får frihed til selv at vælge produkter, hvilket giver en mere personlig oplevelse og sikrer, at gaven faktisk bliver brugt. </p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_caMHQJ",
+        "question_hzXz9J",
+        "question_x6eEaL",
+        "question_9xGqqe"
+      ],
+      "name": "CUFAQ Popup Section",
+      "settings": {
+        "section_id": "Ofte stillede spørgsmål",
+        "dr_heading": "Ofte stillede spørgsmål"
+      }
+    }
+  },
+  "order": [
+    "custom_breadcrumb_section_dUtqde",
+    "main",
+    "custom_sticky_menu_Yxtat7",
+    "custom_rich_main_page_gCLD8A",
+    "custom_product_blik_BEn6RX",
+    "related-products",
+    "custom_image_with_text_adJEHd",
+    "multicolumn_LHc8r3",
+    "custom_product_reality_zDEmPN",
+    "custom_faq_popup_6MykbK"
+  ]
+}

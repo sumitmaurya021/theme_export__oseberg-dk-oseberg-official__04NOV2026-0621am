@@ -1,0 +1,17 @@
+<div class="custom-product-tags">
+ {% for tag in product.tags %}
+    <span class="custom-tag">{{ tag }}</span>
+  {% endfor %}
+
+  {% comment %} {% if product.tags contains 'Ugens tilbud' %}
+    <span class="custom-tag custom-tag-special">Ugens tilbud</span>
+  {% endif %}
+
+  {% if product.tags contains 'Inkl. væghængt gavl' %}
+    <span class="custom-tag">Inkl. væghængt gavl</span>
+  {% endif %}
+
+  {% if product.tags contains 'Gratis ben opgradering' %}
+    <span class="custom-tag">Gratis ben opgradering</span>
+  {% endif %} {% endcomment %}
+</div>

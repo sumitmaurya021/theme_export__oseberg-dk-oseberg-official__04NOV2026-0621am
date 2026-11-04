@@ -1,0 +1,124 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div id="{{ section.settings.section_id }}" class="section-{{ section.id }}-padding" style="background-color: {{ section.settings.section_color }};">
+  <div class="page-width">
+    <div class="custom-image-text-section" style="background-color: {{ section.settings.container_color }};">
+      <div class="custom-image-container">
+        {% if section.settings.section_image %}
+          <img src="{{ section.settings.section_image | image_url }}" alt="BedMatch">
+        {% endif %}
+      </div>
+      <div class="custom-text-container">
+        {% if section.settings.head_main %}
+          <h3>{{ section.settings.head_main }}</h3>
+        {% endif %}
+        {% if section.settings.title %}
+          <h2>{{ section.settings.title }}</h2>
+        {% endif %}
+        {% if section.settings.description %}
+          <p>{{ section.settings.description }}</p>
+        {% endif %}
+        {% assign invalid_values = '#,-,_,N/A' | split: ',' %}
+        {% unless section.settings.button_text == '#'
+          or section.settings.button_text == ''
+          or section.settings.button_text == blank
+        %}
+          <a href="{{ section.settings.button_link }}" class="cus-button">
+            <span title="{{ section.settings.button_text }}">{{ section.settings.button_text }}</span>
+          </a>
+        {% endunless %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Image with Text",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section Id"
+    },
+    {
+      "type": "color",
+      "id": "section_color",
+      "label": "Section Background Color"
+    },
+    {
+      "type": "color",
+      "id": "container_color",
+      "label": "Cotainer Background Color",
+      "default": "#f9f3ee"
+    },
+    {
+      "type": "image_picker",
+      "id": "section_image",
+      "label": "Select Image"
+    },
+    {
+      "type": "text",
+      "id": "head_main",
+      "label":"Main Heading"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Sub Heading",
+      "default": "Still in doubt? Try SengeMatch™"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Sleeping well should be easy. That’s why we’ve developed SengeMatch™, which, based on personalized questions and our experience with more than 150,000+ beds sold, finds and adapts a bed that’s just right for you."
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Image with Text"
+    }
+  ]
+}
+{% endschema %}

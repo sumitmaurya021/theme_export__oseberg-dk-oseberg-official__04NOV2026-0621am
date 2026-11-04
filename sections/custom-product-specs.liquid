@@ -1,0 +1,328 @@
+{%- liquid
+  assign mf = product.metafields.custom
+  assign sp_image = mf.specifikation_billede.value
+  assign sp_title = mf.specifikation_titel.value
+  assign sp_points = mf.specifikation_punkter.value
+-%}
+
+{%- if sp_image != blank or sp_title != blank or sp_points != blank -%}
+
+{%- style -%}
+  #pspec-{{ section.id }} {
+    --sp-title: {{ section.settings.title_color }};
+    --sp-text: {{ section.settings.text_color }};
+    --sp-line: {{ section.settings.line_color }};
+    --sp-radius: {{ section.settings.image_radius }}px;
+    background: {{ section.settings.bg_color }};
+    border-top: 1px solid {{ section.settings.border_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  #pspec-{{ section.id }} .sp__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    align-items: center;
+  }
+
+  /* ---------- Image ---------- */
+  #pspec-{{ section.id }} .sp__media {
+    min-width: 0;
+  }
+
+  #pspec-{{ section.id }} .sp__media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--sp-radius);
+  }
+
+  /* ---------- Content ---------- */
+  #pspec-{{ section.id }} .sp__content { min-width: 0; }
+
+  #pspec-{{ section.id }} .sp__title {
+    margin: 0 0 24px;
+    color: var(--sp-title);
+    font-family: var(--font-serif, 'Playfair Display', Georgia, 'Times New Roman', serif);
+    font-size: clamp(28px, 3.2vw, 48px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  #pspec-{{ section.id }} .sp__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #pspec-{{ section.id }} .sp__row {
+    display: grid;
+    grid-template-columns: minmax(110px, 38%) minmax(0, 1fr);
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--sp-line);
+    color: var(--sp-text);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(14px, 1.05vw, 16px);
+    line-height: 1.6;
+    letter-spacing: normal;
+  }
+
+  #pspec-{{ section.id }} .sp__row:last-child {
+    border-bottom: 0;
+  }
+
+  #pspec-{{ section.id }} .sp__label {
+    font-weight: 500;
+  }
+
+  #pspec-{{ section.id }} .sp__value {
+    font-weight: 400;
+    overflow-wrap: break-word;
+  }
+
+  #pspec-{{ section.id }} .sp__row--single {
+    display: block;
+  }
+
+  /* ---------- Tablet (750px - 989px) ---------- */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #pspec-{{ section.id }} .sp__grid { gap: 40px; }
+    #pspec-{{ section.id }} .sp__title { font-size: clamp(32px, 5vw, 44px); }
+  }
+
+  /* ---------- Desktop (990px and up) : 70% / 30% ---------- */
+  @media screen and (min-width: 990px) {
+    #pspec-{{ section.id }} .sp__grid {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
+      gap: clamp(24px, 3vw, 48px);
+      align-items: stretch;
+    }
+
+    /* Content image ki height ke andar hi rahe, vertically centered */
+    #pspec-{{ section.id }} .sp__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-self: stretch;
+      min-height: 0;
+    }
+
+    #pspec-{{ section.id }} .sp__media {
+      align-self: center;
+    }
+
+    #pspec-{{ section.id }} .sp__title {
+      margin-bottom: 14px;
+      font-size: clamp(24px, 2.4vw, 36px);
+    }
+
+    #pspec-{{ section.id }} .sp__row {
+      grid-template-columns: minmax(80px, 42%) minmax(0, 1fr);
+      gap: 12px;
+      padding: 6px 0;
+      font-size: clamp(13px, 0.95vw, 15px);
+      line-height: 1.45;
+    }
+  }
+
+  /* ---------- Mobile (749px and below) ---------- */
+  @media screen and (max-width: 749px) {
+    #pspec-{{ section.id }} .sp__grid { gap: 28px; }
+    #pspec-{{ section.id }} .sp__title { margin-bottom: 18px; }
+    #pspec-{{ section.id }} .sp__row { gap: 12px; padding: 9px 0; }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     JS chalega to hi hide hota hai, warna content hamesha visible rahega
+     ============================================ */
+  #pspec-{{ section.id }} {
+    --sp-media-x: -28px;
+    --sp-content-x: 28px;
+  }
+
+  #pspec-{{ section.id }}.sp-anim .sp__media {
+    opacity: 0;
+    transform: translateX(var(--sp-media-x));
+    transition:
+      opacity 1.1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1.1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  #pspec-{{ section.id }}.sp-anim .sp__title,
+  #pspec-{{ section.id }}.sp-anim .sp__row {
+    opacity: 0;
+    transform: translateX(var(--sp-content-x));
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: calc(0.15s + var(--sp-ci, 0) * 0.1s);
+    will-change: opacity, transform;
+  }
+
+  #pspec-{{ section.id }}.sp-anim.is-visible .sp__media,
+  #pspec-{{ section.id }}.sp-anim.is-visible .sp__title,
+  #pspec-{{ section.id }}.sp-anim.is-visible .sp__row {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  #pspec-{{ section.id }}.sp-anim.is-done .sp__media,
+  #pspec-{{ section.id }}.sp-anim.is-done .sp__title,
+  #pspec-{{ section.id }}.sp-anim.is-done .sp__row {
+    transition-delay: 0s;
+    will-change: auto;
+  }
+
+  /* Mobile: side slide ki jagah halka fade-up */
+  @media screen and (max-width: 749px) {
+    #pspec-{{ section.id }} {
+      --sp-media-x: 0px;
+      --sp-content-x: 0px;
+    }
+    #pspec-{{ section.id }}.sp-anim .sp__media,
+    #pspec-{{ section.id }}.sp-anim .sp__title,
+    #pspec-{{ section.id }}.sp-anim .sp__row {
+      transform: translateY(20px);
+    }
+    #pspec-{{ section.id }}.sp-anim.is-visible .sp__media,
+    #pspec-{{ section.id }}.sp-anim.is-visible .sp__title,
+    #pspec-{{ section.id }}.sp-anim.is-visible .sp__row {
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #pspec-{{ section.id }}.sp-anim .sp__media,
+    #pspec-{{ section.id }}.sp-anim .sp__title,
+    #pspec-{{ section.id }}.sp-anim .sp__row {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+{%- endstyle -%}
+
+<div id="pspec-{{ section.id }}" class="custom-product-specs">
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+    <div class="sp__grid">
+
+      {%- if sp_image != blank -%}
+        <div class="sp__media">
+          <img
+            src="{{ sp_image | image_url: width: 1600 }}"
+            srcset="{{ sp_image | image_url: width: 400 }} 400w,
+                    {{ sp_image | image_url: width: 600 }} 600w,
+                    {{ sp_image | image_url: width: 800 }} 800w,
+                    {{ sp_image | image_url: width: 1200 }} 1200w,
+                    {{ sp_image | image_url: width: 1600 }} 1600w"
+            sizes="(min-width: 990px) 70vw, 100vw"
+            alt="{{ sp_image.alt | default: product.title | escape }}"
+            width="{{ sp_image.width }}"
+            height="{{ sp_image.height }}"
+            loading="lazy"
+          >
+        </div>
+      {%- endif -%}
+
+      <div class="sp__content">
+        {%- if sp_title != blank -%}
+          <h2 class="sp__title">{{ sp_title | escape }}</h2>
+        {%- endif -%}
+
+        {%- if sp_points != blank -%}
+          {%- assign point_lines = sp_points | escape | newline_to_br | split: '<br />' -%}
+          <ul class="sp__list">
+            {%- for line in point_lines -%}
+              {%- assign line_clean = line | strip -%}
+              {%- if line_clean != blank -%}
+                {%- if line_clean contains '|' -%}
+                  {%- assign parts = line_clean | split: '|' -%}
+                  <li class="sp__row">
+                    <span class="sp__label">{{ parts[0] | strip }}</span>
+                    <span class="sp__value">{{ parts[1] | strip }}</span>
+                  </li>
+                {%- else -%}
+                  <li class="sp__row sp__row--single">{{ line_clean }}</li>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var section = document.getElementById('pspec-{{ section.id }}');
+    if (!section) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    section.querySelectorAll('.sp__title, .sp__row').forEach(function (el, i) {
+      el.style.setProperty('--sp-ci', i);
+    });
+
+    section.classList.add('sp-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+          window.setTimeout(function () {
+            section.classList.add('is-done');
+          }, 2200);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    observer.observe(section);
+  })();
+</script>
+
+{%- elsif request.design_mode -%}
+  <div class="page-width" style="padding: 24px 0; text-align: center; opacity: .6;">
+    Produktspecifikationer: specifikation-metafelterne er tomme for dette produkt.
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Custom Product Specs",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Image, title aur points product ke metafields (custom.specifikation_*) se aate hain." },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "border_color", "label": "Top Border Color", "default": "#A58C76" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#302821" },
+    { "type": "color", "id": "text_color", "label": "Points Text Color", "default": "#302821" },
+    { "type": "color", "id": "line_color", "label": "Points Divider Color", "default": "#DED2C3" },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "image_radius", "min": 0, "max": 24, "step": 2, "unit": "px", "label": "Image Corner Radius", "default": 0 },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": false },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Top", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 48 }
+  ],
+  "presets": [
+    { "name": "Custom Product Specs" }
+  ]
+}
+{% endschema %}

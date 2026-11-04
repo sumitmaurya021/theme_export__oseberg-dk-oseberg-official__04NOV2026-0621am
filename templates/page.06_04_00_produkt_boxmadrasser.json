@@ -1,0 +1,432 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "custom_breadcrumb_section_feTXA9": {
+      "type": "custom-breadcrumb-section",
+      "settings": {
+        "background_color": "#ffffff"
+      }
+    },
+    "custom_rich_main_page_ArNEbc": {
+      "type": "custom-rich-main-page",
+      "blocks": {
+        "heading_Nh7JcP": {
+          "type": "heading",
+          "settings": {
+            "heading": "{{ page.title }}",
+            "heading_size": "h1"
+          }
+        },
+        "text_bePVRj": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Boxmadrasser – enkelhed og komfort i ét</strong></p><p>En boxmadras er en komplet løsning, hvor komfort og funktion er samlet i én seng. Den solide opbygning giver en stabil base, mens madrassens lag sikrer en behagelig og støttende liggeoplevelse.</p><p>Boxmadrasser er et oplagt valg for dig, der ønsker en enkel løsning uden at gå på kompromis med komfort. De er nemme at integrere i soveværelset og skaber et roligt og indbydende udtryk.</p><p>Hos House of Tisvilde finder du boxmadrasser, hvor kvalitet, design og komfort er nøje afstemt. Vælg den løsning, der passer til dine behov – og skab fundamentet for en god nattesøvn.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Nh7JcP",
+        "text_bePVRj"
+      ],
+      "name": "INTRO",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "weekly_recommendation_8i8AVp": {
+      "type": "weekly-recommendation",
+      "disabled": true,
+      "settings": {
+        "background_color": "#ac9d89",
+        "section_heading": "Ugens anbefaling",
+        "elevationssenge": "Elevationssenge",
+        "product": "demo-ten",
+        "tag_text": "Ugens anbefaling",
+        "bottom_note": "Gælder t.o.m 27/04 eller så længe lager haves.",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "rich_text_tJyJwh": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_MgCPT7": {
+          "type": "heading",
+          "settings": {
+            "heading": "MIDLERTIGLIGT INGEN PÅ LAGER",
+            "heading_size": "h1"
+          }
+        },
+        "text_rFt6Db": {
+          "type": "text",
+          "settings": {
+            "text": "<p><em>Vi er igang med at få nye boxmadrasser på lager.</em></p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_MgCPT7",
+        "text_rFt6Db"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-f6119c06-54c5-4f50-a72a-2734a0f6ee7b",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "choose_size_BGPMaX": {
+      "type": "choose-size",
+      "blocks": {
+        "size_option_Yg4pfj": {
+          "type": "size_option",
+          "settings": {
+            "size_label": "90x200",
+            "size_url": "shopify://pages/boxmadrasser-90x200-1"
+          }
+        },
+        "size_option_9TLBqA": {
+          "type": "size_option",
+          "settings": {
+            "size_label": "90x210",
+            "size_url": "shopify://pages/boxmadrasser-90x210"
+          }
+        },
+        "size_option_EBT3Wm": {
+          "type": "size_option",
+          "settings": {
+            "size_label": "120x200",
+            "size_url": "shopify://pages/boxmadrasser-120x200-1"
+          }
+        },
+        "size_option_R6rptM": {
+          "type": "size_option",
+          "settings": {
+            "size_label": "120x210",
+            "size_url": "shopify://pages/boxmadrasser-120x210"
+          }
+        },
+        "size_option_CdULcb": {
+          "type": "size_option",
+          "settings": {
+            "size_label": "140x200",
+            "size_url": "shopify://pages/boxmadrasser-140x200-1"
+          }
+        },
+        "size_option_9TfbBq": {
+          "type": "size_option",
+          "settings": {
+            "size_label": "140x210",
+            "size_url": "shopify://pages/boxmadrasser-140x210"
+          }
+        },
+        "size_option_YajGgV": {
+          "type": "size_option",
+          "settings": {
+            "size_label": "160x200",
+            "size_url": "shopify://pages/boxmadrasser-160x200-1"
+          }
+        },
+        "size_option_hxdiAN": {
+          "type": "size_option",
+          "settings": {
+            "size_label": "160x210",
+            "size_url": "shopify://pages/boxmadrasser-160x210"
+          }
+        },
+        "size_option_hyfiYd": {
+          "type": "size_option",
+          "settings": {
+            "size_label": "180x200",
+            "size_url": "shopify://pages/boxmadrasser-180x200-1"
+          }
+        },
+        "size_option_3UKVLU": {
+          "type": "size_option",
+          "settings": {
+            "size_label": "180x210",
+            "size_url": "shopify://pages/boxmadrasser-180x210"
+          }
+        },
+        "size_option_UqAFMU": {
+          "type": "size_option",
+          "settings": {
+            "size_label": "200x200",
+            "size_url": "shopify://pages/boxmadrasser-200x200-1"
+          }
+        },
+        "size_option_T98J4C": {
+          "type": "size_option",
+          "settings": {
+            "size_label": "200x210",
+            "size_url": "shopify://pages/boxmadrasser-200x210-1"
+          }
+        },
+        "size_option_PVCLQ8": {
+          "type": "size_option",
+          "settings": {
+            "size_label": "200x220",
+            "size_url": "shopify://pages/boxmadrasser-200x220-1"
+          }
+        }
+      },
+      "block_order": [
+        "size_option_Yg4pfj",
+        "size_option_9TLBqA",
+        "size_option_EBT3Wm",
+        "size_option_R6rptM",
+        "size_option_CdULcb",
+        "size_option_9TfbBq",
+        "size_option_YajGgV",
+        "size_option_hxdiAN",
+        "size_option_hyfiYd",
+        "size_option_3UKVLU",
+        "size_option_UqAFMU",
+        "size_option_T98J4C",
+        "size_option_PVCLQ8"
+      ],
+      "settings": {
+        "section_heading": "Vælg størrelse",
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "custom_collection_product_8bh7Pk": {
+      "type": "custom-collection-product",
+      "disabled": true,
+      "name": "1",
+      "settings": {
+        "subtext_heading": "Faste madrasser med stabil støtte",
+        "main_heading": "Faste boxmadrasser",
+        "main_description": "<p>Designet til at give en fast og balanceret liggekomfort gennem hele natten.</p>",
+        "collections": [],
+        "show_collection_tabs": true,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "background_color": "#ac9d89",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "custom_collection_product_VjrWJU": {
+      "type": "custom-collection-product",
+      "disabled": true,
+      "name": "2",
+      "settings": {
+        "subtext_heading": "Bløde madrasser med utrolig komfort",
+        "main_heading": "Bløde boxmadrasser",
+        "main_description": "<p>Designet til at give en blød og balanceret liggekomfort gennem hele natten.</p>",
+        "collections": [],
+        "show_collection_tabs": true,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "background_color": "#faf6f2",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "custom_collection_product_brJ7Dc": {
+      "type": "custom-collection-product",
+      "disabled": true,
+      "name": "3",
+      "settings": {
+        "subtext_heading": "Cooler madrasser til en friskere søvn",
+        "main_heading": "Cooler boxmadrasser",
+        "main_description": "<p>Udviklet til at regulere temperaturen og skabe et behageligt sovemiljø.</p>",
+        "collections": [],
+        "show_collection_tabs": true,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "background_color": "#ac9d89",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "custom_video_section_XV9m7t": {
+      "type": "custom-video-section",
+      "name": "JULIE VIDEO_SHOWROOM",
+      "settings": {
+        "video_url": "",
+        "border_radius": 20
+      }
+    },
+    "multicolumn_VhGp3f": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_te6Vyf": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Vi modtager din ordre</strong>",
+            "text": "<p>Varen pakkes på vores lager, hvorefter den går videre til fragtfirmaet. Vi har gratis levering til hele landet – også til alle ikke-brofaste øer.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_KyhcWV": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Hos fragtmand</strong>",
+            "text": "<p>Fragtfirmaet får produktet ind på deres lager, hvorefter de ringer til dig og aftaler en leveringsdag der passer dig. Ved mindre produkter som dyner, lagner m.v. får du tilsendt et trackingnummer fra GLS. </p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_BBt8Tn": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Aftal levering</strong>",
+            "text": "<p>På selve dagen ringer fragtmanden også en halv time før, han ankommer, så du har mulighed for at være hjemme. Bemærk at mindre pakker (inkl. topmadrasser) leveres som pakkepost med track and trace.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_te6Vyf",
+        "column_KyhcWV",
+        "column_BBt8Tn"
+      ],
+      "name": "3 GRUNDE",
+      "settings": {
+        "title": "Vi lukker ikke et øje før du sover godt",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "custom_rich_text_img_RKFcKr": {
+      "type": "custom-rich-text-img",
+      "name": "BILLEDE",
+      "settings": {
+        "subtext": "House of Tisvilde",
+        "heading": "Til enhver krop og enhver søvn",
+        "button_text": "Se udvalget",
+        "button_url": "shopify://pages/vores-madrasser"
+      }
+    },
+    "custom_img_txt_accordion_P4UKFY": {
+      "type": "custom-img-txt-accordion",
+      "blocks": {
+        "content_block_8kLwk6": {
+          "type": "content_block",
+          "settings": {
+            "heading": "Madrasser",
+            "description": "<p>Madrassen er hjertet i din seng – og det er vigtigt at vælge den rigtige. Hos House of Tisvilde tilbyder vi nøje udvalgte madrasser, der kombinerer ergonomi, komfort og holdbarhed. Uanset om du ønsker fast eller blød støtte, naturlige materialer eller høj åndbarhed, hjælper vi dig med at finde den, der passer til netop dig og din krop.</p>"
+          }
+        },
+        "accordion_block_w89zFW": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvordan vælger jeg den rigtige fasthed?",
+            "accordion_content": "<p>Det afhænger af din vægt, sovestilling og personlige præferencer – vi hjælper dig gerne med at finde den rette balance.</p>"
+          }
+        },
+        "accordion_block_EzTFkh": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Er jeres madrasser allergivenlige?",
+            "accordion_content": "<p>Ja, mange af vores madrasser er lavet med naturlige og åndbare materialer, som er særligt velegnede til allergikere.</p>"
+          }
+        },
+        "accordion_block_kmfVWQ": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Kan jeg prøve madrassen inden køb?",
+            "accordion_content": "<p>Du er altid velkommen i vores showroom, hvor du kan prøve de fleste modeller. Du kan også booke tid med en specialist.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "content_block_8kLwk6",
+        "accordion_block_w89zFW",
+        "accordion_block_EzTFkh",
+        "accordion_block_kmfVWQ"
+      ],
+      "name": "INFO",
+      "settings": {
+        "custom_id": "",
+        "background_color": "#ffffff",
+        "padding_top": 65,
+        "padding_bottom": 65
+      }
+    },
+    "custom_image_with_text_HXngKr": {
+      "type": "custom-image-with-text",
+      "name": "BOOK SHOWROOM",
+      "settings": {
+        "section_id": "Showroom",
+        "section_color": "#ffffff",
+        "container_color": "#efe7dc",
+        "head_main": "Besøg vores Showroom",
+        "title": "Oplev komforten i virkeligheden – i Tisvildeleje",
+        "description": "Der er noget særligt ved at mærke, teste og opleve en seng i virkeligheden, før man beslutter sig. I vores showroom i Tisvildeleje kan du i rolige omgivelser tage dig god tid til at finde præcis den seng, der passer til dig. Her handler det ikke om hastige valg – men om ro, fornemmelse og personlig vejledning.\nÅbnet alle dage efter aftale.",
+        "button_link": "shopify://pages/book-a-specialist",
+        "button_text": "Book dit besøg nu!",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_breadcrumb_section_feTXA9",
+    "custom_rich_main_page_ArNEbc",
+    "weekly_recommendation_8i8AVp",
+    "rich_text_tJyJwh",
+    "choose_size_BGPMaX",
+    "custom_collection_product_8bh7Pk",
+    "custom_collection_product_VjrWJU",
+    "custom_collection_product_brJ7Dc",
+    "custom_video_section_XV9m7t",
+    "multicolumn_VhGp3f",
+    "custom_rich_text_img_RKFcKr",
+    "custom_img_txt_accordion_P4UKFY",
+    "custom_image_with_text_HXngKr"
+  ]
+}

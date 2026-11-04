@@ -1,0 +1,460 @@
+{%- liquid
+  assign ics_items = section.blocks | where: 'type', 'swatch'
+-%}
+
+{%- style -%}
+  #icolors-{{ section.id }} {
+    --cl-num: {{ section.settings.number_color }};
+    --cl-title: {{ section.settings.title_color }};
+    --cl-desc: {{ section.settings.desc_color }};
+    --cl-name: {{ section.settings.name_color }};
+    --cl-tile-bg: {{ section.settings.tile_bg }};
+    --cl-line: {{ section.settings.line_color }};
+    --cl-btn-bg: {{ section.settings.button_bg }};
+    --cl-btn-color: {{ section.settings.button_color }};
+    --cl-btn-hover-bg: {{ section.settings.button_hover_bg }};
+    --cl-btn-hover-color: {{ section.settings.button_hover_color }};
+    --cl-radius: {{ section.settings.image_radius }}px;
+    --cl-ratio: {{ section.settings.tile_ratio }};
+    background: {{ section.settings.bg_color }};
+    border-top: 1px solid {{ section.settings.border_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  #icolors-{{ section.id }} .cl__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    align-items: center;
+  }
+
+  /* ---------- Content ---------- */
+  #icolors-{{ section.id }} .cl__content { min-width: 0; }
+
+  #icolors-{{ section.id }} .cl__number {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 16px;
+    color: var(--cl-num);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  #icolors-{{ section.id }} .cl__number::after {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.6;
+  }
+
+  #icolors-{{ section.id }} .cl__title {
+    margin: 0 0 20px;
+    color: var(--cl-title);
+    font-family: var(--font-serif, 'Playfair Display', Georgia, 'Times New Roman', serif);
+    font-size: clamp(28px, 3.2vw, 48px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  #icolors-{{ section.id }} .cl__desc {
+    margin: 0 0 32px;
+    max-width: 440px;
+    color: var(--cl-desc);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(14px, 1.05vw, 16px);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: normal;
+  }
+
+  #icolors-{{ section.id }} .cl__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    padding: clamp(14px, 1.2vw, 18px) clamp(24px, 2.4vw, 36px);
+    background: var(--cl-btn-bg);
+    color: var(--cl-btn-color);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.15em;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--cl-btn-bg);
+    border-radius: 0;
+    transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  }
+
+  #icolors-{{ section.id }} .cl__button::before,
+  #icolors-{{ section.id }} .cl__button::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  #icolors-{{ section.id }} .cl__button:hover {
+    background: var(--cl-btn-hover-bg);
+    color: var(--cl-btn-hover-color);
+    border-color: var(--cl-btn-hover-bg);
+  }
+
+  /* ---------- Swatch grid ---------- */
+  #icolors-{{ section.id }} .cl__swatches {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    min-width: 0;
+    background: var(--cl-line);
+    border: 1px solid var(--cl-line);
+    border-radius: var(--cl-radius);
+    overflow: hidden;
+  }
+
+  #icolors-{{ section.id }} .cl__tile {
+    display: block;
+    min-width: 0;
+    padding: 12px 10px 10px;
+    background: var(--cl-tile-bg);
+    color: inherit;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  #icolors-{{ section.id }} .cl__thumb {
+    position: relative;
+    width: 100%;
+    aspect-ratio: var(--cl-ratio);
+  }
+
+  #icolors-{{ section.id }} .cl__thumb img,
+  #icolors-{{ section.id }} .cl__thumb svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  #icolors-{{ section.id }} a.cl__tile:hover .cl__thumb img {
+    transform: scale(1.05);
+  }
+
+  #icolors-{{ section.id }} .cl__name {
+    margin: 8px 0 0;
+    color: var(--cl-name);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: normal;
+    overflow-wrap: break-word;
+  }
+
+  /* ---------- Tablet (750px - 989px) ---------- */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #icolors-{{ section.id }} .cl__grid { gap: 40px; }
+    #icolors-{{ section.id }} .cl__title { font-size: clamp(32px, 5vw, 44px); }
+    #icolors-{{ section.id }} .cl__desc { max-width: 560px; }
+  }
+
+  /* ---------- Desktop (990px and up) : content 5 / swatches 7 ---------- */
+  @media screen and (min-width: 990px) {
+    {%- if section.settings.content_position == 'right' -%}
+    #icolors-{{ section.id }} .cl__grid {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: clamp(32px, 4vw, 64px);
+    }
+    #icolors-{{ section.id }} .cl__content { order: 2; }
+    #icolors-{{ section.id }} .cl__swatches { order: 1; }
+    {%- else -%}
+    #icolors-{{ section.id }} .cl__grid {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: clamp(32px, 4vw, 64px);
+    }
+    {%- endif -%}
+
+    #icolors-{{ section.id }} .cl__tile { padding: 14px 12px 12px; }
+  }
+
+  /* ---------- Mobile (749px and below) ---------- */
+  @media screen and (max-width: 749px) {
+    #icolors-{{ section.id }} .cl__grid { gap: 28px; }
+    #icolors-{{ section.id }} .cl__title { margin-bottom: 16px; }
+    #icolors-{{ section.id }} .cl__desc { margin-bottom: 24px; max-width: 100%; }
+    #icolors-{{ section.id }} .cl__button { width: 100%; }
+    #icolors-{{ section.id }} .cl__tile { padding: 8px 6px 8px; }
+    #icolors-{{ section.id }} .cl__name { font-size: 11px; margin-top: 6px; }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     JS chalega to hi hide hota hai, warna content hamesha visible rahega
+     ============================================ */
+  #icolors-{{ section.id }} {
+    {%- if section.settings.content_position == 'right' -%}
+    --cl-content-x: 28px;
+    {%- else -%}
+    --cl-content-x: -28px;
+    {%- endif %}
+  }
+
+  #icolors-{{ section.id }}.cl-anim .cl__content > * {
+    opacity: 0;
+    transform: translateX(var(--cl-content-x));
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+    transition-delay: calc(var(--cl-ci, 0) * 0.12s), calc(var(--cl-ci, 0) * 0.12s), 0s, 0s, 0s;
+    will-change: opacity, transform;
+  }
+
+  #icolors-{{ section.id }}.cl-anim .cl__tile {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: calc(0.25s + var(--cl-i, 0) * 0.08s);
+    will-change: opacity, transform;
+  }
+
+  #icolors-{{ section.id }}.cl-anim.is-visible .cl__content > * {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  #icolors-{{ section.id }}.cl-anim.is-visible .cl__tile {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #icolors-{{ section.id }}.cl-anim.is-done .cl__content > *,
+  #icolors-{{ section.id }}.cl-anim.is-done .cl__tile {
+    transition-delay: 0s;
+    will-change: auto;
+  }
+
+  /* Mobile: side slide ki jagah halka fade-up */
+  @media screen and (max-width: 749px) {
+    #icolors-{{ section.id }} { --cl-content-x: 0px; }
+    #icolors-{{ section.id }}.cl-anim .cl__content > * { transform: translateY(20px); }
+    #icolors-{{ section.id }}.cl-anim.is-visible .cl__content > * { transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #icolors-{{ section.id }}.cl-anim .cl__content > *,
+    #icolors-{{ section.id }}.cl-anim .cl__tile {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    #icolors-{{ section.id }} .cl__thumb img { transition: none; }
+  }
+{%- endstyle -%}
+
+<div id="icolors-{{ section.id }}" class="custom-inspiration-colors">
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+    <div class="cl__grid">
+
+      <div class="cl__content">
+        {%- if section.settings.number != blank -%}
+          <p class="cl__number">{{ section.settings.number | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.title != blank -%}
+          <h2 class="cl__title">{{ section.settings.title | escape | newline_to_br }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <p class="cl__desc">{{ section.settings.description | escape | newline_to_br }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.button_text != blank and section.settings.button_link != blank -%}
+          <a href="{{ section.settings.button_link }}" class="cl__button">{{ section.settings.button_text | escape }}</a>
+        {%- endif -%}
+      </div>
+
+      {%- if ics_items.size > 0 -%}
+        <div class="cl__swatches">
+          {%- for block in ics_items limit: 9 -%}
+            {%- liquid
+              if block.settings.link != blank
+                assign tag = 'a'
+              else
+                assign tag = 'div'
+              endif
+            -%}
+            <{{ tag }}{% if tag == 'a' %} href="{{ block.settings.link }}"{% endif %} class="cl__tile" {{ block.shopify_attributes }}>
+              <div class="cl__thumb">
+                {%- if block.settings.image != blank -%}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 500 }}"
+                    srcset="{{ block.settings.image | image_url: width: 250 }} 250w,
+                            {{ block.settings.image | image_url: width: 400 }} 400w,
+                            {{ block.settings.image | image_url: width: 500 }} 500w,
+                            {{ block.settings.image | image_url: width: 700 }} 700w"
+                    sizes="(min-width: 990px) 14vw, (min-width: 750px) 25vw, 30vw"
+                    alt="{{ block.settings.image.alt | default: block.settings.name | escape }}"
+                    width="{{ block.settings.image.width }}"
+                    height="{{ block.settings.image.height }}"
+                    loading="lazy"
+                  >
+                {%- else -%}
+                  {{ 'image' | placeholder_svg_tag }}
+                {%- endif -%}
+              </div>
+              {%- if block.settings.name != blank -%}
+                <p class="cl__name">{{ block.settings.name | escape }}</p>
+              {%- endif -%}
+            </{{ tag }}>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var section = document.getElementById('icolors-{{ section.id }}');
+    if (!section) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    section.querySelectorAll('.cl__content > *').forEach(function (el, i) {
+      el.style.setProperty('--cl-ci', i);
+    });
+    section.querySelectorAll('.cl__tile').forEach(function (el, i) {
+      el.style.setProperty('--cl-i', i);
+    });
+
+    section.classList.add('cl-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+          window.setTimeout(function () {
+            section.classList.add('is-done');
+          }, 2400);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    observer.observe(section);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Custom Inspiration Colors",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 9,
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "number", "label": "Small Number / Label", "default": "03" },
+    { "type": "textarea", "id": "title", "label": "Title (new line = line break)", "default": "Find din farve" },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description (new line = line break)",
+      "default": "Oseberg fås i 9 eksklusive stofvarianter. De smukke fløjlsstriber giver et unikt udtryk, der passer ind i nordiske hjem. Se farverne i naturligt lys på produktsiderne."
+    },
+    { "type": "text", "id": "button_text", "label": "Button Text", "default": "Se stofprøver →" },
+    { "type": "url", "id": "button_link", "label": "Button Link" },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "border_color", "label": "Top Border Color", "default": "#A58C76" },
+    { "type": "color", "id": "number_color", "label": "Number Color", "default": "#A58C76" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#302821" },
+    { "type": "color", "id": "desc_color", "label": "Description Color", "default": "#302821" },
+    { "type": "color", "id": "tile_bg", "label": "Swatch Tile Background", "default": "#EDE8E1" },
+    { "type": "color", "id": "line_color", "label": "Swatch Grid Line Color", "default": "#DED2C3" },
+    { "type": "color", "id": "name_color", "label": "Swatch Name Color", "default": "#302821" },
+    { "type": "color", "id": "button_bg", "label": "Button Background", "default": "#302821" },
+    { "type": "color", "id": "button_color", "label": "Button Text Color", "default": "#FFFFFF" },
+    { "type": "color", "id": "button_hover_bg", "label": "Button Hover Background", "default": "#A58C76" },
+    { "type": "color", "id": "button_hover_color", "label": "Button Hover Text Color", "default": "#FFFFFF" },
+
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content Position (Desktop)",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Content Left, Swatches Right" },
+        { "value": "right", "label": "Content Right, Swatches Left" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "tile_ratio",
+      "label": "Swatch Image Shape",
+      "default": "16 / 9",
+      "options": [
+        { "value": "16 / 9", "label": "Wide (16:9)" },
+        { "value": "4 / 3", "label": "Landscape (4:3)" },
+        { "value": "1 / 1", "label": "Square (1:1)" }
+      ]
+    },
+    { "type": "range", "id": "image_radius", "min": 0, "max": 24, "step": 2, "unit": "px", "label": "Swatch Grid Corner Radius", "default": 0 },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": false },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Top", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 48 }
+  ],
+  "blocks": [
+    {
+      "type": "swatch",
+      "name": "Swatch",
+      "limit": 9,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Gul" },
+        { "type": "url", "id": "link", "label": "Link (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Inspiration Colors",
+      "blocks": [
+        { "type": "swatch", "settings": { "name": "Gul" } },
+        { "type": "swatch", "settings": { "name": "Beige" } },
+        { "type": "swatch", "settings": { "name": "Grøn" } },
+        { "type": "swatch", "settings": { "name": "Brun" } },
+        { "type": "swatch", "settings": { "name": "Rosa" } },
+        { "type": "swatch", "settings": { "name": "Blå" } },
+        { "type": "swatch", "settings": { "name": "Offwhite" } },
+        { "type": "swatch", "settings": { "name": "Orange" } },
+        { "type": "swatch", "settings": { "name": "Sort" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

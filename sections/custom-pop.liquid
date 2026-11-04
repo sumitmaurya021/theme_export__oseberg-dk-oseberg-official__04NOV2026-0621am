@@ -1,0 +1,185 @@
+{% schema %}
+{
+  "name": "FAQ Popup",
+  "settings": [
+    {
+      "type": "text",
+      "id": "dr_heading",
+      "label": "Faq Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question_text",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer_text",
+          "label": "Answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Popup Section"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="faq-popup-section page-width">
+  <!-- Toggle Heading -->
+  <div class="faq-dropdown-toggle" onclick="toggleFaqDropdown()">
+    <span>{{ section.settings.dr_heading }}</span>
+    <svg
+      id="faq-arrow-icon"
+      xmlns="http://www.w3.org/2000/svg"
+      width="18"
+      height="18"
+      viewBox="0 0 20 20"
+      fill="none"
+      aria-hidden="true"
+      class="faq-icon stroke-current"
+      role="img"
+      stroke="#0e1f2a"
+    >
+      <path d="M17.0711 8.07107L10.7071 14.435C10.3166 14.8256 9.68342 14.8256 9.29289 14.435L2.92893 8.07107" stroke-width="1.5" stroke-linecap="round"></path>
+      <title>chevron-down</title>
+    </svg>
+  </div>
+
+  <!-- FAQ List -->
+  <div id="faqDropdownContent" style="display: none;">
+    {% for block in section.blocks %}
+      <div class="faq-question" onclick="openFaqModal(`{{ block.settings.answer_text | strip_newlines }}`)">
+        {{ block.settings.question_text }}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="faqModal" class="faq-modal">
+  <div class="faq-modal-content">
+    <span class="faq-close-btn" onclick="closeFaqModal()">&times;</span>
+    <div id="faqModalText"></div>
+  </div>
+</div>
+
+<style>
+  .faq-popup-section {
+    max-width: 662px;
+    margin: auto;
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .faq-dropdown-toggle {
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .faq-icon {
+    transition: transform 0.3s ease;
+  }
+
+  .rotate-up {
+    transform: rotate(180deg);
+  }
+
+  .faq-question {
+    cursor: pointer;
+    padding: 20px;
+    border-bottom: 1px solid #3d4b54;
+    font-size: 16px;
+    font-weight: 700;
+    color: #0e1f2a;
+    line-height: 1.4;
+  }
+
+  .faq-modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .faq-modal-content {
+    background: #fff;
+    padding: 20px;
+    max-width: 600px;
+    width: 100%;
+    position: relative;
+    border-radius: 0;
+    text-align: left;
+  }
+
+  .faq-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #333;
+  }
+
+  .faq-modal-content ul li {
+    width: 100%;
+    margin-bottom: 15px;
+    font-family: 'Circular';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.1em;
+    color: #000;
+  }
+
+  .faq-modal-content ul {
+    padding-left: 25px;
+    margin: 30px 0;
+  }
+</style>
+
+<script>
+  function toggleFaqDropdown() {
+    var content = document.getElementById("faqDropdownContent");
+    var icon = document.getElementById("faq-arrow-icon");
+
+    const isOpen = content.style.display === "block";
+    content.style.display = isOpen ? "none" : "block";
+
+    icon.classList.toggle("rotate-up", !isOpen);
+  }
+
+  function openFaqModal(answer) {
+    document.getElementById("faqModalText").innerHTML = answer;
+    document.getElementById("faqModal").style.display = "flex";
+  }
+
+  function closeFaqModal() {
+    document.getElementById("faqModal").style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    if (event.target == document.getElementById("faqModal")) {
+      closeFaqModal();
+    }
+  }
+</script>

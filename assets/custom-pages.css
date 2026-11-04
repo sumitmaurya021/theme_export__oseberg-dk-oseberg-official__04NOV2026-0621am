@@ -1,0 +1,309 @@
+#cart-notification {
+  background: #D4C9BE;
+  border-radius: 20px;
+}
+#cart-notification .cart-notification__heading.text-body {
+  font-size: 18px;
+  color: #003434;
+}
+#cart-notification .cart-notification__heading.text-body svg {
+  width: 1em;
+  color: inherit;
+}
+#cart-notification .cart-notification-product__name {
+  font-size: 20px;
+  font-weight: 600;
+  color: #003434;
+}
+#cart-notification .cart-notification-product__image {
+  margin-top: 0px;
+}
+#cart-notification .cart-notification__links .button {
+  background: #123458;
+  padding: 4px 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 0px;
+  color: #fff;
+}
+#cart-notification .cart-notification__links .button:before, #cart-notification .cart-notification__links .button:after {
+  display: none;
+}
+#cart-notification .cart-notification__close {
+  color: #003434;
+}
+ 
+.custom-breadcrumb {
+    padding: 16px 40px;
+    margin-bottom: 12px;
+    font-family: 'CircularXXWeb-Regular';
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: normal;
+    color: #9fa5aa;
+}
+ .custom-breadcrumb a {
+    text-decoration: none;
+    color: #9fa5aa; 
+}
+.page-om-us .page-width, .page-privatlivspolitik .page-width,
+.page-cookiepolitik .page-width, .page-finansiering .page-width, .page-leveringsbetingelser .page-width {
+    width: 80%;
+    max-width: unset;
+    padding: 0 20px 160px;
+}
+.page-om-us .page-width .main-page-title {
+    display: none;
+}
+.custom-about-page .h2-heading, .page-privatlivspolitik h2, .page-cookiepolitik h2, .page-finansiering h2,
+.page-leveringsbetingelser h2 {
+    margin: 24px 0 20px;
+    font-family: 'circular-std-medium';
+    font-size: 24px !important;
+    line-height: 1.2;
+    letter-spacing: normal;
+    color: var(--color-black);
+}
+.custom-about-page p, .page-privatlivspolitik p, .page-cookiepolitik p, .page-finansiering p, .page-leveringsbetingelser p {
+    margin: 0 0 32px;
+    font-family: 'CircularXXWeb-Regular';
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 24px;
+    letter-spacing: normal;
+}
+.custom-about-page .main-heading, .page-cookiepolitik .main-page-title,
+.page-finansiering .content-wrapper h1 {
+    margin: 32px 0 20px;
+    font-family: 'circular-std-medium';
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: normal;
+    color: var(--color-black);
+    text-align: center;
+}  
+.custom-about-page .custom-about-wrapper {
+    margin: 0 60px;
+}
+.custom-about-page .custom-about-wrapper img {
+    margin: 0px;
+    border: 0px;
+} 
+.custom-about-page .custom-about-wrapper .content-wrapper,
+.page-privatlivspolitik .content-wrapper, .page-cookiepolitik .content-wrapper,
+.page-finansiering .content-wrapper, .page-leveringsbetingelser .content-wrapper {
+    margin: 0 auto;
+    width: 650px;
+    max-width: 100%;
+}
+.custom-about-page .voreshold-con .team-wrapper {
+    display: none;
+}
+.custom-about-page .voreshold-con #press .h2-heading, .custom-about-page .social-links .h2-heading,
+.custom-about-page .contact-info .h2-heading {
+    font-size: 32px;
+    text-align: center;
+}
+.custom-about-page .voreshold-con #press .in-press {
+    padding: 0px;
+    margin: 0px auto;
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+}
+.custom-about-page .voreshold-con #press .in-press li {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 40px;
+    text-align: center;
+    max-width: 330px;
+}
+.custom-about-page .voreshold-con #press .in-press li .logo-wrapper {
+    position: relative;
+    margin-bottom: 32px;
+    height: 160px;
+}
+.custom-about-page .voreshold-con #press .in-press li .logo-wrapper img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+}
+.custom-about-page .voreshold-con #press .in-press li  .title {
+    margin: 0 0 10px !important;
+    font-family: 'CircularXXWeb-Regular';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: normal;
+    text-transform: uppercase;
+    color: var(--color-black);
+}
+.custom-about-page .voreshold-con #press .in-press li  a {
+    display: block;
+    color: #003434;
+    text-decoration: none;
+    font-family: 'CircularXXWeb-Regular';
+    font-size: 16px;
+    line-height: 22.4px;
+    letter-spacing: normal;
+}
+.custom-about-page .video-responsive {
+    position: relative;
+    line-height: 0;
+}
+.custom-about-page .social-links .social-media {
+    padding: 0px;
+    list-style-type: none;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.custom-about-page .social-links .social-media li {
+    padding: 20px 48px;
+}
+.custom-about-page .social-links .social-media li a span {
+    display: block;
+    width: 16px;
+    height: 31px;
+    margin: 0 auto;
+}
+.custom-about-page .social-links .social-media li a {
+    text-decoration: none;
+    font-family: 'CircularXXWeb-Regular';
+    font-size: 16px;
+    line-height: 22.4px;
+    letter-spacing: normal;
+    color: #0e1f2a;
+}
+.custom-about-page .contact-info address {
+    padding-top: 10px;
+}
+.custom-about-page .contact-info address, .custom-about-page .contact-info .contact {
+    font-family: 'CircularXXWeb-Regular';
+    font-size: 16px;
+    line-height: 22.4px;
+    letter-spacing: normal;
+    color: #121212bf;
+    text-align: center;
+}
+.custom-about-page .contact-info address {
+    padding-top: 10px;
+    font-style: normal;
+}
+.custom-about-page .contact-info .contact {
+    margin: 0px;
+    padding-top: 16px;
+}
+
+/*privatlivspolitik page start*/
+.page-privatlivspolitik .main-page-title, .page-finansiering .main-page-title,
+.page-leveringsbetingelser .main-page-title {
+    display: none;
+}
+.page-privatlivspolitik .content-wrapper h1, .page-leveringsbetingelser .content-wrapper h1 {
+    font-family: circular-std-medium;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: normal;
+    color: var(--color-black);
+    margin-bottom: 20px;
+}
+.page-privatlivspolitik .content-wrapper ol {
+    margin: 0px;
+    padding-left: 15px;
+    list-style-type: auto;
+}
+.page-privatlivspolitik .content-wrapper ol li {
+    padding-bottom: 4px;
+}
+.page-privatlivspolitik .content-wrapper ol a {
+    text-decoration: none;
+}
+.page-privatlivspolitik .content-wrapper ol a li,
+.page-privatlivspolitik p a:hover {
+    color: #003434;
+}
+.page-privatlivspolitik p a, .page-cookiepolitik p a, .page-cookiepolitik ul li a,
+.page-leveringsbetingelser p a {
+    text-decoration: none;
+    color: #003434;
+}
+.page-privatlivspolitik .content-wrapper ol li b,
+.page-privatlivspolitik p b, .page-cookiepolitik ul li b, .page-cookiepolitik p b,
+.page-finansiering p strong, .page-leveringsbetingelser p strong {
+    color: #000;
+}
+.page-privatlivspolitik ul, .page-cookiepolitik ul {
+    padding-left: 40px !important;
+    margin: 0px;
+}
+.page-privatlivspolitik ul li, .page-cookiepolitik ul li {
+    margin-bottom: 16px;
+    padding-bottom: 4px;
+}
+.page-privatlivspolitik h3 {
+    margin: 16px 0 20px;
+    font-family: 'Circular-Medium';
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color-black);
+}
+/*privatlivspolitik page end*/
+
+/*cookiepolitik page start*/
+.page-cookiepolitik {
+  margin: 0px;
+}
+.page-cookiepolitik .main-page-title {
+  padding-top: 15px;
+}
+/*cookiepolitik page end*/
+
+/*finansiering page start*/
+
+/*finansiering page end*/
+
+@media screen and (max-width: 990px) {
+  .custom-breadcrumb {
+      padding: 16px 20px;
+  }
+  .page-om-us .page-width,.page-privatlivspolitik .page-width, .page-cookiepolitik .page-width,
+  .page-finansiering .page-width, .page-leveringsbetingelser .page-width {
+      width: 100%;
+      padding: 0 20px 80px;
+  }
+  .custom-about-page .custom-about-wrapper .content-wrapper,
+.page-privatlivspolitik .content-wrapper, .page-cookiepolitik .content-wrapper,
+.page-finansiering .content-wrapper, .page-leveringsbetingelser .content-wrapper {
+      width: 85%;
+  }
+}
+@media screen and (max-width: 768px){
+  .custom-about-page .custom-about-wrapper {
+      width: 80%;
+  }  
+}
+@media screen and (max-width: 767px) {
+  .page-om-us .custom-breadcrumb {
+      padding: 16px 20px;
+  }
+  .custom-about-page .custom-about-wrapper {
+      width: 100%;
+      margin: 0px;
+  }
+  .custom-about-page .custom-about-wrapper .content-wrapper,
+.page-privatlivspolitik .content-wrapper, .page-cookiepolitik .content-wrapper,
+.page-finansiering .content-wrapper, .page-leveringsbetingelser .content-wrapper {
+      width: 100%;
+  }
+  .page-privatlivspolitik ul, .page-cookiepolitik ul {
+      padding-left: 20px!important;
+  }
+}

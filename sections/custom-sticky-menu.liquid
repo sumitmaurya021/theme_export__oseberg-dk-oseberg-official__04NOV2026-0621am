@@ -1,0 +1,86 @@
+<div class="sticky-menu-container">
+  <ul class="sticky-menu-list">
+    {% for block in section.blocks %}
+      <li class="sticky-menu-item">
+        <button class="sticky-menu-btn" data-section-id="{{ block.settings.menu_text }}" onclick="scrollToSection('{{ block.settings.menu_text }}')">
+          {{ block.settings.menu_text }}
+        </button>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% schema %}
+{
+  "name": "Sticky Menu",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "menu_item",
+      "name": "Menu Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_text",
+          "label": "Menu Text"
+        },
+        {
+          "type": "text",
+          "id": "menu_id",
+          "label": "Section ID (for scroll)",
+          "info": "Enter the unique ID for scrolling"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sticky Menu",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .sticky-menu-container {
+    position: sticky;
+    top: 0;
+    background: white;
+    border-bottom: 1px solid #ddd;
+    z-index: 1;
+  }
+  .sticky-menu-list {
+    display: flex;
+    overflow-x: auto;
+    justify-content: space-around;
+    padding: 10px 0;
+  }
+  .sticky-menu-item {
+    margin: 0 10px;
+    list-style: none;
+  }
+  .sticky-menu-btn {
+    padding: 10px 15px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #666;
+    border-bottom: 2px solid transparent;
+  }
+  .sticky-menu-btn:hover {
+    color: #000;
+    border-bottom: 2px solid #000;
+  }
+</style>
+
+
+<script>
+  function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      window.scrollTo({ top: section.offsetTop - 100, behavior: 'smooth' });
+    }
+  }
+</script>

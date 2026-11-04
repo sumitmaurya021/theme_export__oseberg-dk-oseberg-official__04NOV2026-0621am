@@ -1,0 +1,253 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div id="{{ section.settings.section_id }}" class="custom-custom-product-specifications-section section-{{ section.id }}-padding" style="background: {{ section.settings.background_color }}">
+<div class="custom-product-specifications page-width">
+  <h2 class="spec-title">{{ section.settings.heading }}</h2>
+  {%if section.settings.specification_image != blank %}
+  <div class="spec-image">
+    <img src="{{ section.settings.specification_image | img_url: 'large' }}" alt="Slide Image">
+  </div>
+  {% endif %}
+  <div class="spec-list">
+    {% for block in section.blocks %}
+      <div class="spec-item">
+        <button class="spec-toggle">{{ block.settings.title }}</button>
+        <div class="spec-content">
+         {{ block.settings.description }}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Specifications",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section Id"
+    },
+    {
+     "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#bab1a5"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "image_picker",
+      "id": "specification_image",
+      "label": "Specification Image"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "spec",
+      "name": "Specification",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Specification Title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Specification Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Specifications"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.spec-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.spec-list {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
+
+/* .spec-item {
+  background: #f8f8f8;
+  padding: 10px;
+  border: 1px solid #ddd;
+} */
+
+.spec-toggle {
+  width: 100%;
+  /* background: #007bff; */
+  /* color: white; */
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: left;
+}
+
+</style>
+
+<style>
+  .spec-item.active {
+  /* border: 2px solid #000; */
+  /* background: #f0f8ff; */
+}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const toggles = document.querySelectorAll(".spec-toggle");
+
+  toggles.forEach((toggle) => {
+    toggle.addEventListener("click", function () {
+      // Close all other open content and remove active class from spec-items
+      document.querySelectorAll(".spec-content").forEach((content) => {
+        if (content !== this.nextElementSibling) {
+          content.style.display = "none";
+        }
+      });
+
+      document.querySelectorAll(".spec-item").forEach((item) => {
+        if (item !== this.parentElement) {
+          item.classList.remove("active");
+        }
+      });
+
+      // Toggle the clicked one
+      const content = this.nextElementSibling;
+      const isActive = content.style.display === "block";
+
+      content.style.display = isActive ? "none" : "block";
+      this.parentElement.classList.toggle("active", !isActive);
+    });
+  });
+});
+</script>
+
+<style>
+  .custom-product-specifications .spec-title {
+    text-align: center;
+    margin: 0px;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.2;
+}
+.custom-product-specifications .spec-image {
+    line-height: 0;
+}
+.custom-product-specifications .spec-image img {
+    max-width: 100%;
+}
+.custom-product-specifications .spec-list {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 0px;
+    column-gap: 16px;
+}
+.custom-product-specifications .spec-list .spec-item {
+    width: calc(50% - 8px);
+    border-bottom: 1px solid #000;
+}
+.custom-product-specifications .spec-list .spec-item .spec-toggle {
+    background-color: transparent;
+    padding: 16px 20px;
+    font-family: 'Circular';
+    font-size: 16px;
+    line-height: 1.4;
+    position: relative;
+    color: #000 !important;
+}
+.custom-product-specifications .spec-list .spec-item .spec-toggle::after {
+    content: '';
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    background: url(https://cdn.shopify.com/s/files/1/0903/5877/6187/files/black-arrow.svg?v=1743760026) no-repeat right;
+    background-size: contain;
+    width: 18px;
+    height: 18px;
+    transition: 0.3s all;
+}
+.custom-product-specifications .spec-list .spec-item.active .spec-toggle::after {
+    transform: rotate(180deg);
+}
+.custom-product-specifications .spec-list .spec-item:first-child,
+.custom-product-specifications .spec-list .spec-item:nth-child(2) {
+    border-top: 1px solid #000;
+}
+.custom-product-specifications .spec-list .spec-item .spec-content {
+  display: none;
+  padding: 0 20px 32px;
+}
+.custom-product-specifications .spec-list .spec-item .spec-content p {
+  color: #121212;
+  margin: 0px;
+}
+.custom-product-specifications .spec-list .spec-item .spec-content p strong {
+  padding-right: 20px;
+}
+.custom-product-specifications .spec-list .spec-item .spec-content a {
+  color: #000;
+}
+
+@media screen and (max-width: 767px) {
+  .custom-product-specifications .spec-list {
+      flex-direction: column;
+  }
+  .custom-product-specifications .spec-list .spec-item {
+      width: 100%;
+  }
+  .custom-product-specifications .spec-list .spec-item:nth-child(2) {
+      border-top: 0px;
+  }
+}  
+</style>

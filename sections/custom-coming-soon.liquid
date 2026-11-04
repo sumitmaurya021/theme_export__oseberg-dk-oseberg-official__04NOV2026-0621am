@@ -1,0 +1,534 @@
+{%- style -%}
+  #csoon-{{ section.id }} {
+    --cs-logo: {{ section.settings.logo_color }};
+    --cs-title: {{ section.settings.title_color }};
+    --cs-desc: {{ section.settings.desc_color }};
+    --cs-card-bg: {{ section.settings.card_bg }};
+    --cs-card-title: {{ section.settings.card_title_color }};
+    --cs-input-border: {{ section.settings.input_border }};
+    --cs-btn-bg: {{ section.settings.button_bg }};
+    --cs-btn-color: {{ section.settings.button_color }};
+    --cs-btn-hover-bg: {{ section.settings.button_hover_bg }};
+    --cs-btn-hover-color: {{ section.settings.button_hover_color }};
+    --cs-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --cs-min-h: {{ section.settings.min_height }}px;
+    --cs-min-h-mobile: {{ section.settings.min_height_mobile }}px;
+    position: relative;
+    background: {{ section.settings.bg_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  #csoon-{{ section.id }} .cs__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  #csoon-{{ section.id }} .cs__bg picture,
+  #csoon-{{ section.id }} .cs__bg img,
+  #csoon-{{ section.id }} .cs__bg svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: {{ section.settings.image_focus }};
+    display: block;
+  }
+
+  /* Upar se halka ivory overlay taaki dark text readable rahe */
+  #csoon-{{ section.id }} .cs__bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(245, 241, 234, var(--cs-overlay)) 0%,
+      rgba(245, 241, 234, calc(var(--cs-overlay) * 0.6)) 40%,
+      rgba(245, 241, 234, 0) 75%
+    );
+  }
+
+  #csoon-{{ section.id }} .cs__inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: {{ section.settings.vertical_align }};
+    min-height: var(--cs-min-h);
+    text-align: center;
+  }
+
+  #csoon-{{ section.id }} .cs__content {
+    width: 100%;
+    max-width: 620px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #csoon-{{ section.id }} .cs__logo {
+    margin: 0 0 clamp(28px, 4vw, 56px);
+    color: var(--cs-logo);
+    font-family: var(--font-serif, 'Playfair Display', Georgia, 'Times New Roman', serif);
+    font-size: clamp(16px, 1.6vw, 22px);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  #csoon-{{ section.id }} .cs__logo img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  #csoon-{{ section.id }} .cs__title {
+    margin: 0 0 20px;
+    color: var(--cs-title);
+    font-family: var(--font-serif, 'Playfair Display', Georgia, 'Times New Roman', serif);
+    font-size: clamp(28px, 3.2vw, 48px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  #csoon-{{ section.id }} .cs__desc {
+    margin: 0 0 32px;
+    max-width: 440px;
+    color: var(--cs-desc);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(14px, 1.05vw, 16px);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: normal;
+  }
+
+  /* ---------- Signup card ---------- */
+  #csoon-{{ section.id }} .cs__card {
+    width: 100%;
+    max-width: 440px;
+    padding: 20px 20px 22px;
+    background: var(--cs-card-bg);
+    box-shadow: 0 10px 40px rgba(48, 40, 33, 0.12);
+    text-align: center;
+  }
+
+  #csoon-{{ section.id }} .cs__card-title {
+    margin: 0 0 14px;
+    color: var(--cs-card-title);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(13px, 1vw, 15px);
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+  }
+
+  #csoon-{{ section.id }} .cs__row {
+    display: flex;
+    gap: 8px;
+  }
+
+  #csoon-{{ section.id }} .cs__input {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+    height: 46px;
+    margin: 0;
+    padding: 0 14px;
+    background: #FFFFFF;
+    color: #302821;
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 16px; /* 16px: iPhone zoom na kare */
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: normal;
+    border: 1px solid var(--cs-input-border);
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  #csoon-{{ section.id }} .cs__input::placeholder {
+    color: #A58C76;
+    opacity: 1;
+  }
+
+  #csoon-{{ section.id }} .cs__input:focus {
+    border-color: var(--cs-btn-bg);
+  }
+
+  #csoon-{{ section.id }} .cs__button {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 46px;
+    margin: 0;
+    padding: 0 clamp(18px, 2vw, 26px);
+    background: var(--cs-btn-bg);
+    color: var(--cs-btn-color);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.15em;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border: 1px solid var(--cs-btn-bg);
+    border-radius: 0;
+    cursor: pointer;
+    transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  }
+
+  #csoon-{{ section.id }} .cs__button::before,
+  #csoon-{{ section.id }} .cs__button::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  #csoon-{{ section.id }} .cs__button:hover {
+    background: var(--cs-btn-hover-bg);
+    color: var(--cs-btn-hover-color);
+    border-color: var(--cs-btn-hover-bg);
+  }
+
+  #csoon-{{ section.id }} .cs__message {
+    margin: 12px 0 0;
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: normal;
+  }
+
+  #csoon-{{ section.id }} .cs__message--success { color: #302821; }
+  #csoon-{{ section.id }} .cs__message--error { color: #8A3B2B; }
+  #csoon-{{ section.id }} .cs__message--error ul { margin: 0; padding: 0; list-style: none; }
+
+  /* ---------- Tablet (750px - 989px) ---------- */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #csoon-{{ section.id }} .cs__title { font-size: clamp(32px, 5vw, 44px); }
+  }
+
+  /* ---------- Mobile (749px and below) ---------- */
+  @media screen and (max-width: 749px) {
+    #csoon-{{ section.id }} .cs__inner {
+      min-height: var(--cs-min-h-mobile);
+      align-items: {{ section.settings.vertical_align_mobile }};
+    }
+
+    #csoon-{{ section.id }} .cs__logo { margin-bottom: 24px; }
+    #csoon-{{ section.id }} .cs__title { margin-bottom: 14px; }
+    #csoon-{{ section.id }} .cs__desc { margin-bottom: 24px; max-width: 100%; }
+    #csoon-{{ section.id }} .cs__card { padding: 18px 16px 20px; }
+    #csoon-{{ section.id }} .cs__row { flex-direction: column; }
+    #csoon-{{ section.id }} .cs__button { width: 100%; }
+
+    #csoon-{{ section.id }} .cs__bg::after {
+      background: linear-gradient(
+        to bottom,
+        rgba(245, 241, 234, calc(var(--cs-overlay) + 0.1)) 0%,
+        rgba(245, 241, 234, calc(var(--cs-overlay) * 0.6)) 45%,
+        rgba(245, 241, 234, 0) 80%
+      );
+    }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     JS chalega to hi hide hota hai, warna content hamesha visible rahega
+     ============================================ */
+  #csoon-{{ section.id }}.cs-anim .cs__content > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: calc(var(--cs-ci, 0) * 0.15s);
+    will-change: opacity, transform;
+  }
+
+  #csoon-{{ section.id }}.cs-anim .cs__bg img,
+  #csoon-{{ section.id }}.cs-anim .cs__bg svg {
+    transform: scale(1.06);
+    transition: transform 2.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  #csoon-{{ section.id }}.cs-anim.is-visible .cs__content > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #csoon-{{ section.id }}.cs-anim.is-visible .cs__bg img,
+  #csoon-{{ section.id }}.cs-anim.is-visible .cs__bg svg {
+    transform: scale(1);
+  }
+
+  #csoon-{{ section.id }}.cs-anim.is-done .cs__content > * {
+    transition-delay: 0s;
+    will-change: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #csoon-{{ section.id }}.cs-anim .cs__content > * {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    #csoon-{{ section.id }}.cs-anim .cs__bg img,
+    #csoon-{{ section.id }}.cs-anim .cs__bg svg {
+      transform: none;
+      transition: none;
+    }
+  }
+{%- endstyle -%}
+
+<div id="csoon-{{ section.id }}" class="custom-coming-soon">
+  <div class="cs__bg">
+    {%- if section.settings.image != blank -%}
+      <picture>
+        {%- if section.settings.image_mobile != blank -%}
+          <source
+            media="(max-width: 749px)"
+            srcset="{{ section.settings.image_mobile | image_url: width: 750 }} 750w,
+                    {{ section.settings.image_mobile | image_url: width: 1100 }} 1100w,
+                    {{ section.settings.image_mobile | image_url: width: 1500 }} 1500w,
+                    {{ section.settings.image_mobile | image_url: width: 2000 }} 2000w"
+            sizes="100vw"
+          >
+        {%- endif -%}
+        <img
+          src="{{ section.settings.image | image_url: width: 2400 }}"
+          srcset="{{ section.settings.image | image_url: width: 750 }} 750w,
+                  {{ section.settings.image | image_url: width: 1100 }} 1100w,
+                  {{ section.settings.image | image_url: width: 1500 }} 1500w,
+                  {{ section.settings.image | image_url: width: 2000 }} 2000w,
+                  {{ section.settings.image | image_url: width: 2400 }} 2400w,
+                  {{ section.settings.image | image_url: width: 3000 }} 3000w"
+          sizes="100vw"
+          alt="{{ section.settings.image.alt | default: section.settings.title | escape }}"
+          width="{{ section.settings.image.width }}"
+          height="{{ section.settings.image.height }}"
+          loading="eager"
+          fetchpriority="high"
+        >
+      </picture>
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag }}
+    {%- endif -%}
+  </div>
+
+  <div class="cs__inner {% unless section.settings.full_width %}page-width{% endunless %}">
+    <div class="cs__content">
+
+      {%- if section.settings.logo_image != blank -%}
+        <div class="cs__logo">
+          <img
+            src="{{ section.settings.logo_image | image_url: width: 600 }}"
+            alt="{{ section.settings.logo_text | default: shop.name | escape }}"
+            width="{{ section.settings.logo_width }}"
+            style="width: {{ section.settings.logo_width }}px;"
+            loading="eager"
+          >
+        </div>
+      {%- elsif section.settings.logo_text != blank -%}
+        <div class="cs__logo">{{ section.settings.logo_text | escape }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.title != blank -%}
+        <h2 class="cs__title">{{ section.settings.title | escape | newline_to_br }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.description != blank -%}
+        <p class="cs__desc">{{ section.settings.description | escape | newline_to_br }}</p>
+      {%- endif -%}
+
+      <div class="cs__card">
+        {%- if section.settings.card_title != blank -%}
+          <p class="cs__card-title">{{ section.settings.card_title | escape }}</p>
+        {%- endif -%}
+
+        {%- form 'customer', id: 'CSoonForm', class: 'cs__form', novalidate: 'novalidate' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+
+          {%- if form.posted_successfully? -%}
+            <p class="cs__message cs__message--success" role="status">
+              {{ section.settings.success_text | escape }}
+            </p>
+          {%- else -%}
+            <div class="cs__row">
+              <label class="visually-hidden" for="CSoonEmail-{{ section.id }}">{{ section.settings.placeholder | escape }}</label>
+              <input
+                id="CSoonEmail-{{ section.id }}"
+                class="cs__input"
+                type="email"
+                name="contact[email]"
+                value="{{ form.email }}"
+                placeholder="{{ section.settings.placeholder | escape }}"
+                autocomplete="email"
+                autocapitalize="off"
+                required
+                {% if form.errors %}aria-invalid="true"{% endif %}
+              >
+              <button class="cs__button" type="submit">{{ section.settings.button_text | escape }}</button>
+            </div>
+
+            {%- if form.errors -%}
+              <div class="cs__message cs__message--error" role="alert">
+                {{ form.errors | default_errors }}
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var section = document.getElementById('csoon-{{ section.id }}');
+    if (!section) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    section.querySelectorAll('.cs__content > *').forEach(function (el, i) {
+      el.style.setProperty('--cs-ci', i);
+    });
+
+    section.classList.add('cs-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+          window.setTimeout(function () {
+            section.classList.add('is-done');
+          }, 2200);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    observer.observe(section);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Custom Coming Soon",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "header", "content": "Background Image" },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image (Desktop)",
+      "info": "Original full resolution image upload karo (kam se kam 2400px wide). Theme apne aap alag-alag sizes banata hai."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image (Mobile, optional)",
+      "info": "Khaali = desktop image mobile pe bhi dikhegi. Mobile ke liye portrait image (jaise 4:5 ya 9:16) best lagti hai."
+    },
+    {
+      "type": "select",
+      "id": "image_focus",
+      "label": "Image Focus",
+      "default": "center bottom",
+      "info": "Crop hone par image ka kaun sa hissa dikhna chahiye.",
+      "options": [
+        { "value": "center center", "label": "Center" },
+        { "value": "center top", "label": "Top" },
+        { "value": "center bottom", "label": "Bottom" },
+        { "value": "left center", "label": "Left" },
+        { "value": "right center", "label": "Right" }
+      ]
+    },
+    { "type": "range", "id": "overlay_opacity", "min": 0, "max": 80, "step": 5, "unit": "%", "label": "Top Light Overlay (text readable rakhne ke liye)", "default": 35 },
+
+    { "type": "header", "content": "Logo" },
+    { "type": "text", "id": "logo_text", "label": "Logo Text", "default": "Oseberg" },
+    { "type": "image_picker", "id": "logo_image", "label": "Logo Image (optional)", "info": "Image doge to text ki jagah wahi dikhega." },
+    { "type": "range", "id": "logo_width", "min": 80, "max": 300, "step": 10, "unit": "px", "label": "Logo Image Width", "default": 160 },
+
+    { "type": "header", "content": "Content" },
+    { "type": "textarea", "id": "title", "label": "Title (new line = line break)", "default": "Noget helt særligt\ner på vej..." },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description (new line = line break)",
+      "default": "Vi arbejder på en eksklusiv udendørskollektion fra Oseberg – designet til at skabe samme komfort, æstetik og hygge, uanset om det er indendørs eller udendørs."
+    },
+
+    { "type": "header", "content": "Email Signup (real Shopify form)" },
+    { "type": "text", "id": "card_title", "label": "Card Heading", "default": "Vær blandt de første, der får besked" },
+    { "type": "text", "id": "placeholder", "label": "Email Placeholder", "default": "Din e-mailadresse" },
+    { "type": "text", "id": "button_text", "label": "Button Text", "default": "Tilmeld mig →" },
+    { "type": "text", "id": "success_text", "label": "Success Message", "default": "Tak! Du er nu tilmeldt, og vi giver dig besked." },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section Background (image na ho tab)", "default": "#F5F1EA" },
+    { "type": "color", "id": "logo_color", "label": "Logo Color", "default": "#302821" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#302821" },
+    { "type": "color", "id": "desc_color", "label": "Description Color", "default": "#302821" },
+    { "type": "color", "id": "card_bg", "label": "Signup Card Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "card_title_color", "label": "Card Heading Color", "default": "#302821" },
+    { "type": "color", "id": "input_border", "label": "Input Border Color", "default": "#DED2C3" },
+    { "type": "color", "id": "button_bg", "label": "Button Background", "default": "#302821" },
+    { "type": "color", "id": "button_color", "label": "Button Text Color", "default": "#FFFFFF" },
+    { "type": "color", "id": "button_hover_bg", "label": "Button Hover Background", "default": "#A58C76" },
+    { "type": "color", "id": "button_hover_color", "label": "Button Hover Text Color", "default": "#FFFFFF" },
+
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "vertical_align",
+      "label": "Content Vertical Position (Desktop)",
+      "default": "flex-start",
+      "options": [
+        { "value": "flex-start", "label": "Top" },
+        { "value": "center", "label": "Middle" },
+        { "value": "flex-end", "label": "Bottom" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "vertical_align_mobile",
+      "label": "Content Vertical Position (Mobile)",
+      "default": "flex-start",
+      "options": [
+        { "value": "flex-start", "label": "Top" },
+        { "value": "center", "label": "Middle" },
+        { "value": "flex-end", "label": "Bottom" }
+      ]
+    },
+    { "type": "range", "id": "min_height", "min": 480, "max": 1000, "step": 20, "unit": "px", "label": "Section Height (Desktop / Tablet)", "default": 720 },
+    { "type": "range", "id": "min_height_mobile", "min": 480, "max": 1000, "step": 20, "unit": "px", "label": "Section Height (Mobile)", "default": 700 },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": false },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Top", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 48 }
+  ],
+  "presets": [
+    { "name": "Custom Coming Soon" }
+  ]
+}
+{% endschema %}

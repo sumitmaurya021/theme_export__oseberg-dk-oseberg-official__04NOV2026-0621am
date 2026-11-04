@@ -1,0 +1,321 @@
+{% comment %}
+  Renders product variant-picker (image swatches from metaobject list)
+
+  Metafield : product.metafields.custom.vaelg_farve  (List of metaobject -> type "color")
+  Fields    : name (text), image (file), color_code (color)
+
+  Accepts:
+  - product: {Object} product object.
+  - block: {Object} passing the block information.
+  - product_form_id: {String} Id of the product form to which the variant picker is associated.
+  Usage:
+  {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+{% endcomment %}
+{%- unless product.has_only_default_variant -%}
+  {%- assign color_metaobjects = product.metafields.custom.vaelg_farve.value -%}
+
+  <variant-selects
+    id="variant-selects-{{ section.id }}"
+    data-section="{{ section.id }}"
+    {{ block.shopify_attributes }}
+  >
+    {%- for option in product.options_with_values -%}
+      {%- liquid
+        assign swatch_count = option.values | map: 'swatch' | compact | size
+        assign picker_type = block.settings.picker_type
+        assign option_name_down = option.name | downcase
+        assign is_color_option = false
+
+        if option_name_down contains 'farve' or option_name_down contains 'color' or option_name_down contains 'colour' or option_name_down contains 'farbe' or option_name_down contains 'couleur'
+          assign is_color_option = true
+        endif
+
+        if is_color_option or swatch_count > 0
+          assign picker_type = 'image_swatch'
+        endif
+      -%}
+
+      {%- if picker_type == 'image_swatch' -%}
+        {%- assign option_index = option.position | minus: 1 -%}
+        <fieldset class="js product-form__input product-form__input--image-swatch">
+          <legend class="form__label">
+            {{ option.name }}:
+            <span data-selected-value>
+              {{- option.selected_value -}}
+            </span>
+          </legend>
+
+          <div class="image-swatch-grid">
+            {%- for value in option.values -%}
+              {%- liquid
+                assign input_id = 'Swatch-' | append: section.id | append: '-' | append: option.position | append: '-' | append: forloop.index0
+                assign swatch_image = null
+                assign swatch_color = null
+                assign value_down = value.name | downcase | strip
+
+                # 1) product metafield (custom.vaelg_farve) se naam match karke metaobject dhundo
+                for mo in color_metaobjects
+                  assign mo_name_down = mo.name.value | downcase | strip
+                  if mo_name_down == value_down
+                    if mo.image.value
+                      assign swatch_image = mo.image.value
+                    elsif mo.color_code.value
+                      assign swatch_color = mo.color_code.value
+                    endif
+                    break
+                  endif
+                endfor
+
+                # 2) fallback: shop-level metaobject entries (type "color")
+                if swatch_image == null and swatch_color == null
+                  for mo in shop.metaobjects.color.values
+                    assign mo_name_down = mo.name.value | downcase | strip
+                    if mo_name_down == value_down
+                      if mo.image.value
+                        assign swatch_image = mo.image.value
+                      elsif mo.color_code.value
+                        assign swatch_color = mo.color_code.value
+                      endif
+                      break
+                    endif
+                  endfor
+                endif
+
+                # 3) fallback: Shopify native swatch
+                if swatch_image == null and swatch_color == null
+                  if value.swatch.image
+                    assign swatch_image = value.swatch.image
+                  elsif value.swatch.color
+                    assign swatch_color = value.swatch.color
+                  endif
+                endif
+
+                # 4) last fallback: variant ki featured image
+                if swatch_image == null and swatch_color == null
+                  for variant in product.variants
+                    if variant.options[option_index] == value.name
+                      if variant.featured_image
+                        assign swatch_image = variant.featured_image
+                      endif
+                      break
+                    endif
+                  endfor
+                endif
+              -%}
+
+              <div class="image-swatch">
+                <input
+                  type="radio"
+                  id="{{ input_id }}"
+                  name="{{ option.name | escape }}"
+                  value="{{ value | escape }}"
+                  form="{{ product_form_id }}"
+                  class="image-swatch__input{% unless value.available %} disabled{% endunless %}"
+                  data-option-value-id="{{ value.id }}"
+                  {% if value.selected %}checked{% endif %}
+                >
+                <label
+                  for="{{ input_id }}"
+                  class="image-swatch__label"
+                  title="{{ value | escape }}"
+                >
+                  <span class="image-swatch__circle">
+                    {%- if swatch_image -%}
+                      {{
+                        swatch_image
+                        | image_url: width: 160
+                        | image_tag:
+                          loading: 'lazy',
+                          width: 80,
+                          height: 80,
+                          alt: value.name,
+                          class: 'image-swatch__img'
+                      }}
+                    {%- elsif swatch_color -%}
+                      <span class="image-swatch__color" style="background-color: {{ swatch_color }};"></span>
+                    {%- else -%}
+                      <span class="image-swatch__color image-swatch__color--empty"></span>
+                    {%- endif -%}
+                  </span>
+                  <span class="image-swatch__name">{{ value }}</span>
+                </label>
+              </div>
+            {%- endfor -%}
+          </div>
+        </fieldset>
+
+      {%- elsif picker_type == 'swatch' -%}
+        <fieldset class="js product-form__input product-form__input--swatch">
+          <legend class="form__label">
+            {{ option.name }}:
+            <span data-selected-value>
+              {{- option.selected_value -}}
+            </span>
+          </legend>
+          {% render 'product-variant-options',
+            product: product,
+            option: option,
+            block: block,
+            picker_type: picker_type
+          %}
+        </fieldset>
+
+      {%- elsif picker_type == 'button' -%}
+        <fieldset class="js product-form__input product-form__input--pill">
+          <legend class="form__label">{{ option.name }}</legend>
+          {% render 'product-variant-options',
+            product: product,
+            option: option,
+            block: block,
+            picker_type: picker_type
+          %}
+        </fieldset>
+
+      {%- else -%}
+        <div class="product-form__input product-form__input--dropdown">
+          <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+            {{ option.name }}
+          </label>
+          <div class="select">
+            <select
+              id="Option-{{ section.id }}-{{ forloop.index0 }}"
+              class="select__select"
+              name="options[{{ option.name | escape }}]"
+              form="{{ product_form_id }}"
+            >
+              {% render 'product-variant-options',
+                product: product,
+                option: option,
+                block: block,
+                picker_type: picker_type
+              %}
+            </select>
+            <span class="svg-wrapper">
+              {{- 'icon-caret.svg' | inline_asset_content -}}
+            </span>
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+    <script type="application/json" data-selected-variant>
+      {{ product.selected_or_first_available_variant | json }}
+    </script>
+  </variant-selects>
+
+  <style>
+    .product-form__input--image-swatch {
+      border: 0;
+      padding: 0;
+      margin: 0 0 2rem;
+      min-width: 0;
+    }
+
+    .product-form__input--image-swatch .form__label {
+      font-size: 1.8rem;
+      font-weight: 500;
+      margin-bottom: 1.4rem;
+      padding: 0;
+    }
+
+    .image-swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+      gap: 10px 0px;
+      flex: auto;
+    }
+
+    .image-swatch {
+      position: relative;
+      text-align: center;
+    }
+
+    .image-swatch__input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+      margin: 0;
+    }
+
+    .image-swatch__label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      cursor: pointer;
+    }
+
+    .image-swatch__circle {
+      position: relative;
+      display: block;
+      width: 6.4rem;
+      height: 6.4rem;
+      border-radius: 50%;
+      padding: 0.3rem;
+      border: 0.2rem solid transparent;
+      box-sizing: border-box;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .image-swatch__img,
+    .image-swatch__color {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .image-swatch__color--empty {
+      background: #e5e5e5;
+    }
+
+    .image-swatch__name {
+      font-size: 1.3rem;
+      line-height: 1.3;
+      word-break: break-word;
+    }
+
+    .image-swatch__label:hover .image-swatch__circle {
+      transform: scale(1.05);
+    }
+
+    .image-swatch__input:checked + .image-swatch__label .image-swatch__circle {
+      border-color: rgb(var(--color-foreground, 0, 0, 0));
+    }
+
+    .image-swatch__input:focus-visible + .image-swatch__label .image-swatch__circle {
+      outline: 0.2rem solid rgb(var(--color-foreground, 0, 0, 0));
+      outline-offset: 0.3rem;
+    }
+
+    .image-swatch__input.disabled + .image-swatch__label {
+      opacity: 0.45;
+    }
+
+    .image-swatch__input.disabled + .image-swatch__label .image-swatch__circle::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: linear-gradient(
+        to top right,
+        transparent calc(50% - 0.1rem),
+        rgb(var(--color-foreground, 0, 0, 0)) 50%,
+        transparent calc(50% + 0.1rem)
+      );
+    }
+
+    @media screen and (max-width: 749px) {
+      .image-swatch-grid {
+        grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+      }
+
+      .image-swatch__circle {
+        width: 5.6rem;
+        height: 5.6rem;
+      }
+    }
+  </style>
+{%- endunless -%}

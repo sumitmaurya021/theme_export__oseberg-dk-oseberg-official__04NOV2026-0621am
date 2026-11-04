@@ -1,0 +1,448 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_breadcrumb_section_TdxNDg": {
+      "type": "custom-breadcrumb-section",
+      "settings": {
+        "background_color": "#ffffff"
+      }
+    },
+    "rich_text_frkH9B": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_dCfQKM": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Ofte stillede Spørgsmål</strong>",
+            "heading_size": "h0"
+          }
+        },
+        "text_fQFVPk": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Her finder du svar på de mest almindelige spørgsmål om vores produkter, levering, returnering og meget mere. Har du brug for yderligere hjælp? Tøv ikke med at kontakte os – vi står klar til at hjælpe dig! </p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_dCfQKM",
+        "text_fQFVPk"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "custom_img_txt_accordion_RxRdP6": {
+      "type": "custom-img-txt-accordion",
+      "blocks": {
+        "content_block_K3QbDB": {
+          "type": "content_block",
+          "settings": {
+            "heading": "Spørgsmål til Tisvilde Company",
+            "description": "<p>Se ofte stillede spørgsmål nedenunder.</p>"
+          }
+        },
+        "accordion_block_fLcE9F": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Har i et showroom, hvor jeg kan prøve sengen?",
+            "accordion_content": "<p>Jo det har vi da! Vi har åbent efter aftale på Bækkebrovej 23, 3220 Tisvildeleje. Her kan du prøve vores senge, se vores store udvalg i madrasser, senge, gavle, farver, materiale og tilbehør til både seng og soveværelse.</p>"
+          }
+        },
+        "accordion_block_94A6Dj": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Sælger i også til erhvervskunder/B2B?",
+            "accordion_content": "<p>Ja det gør vi. Da vi har et stort udvalg af farver, materialer og kan fremstille på specialmål, kan vi sammensætte nogle produkter der passer præcist til virksomhedens ønsker. Vi har erfaring med at levere til eksempelvis både hoteller og eksklusive forretninger. Skriv eller ring til os, så kan vi sammen finde en løsning der passer perfekt til jeres ønsker!</p>"
+          }
+        },
+        "accordion_block_fKhpjC": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvordan kommer man i kontakt med jer?",
+            "accordion_content": "<p>Du kan kontakte os her på hjemmesidens chat, hvor vi svarer hurtigt på henvendelser.  Man kan også ringe til os på (+45) 71 99 99 97 eller skrive til os på kundeservice@tisvildecompany.dk, hvor vi svarer indenfor 24 timer.</p>"
+          }
+        },
+        "accordion_block_eBTb63": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvorfor vælge Tisvilde Company?",
+            "accordion_content": "<p>Vi vil ikke sige at du skal vælge os fremfor andre, men vi kan fortælle dig hvad der adskiller os fra andre, og lade vores kvaliteter og design tale lidt for sig selv. </p><p>Vores absolutte spidskompetence er kvalitet og design, samt enorme fleksibilitet i forhold til ønsker, sammensætninger, farver, mål, design mv. Alt kan lade sig gøre hos os. </p><p>Vi tilbyder gratis levering i hele Danmark ved køb over 699 kr, også til ikke-brofaste øer, og er også behjælpelige ved behov for hjælp til at bære møblerne ind/op i boligen, samt samle produkterne, så du kun skal tage møblerne i brug og nyde dem.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "content_block_K3QbDB",
+        "accordion_block_fLcE9F",
+        "accordion_block_94A6Dj",
+        "accordion_block_fKhpjC",
+        "accordion_block_eBTb63"
+      ],
+      "settings": {
+        "custom_id": "",
+        "background_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "custom_img_txt_accordion_6yWmzr": {
+      "type": "custom-img-txt-accordion",
+      "blocks": {
+        "content_block_gxthbL": {
+          "type": "content_block",
+          "settings": {
+            "heading": "Spørgsmål til Bestilling",
+            "description": "<p>Se ofte stillede spørgsmål nedenunder.</p>"
+          }
+        },
+        "accordion_block_cJg6GP": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvor længe er en kampagnepris gældende?",
+            "accordion_content": "<p>Vi har i perioder mulighed for at tilbyde jer ekstra skarpe priser. Længden på kampagnen vil altid fremstå tydeligt, men det sker at vi kan købe en bestemt mængde produkter hjem, hvorved tilbuddet vil være mængdebaseret. Her kan vi desværre ikke forudsige hvornår tilbuddet ophører.</p>"
+          }
+        },
+        "accordion_block_9HgUYc": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Er det sikkert at købe en seng uden at have prøvet den først?",
+            "accordion_content": "<p>Det korte svar er ja. Du er altid velkommen til at kontakte os, og vi vil vejlede og rådgive dig hele vejen. Det er vigtigt for os at du føler dig sikker på valget af seng og evt. tilbehør, samt er tryg ved handlen. </p><p>Har du nogle skavanker, eller har behov for at prøve en seng før du køber den, så er du meget velkommen til at komme forbi vores showroom på Bækkebrovej 23, 3220 Tisvildeleje, hvor vi har åbent efter aftale. Ring eller skriv til os for at aftale hvornår du kigger forbi, så du ikke kører forgæves.</p>"
+          }
+        },
+        "accordion_block_NxrzVX": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Kan jeg bestille i dag og få leveret længere ude i fremtiden?",
+            "accordion_content": "<p>Ja det kan du godt. Skulle vi fx have et tilbud, som du ønsker at gøre brug af, men ikke har mulighed for at få sengen hjem lige med det samme, så skal du ikke snydes. Kontakt os, så finder vi en løsning.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "content_block_gxthbL",
+        "accordion_block_cJg6GP",
+        "accordion_block_9HgUYc",
+        "accordion_block_NxrzVX"
+      ],
+      "settings": {
+        "custom_id": "",
+        "background_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "custom_img_txt_accordion_KGV6Nz": {
+      "type": "custom-img-txt-accordion",
+      "blocks": {
+        "content_block_tJDTjA": {
+          "type": "content_block",
+          "settings": {
+            "heading": "Spørgsmål til Betaling",
+            "description": "<p>Se ofte stillede spørgsmål nedenunder.</p>"
+          }
+        },
+        "accordion_block_Pbcahc": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvilke betalingsmuligheder er der?",
+            "accordion_content": "<p>På tisvildecompany.dk kan der betales med: Visa, Visa Electron, MasterCard, Mobilepay, og Viabill. Der opkræves ikke kortgebyr på tisvildecompany.dk. Der kan desuden finansieres gennem Sparxpres</p>"
+          }
+        },
+        "accordion_block_BaDHQ9": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Kan jeg dele betalingen op?",
+            "accordion_content": "<p>Har du forelsket dig i et af vores produkter, hjælper vi gerne med finansieringen – naturligvis rentefrit. Vi mener nemlig at alle skal have mulighed for, at få den indretning de går og drømmer om.</p><p>Ved finansiering med Sparxpres skal du blot:</p><ul><li>Finde det produkt du kunne tænke dig, og tilføje det til indkøbskurven.</li><li>Ved kassen vælger du “finansiering” som betalingsmetode</li><li>Du udfylder låneansøgningen og underskriver med nem-id</li><li>Vi sender dine varer som ved et helt almindeligt køb</li></ul><p>Vi tilbyder i samarbejde med Sparxpres, en attraktiv, nem & hurtig finansiering. Det hele foregår over computeren, og er derfor den enkleste måde at få finansieret dit køb på. Lånet kan altid indfries uden ekstra omkostninger. Er du nysgerrig på at vide mere om den rentefri finansieringsmulighed, kan du læse mere på <a href=\"https://sparxpres.dk/\">https://sparxpres.dk/</a></p><p>Betalingen kan også deles op ved betaling med Viabill, læs mere om den mulighed her <a href=\"https://viabill.com/dk/\">For shoppere – ViaBill.</a></p>"
+          }
+        },
+        "accordion_block_CJirVk": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Kan jeg bestille i dag og få leveret længere ude i fremtiden?",
+            "accordion_content": "<p>Ja det kan du godt. Skulle vi fx have et tilbud, som du ønsker at gøre brug af, men ikke har mulighed for at få sengen hjem lige med det samme, så skal du ikke snydes. Kontakt os, så finder vi en løsning.</p>"
+          }
+        },
+        "accordion_block_VEFnUX": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvornår hæver i pengene fra min konto?",
+            "accordion_content": "<p>Pengene reserveres ved bestilling af et produkt, men hæves først fra din konto når den afsendes fra vores lager. Vi vil aldrig hæve et større beløb end du har godkendt ved bestilling.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "content_block_tJDTjA",
+        "accordion_block_Pbcahc",
+        "accordion_block_BaDHQ9",
+        "accordion_block_CJirVk",
+        "accordion_block_VEFnUX"
+      ],
+      "settings": {
+        "custom_id": "",
+        "background_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "custom_img_txt_accordion_qjYdDx": {
+      "type": "custom-img-txt-accordion",
+      "blocks": {
+        "content_block_PkLran": {
+          "type": "content_block",
+          "settings": {
+            "heading": "Spørgsmål til Levering",
+            "description": "<p>Se ofte stillede spørgsmål nedenunder.</p>"
+          }
+        },
+        "accordion_block_pMbGiC": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvor langt er min ordre?",
+            "accordion_content": "<ul><li>Den forventede leveringstid varierer fra produkt til produkt. Du kan få oplyst den præcise leveringstid på din ordrebekræftelse, eller du kan klikke dig ind under hvert produkt på vores side for at tjekke leveringstiden. I den forbindelse er det vigtigt at understrege, at leveringstiden på din ordrebekræftelse er den gældende, selvom der er oplyst en anden leveringstid på vores hjemmeside.</li><li>Leveringstiden er altid angivet i hverdage. Den sidstnævnte leveringsdag er den dag, vi som minimum overholder. Når din bestilling forlader vores lager og sendes til fragtmanden, modtager du en mail fra os. Når fragtmanden så har modtaget din ordre, kontakter han dig indenfor 48 timer for at få det endelige leveringstidspunkt på plads.</li></ul><p>Ønsker du løbende at følge med i, hvor langt din ordre er, er det <a href=\"https://Tisvildehouse.dk/leveringsstatus/\">muligt </a>at spore din pakke.</p>"
+          }
+        },
+        "accordion_block_HgTXFw": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Kan jeg bestille i dag og få leveret længere ude i fremtiden?",
+            "accordion_content": "<p>Ja det kan du godt. Skulle vi fx have et tilbud, som du ønsker at gøre brug af, men ikke har mulighed for at få sengen hjem lige med det samme, så skal du ikke snydes. Kontakt os, så finder vi en løsning.</p>"
+          }
+        },
+        "accordion_block_k8zQea": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvad dækker den gratis fragt?",
+            "accordion_content": "<p>Hos Tisvilde Company får du fri fragt allerede fra 699 kr. For forsendelse med fragtmand gælder levering til den nærmeste kantsten, uanset hvor i landet du bor – det gælder også, selvom du bor på en ikke-brofast ø. Ved gratis fragt står du selv for opbæring og montering, medmindre andet er tilkøbt.</p>"
+          }
+        },
+        "accordion_block_jNjRYz": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Kan jeg bestille indbæring og montering?",
+            "accordion_content": "<p>Ja det kan du da! </p><p>Vi tilbyder både opbæring af varer, montering og bortskaffelse(vi tager din gamle seng med retur) for nedenstående priser:</p><ul><li>Indbæring 549,-</li><li>Indbæring og montering 999,-</li><li>Indbæring og bortskaffelse 1199,-</li><li>Indbæring, montering og bortskaffelse 1449,-I</li><li>Indbæring, montering, bortskaffelse og bortskaffelse af gammel seng: 1999,-</li></ul><p>Det gælder dog ikke på ikke-brofaste øer, desværre. Af forsikringsmæssige årsager tilbyder vi ikke montering der kræver at der skal bores i vægge. </p>"
+          }
+        },
+        "accordion_block_LjkRKV": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvad hvis jeg ikke er hjemme når min seng kommer?",
+            "accordion_content": "<p>Vi kommer aldrig uanmeldt. For at undgå at fragtmanden kommer til et tomt hjem, bliver du kontaktet inden levering, så dig og fragtmanden kan aftale et nærmere leveringstidspunkt. Har du tilvalgt opbæring, bedes du inden levering sikre dig, at der er fri og uhindret adgang til den endelige placering af produktet i din bolig.</p><p>Ønsker du at ændre eller annullere et aftalt leveringstidspunkt, er det muligt senest 2 dage inden den aftalte leveringsdato.</p>"
+          }
+        },
+        "accordion_block_T6DPdQ": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Leverer i til udlandet?",
+            "accordion_content": "<p>Desværre ikke. </p>"
+          }
+        },
+        "accordion_block_peWVYH": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Kan jeg afhente ordren på jeres lager?",
+            "accordion_content": "<p>Ja det kan du godt efter aftale.</p>"
+          }
+        },
+        "accordion_block_GTmxzz": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Kan i hjælpe mig af med min gamle seng når jeg køber en ny?",
+            "accordion_content": "<p>Ja det kan vi. Som et supplement til opbæring og montering kan du tilkøbe bortskaffelse af din gamle seng. Det betyder, at vores fragtmand tager din gamle seng med retur. Før fragtmanden ankommer, skal din gamle seng være skilt ad, så fragtmanden uden værktøj og vanskeligheder kan bære din gamle seng ud i fragtbilen.</p>"
+          }
+        },
+        "accordion_block_pt8qqe": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvor kan jeg få min ordre leveret?",
+            "accordion_content": "<p>Vi leverer gratis i hele Danmark ved køb over 699 kr, også til ikke-brofaste øer.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "content_block_PkLran",
+        "accordion_block_pMbGiC",
+        "accordion_block_HgTXFw",
+        "accordion_block_k8zQea",
+        "accordion_block_jNjRYz",
+        "accordion_block_LjkRKV",
+        "accordion_block_T6DPdQ",
+        "accordion_block_peWVYH",
+        "accordion_block_GTmxzz",
+        "accordion_block_pt8qqe"
+      ],
+      "settings": {
+        "custom_id": "",
+        "background_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "custom_img_txt_accordion_G6yCJP": {
+      "type": "custom-img-txt-accordion",
+      "blocks": {
+        "content_block_r3gmKG": {
+          "type": "content_block",
+          "settings": {
+            "heading": "Spørgsmål til Retunering",
+            "description": "<p>Se ofte stillede spørgsmål nedenunder.</p>"
+          }
+        },
+        "accordion_block_7QhTJV": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvordan returnerer jeg hvis jeg fortryder mit køb af seng? - og større møbler",
+            "accordion_content": "<p>Skulle du mod forventning fortryde dit køb, finder vi selvfølgelig også ud af det. Vi har gjort det lettest muligt for dig at returnere dine produkter, så du skal blot ind på vores returneringsside, som <a href=\"https://Tisvildehouse.dk/returnering/\">du finder her</a>. Når returneringen er bestilt via vores returneringsside, afhenter vi sengen på din adresse. Praktiske oplysninger ved returnering:</p><ul><li><strong>Varen skal være ren og pæn.</strong> En fuld tilbagebetaling af købsbeløbet er mulig, så længe varen har været beskyttet mod smuds, snavs, parfume, hår og lignende. Vi forventer derfor altid brug af lagen, så sengen fremstår så ny og ren som muligt.</li><li><strong>Returordren pakkes i original emballage før afhentning</strong>. Ved returnering skal sengen pakkes ind i original emballage, hvorefter den skal stilles frem til fragtmanden på afhentningsdagen.</li><li><strong>Tilkøb nedpakning og emballering for 1499 kr</strong>. Hvis ikke du har originalemballagen eller ikke selv ønsker at pakke sengen ned, kan du for 1499 kr. tilføje emballering og nedpakning, når du udfylder returneringsformularen. Så vil fragtmanden pakke sengen ned, når han kommer for at afhente den på din adresse. </li></ul><p>Bemærk venligst, at vi ved returnering vurderes hver enkelt seng. Værdiforringelsen fratrækkes købsbeløbet. Det ikke er muligt selv at returnere til vores lager</p>"
+          }
+        },
+        "accordion_block_aMLydY": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvordan fortryder jeg mit køb? - andet end seng/større møbler",
+            "accordion_content": "<p>Skulle du mod forventning fortryde dit køb, finder vi selvfølgelig også ud af det. Vi har gjort det lettest muligt for dig at returnere dine produkter, så du skal blot ind på vores returneringsside, som <a href=\"https://Tisvildehouse.dk/returnering/\">du finder her</a>.</p>"
+          }
+        },
+        "accordion_block_7BKfQ8": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvad koster det at returnere?",
+            "accordion_content": "<p>Pris ved returnering afhænger af forholdene for returneringen<br/><br/><strong>Reklamation:</strong> Er reklamationen berettiget, refunderer vi naturligvis dine (rimelige) fragtomkostninger. Vær blot opmærksom på tiden for reklamationen. Du skal reklamere indenfor ”rimelig tid” efter, at du har opdaget manglen ved varen. Hvis du reklamerer indenfor to måneder efter, at manglen er opdaget, vil reklamationen altid være rettidig.<br/>Bemærk at sengen skal pakkes ind i original emballage ved returnering. Hvis ikke du har originalemballagen eller ikke selv ønsker at pakke sengen ned, kan du for 950 kr. tilføje emballering og nedpakning, når du udfylder returneringsformularen. Så vil fragtmanden pakke sengen ned, når han kommer for at afhente den på din adresse. Denne eventuelle udgift er den eneste du afholder selv, ved en reklamation. </p><p><strong>Fortrydelsesret:</strong> Hvis du benytter din fortrydelsesret, skal du selv afholde udgifterne for tilbagelevering af varen. Din fortrydelsesret gælder i 14 dage efter du har modtaget produktet. Du skal sende din ordre retur til os uden unødig forsinkelse og senest 14 dage efter, du har meddelt os, at du ønsker at fortryde dit køb. Husk altid at medsende en kopi af din faktura, så vi kan finde ordren i vores system. </p><p>Visse varer kan i kraft af deres art ikke returneres med normal post. Dette gælder for senge, madrasser, sovesofaer og lignende. Udgifterne for returnering af disse varer forventes højst at beløbe sig til ca. 2000 DKK.</p>"
+          }
+        },
+        "accordion_block_TEP4aU": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Kan jeg selv returnere mit produkt på jeres adresse?",
+            "accordion_content": "<p>Ja det kan du efter aftale. Ring eller skriv til os på nedenstående, så finder vi en løsning. </p><p><strong>Telefon:</strong> (+45) 71 99 99 97</p><p><strong>E-mail:</strong> kundeservice@tisvildecompany.dk</p>"
+          }
+        },
+        "accordion_block_iWaQdB": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Jeg har sendt en vare retur, hvornår kan jeg forvente at få mine penge retur?",
+            "accordion_content": "<p>Vi tilbagebetaler beløbet så snart vi har modtaget varen og gennemgået at standen er som forventet. </p><p>Vi gennemfører tilbagebetalingen med samme betalingsmiddel, som du benyttede ved den oprindelige transaktion, medmindre du udtrykkeligt har indvilget i noget andet.</p>"
+          }
+        },
+        "accordion_block_wQPdnf": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvad gør jeg hvis varen har en defekt ved modtagelse?",
+            "accordion_content": "<p>Skulle det ske, at produktet har en defekt ved modtagelse, er vi selvfølgelig ansvarlige for at få dette udbedret. Så snart du opdager fejlen, skal du kontakte os på kundeservice@tisvildecompany.dk og anmelde din reklamation. </p><p>Sørg gerne for at vedlægge billeder, så vi nemmere kan hjælpe dig. Fragtmanden har ingenting at gøre med reklamationer, men vi sidder klar til at hjælpe dig, så snart vi hører fra dig.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "content_block_r3gmKG",
+        "accordion_block_7QhTJV",
+        "accordion_block_aMLydY",
+        "accordion_block_7BKfQ8",
+        "accordion_block_TEP4aU",
+        "accordion_block_iWaQdB",
+        "accordion_block_wQPdnf"
+      ],
+      "settings": {
+        "custom_id": "",
+        "background_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "custom_img_txt_accordion_kCWgCi": {
+      "type": "custom-img-txt-accordion",
+      "blocks": {
+        "content_block_cAxjfe": {
+          "type": "content_block",
+          "settings": {
+            "heading": "Spørgsmål til Vedligeholdelse",
+            "description": "<p>Se ofte stillede spørgsmål nedenunder.</p>"
+          }
+        },
+        "accordion_block_9HjdUn": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvordan vedligeholder jeg bedst mit produkt?",
+            "accordion_content": "<p>For at have glæde af dit produkt længst muligt, og for at være dækket af vores garanti, er det nødvendigt med korrekt vedligeholdelse.</p><ul><li><strong>Senge generelt:</strong> For alle vores senge gælder det, at skruer og bolte kan løsne sig i takt med brug, og de skal derfor efterspændes – første gang efter tre måneder og derefter cirka en gang om året. <br/><br/>Støvsug delene på middel styrke og gerne med et møbelmundstykke.<br/>Ved pletter skal du forsøge at rense med en fugtig klud og/eller med rengøringsmiddel beregnet til møbler. Vaskeanvisninger skal altid følges.<br/></li><li><strong>Elevationssenge, senge med opbevaring og sengekister:</strong> Vores elevationssenge er slidstærke, men de kan ikke holde til, at man sidder på den del, der er hævet, så det skal du undgå.<br/><br/>De bevægelige dele kan med tiden komme til at afgive lyd. Dette kan afhjælpes ved at smøre de bevægelige dele med WD-40 eller lignende smøremiddel.<br/></li><li><strong>Madrasser:</strong> Vores madrasser er af suverænt god kvalitet, men da de, forhåbentligt, bliver brugt godt, så vil de derfor også slides på. Derfor vil det være en god ide, ind i mellem at vende og dreje madrasserne, så belastningen fordeles bedst muligt på hele madrassen. Vi fraråder desuden, at du jævnligt ligger på en madrassenss såkaldte sideforstærkere. Det betyder i praksis, at du så ofte som muligt skal ligge midt på madrassen, så du belaster hver side af madrassen mindst muligt.<br/><br/>Betrækket kan med fordel tages af og rystes i ny og næ, da det medvirker til, at quiltningen igen bliver luftig.<br/></li><li><strong>Topmadrasser:</strong> De øger din liggekomfort og medvirker til, at resten af sengen opnår en bedre holdbarhed. Topmadrassen skal også vendes og drejes med jævne mellemrum. Gør det eventuelt til en vane at gøre det, hver gang du skifter lagen.<br/><br/>Topmadrassens levetid forlænges desuden ved brug af en rullemadras. Det skyldes, at rullemadrassen tager imod fugt og sved, som ellers ville trænge ned i betrækket på topmadrassen.<br/><br/>Ønsker du at vaske betrækket på din topmadras, kan du ofte vaske det ved op til 60 grader. Betrækket skal dog altid strækkes ud i fugtig tilstand efter vask. Også for topmadrasser gælder det, at man med fordel kan tage betrækket af og ryste det i ny og næ, da det medvirker til, at quiltningen igen bliver luftig.<br/></li><li><strong>Dyner og puder: </strong>Ryst dine dyner forsigtigt Når dynen rystes, bør det foregå på dynens længste led – og helst ikke alt for kraftigt. Dynerne har nemlig indvendige kanalvægge, som kan briste, hvis man er for voldsom. Ødelagte kanalvægge medvirker til, at fyldet ikke forbliver fordelt korrekt.<br/><br/>Vask dyner og puder skånsomt<br/>Dyner og puder optager meget af kroppens fugt og sved i løbet af natten, og de skal derfor vaskes løbende for at holde sig friske.<br/><br/>Vask en enkeltdyne (140×200/220cm) eller to puder ad gangen i vaskemaskiner på min. 7 kg. Dobbeltdyner bør vaskes på vaskeri eller renseri.<br/><br/>Vask på skåneprogram og kun med enzymfrit vaskemiddel (uden skyllemiddel), høj vandstand og lav tromlerotation. Bruges der vaskemiddel med enzymer, vaskes dunenes naturlige fedtlag/lanolin af, hvorefter de falder sammen og taber isoleringsevnen.<br/><br/>Tør dun i tørretumbleren Efter vask skal dyner og puder altid i tørretumbleren, idet dun ikke kan lufttørre. I tørretumbleren bruges to-tre tennisbolde eller lignende, som ”banker” fyldet, mens det tørres. Det modvirker, at dunene klumper og danner mug. Det kan tage lang tid at tørretumble dun – helt op til fem timer, og dynen må på ingen måde føles fugtig efter tørretumbling. Er man i tvivl, kan man veje dynen inden vask og kontrollere, at dynen vejer det samme efter tørretumbling. Det samme gælder i øvrigt for puden.<br/><br/>Du kan også tørretumble dine dyner og puder, selvom de ikke er blevet vasket først. Tørretumbleren bevirker, at fugten i dynen eller puden forsvinder, og den igen bliver luftig. Det kan du med fordel gøre, hvis din dyne eller pude eksempelvis har mistet noget af sin oprindelige form.<br/><br/>Luft dyne og pude udenfor Det er altid en god idé at lufte sin dyne og pude i friskt og gerne koldt vejr. Dette bør altid gøres i betrækket, da det holder dem friske. Det må dog aldrig gøres i direkte sollys, da det udtørrer dunenes naturlige fedtlag (lanolin). Undgå generelt at banke dine dyner og puder, da det ødelægger dunenes spændstighed. Du kan i stedet anvende en blød børste.<br/></li><li><strong>Korrekt brug af sengetæppe: </strong>Bruger man sengetæppe på sin seng, må dette ikke lægges over sengen, lige efter man er stået op. Dunene har stadig lidt fugtighed i sig, så vent 5-10 min. med sengetæppet – så holder du dunene og din seng dejlig frisk.</li></ul>"
+          }
+        },
+        "accordion_block_rYJTzn": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvordan vasker jeg min dyne?",
+            "accordion_content": "<p>For at sikre et friskt og rent soveklima er det altafgørende, at du af og til vasker din dyne, så mider og bakterier ikke udvikler sig. Dyner optager utrolig meget af kroppens fugt og sved i løbet af natten, og derfor skal dyner vaskes løbende for at holde sig friske.<br/><br/>Vi anbefaler, at du vasker din dyne to gange om året. Hvis du har tendens til at svede meget om natten, kan du med fordel lufte din dyne dagligt. Alle vores dyner er så åndbare, at sved og fugt uden problemer kan fordampe. Når du lufter din dyne, skal det altid ske i skyggen, da dunene ellers vil udtørre og miste deres isoleringsevne.<br/><br/>Du kan desuden med fordel regelmæssigt ryste din dyne for at holde den frisk. Undgå at ryste for hårdt og ryst altid på dynens længste led, så det korteste led vender nedad. Ellers risikerer du at beskadige de kanalvægge i dynen, der holder fyldet på plads.</p>"
+          }
+        },
+        "accordion_block_aBWCA9": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Kan jeg selv vaske min dyne?",
+            "accordion_content": "<p>De fleste har en dundyne, hvor dynevåret er lavet af 100% bomuld, og hvis det er tilfældet, kan du sagtens selv vaske din dyne. Du skal derimod være mere forsigtig, hvis du har en edderdunsdyne, eller hvis dynevåret er lavet af silke. I disse tilfælde vil vi anbefale dig at få dynen vasket på et vaskeri, så du ikke risikerer at ødelægge den. Vi anbefaler også, at dobbeltdyner vaskes på et vaskeri.<br/><br/><strong>Sådan vasker du dundyner:</strong></p><ol><li>Anvend en vaskemaskine med en kapacitet på min. 7 kg.</li><li>Vask kun én enkeltdyne (140×200/220) ad gangen. </li><li>Kontroller altid dynens vaskeanvisninger, da der kan være særlige forhold at tage højde for i forbindelse med visse dundyner.</li><li>Brug enzymfrit vaskemiddel og ingen skyllemiddel. Bruges der vaskemiddel med enzymer, vaskes dunenes naturlige fedtlag (lanolin) af, hvorefter de falder sammen og taber isoleringsevne. </li><li>Vask på et skåneprogram.</li><li>Vask på 60 grader. Dette anbefales, da mider kan leve i op til 55 grader. </li></ol><p><strong>Sådan tørrer du dundyner:</strong></p><ol><li>Dynen skal ALTID i tørretumbler efter vask, da dun ikke kan lufttørre. Det er vigtigt, de bliver helt tørre, da de ellers vil mugne, og dynen inden længe må smides væk.</li><li>Tørretumbleren skal have en kapacitet på min. 8 kg. Hvis kapacitet er mindre, skal tørretumblingen afbrydes med jævne mellemrum, så dynens placering i maskinen kan ændres.  </li><li>Dynen må aldrig tørretumbles på mere end 60 grader, og det kan tage helt op til fem timer, inden dynen er helt tør. </li><li>Brug tennisbolde eller lignende, som kan “banke” dunene og sikre, at de ikke klumper sammen. Vi anbefaler 2-3 tennisbolde. </li><li>Hvis du har mulighed for det, kan du slutte af med at hænge dynen ud i skyggen, så den bliver helt frisk. Det er vigtigt, at dynen er HELT tør, inden du hænger den ud til luftning. </li></ol><p><strong>Sådan vasker du dyner, der ikke indeholder dun:<br/></strong>Hvis du har en dyne med syntetisk fyld i stedet for dun, skal du være opmærksom på, at du med fordel kan halvere mængden af vaskemiddel i forhold til, hvad man ville bruge til en dundyne. Husk også at undlade skyllemiddel. Luft desuden din syntetiske dyne så ofte som muligt.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "content_block_cAxjfe",
+        "accordion_block_9HjdUn",
+        "accordion_block_rYJTzn",
+        "accordion_block_aBWCA9"
+      ],
+      "settings": {
+        "custom_id": "",
+        "background_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "custom_faq_popup_nHG6wL": {
+      "type": "custom-faq-popup",
+      "blocks": {
+        "question_KxFULx": {
+          "type": "question",
+          "settings": {
+            "question_text": "www",
+            "answer_text": "<p>eeeeee</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_KxFULx"
+      ],
+      "disabled": true,
+      "name": "CUFAQ Popup Section",
+      "settings": {
+        "section_id": "",
+        "dr_heading": ""
+      }
+    }
+  },
+  "order": [
+    "custom_breadcrumb_section_TdxNDg",
+    "rich_text_frkH9B",
+    "main",
+    "custom_img_txt_accordion_RxRdP6",
+    "custom_img_txt_accordion_6yWmzr",
+    "custom_img_txt_accordion_KGV6Nz",
+    "custom_img_txt_accordion_qjYdDx",
+    "custom_img_txt_accordion_G6yCJP",
+    "custom_img_txt_accordion_kCWgCi",
+    "custom_faq_popup_nHG6wL"
+  ]
+}

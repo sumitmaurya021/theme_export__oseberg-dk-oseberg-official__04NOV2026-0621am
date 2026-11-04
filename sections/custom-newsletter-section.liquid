@@ -1,0 +1,268 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+
+<div class="custom-newsletter-container section-{{ section.id }}-padding" style="background: {{ section.settings.background_color }}">
+<div class="page-width">
+<div class="newsletter-section">
+  <!-- <form class="custom-newsletter-form">
+    <input type="email" placeholder="{{ section.settings.placeholder }}" required>
+    <button type="submit">{{ section.settings.button_text }} →</button>
+    <label>
+      <input type="checkbox" required>
+      {{ section.settings.terms_text }} <a href="{{ section.settings.terms_link }}">{{ section.settings.terms_link_text }}</a>
+    </label>
+    <p class="error-message">{{ section.settings.error_message }}</p>
+  </form> -->
+
+  {%- form 'contact', id: 'ContactForm', class: 'custom-newsletter-form' -%}
+     <h2>{{ section.settings.heading }}</h2>
+     <div class="fieldd field--with-errorr custom-field-wrap">
+        <input
+                autocomplete="email"
+                type="email"
+                id="ContactForm-email"
+                class="field__inputt customField"
+                name="contact[email]"
+                spellcheck="false"
+                autocapitalize="off"
+                value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                aria-required="true"
+                {% if form.errors contains 'email' %}
+                  aria-invalid="true"
+                  aria-describedby="ContactForm-email-error"
+                {% endif %}
+                placeholder="{{ 'templates.contact.form.email' | t }}"
+              >
+
+        {% if section.settings.terms_text %}
+          <button type="submit" class="submitBtn">
+            <span title="{{ 'templates.contact.form.send' | t }}">{{ 'templates.contact.form.send' | t }}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 8">
+              <path d="M1 3.5C0.723858 3.5 0.5 3.72386 0.5 4C0.5 4.27614 0.723858 4.5 1 4.5V3.5ZM11.3536 4.35355C11.5488 4.15829 11.5488 3.84171 11.3536 3.64645L8.17157 0.464466C7.97631 0.269204 7.65973 0.269204 7.46447 0.464466C7.2692 0.659728 7.2692 0.976311 7.46447 1.17157L10.2929 4L7.46447 6.82843C7.2692 7.02369 7.2692 7.34027 7.46447 7.53553C7.65973 7.7308 7.97631 7.7308 8.17157 7.53553L11.3536 4.35355ZM1 4.5H11V3.5H1V4.5Z" fill="currentColor"></path>
+            </svg>
+          </button>
+        {% endif %}
+       
+           {% comment %}
+             <label class="field__label" for="ContactForm-email">
+                {{- 'templates.contact.form.email' | t }}
+                <span aria-hidden="true">*</span></label
+              >
+           {% endcomment %}
+              {%- if form.errors contains 'email' -%}
+                <small class="contact__field-error" id="ContactForm-email-error">
+                  <span class="visually-hidden">{{ 'accessibility.error' | t }}</span>
+                  <span class="form__message">
+                    <span class="svg-wrapper">
+                      {{- 'icon-error.svg' | inline_asset_content -}}
+                    </span>
+                    {{- form.errors.translated_fields.email | capitalize }}
+                    {{ form.errors.messages.email -}}
+                  </span>
+                </small>
+              {%- endif -%}
+     </div>
+    {% comment %}
+      {% if section.settings.terms_text %}
+      <div class="contact__button">
+          <button type="submit" class="button">
+            {{ 'templates.contact.form.send' | t }}
+          </button>
+        </div>
+    {% endif %}
+    {% endcomment %}
+    <label class="termsfield">
+      <input type="checkbox" required>
+      {{ section.settings.terms_text }} <a href="{{ section.settings.terms_link }}">{{ section.settings.terms_link_text }}</a>
+    </label>
+    {% comment %}<p class="error-message">{{ section.settings.error_message }}</p>{% endcomment %}
+  {%- endform -%}
+  
+  <div class="contact-info">
+    <div class="custom-contact-item custom-contact-phone">
+    <p>{{ section.settings.phone_text }}</p>
+    <a href="{{ section.settings.phone_number_url }}">{{ section.settings.phone_number }}</a>
+    </div>
+    <div class="custom-contact-item custom-contact-chat">
+    <p>{{ section.settings.chat_text }}</p>
+    <a href="{{ section.settings.chat_link }}">{{ section.settings.chat_link_text }}</a>
+    </div>
+    <div class="custom-contact-item custom-contact-email">
+    <p>{{ section.settings.email_support_text }}</p>
+    <a href="{{ section.settings.email_address_url }}">{{ section.settings.email_address }}</a>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Newsletter Section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Tilmeld dig vores nyhedsbrev"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Email Placeholder",
+      "default": "Indtast din e-mail-adresse"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Tilmeld"
+    },
+    {
+      "type": "text",
+      "id": "terms_text",
+      "label": "Terms Text",
+      "default": "Jeg accepterer betingelserne."
+    },
+    {
+      "type": "text",
+      "id": "terms_link_text",
+      "label": "Terms Link Text",
+      "default": "Læs betingelser"
+    },
+    {
+      "type": "url",
+      "id": "terms_link",
+      "label": "Terms Link"
+    },
+    {
+      "type": "text",
+      "id": "error_message",
+      "label": "Error Message",
+      "default": "Dette er et påkrævet felt."
+    },
+    {
+      "type": "header",
+      "content": "Contact Information"
+    },
+    {
+      "type": "text",
+      "id": "phone_text",
+      "label": "Phone Text",
+      "default": "Ring til os, 8 - 23 hver dag"
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "Phone Number",
+      "default": "+45 78 75 00 77"
+    },
+    {
+      "type": "url",
+      "id": "phone_number_url",
+      "label": "Phone Number Url"
+    },
+    {
+      "type": "text",
+      "id": "chat_text",
+      "label": "Chat Text",
+      "default": "Skriv med os, 8 - 23 hver dag"
+    },
+    {
+      "type": "text",
+      "id": "chat_link_text",
+      "label": "Chat Link Text",
+      "default": "Chat med os"
+    },
+    {
+      "type": "url",
+      "id": "chat_link",
+      "label": "Chat Link"
+    },
+    {
+      "type": "text",
+      "id": "email_support_text",
+      "label": "Email Support Text",
+      "default": "24 timers e-mail support"
+    },
+    {
+      "type": "text",
+      "id": "email_address",
+      "label": "Email Address",
+      "default": "kontakt@bedrenaetter.dk"
+    },
+    {
+      "type": "url",
+      "id": "email_address_url",
+      "label": "Email Address Url"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Newsletter Section"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+/* .newsletter-section {
+  padding: 20px;
+}
+.custom-newsletter-form {
+  display: flex;
+  flex-direction: column;
+}
+.custom-newsletter-form input, .custom-newsletter-form button {
+  margin-bottom: 10px;
+}
+.custom-newsletter-form button {
+  background: #ff6700;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+.contact-info p, .contact-info strong, .contact-info a {
+  display: block;
+  margin-top: 10px;
+}
+.error-message {
+  color: red;
+} */
+</style>

@@ -1,0 +1,250 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "custom_breadcrumb_section_feTXA9": {
+      "type": "custom-breadcrumb-section",
+      "settings": {}
+    },
+    "custom_product_slider_JWmxyD": {
+      "type": "custom-product-slider",
+      "blocks": {
+        "bed_item_jTDV8a": {
+          "type": "bed_item",
+          "settings": {
+            "background_image": "shopify://shop_images/bed-background.png",
+            "bed_image": "shopify://shop_images/bedd.png",
+            "white_overlay_color": "#ffffff",
+            "bed_title": "Kontinentalsenge",
+            "bed_link": "#"
+          }
+        },
+        "bed_item_McWTaU": {
+          "type": "bed_item",
+          "settings": {
+            "background_image": "shopify://shop_images/bed-background.png",
+            "bed_image": "shopify://shop_images/bedd.png",
+            "white_overlay_color": "#ffffff",
+            "bed_title": "Kontinentalsenge",
+            "bed_link": "#"
+          }
+        },
+        "bed_item_47r4tP": {
+          "type": "bed_item",
+          "settings": {
+            "background_image": "shopify://shop_images/bed-background.png",
+            "bed_image": "shopify://shop_images/bedd.png",
+            "white_overlay_color": "#ffffff",
+            "bed_title": "Kontinentalsenge",
+            "bed_link": "#"
+          }
+        },
+        "bed_item_Afx888": {
+          "type": "bed_item",
+          "settings": {
+            "background_image": "shopify://shop_images/bed-background.png",
+            "bed_image": "shopify://shop_images/bedd.png",
+            "white_overlay_color": "#ffffff",
+            "bed_title": "Kontinentalsenge",
+            "bed_link": "#"
+          }
+        },
+        "bed_item_VRcNxk": {
+          "type": "bed_item",
+          "settings": {
+            "background_image": "shopify://shop_images/bed-background.png",
+            "bed_image": "shopify://shop_images/bedd.png",
+            "white_overlay_color": "#ffffff",
+            "bed_title": "Kontinentalsenge",
+            "bed_link": "#"
+          }
+        },
+        "bed_item_P9xxqa": {
+          "type": "bed_item",
+          "settings": {
+            "background_image": "shopify://shop_images/bed-background.png",
+            "bed_image": "shopify://shop_images/bedd.png",
+            "white_overlay_color": "#ffffff",
+            "bed_title": "Kontinentalsenge",
+            "bed_link": "#"
+          }
+        }
+      },
+      "block_order": [
+        "bed_item_jTDV8a",
+        "bed_item_McWTaU",
+        "bed_item_47r4tP",
+        "bed_item_Afx888",
+        "bed_item_VRcNxk",
+        "bed_item_P9xxqa"
+      ],
+      "settings": {
+        "background_color": "#daeaea",
+        "subtext_heading": "Sammenlign",
+        "main_heading": "Sammenlign senge",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "custom_product_slider_Qj9qKk": {
+      "type": "custom-product-slider",
+      "blocks": {
+        "bed_item_jABUMg": {
+          "type": "bed_item",
+          "settings": {
+            "background_image": "shopify://shop_images/bed-background.png",
+            "bed_image": "shopify://shop_images/bedd.png",
+            "white_overlay_color": "#ffffff",
+            "bed_title": "Kontinentalsenge",
+            "bed_link": "#"
+          }
+        },
+        "bed_item_z4nnVA": {
+          "type": "bed_item",
+          "settings": {
+            "background_image": "shopify://shop_images/bed-background.png",
+            "bed_image": "shopify://shop_images/bedd.png",
+            "white_overlay_color": "#ffffff",
+            "bed_title": "Kontinentalsenge",
+            "bed_link": "#"
+          }
+        },
+        "bed_item_mcLawm": {
+          "type": "bed_item",
+          "settings": {
+            "background_image": "shopify://shop_images/bed-background.png",
+            "bed_image": "shopify://shop_images/bedd.png",
+            "white_overlay_color": "#ffffff",
+            "bed_title": "Kontinentalsenge",
+            "bed_link": "#"
+          }
+        },
+        "bed_item_GV8L36": {
+          "type": "bed_item",
+          "settings": {
+            "background_image": "shopify://shop_images/bed-background.png",
+            "bed_image": "shopify://shop_images/bedd.png",
+            "white_overlay_color": "#ffffff",
+            "bed_title": "Kontinentalsenge",
+            "bed_link": "#"
+          }
+        },
+        "bed_item_Wq4WV9": {
+          "type": "bed_item",
+          "settings": {
+            "background_image": "shopify://shop_images/bed-background.png",
+            "bed_image": "shopify://shop_images/bedd.png",
+            "white_overlay_color": "#ffffff",
+            "bed_title": "Kontinentalsenge",
+            "bed_link": "#"
+          }
+        }
+      },
+      "block_order": [
+        "bed_item_jABUMg",
+        "bed_item_z4nnVA",
+        "bed_item_mcLawm",
+        "bed_item_GV8L36",
+        "bed_item_Wq4WV9"
+      ],
+      "settings": {
+        "background_color": "#daeaea",
+        "subtext_heading": "Produkter",
+        "main_heading": "Sammenlign madrasser",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "custom_product_slider_NBJMaP": {
+      "type": "custom-product-slider",
+      "blocks": {
+        "bed_item_bHXDqY": {
+          "type": "bed_item",
+          "settings": {
+            "background_image": "shopify://shop_images/bed-background.png",
+            "bed_image": "shopify://shop_images/bedd.png",
+            "white_overlay_color": "#ffffff",
+            "bed_title": "Kontinentalsenge",
+            "bed_link": "#"
+          }
+        },
+        "bed_item_aJVwdw": {
+          "type": "bed_item",
+          "settings": {
+            "background_image": "shopify://shop_images/bed-background.png",
+            "bed_image": "shopify://shop_images/bedd.png",
+            "white_overlay_color": "#ffffff",
+            "bed_title": "Kontinentalsenge",
+            "bed_link": "#"
+          }
+        },
+        "bed_item_pGBfRE": {
+          "type": "bed_item",
+          "settings": {
+            "background_image": "shopify://shop_images/bed-background.png",
+            "bed_image": "shopify://shop_images/bedd.png",
+            "white_overlay_color": "#ffffff",
+            "bed_title": "Kontinentalsenge",
+            "bed_link": "#"
+          }
+        },
+        "bed_item_6NeQCG": {
+          "type": "bed_item",
+          "settings": {
+            "background_image": "shopify://shop_images/bed-background.png",
+            "bed_image": "shopify://shop_images/bedd.png",
+            "white_overlay_color": "#ffffff",
+            "bed_title": "Kontinentalsenge",
+            "bed_link": "#"
+          }
+        },
+        "bed_item_9zt8kU": {
+          "type": "bed_item",
+          "settings": {
+            "background_image": "shopify://shop_images/bed-background.png",
+            "bed_image": "shopify://shop_images/bedd.png",
+            "white_overlay_color": "#ffffff",
+            "bed_title": "Kontinentalsenge",
+            "bed_link": "#"
+          }
+        }
+      },
+      "block_order": [
+        "bed_item_bHXDqY",
+        "bed_item_aJVwdw",
+        "bed_item_pGBfRE",
+        "bed_item_6NeQCG",
+        "bed_item_9zt8kU"
+      ],
+      "settings": {
+        "background_color": "#daeaea",
+        "subtext_heading": "Produkter",
+        "main_heading": "Sammenlign sovesofaer",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_breadcrumb_section_feTXA9",
+    "custom_product_slider_JWmxyD",
+    "custom_product_slider_Qj9qKk",
+    "custom_product_slider_NBJMaP"
+  ]
+}

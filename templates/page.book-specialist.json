@@ -1,0 +1,71 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "custom_breadcrumb_section_feTXA9": {
+      "type": "custom-breadcrumb-section",
+      "settings": {
+        "background_color": "#ffffff"
+      }
+    },
+    "custom_rich_main_page_FBgHmx": {
+      "type": "custom-rich-main-page",
+      "blocks": {
+        "heading_KWLxVY": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Book En Specialist</strong>",
+            "heading_size": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_KWLxVY"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "custom_book_specification_gjeQPp": {
+      "type": "custom-book-specification",
+      "settings": {
+        "title": "Få en specialist til at hjælpe dig",
+        "description": "<p><strong>At købe en ny seng kan være en overvældende proces, hvor der er mange muligheder og valg der skal træffes.</strong></p><p>Derfor tilbyder vi vejledning og rådgivning hos vores sengespecialister. Det er vigtigt for os at vores kunder får præcis det de har behov for, og her er valg om fjedre, skumtyper og komfortzoner ikke helt uden betydning. Vi ønsker at vores kunder skal kende til alle muligheder, for på den måde at opnå den bedste ergonomiske løsning til den enkelte.</p><p>Vores sengespecialister tager sig god tid til at lytte til dine behov, og gennemgår de muligheder der er, for at skabe de bedste betingelser for dig og din søvnkomfort. De kan naturligvis også hjælpe med tilbehør som dyner, puder eller blot hvilket sengebord der passer til en minimalistisk stil eksempelvis.</p><p>Ønsker du at gøre brug af vores sengespecialister, så kontakt os allerede i dag og aftal en tid du kan komme forbi showroomet i Tisvildeleje. Det er naturligvis helt uforpligtende at gøre brug af vores specialister, da det vigtigste for os er at du finder den rette løsning – om det så er hos os eller en anden forhandler. Ved at have en aftalt tid på forhånd sikres du, at der er afsat tid til at gennemgå alle muligheder, for netop dig og din søvnkomfort.</p><p>Vi glæder os til at se dig.</p>",
+        "main_image": "shopify://shop_images/Pegasi_667e2a17-e637-4051-b605-f98274d696e4.jpg",
+        "image_1": "shopify://shop_images/SHOWROOM.00_00_11_08.Still007.jpg",
+        "image_2": "shopify://shop_images/SHOWROOM.00_00_33_15.Still005.jpg",
+        "button_url": "shopify://pages/book-a-specialist",
+        "button_text": "Book en specialist",
+        "enable_popup": true,
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_breadcrumb_section_feTXA9",
+    "custom_rich_main_page_FBgHmx",
+    "custom_book_specification_gjeQPp"
+  ]
+}

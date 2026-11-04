@@ -1,0 +1,393 @@
+{%- liquid
+  assign mf = product.metafields.custom
+  assign pf_title = mf.funktion_titel.value
+  assign pf_desc = mf.funktion_beskrivelse.value
+  assign pf_size = mf.funktion_maal.value
+  assign pf_size_text = mf.funktion_maal_tekst.value
+  assign pf_btn_text = mf.funktion_knaptekst.value
+  assign pf_btn_product = mf.funktion_knaplink.value
+  assign pf_image = mf.funktion_billede.value
+-%}
+
+{%- if pf_title != blank or pf_image != blank -%}
+
+{%- style -%}
+  #pfunc-{{ section.id }} {
+    --pf-title: {{ section.settings.title_color }};
+    --pf-desc: {{ section.settings.desc_color }};
+    --pf-size: {{ section.settings.size_color }};
+    --pf-size-text: {{ section.settings.size_text_color }};
+    --pf-btn-bg: {{ section.settings.button_bg }};
+    --pf-btn-color: {{ section.settings.button_color }};
+    --pf-btn-hover-bg: {{ section.settings.button_hover_bg }};
+    --pf-btn-hover-color: {{ section.settings.button_hover_color }};
+    --pf-radius: {{ section.settings.image_radius }}px;
+    --pf-ratio: {{ section.settings.image_ratio }};
+    background: {{ section.settings.bg_color }};
+    border-top: 1px solid {{ section.settings.border_color }};
+    border-bottom: 1px solid {{ section.settings.border_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  #pfunc-{{ section.id }} .pf__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    align-items: center;
+  }
+
+  /* ---------- Content ---------- */
+  #pfunc-{{ section.id }} .pf__content { min-width: 0; }
+
+  #pfunc-{{ section.id }} .pf__title {
+    margin: 0 0 16px;
+    color: var(--pf-title);
+    font-family: var(--font-serif, 'Playfair Display', Georgia, 'Times New Roman', serif);
+    font-size: clamp(28px, 3.2vw, 48px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  #pfunc-{{ section.id }} .pf__desc {
+    margin: 0 0 28px;
+    max-width: 440px;
+    color: var(--pf-desc);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(14px, 1.05vw, 16px);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: normal;
+  }
+
+  #pfunc-{{ section.id }} .pf__size {
+    margin: 0 0 4px;
+    color: var(--pf-size);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(18px, 1.6vw, 22px);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0.01em;
+  }
+
+  #pfunc-{{ section.id }} .pf__size-text {
+    margin: 0 0 24px;
+    color: var(--pf-size-text);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: normal;
+  }
+
+  #pfunc-{{ section.id }} .pf__size:last-child,
+  #pfunc-{{ section.id }} .pf__size-text:last-child { margin-bottom: 0; }
+
+  #pfunc-{{ section.id }} .pf__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    padding: clamp(14px, 1.2vw, 18px) clamp(24px, 2.4vw, 36px);
+    background: var(--pf-btn-bg);
+    color: var(--pf-btn-color);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.15em;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--pf-btn-bg);
+    border-radius: 0;
+    transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  }
+
+  #pfunc-{{ section.id }} .pf__button::before,
+  #pfunc-{{ section.id }} .pf__button::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  #pfunc-{{ section.id }} .pf__button:hover {
+    background: var(--pf-btn-hover-bg);
+    color: var(--pf-btn-hover-color);
+    border-color: var(--pf-btn-hover-bg);
+  }
+
+  /* ---------- Image ---------- */
+  #pfunc-{{ section.id }} .pf__media {
+    position: relative;
+    min-width: 0;
+    width: 100%;
+    aspect-ratio: var(--pf-ratio);
+    overflow: hidden;
+    border-radius: var(--pf-radius);
+    background: #DED2C3;
+  }
+
+  #pfunc-{{ section.id }} .pf__media img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  #pfunc-{{ section.id }} .pf__media:hover img {
+    transform: scale(1.03);
+  }
+
+  /* ---------- Tablet (750px - 989px) ---------- */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #pfunc-{{ section.id }} .pf__grid { gap: 40px; }
+    #pfunc-{{ section.id }} .pf__title { font-size: clamp(32px, 5vw, 44px); }
+    #pfunc-{{ section.id }} .pf__desc { max-width: 560px; }
+  }
+
+  /* ---------- Desktop (990px and up) : content 5 / image 7 ---------- */
+  @media screen and (min-width: 990px) {
+    {%- if section.settings.content_position == 'right' -%}
+    #pfunc-{{ section.id }} .pf__grid {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: clamp(32px, 4vw, 64px);
+    }
+    #pfunc-{{ section.id }} .pf__content { order: 2; }
+    #pfunc-{{ section.id }} .pf__media { order: 1; }
+    {%- else -%}
+    #pfunc-{{ section.id }} .pf__grid {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: clamp(32px, 4vw, 64px);
+    }
+    {%- endif -%}
+  }
+
+  /* ---------- Mobile (749px and below) : image upar, content neeche ---------- */
+  @media screen and (max-width: 749px) {
+    #pfunc-{{ section.id }} .pf__grid { gap: 24px; }
+    #pfunc-{{ section.id }} .pf__media { order: 1; }
+    #pfunc-{{ section.id }} .pf__content { order: 2; }
+    #pfunc-{{ section.id }} .pf__title { margin-bottom: 12px; }
+    #pfunc-{{ section.id }} .pf__desc { margin-bottom: 22px; max-width: 100%; }
+    #pfunc-{{ section.id }} .pf__button { width: 100%; }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     JS chalega to hi hide hota hai, warna content hamesha visible rahega
+     ============================================ */
+  #pfunc-{{ section.id }} {
+    {%- if section.settings.content_position == 'right' -%}
+    --pf-content-x: 28px;
+    --pf-media-x: -28px;
+    {%- else -%}
+    --pf-content-x: -28px;
+    --pf-media-x: 28px;
+    {%- endif %}
+  }
+
+  #pfunc-{{ section.id }}.pf-anim .pf__content > * {
+    opacity: 0;
+    transform: translateX(var(--pf-content-x));
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+    transition-delay: calc(var(--pf-ci, 0) * 0.12s), calc(var(--pf-ci, 0) * 0.12s), 0s, 0s, 0s;
+    will-change: opacity, transform;
+  }
+
+  #pfunc-{{ section.id }}.pf-anim .pf__media {
+    opacity: 0;
+    transform: translateX(var(--pf-media-x));
+    transition:
+      opacity 1.1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1.1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: 0.25s;
+    will-change: opacity, transform;
+  }
+
+  #pfunc-{{ section.id }}.pf-anim.is-visible .pf__content > *,
+  #pfunc-{{ section.id }}.pf-anim.is-visible .pf__media {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  #pfunc-{{ section.id }}.pf-anim.is-done .pf__content > *,
+  #pfunc-{{ section.id }}.pf-anim.is-done .pf__media {
+    transition-delay: 0s;
+  }
+
+  /* Mobile: side slide ki jagah halka fade-up */
+  @media screen and (max-width: 749px) {
+    #pfunc-{{ section.id }} {
+      --pf-content-x: 0px;
+      --pf-media-x: 0px;
+    }
+    #pfunc-{{ section.id }}.pf-anim .pf__content > *,
+    #pfunc-{{ section.id }}.pf-anim .pf__media {
+      transform: translateY(20px);
+    }
+    #pfunc-{{ section.id }}.pf-anim.is-visible .pf__content > *,
+    #pfunc-{{ section.id }}.pf-anim.is-visible .pf__media {
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #pfunc-{{ section.id }}.pf-anim .pf__content > *,
+    #pfunc-{{ section.id }}.pf-anim .pf__media {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    #pfunc-{{ section.id }} .pf__media img { transition: none; }
+  }
+{%- endstyle -%}
+
+<div id="pfunc-{{ section.id }}" class="custom-product-function">
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+    <div class="pf__grid">
+
+      <div class="pf__content">
+        {%- if pf_title != blank -%}
+          <h2 class="pf__title">{{ pf_title | escape | newline_to_br }}</h2>
+        {%- endif -%}
+
+        {%- if pf_desc != blank -%}
+          <p class="pf__desc">{{ pf_desc | escape | newline_to_br }}</p>
+        {%- endif -%}
+
+        {%- if pf_size != blank -%}
+          <p class="pf__size">{{ pf_size | escape }}</p>
+        {%- endif -%}
+
+        {%- if pf_size_text != blank -%}
+          <p class="pf__size-text">{{ pf_size_text | escape }}</p>
+        {%- endif -%}
+
+        {%- if pf_btn_text != blank and pf_btn_product != blank -%}
+          <a href="{{ pf_btn_product.url }}" class="pf__button">{{ pf_btn_text | escape }}</a>
+        {%- endif -%}
+      </div>
+
+      {%- if pf_image != blank -%}
+        <div class="pf__media">
+          <img
+            src="{{ pf_image | image_url: width: 1400 }}"
+            srcset="{{ pf_image | image_url: width: 600 }} 600w,
+                    {{ pf_image | image_url: width: 900 }} 900w,
+                    {{ pf_image | image_url: width: 1200 }} 1200w,
+                    {{ pf_image | image_url: width: 1600 }} 1600w"
+            sizes="(min-width: 990px) 58vw, 100vw"
+            alt="{{ pf_image.alt | default: product.title | escape }}"
+            width="{{ pf_image.width }}"
+            height="{{ pf_image.height }}"
+            loading="lazy"
+          >
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var section = document.getElementById('pfunc-{{ section.id }}');
+    if (!section) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    section.querySelectorAll('.pf__content > *').forEach(function (el, i) {
+      el.style.setProperty('--pf-ci', i);
+    });
+
+    section.classList.add('pf-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+          window.setTimeout(function () {
+            section.classList.add('is-done');
+          }, 2200);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    observer.observe(section);
+  })();
+</script>
+
+{%- elsif request.design_mode -%}
+  <div class="page-width" style="padding: 24px 0; text-align: center; opacity: .6;">
+    Produktfunktion: funktion-metafelterne er tomme for dette produkt.
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Custom Product Function",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Text, size, button aur image product ke metafields (custom.funktion_*) se aate hain." },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "border_color", "label": "Top / Bottom Border Color", "default": "#DED2C3" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#302821" },
+    { "type": "color", "id": "desc_color", "label": "Description Color", "default": "#302821" },
+    { "type": "color", "id": "size_color", "label": "Size Text Color", "default": "#302821" },
+    { "type": "color", "id": "size_text_color", "label": "Size Small Text Color", "default": "#A58C76" },
+    { "type": "color", "id": "button_bg", "label": "Button Background", "default": "#302821" },
+    { "type": "color", "id": "button_color", "label": "Button Text Color", "default": "#FFFFFF" },
+    { "type": "color", "id": "button_hover_bg", "label": "Button Hover Background", "default": "#A58C76" },
+    { "type": "color", "id": "button_hover_color", "label": "Button Hover Text Color", "default": "#FFFFFF" },
+
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content Position (Desktop)",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Content Left, Image Right" },
+        { "value": "right", "label": "Content Right, Image Left" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image Shape",
+      "default": "16 / 9",
+      "options": [
+        { "value": "21 / 9", "label": "Ultra wide (21:9)" },
+        { "value": "16 / 9", "label": "Wide (16:9)" },
+        { "value": "3 / 2", "label": "Landscape (3:2)" },
+        { "value": "4 / 3", "label": "Landscape (4:3)" }
+      ]
+    },
+    { "type": "range", "id": "image_radius", "min": 0, "max": 32, "step": 2, "unit": "px", "label": "Image Corner Radius", "default": 16 },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": false },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Top", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 48 }
+  ],
+  "presets": [
+    { "name": "Custom Product Function" }
+  ]
+}
+{% endschema %}

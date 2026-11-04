@@ -1,0 +1,208 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "custom_breadcrumb_section_feTXA9": {
+      "type": "custom-breadcrumb-section",
+      "disabled": true,
+      "settings": {}
+    },
+    "custom_video_FxM9P6": {
+      "type": "custom-video",
+      "settings": {
+        "overlay_sub_text": "Bliv sikker på dit valg",
+        "overlay_text": "100 nætters prøve",
+        "animation_title": false,
+        "button_text": "",
+        "button_link": "#",
+        "heading": "",
+        "heading_size": "h1",
+        "enable_video_looping": false,
+        "video_url": "",
+        "image": "shopify://shop_images/100dagespr_ve-03_1.png",
+        "description": "",
+        "full_width": true,
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_with_text_9V6TLK": {
+      "type": "image-with-text",
+      "blocks": {
+        "caption_WRVPqY": {
+          "type": "caption",
+          "settings": {
+            "caption": "100 nætters prøve",
+            "text_style": "caption-with-letter-spacing",
+            "text_size": "medium"
+          }
+        },
+        "heading_q8nhRz": {
+          "type": "heading",
+          "settings": {
+            "heading": "Dit soveværelse er vores showroom",
+            "heading_size": "h1"
+          }
+        },
+        "text_JWHFyU": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Nye soveprodukter skal prøves derhjemme. I dit eget soveværelse, hvor du er tryg. Det gælder både en ny seng, en ny rullemadras, en ny hovedpude eller noget derimellem. Af den grund kommer alle vores produkter med 100 nætters risikofri prøve, så du i ro og mag kan mærke, om du har ramt plet. Ombyttede og returnerede senge og produkter bliver solgt videre i Bedre Nætter Outlet, fordi god søvn ikke skal gå til spilde.</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "caption_WRVPqY",
+        "heading_q8nhRz",
+        "text_JWHFyU"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/100_dages_prove_block_1-min.png",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "content_layout": "no-overlap",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image_behavior": "none",
+        "mobile_content_alignment": "left",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_with_text_xedNwh": {
+      "type": "image-with-text",
+      "blocks": {
+        "caption_cDWQEb": {
+          "type": "caption",
+          "settings": {
+            "caption": "100 nætters prøve",
+            "text_style": "caption-with-letter-spacing",
+            "text_size": "medium"
+          }
+        },
+        "heading_PAw4g9": {
+          "type": "heading",
+          "settings": {
+            "heading": "Det kræver ro, tid og mange nætter",
+            "heading_size": "h1"
+          }
+        },
+        "text_aAhWk3": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Kroppen har brug for at falde ordentligt til i en seng, inden du helt kan mærke, om du ligger godt. Om din søvn forbedres. Om bedre nætter forvandler sig til bedre dage. I løbet af de første uger, du ligger i en ny seng, kan du opleve en naturlig ømhed, og derfor er det vigtigt, at du udnytter, at du har mere end tre måneders risikofri prøvesovning.</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "caption_cDWQEb",
+        "heading_PAw4g9",
+        "text_aAhWk3"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/100_dages_prove_block_2-min.png",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "content_layout": "no-overlap",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image_behavior": "none",
+        "mobile_content_alignment": "left",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "custom_return_exchange_Q3wLbj": {
+      "type": "custom-return-exchange",
+      "settings": {
+        "heading": "Hvis du skifter mening",
+        "subheading": "Ombytning / Returnering",
+        "description": "<p>Har du givet din nye seng eller dit soveprodukt en lang, god prøvesøvning, og kan du mærke, at der skal småjusteringer til, inden den sidder lige i øjet, eller har du blot fortrudt dit køb, har du naturligvis mulighed for at ombytte eller returnere dit produkt inden for de første 100 nætter. Det er både gratis, nemt og vi stiller ikke spørgsmålstegn til dit valg. Læs mere om dine muligheder herunder.</p>",
+        "background_color": "#f9f6f2",
+        "exchange_link": "",
+        "exchange_text": "Ombyt",
+        "return_link": "",
+        "return_text": "Returner",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "custom_img_txt_accordion_cNnYxd": {
+      "type": "custom-img-txt-accordion",
+      "blocks": {
+        "content_block_q4xxNk": {
+          "type": "content_block",
+          "settings": {
+            "heading": "",
+            "description": ""
+          }
+        },
+        "accordion_block_kNfbEX": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvad er 100 nætters prøveperiode?",
+            "accordion_content": "<p>Hos Bedre Nætter får du 100 nætters prøveret på alle produkter, så du får tid til at mærke, om det er det rigtige valg for dig. Hvis det ikke er tilfældet, kan du få en gratis ombytning eller returnere produktet og få købsbeløbet tilbage.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "content_block_q4xxNk",
+        "accordion_block_kNfbEX"
+      ],
+      "settings": {
+        "background_color": "rgba(0,0,0,0)",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "custom_image_with_text_mVFUzQ": {
+      "type": "custom-image-with-text",
+      "settings": {
+        "section_color": "",
+        "container_color": "#f9f3ee",
+        "section_image": "shopify://shop_images/siri_kundeservice.png",
+        "head_main": "Kundeservice",
+        "title": "Still in doubt? Try SengeMatch™",
+        "description": "Sleeping well should be easy. That’s why we’ve developed SengeMatch™, which, based on personalized questions and our experience with more than 150,000+ beds sold, finds and adapts a bed that’s just right for you.",
+        "button_link": "#",
+        "button_text": "Kontakt kundeservice",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_breadcrumb_section_feTXA9",
+    "custom_video_FxM9P6",
+    "image_with_text_9V6TLK",
+    "image_with_text_xedNwh",
+    "custom_return_exchange_Q3wLbj",
+    "custom_img_txt_accordion_cNnYxd",
+    "custom_image_with_text_mVFUzQ"
+  ]
+}

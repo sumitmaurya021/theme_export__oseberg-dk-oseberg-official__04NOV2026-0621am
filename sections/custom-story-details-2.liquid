@@ -1,0 +1,515 @@
+{%- liquid
+  assign sd_images = section.blocks | where: 'type', 'image'
+  assign sd_features = section.blocks | where: 'type', 'feature'
+-%}
+
+{%- style -%}
+  #sdetail2-{{ section.id }} {
+    --sd-eyebrow: {{ section.settings.eyebrow_color }};
+    --sd-title: {{ section.settings.title_color }};
+    --sd-desc: {{ section.settings.desc_color }};
+    --sd-card-bg: {{ section.settings.card_bg }};
+    --sd-ft-title: {{ section.settings.feature_title_color }};
+    --sd-ft-desc: {{ section.settings.feature_desc_color }};
+    --sd-icon-size: {{ section.settings.icon_size }}px;
+    --sd-radius: {{ section.settings.image_radius }}px;
+    --sd-ratio: {{ section.settings.image_ratio }};
+    background: {{ section.settings.bg_color }};
+    border-top: 1px solid {{ section.settings.border_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  #sdetail2-{{ section.id }} .sd__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    align-items: stretch;
+  }
+
+  /* ---------- Content ---------- */
+  #sdetail2-{{ section.id }} .sd__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    background: var(--sd-card-bg);
+    padding: 32px 24px;
+  }
+
+  #sdetail2-{{ section.id }} .sd__eyebrow {
+    margin: 0 0 16px;
+    color: var(--sd-eyebrow);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  #sdetail2-{{ section.id }} .sd__title {
+    margin: 0 0 24px;
+    color: var(--sd-title);
+    font-family: var(--font-serif, 'Playfair Display', Georgia, 'Times New Roman', serif);
+    font-size: clamp(28px, 3.2vw, 48px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  #sdetail2-{{ section.id }} .sd__desc {
+    max-width: 440px;
+    color: var(--sd-desc);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(14px, 1.05vw, 16px);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: normal;
+  }
+
+  /* Richtext resets (theme ke p rule ko override) */
+  #sdetail2-{{ section.id }} .sd__desc p {
+    margin: 0 0 12px;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    font-family: inherit;
+  }
+
+  #sdetail2-{{ section.id }} .sd__desc p:last-child { margin-bottom: 0; }
+
+  #sdetail2-{{ section.id }} .sd__desc strong,
+  #sdetail2-{{ section.id }} .sd__desc b { font-weight: 600; }
+
+  /* ---------- Right side ---------- */
+  #sdetail2-{{ section.id }} .sd__right {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: var(--sd-card-bg);
+    padding: 0 24px 32px;
+  }
+
+  #sdetail2-{{ section.id }} .sd__images {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  #sdetail2-{{ section.id }} .sd__media {
+    position: relative;
+    min-width: 0;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: var(--sd-radius);
+    background: #DED2C3;
+  }
+
+  #sdetail2-{{ section.id }} .sd__media img,
+  #sdetail2-{{ section.id }} .sd__media svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  #sdetail2-{{ section.id }} .sd__media:hover img { transform: scale(1.04); }
+
+  /* ---------- Features ---------- */
+  #sdetail2-{{ section.id }} .sd__features {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 16px;
+  }
+
+  #sdetail2-{{ section.id }} .sd__feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  #sdetail2-{{ section.id }} .sd__icon {
+    flex: 0 0 var(--sd-icon-size);
+    width: var(--sd-icon-size);
+    height: var(--sd-icon-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #sdetail2-{{ section.id }} .sd__icon img,
+  #sdetail2-{{ section.id }} .sd__icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  #sdetail2-{{ section.id }} .sd__ft-text { min-width: 0; }
+
+  #sdetail2-{{ section.id }} .sd__ft-title {
+    margin: 0 0 2px;
+    color: var(--sd-ft-title);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+    overflow-wrap: break-word;
+  }
+
+  #sdetail2-{{ section.id }} .sd__ft-desc {
+    margin: 0;
+    color: var(--sd-ft-desc);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: normal;
+    overflow-wrap: break-word;
+  }
+
+  /* ---------- Tablet (750px - 989px) ---------- */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #sdetail2-{{ section.id }} .sd__content { padding: 40px 32px 24px; }
+    #sdetail2-{{ section.id }} .sd__title { font-size: clamp(32px, 5vw, 44px); }
+    #sdetail2-{{ section.id }} .sd__desc { max-width: 560px; }
+    #sdetail2-{{ section.id }} .sd__right { padding: 0 32px 40px; }
+    #sdetail2-{{ section.id }} .sd__images { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    #sdetail2-{{ section.id }} .sd__media { aspect-ratio: var(--sd-ratio); }
+  }
+
+  /* ---------- Desktop (990px and up) ---------- */
+  @media screen and (min-width: 990px) {
+    #sdetail2-{{ section.id }} .sd__grid {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    }
+
+    #sdetail2-{{ section.id }} .sd__content { padding: clamp(32px, 4vw, 64px); }
+
+    #sdetail2-{{ section.id }} .sd__right {
+      padding: 0;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    #sdetail2-{{ section.id }} .sd__images {
+      grid-template-columns: repeat({{ sd_images.size | at_least: 1 | at_most: 3 }}, minmax(0, 1fr));
+      gap: clamp(8px, 1vw, 14px);
+    }
+
+    #sdetail2-{{ section.id }} .sd__media { aspect-ratio: var(--sd-ratio); }
+
+    #sdetail2-{{ section.id }} .sd__features {
+      grid-template-columns: repeat({{ sd_features.size | at_least: 1 | at_most: 4 }}, minmax(0, 1fr));
+      gap: 0;
+      padding: 0 clamp(8px, 1vw, 14px) 16px 0;
+    }
+
+    #sdetail2-{{ section.id }} .sd__feature { padding-right: 12px; }
+
+    {%- if section.settings.content_position == 'right' -%}
+    #sdetail2-{{ section.id }} .sd__grid { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); }
+    #sdetail2-{{ section.id }} .sd__content { order: 2; }
+    #sdetail2-{{ section.id }} .sd__right { order: 1; }
+    {%- endif -%}
+  }
+
+  /* ---------- Mobile (749px and below) ---------- */
+  @media screen and (max-width: 749px) {
+    #sdetail2-{{ section.id }} .sd__content { padding: 28px 20px 20px; }
+    #sdetail2-{{ section.id }} .sd__title { margin-bottom: 18px; }
+    #sdetail2-{{ section.id }} .sd__desc { max-width: 100%; }
+    #sdetail2-{{ section.id }} .sd__right { padding: 0 20px 28px; gap: 24px; }
+    #sdetail2-{{ section.id }} .sd__features { gap: 20px 12px; }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     JS chalega to hi hide hota hai, warna content hamesha visible rahega
+     ============================================ */
+  #sdetail2-{{ section.id }} {
+    {%- if section.settings.content_position == 'right' -%}
+    --sd-content-x: 28px;
+    {%- else -%}
+    --sd-content-x: -28px;
+    {%- endif %}
+  }
+
+  #sdetail2-{{ section.id }}.sd-anim .sd__content > * {
+    opacity: 0;
+    transform: translateX(var(--sd-content-x));
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: calc(var(--sd-ci, 0) * 0.12s);
+    will-change: opacity, transform;
+  }
+
+  #sdetail2-{{ section.id }}.sd-anim .sd__media,
+  #sdetail2-{{ section.id }}.sd-anim .sd__feature {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: calc(0.25s + var(--sd-i, 0) * 0.12s);
+    will-change: opacity, transform;
+  }
+
+  #sdetail2-{{ section.id }}.sd-anim.is-visible .sd__content > * {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  #sdetail2-{{ section.id }}.sd-anim.is-visible .sd__media,
+  #sdetail2-{{ section.id }}.sd-anim.is-visible .sd__feature {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #sdetail2-{{ section.id }}.sd-anim.is-done .sd__content > *,
+  #sdetail2-{{ section.id }}.sd-anim.is-done .sd__media,
+  #sdetail2-{{ section.id }}.sd-anim.is-done .sd__feature {
+    transition-delay: 0s;
+    will-change: auto;
+  }
+
+  @media screen and (max-width: 749px) {
+    #sdetail2-{{ section.id }} { --sd-content-x: 0px; }
+    #sdetail2-{{ section.id }}.sd-anim .sd__content > * { transform: translateY(20px); }
+    #sdetail2-{{ section.id }}.sd-anim.is-visible .sd__content > * { transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #sdetail2-{{ section.id }}.sd-anim .sd__content > *,
+    #sdetail2-{{ section.id }}.sd-anim .sd__media,
+    #sdetail2-{{ section.id }}.sd-anim .sd__feature {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    #sdetail2-{{ section.id }} .sd__media img { transition: none; }
+  }
+{%- endstyle -%}
+
+<div id="sdetail2-{{ section.id }}" class="custom-story-details-2">
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+    <div class="sd__grid">
+
+      <div class="sd__content">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="sd__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.title != blank -%}
+          <h2 class="sd__title">{{ section.settings.title | escape | newline_to_br }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <div class="sd__desc">{{ section.settings.description }}</div>
+        {%- endif -%}
+      </div>
+
+      <div class="sd__right">
+
+        {%- if sd_images.size > 0 -%}
+          <div class="sd__images">
+            {%- for block in sd_images limit: 3 -%}
+              <div class="sd__media" {{ block.shopify_attributes }}>
+                {%- if block.settings.image != blank -%}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 800 }}"
+                    srcset="{{ block.settings.image | image_url: width: 400 }} 400w,
+                            {{ block.settings.image | image_url: width: 600 }} 600w,
+                            {{ block.settings.image | image_url: width: 800 }} 800w,
+                            {{ block.settings.image | image_url: width: 1000 }} 1000w"
+                    sizes="(min-width: 990px) 22vw, (min-width: 750px) 30vw, 100vw"
+                    alt="{{ block.settings.image.alt | default: section.settings.title | escape }}"
+                    width="{{ block.settings.image.width }}"
+                    height="{{ block.settings.image.height }}"
+                    loading="lazy"
+                  >
+                {%- else -%}
+                  {{ 'image' | placeholder_svg_tag }}
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        {%- if sd_features.size > 0 -%}
+          <div class="sd__features">
+            {%- for block in sd_features limit: 4 -%}
+              <div class="sd__feature" {{ block.shopify_attributes }}>
+                {%- if block.settings.icon != blank -%}
+                  <div class="sd__icon">
+                    <img
+                      src="{{ block.settings.icon | image_url: width: 160 }}"
+                      alt="{{ block.settings.icon.alt | default: block.settings.title | escape }}"
+                      width="{{ section.settings.icon_size }}"
+                      height="{{ section.settings.icon_size }}"
+                      loading="lazy"
+                    >
+                  </div>
+                {%- endif -%}
+                <div class="sd__ft-text">
+                  {%- if block.settings.title != blank -%}
+                    <p class="sd__ft-title">{{ block.settings.title | escape }}</p>
+                  {%- endif -%}
+                  {%- if block.settings.description != blank -%}
+                    <p class="sd__ft-desc">{{ block.settings.description | escape | newline_to_br }}</p>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var section = document.getElementById('sdetail2-{{ section.id }}');
+    if (!section) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    section.querySelectorAll('.sd__content > *').forEach(function (el, i) {
+      el.style.setProperty('--sd-ci', i);
+    });
+    section.querySelectorAll('.sd__media, .sd__feature').forEach(function (el, i) {
+      el.style.setProperty('--sd-i', i);
+    });
+
+    section.classList.add('sd-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+          window.setTimeout(function () {
+            section.classList.add('is-done');
+          }, 2200);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    observer.observe(section);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Custom Story Details 2",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 7,
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Small Heading", "default": "Detaljer, der gør forskellen" },
+    { "type": "textarea", "id": "title", "label": "Title (new line = line break)", "default": "Design med omtanke." },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "info": "Bold text ke liye text select karke Bold dabao.",
+      "default": "<p>Hver <strong>Oseberg</strong> sofa er designet med fokus på komfort, <strong>kvalitet</strong> og <strong>tidløst udtryk</strong>. De karakteristiske firkantede armlæn med den polstrede foring, de to lige høje sædelag og de gennemførte detaljer giver en let og elegant stil, der passer ind i moderne hjem – og samtidig skaber en uforlignelig siddeoplevelse.</p>"
+    },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "card_bg", "label": "Content Card Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "border_color", "label": "Top Border Color", "default": "#A58C76" },
+    { "type": "color", "id": "eyebrow_color", "label": "Small Heading Color", "default": "#A58C76" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#302821" },
+    { "type": "color", "id": "desc_color", "label": "Description Color", "default": "#302821" },
+    { "type": "color", "id": "feature_title_color", "label": "Feature Title Color", "default": "#302821" },
+    { "type": "color", "id": "feature_desc_color", "label": "Feature Description Color", "default": "#A58C76" },
+
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content Position (Desktop)",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Content Left, Images Right" },
+        { "value": "right", "label": "Content Right, Images Left" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image Shape (Desktop / Tablet)",
+      "default": "4 / 5",
+      "options": [
+        { "value": "1 / 1", "label": "Square (1:1)" },
+        { "value": "4 / 5", "label": "Portrait (4:5)" },
+        { "value": "3 / 4", "label": "Tall Portrait (3:4)" },
+        { "value": "4 / 3", "label": "Landscape (4:3)" }
+      ]
+    },
+    { "type": "range", "id": "image_radius", "min": 0, "max": 24, "step": 2, "unit": "px", "label": "Image Corner Radius", "default": 0 },
+    { "type": "range", "id": "icon_size", "min": 20, "max": 60, "step": 2, "unit": "px", "label": "Feature Icon Size", "default": 32 },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": false },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Top", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 48 }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 3,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" }
+      ]
+    },
+    {
+      "type": "feature",
+      "name": "Feature",
+      "limit": 4,
+      "settings": [
+        { "type": "image_picker", "id": "icon", "label": "Icon (SVG/PNG upload)" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Karakteristisk design" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Firkantede armlæn med polstret foring" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Story Details 2",
+      "blocks": [
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "feature", "settings": { "title": "Karakteristisk design", "description": "Firkantede armlæn med polstret foring" } },
+        { "type": "feature", "settings": { "title": "Gennemførte materialer", "description": "Eksklusive tekstiler i smukke farver" } },
+        { "type": "feature", "settings": { "title": "Fleksible moduler", "description": "Skab din egen opstilling" } },
+        { "type": "feature", "settings": { "title": "Langvarig komfort", "description": "To lige høje sædelag" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

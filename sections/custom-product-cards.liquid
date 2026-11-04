@@ -1,0 +1,258 @@
+{%- liquid
+  assign mf = product.metafields.custom
+  assign pc_images = mf.kort_billeder.value
+  assign pc_titles = mf.kort_titler.value | strip | newline_to_br | split: '<br />'
+  assign pc_descs = mf.kort_beskrivelser.value | strip | newline_to_br | split: '<br />'
+  assign pc_count = pc_images.size
+-%}
+
+{%- if pc_count > 0 -%}
+
+{%- style -%}
+  #pcards-{{ section.id }} {
+    --pc-title: {{ section.settings.title_color }};
+    --pc-desc: {{ section.settings.desc_color }};
+    --pc-card-bg: {{ section.settings.card_bg }};
+    --pc-card-border: {{ section.settings.card_border }};
+    --pc-radius: {{ section.settings.image_radius }}px;
+    --pc-ratio: {{ section.settings.image_ratio }};
+    background: {{ section.settings.bg_color }};
+    border-top: 1px solid {{ section.settings.border_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  #pcards-{{ section.id }} .pc__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  #pcards-{{ section.id }} .pc__card {
+    min-width: 0;
+    background: var(--pc-card-bg);
+    border: 1px solid var(--pc-card-border);
+    border-radius: var(--pc-radius);
+    overflow: hidden;
+  }
+
+  #pcards-{{ section.id }} .pc__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: var(--pc-ratio);
+    overflow: hidden;
+    background: #DED2C3;
+  }
+
+  #pcards-{{ section.id }} .pc__media img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  #pcards-{{ section.id }} .pc__card:hover .pc__media img {
+    transform: scale(1.04);
+  }
+
+  #pcards-{{ section.id }} .pc__body {
+    padding: 20px 20px 24px;
+  }
+
+  #pcards-{{ section.id }} .pc__title {
+    margin: 0 0 8px;
+    color: var(--pc-title);
+    font-family: var(--font-serif, 'Playfair Display', Georgia, 'Times New Roman', serif);
+    font-size: clamp(18px, 1.5vw, 22px);
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: 0.01em;
+    overflow-wrap: break-word;
+  }
+
+  #pcards-{{ section.id }} .pc__desc {
+    margin: 0;
+    color: var(--pc-desc);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(14px, 1.05vw, 16px);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: normal;
+  }
+
+  /* ---------- Tablet (750px - 989px) ---------- */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #pcards-{{ section.id }} .pc__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
+  }
+
+  /* ---------- Desktop (990px and up) ---------- */
+  @media screen and (min-width: 990px) {
+    #pcards-{{ section.id }} .pc__grid {
+      grid-template-columns: repeat({{ pc_count | at_most: 3 }}, minmax(0, 1fr));
+      gap: clamp(16px, 1.6vw, 24px);
+    }
+  }
+
+  /* ---------- Mobile (749px and below) ---------- */
+  @media screen and (max-width: 749px) {
+    #pcards-{{ section.id }} .pc__grid { gap: 16px; }
+    #pcards-{{ section.id }} .pc__body { padding: 16px 16px 20px; }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     JS chalega to hi hide hota hai, warna content hamesha visible rahega
+     ============================================ */
+  #pcards-{{ section.id }}.pc-anim .pc__card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: calc(var(--pc-i, 0) * 0.15s);
+    will-change: opacity, transform;
+  }
+
+  #pcards-{{ section.id }}.pc-anim.is-visible .pc__card {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #pcards-{{ section.id }}.pc-anim.is-done .pc__card {
+    transition-delay: 0s;
+    will-change: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #pcards-{{ section.id }}.pc-anim .pc__card {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    #pcards-{{ section.id }} .pc__media img { transition: none; }
+  }
+{%- endstyle -%}
+
+<div id="pcards-{{ section.id }}" class="custom-product-cards">
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+    <div class="pc__grid">
+      {%- for img in pc_images limit: 3 -%}
+        {%- assign idx = forloop.index0 -%}
+        {%- assign card_title = pc_titles[idx] | strip -%}
+        {%- assign card_desc = pc_descs[idx] | strip -%}
+        <div class="pc__card">
+          <div class="pc__media">
+            <img
+              src="{{ img | image_url: width: 800 }}"
+              srcset="{{ img | image_url: width: 400 }} 400w,
+                      {{ img | image_url: width: 600 }} 600w,
+                      {{ img | image_url: width: 800 }} 800w,
+                      {{ img | image_url: width: 1000 }} 1000w"
+              sizes="(min-width: 990px) 33vw, (min-width: 750px) 50vw, 100vw"
+              alt="{{ img.alt | default: card_title | escape }}"
+              width="{{ img.width }}"
+              height="{{ img.height }}"
+              loading="lazy"
+            >
+          </div>
+          {%- if card_title != blank or card_desc != blank -%}
+            <div class="pc__body">
+              {%- if card_title != blank -%}
+                <h3 class="pc__title">{{ card_title | escape }}</h3>
+              {%- endif -%}
+              {%- if card_desc != blank -%}
+                <p class="pc__desc">{{ card_desc | escape }}</p>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var section = document.getElementById('pcards-{{ section.id }}');
+    if (!section) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    section.querySelectorAll('.pc__card').forEach(function (el, i) {
+      el.style.setProperty('--pc-i', i);
+    });
+
+    section.classList.add('pc-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+          window.setTimeout(function () {
+            section.classList.add('is-done');
+          }, 2200);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    observer.observe(section);
+  })();
+</script>
+
+{%- elsif request.design_mode -%}
+  <div class="page-width" style="padding: 24px 0; text-align: center; opacity: .6;">
+    Produktkort: kort-metafelterne er tomme for dette produkt.
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Custom Product Cards",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Images, titles aur descriptions product ke metafields (custom.kort_*) se aate hain." },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "border_color", "label": "Top Border Color", "default": "#A58C76" },
+    { "type": "color", "id": "card_bg", "label": "Card Background", "default": "#FFFFFF" },
+    { "type": "color", "id": "card_border", "label": "Card Border Color", "default": "#DED2C3" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#302821" },
+    { "type": "color", "id": "desc_color", "label": "Description Color", "default": "#A58C76" },
+
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image Shape",
+      "default": "16 / 10",
+      "options": [
+        { "value": "16 / 9", "label": "Wide (16:9)" },
+        { "value": "16 / 10", "label": "Landscape (16:10)" },
+        { "value": "4 / 3", "label": "Landscape (4:3)" },
+        { "value": "1 / 1", "label": "Square (1:1)" }
+      ]
+    },
+    { "type": "range", "id": "image_radius", "min": 0, "max": 24, "step": 2, "unit": "px", "label": "Card Corner Radius", "default": 0 },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": false },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Top", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 48 }
+  ],
+  "presets": [
+    { "name": "Custom Product Cards" }
+  ]
+}
+{% endschema %}

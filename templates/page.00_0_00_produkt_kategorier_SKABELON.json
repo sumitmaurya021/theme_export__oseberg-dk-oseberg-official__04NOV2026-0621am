@@ -1,0 +1,341 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "custom_breadcrumb_section_feTXA9": {
+      "type": "custom-breadcrumb-section",
+      "settings": {
+        "background_color": "#ffffff"
+      }
+    },
+    "custom_rich_main_page_bFwGAQ": {
+      "type": "custom-rich-main-page",
+      "blocks": {
+        "heading_VNptYA": {
+          "type": "heading",
+          "settings": {
+            "heading": "{{ page.title }}",
+            "heading_size": "h0"
+          }
+        },
+        "text_RWgNU4": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Hos Tisvilde Company tror vi på, at den gode søvn starter med den rette seng. Vores udvalg af senge kombinerer nordisk elegance med kompromisløs komfort og gennemtænkt funktionalitet – designet til at passe ind i moderne hjem, hvor æstetik og velvære går hånd i hånd. Uanset om du drømmer om bløde linjer, rene udtryk eller praktiske løsninger, finder du her din næste seng. Scroll videre og find den, der skal løfte dine nætter – og dine dage.<br/></p><p><strong>Den rigtige seng gør hele forskellen</strong><br/>Vi ved, hvor vigtigt det er at vælge den helt rigtige seng – den skal passe til både din krop, din stil og dine behov. Hos Tisvilde Company står vi klar til at hjælpe dig med at finde netop dét match. Har du spørgsmål eller brug for vejledning, så tøv ikke med at kontakte os – vi hjælper dig trygt i mål.<br/><br/></p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_VNptYA",
+        "text_RWgNU4"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": false,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "custom_product_slider_JWmxyD": {
+      "type": "custom-product-slider",
+      "blocks": {
+        "bed_item_jTDV8a": {
+          "type": "bed_item",
+          "settings": {
+            "background_image": "shopify://shop_images/pexels-anna-nekrashevich-7946560.jpg",
+            "bed_image": "shopify://shop_images/SENGE_MED_GAVLE_ICON_8df6800a-756d-45a1-b576-82338ec8dc8b.png",
+            "white_overlay_color": "#ffffff",
+            "bed_title": "Senge med gavl",
+            "bed_link": "#"
+          }
+        },
+        "bed_item_McWTaU": {
+          "type": "bed_item",
+          "settings": {
+            "background_image": "shopify://shop_images/pexels-anna-nekrashevich-7946560.jpg",
+            "bed_image": "shopify://shop_images/SENGE_UDEN_GAVL_ICON_827a5b5f-324a-48e1-a09a-b3bb508d7e2d.png",
+            "white_overlay_color": "#ffffff",
+            "bed_title": "Senge uden gavl",
+            "bed_link": "#"
+          }
+        },
+        "bed_item_47r4tP": {
+          "type": "bed_item",
+          "settings": {
+            "background_image": "shopify://shop_images/pexels-anna-nekrashevich-7946560.jpg",
+            "bed_image": "shopify://shop_images/ELEVATIONSSENGE_ICON_c3f9726e-9617-4e8e-857b-68c7fe4e4853.png",
+            "white_overlay_color": "#ffffff",
+            "bed_title": "Elevationssenge",
+            "bed_link": "shopify://pages/elevationssenge"
+          }
+        },
+        "bed_item_Afx888": {
+          "type": "bed_item",
+          "settings": {
+            "background_image": "shopify://shop_images/pexels-anna-nekrashevich-7946560.jpg",
+            "bed_image": "shopify://shop_images/PLEJESENGE_ICON_d624282e-2251-4f5d-b50f-25eefac01001.png",
+            "white_overlay_color": "#ffffff",
+            "bed_title": "Plejesenge",
+            "bed_link": "shopify://pages/otiumbed"
+          }
+        }
+      },
+      "block_order": [
+        "bed_item_jTDV8a",
+        "bed_item_McWTaU",
+        "bed_item_47r4tP",
+        "bed_item_Afx888"
+      ],
+      "settings": {
+        "background_color": "#f1efec",
+        "subtext_heading": "Produkter",
+        "main_heading": "Vores sortiment",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "custom_collection_product_GTDmmc": {
+      "type": "custom-collection-product",
+      "settings": {
+        "subtext_heading": "",
+        "main_heading": "Senge med gavl",
+        "main_description": "",
+        "collections": [
+          "senge-med-gavl-90x200",
+          "senge-med-gavl-120x200",
+          "senge-med-gavl-140x200",
+          "senge-med-gavl-160x200",
+          "senge-med-gavl-180x200",
+          "senge-med-gavl-200-220",
+          "senge-med-gavl-200x200",
+          "senge-med-gavl-200x210",
+          "senge-med-gavl"
+        ],
+        "show_collection_tabs": true,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "background_color": "#f1efec",
+        "padding_top": 40,
+        "padding_bottom": 100
+      }
+    },
+    "custom_collection_product_L9ppET": {
+      "type": "custom-collection-product",
+      "settings": {
+        "subtext_heading": "",
+        "main_heading": "Senge uden gavl",
+        "main_description": "",
+        "collections": [
+          "senge",
+          "senge-med-gavl-120x200"
+        ],
+        "show_collection_tabs": true,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "background_color": "#f1efec",
+        "padding_top": 40,
+        "padding_bottom": 100
+      }
+    },
+    "custom_collection_product_7JBhyX": {
+      "type": "custom-collection-product",
+      "settings": {
+        "subtext_heading": "",
+        "main_heading": "Elevationssenge",
+        "main_description": "",
+        "collections": [
+          "senge-med-gavl",
+          "senge"
+        ],
+        "show_collection_tabs": true,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "background_color": "#f1efec",
+        "padding_top": 40,
+        "padding_bottom": 100
+      }
+    },
+    "custom_collection_product_pFwqDG": {
+      "type": "custom-collection-product",
+      "settings": {
+        "subtext_heading": "",
+        "main_heading": "Plejesenge",
+        "main_description": "",
+        "collections": [
+          "senge",
+          "senge-med-gavl"
+        ],
+        "show_collection_tabs": true,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "background_color": "#f1efec",
+        "padding_top": 40,
+        "padding_bottom": 100
+      }
+    },
+    "custom_block_img_text_pQMj8p": {
+      "type": "custom-block-img-text",
+      "blocks": {
+        "slide_T6Bixg": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/C0166.MP4.07_38_17_15.Still001.jpg",
+            "title": "Kundeservice",
+            "description": "Vi sætter en ære i god service – og svarer altid inden for 24 timer. Har du spørgsmål, står vi klar til at hjælpe dig hurtigt og venligt."
+          }
+        },
+        "slide_F7GbxF": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/SHOWROOM.00_00_11_08.Still007.jpg",
+            "title": "Levering",
+            "description": "Vi sender med Bring, som giver dig friheden til selv at vælge, hvornår din pakke leveres – nemt og fleksibelt, så det passer ind i din hverdag."
+          }
+        },
+        "slide_Nj7feg": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/SHOWROOM.00_00_08_19.Still002.jpg",
+            "title": "Showroom",
+            "description": "Oplev vores produkter i ro og mag. Book en tid i vores showroom og få personlig vejledning i inspirerende omgivelser."
+          }
+        }
+      },
+      "block_order": [
+        "slide_T6Bixg",
+        "slide_F7GbxF",
+        "slide_Nj7feg"
+      ],
+      "settings": {
+        "main_heading": "Vi lukker ikke et øje før du sover godt",
+        "bg_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "custom_img_txt_accordion_P4UKFY": {
+      "type": "custom-img-txt-accordion",
+      "blocks": {
+        "content_block_xPwrEQ": {
+          "type": "content_block",
+          "settings": {
+            "heading": "Senge uden gavl",
+            "description": "<p>Vores senge uden gavl er perfekte til dig, der ønsker et rent og minimalistisk udtryk i soveværelset. De giver frihed i indretningen og passer godt til dig, der vil tilføje en separat vægmonteret gavl, kunstværk eller andet personligt udtryk. Med solide materialer og tidløst design får du en base, der understøtter både æstetik og komfort – og som nemt kan tilpasses nye stilretninger over tid. De egner sig også særligt godt til mindre rum, hvor fleksibilitet er afgørende.</p>"
+          }
+        },
+        "content_block_XJWAxE": {
+          "type": "content_block",
+          "settings": {
+            "heading": "Senge med gavl",
+            "description": "<p>En seng med gavl tilføjer elegance, støtte og karakter til dit soveværelse. Gavlen giver en behagelig ryglæn, når du sidder op i sengen, og fungerer samtidig som et stærkt visuelt element. Hos Tisvilde Company tilbyder vi et udvalg af senge med integrerede gavle i naturlige materialer og tekstiler, der understøtter vores skandinaviske designstil. Vælg mellem bløde, polstrede modeller eller rene, enkle linjer i træ. Uanset hvad du vælger, får du både komfort og æstetisk appel i ét og samme møbel.</p>"
+          }
+        },
+        "content_block_8kLwk6": {
+          "type": "content_block",
+          "settings": {
+            "image": "shopify://shop_images/Tracker_Cafe-28.jpg",
+            "heading": "Plejesenge",
+            "description": "<p>Hos Tisvilde Company har vi stor fokus på, at funktionalitet ikke skal udelukke et smukt design. Vores plejesenge er skabt til at være en naturlig del af hjemmet – ikke et klinisk hjælpemiddel, men et stilrent møbel, du gerne vil have stående i dit soveværelse. De er fremstillet med solide materialer, en æstetisk bevidsthed og detaljer, der gør en forskel i hverdagen – for både brugeren og eventuelle omsorgspersoner.</p><p>Uanset om du har behov for komfort og støtte på grund af helbredsmæssige udfordringer, eller blot ønsker en mere fleksibel seng, så er en plejeseng en investering i velvære og livskvalitet. Og vi står naturligvis klar til at hjælpe dig med at finde den rigtige model og tilpasse den efter dine ønsker og behov.</p>"
+          }
+        },
+        "accordion_block_w89zFW": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvilken seng er bedst?",
+            "accordion_content": "<p>Den bedste seng er den, som passer til dine behov. Hvis du har et praktisk behov, så har vi senge med opbevaring, som giver dig rum til gemme puder, dyner og andet væk. Er din prioritet derimod maksimal komfort, har vi behagelige senge med springmadrasser, som giver dig uovertruffen komfort.</p>"
+          }
+        },
+        "accordion_block_kmfVWQ": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvorfor overveje en elevationsseng?",
+            "accordion_content": "<p>En elevationsseng giver dig mulighed for at tilpasse din liggeposition præcis, som du ønsker – både når du sover, læser eller ser tv. Den forbedrer komforten, kan aflaste ryg og ben, og er især ideel, hvis du har behov for ekstra støtte eller ønsker mere fleksibilitet i din seng.</p>"
+          }
+        },
+        "accordion_block_EzTFkh": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvad er en plejeseng?",
+            "accordion_content": "<p>En plejeseng er en justerbar seng, designet til at give ekstra støtte og komfort til personer med særlige behov – typisk i forbindelse med sygdom, alderdom eller nedsat mobilitet. Den kan hæves, sænkes og tilpasses i forskellige sektioner, hvilket gør det lettere både for brugeren og eventuelle omsorgspersoner.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "content_block_xPwrEQ",
+        "content_block_XJWAxE",
+        "content_block_8kLwk6",
+        "accordion_block_w89zFW",
+        "accordion_block_kmfVWQ",
+        "accordion_block_EzTFkh"
+      ],
+      "settings": {
+        "custom_id": "",
+        "background_color": "#ffffff",
+        "padding_top": 65,
+        "padding_bottom": 65
+      }
+    },
+    "custom_image_with_text_6AGtgX": {
+      "type": "custom-image-with-text",
+      "settings": {
+        "section_id": "",
+        "section_color": "#ffffff",
+        "container_color": "#d4c9be",
+        "section_image": "shopify://shop_images/SHOWROOM.00_00_08_19.Still002.jpg",
+        "head_main": "Besøg vores showroom",
+        "title": "Oplev komforten i virkeligheden - I Tisvideleje",
+        "description": "Der er noget særligt ved at mærke, teste og opleve en seng i virkeligheden, før man beslutter sig. I vores showroom i Tisvildeleje kan du i rolige omgivelser tage dig god tid til at finde præcis den seng, der passer til dig. Her handler det ikke om hastige valg – men om ro, fornemmelse og personlig vejledning.\nÅbnet alle dage efter aftale.",
+        "button_link": "shopify://pages/contact",
+        "button_text": "Book dit besøg!",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_breadcrumb_section_feTXA9",
+    "custom_rich_main_page_bFwGAQ",
+    "custom_product_slider_JWmxyD",
+    "custom_collection_product_GTDmmc",
+    "custom_collection_product_L9ppET",
+    "custom_collection_product_7JBhyX",
+    "custom_collection_product_pFwqDG",
+    "custom_block_img_text_pQMj8p",
+    "custom_img_txt_accordion_P4UKFY",
+    "custom_image_with_text_6AGtgX"
+  ]
+}

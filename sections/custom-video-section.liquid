@@ -1,0 +1,65 @@
+<div class="custom-video-container">
+  <div class="page-width"> 
+  {% if section.settings.video_file != blank %}
+    {{ section.settings.video_file | video_tag: autoplay: true, muted: true, loop: true }}
+  {% elsif section.settings.video_url != blank %}
+    <iframe src="{{ section.settings.video_url }}" frameborder="0" allowfullscreen></iframe>
+  {% else %}
+    <p>Please upload a video or enter a video URL.</p>
+  {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Video Section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Video Settings"
+    },
+    {
+      "type": "video",
+      "id": "video_file",
+      "label": "Upload Video"
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "External Video URL",
+      "info": "Use YouTube or Vimeo link if no video is uploaded"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border Radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 20,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Video Section"
+    }
+  ]
+}
+{% endschema %}
+
+
+<style>
+  .custom-video-container video {
+    max-width: 100%;
+    border-radius: {{ section.settings.border_radius }}px;
+    overflow: hidden;
+  }
+  /* .custom-video-container video,
+  .custom-video-container iframe {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: {{ section.settings.border_radius }}px;
+  } */
+</style>

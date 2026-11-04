@@ -1,0 +1,181 @@
+{% comment %} <nav class="custom-breadcrumb" style="background: {{ section.settings.background_color }}">
+  <a href="{{ routes.root_url }}">Forside</a>
+
+  {% if template contains 'page' %}
+    / <span>{{ page.title }}</span>
+
+  {% elsif template contains 'product' %}
+    {% assign current_collection = collection %}
+    {% unless current_collection %}
+      {% assign current_collection = product.collections.first %}
+    {% endunless %}
+    {% if current_collection %}
+      / <a href="{{ current_collection.url }}">{{ current_collection.title }}</a>
+    {% endif %}
+    / <span>{{ product.title }}</span>
+
+  {% elsif template contains 'collection' %}
+    / <span>{{ collection.title }}</span>
+
+  {% elsif template contains 'blog' %}
+    / <span>{{ blog.title }}</span>
+
+  {% elsif template contains 'article' %}
+    / <a href="{{ blog.url }}">{{ blog.title }}</a>
+    / <span>{{ article.title }}</span>
+
+  {% elsif template contains 'search' %}
+    / <span>Search results for "{{ search.terms }}"</span>
+
+  {% elsif template contains 'cart' %}
+    / <span>Shopping Cart</span>
+
+  {% endif %}
+</nav>
+
+
+
+
+{% schema %}
+  {
+    "name": "Custom custom-breadcrumb",
+    "settings": [
+       {
+     "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ebfafa"
+    },
+    ],
+    "class": "custom-bundle-addons-breadcrumbs",
+    "presets": [
+      {
+        "name": "Custom custom-breadcrumb"
+      }
+    ]
+  }
+{% endschema %}
+
+{% style %}
+/* .custom-breadcrumb {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.custom-breadcrumb a {
+  text-decoration: none;
+  color: #0073aa;
+}
+
+.custom-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.custom-breadcrumb span {
+  font-weight: bold;
+  color: #000;
+} */
+{% endstyle %} {% endcomment %}
+
+
+<nav class="custom-breadcrumb">
+  <a href="{{ routes.root_url }}">Forside</a>
+
+  {% if template contains 'page' %}
+    / <span>{{ page.title }}</span>
+
+  {% elsif template contains 'product' %}
+    {% assign current_collection = collection %}
+    {% unless current_collection %}
+      {% assign current_collection = product.collections.first %}
+    {% endunless %}
+    {% if current_collection %}
+      / <a href="{{ current_collection.url }}">{{ current_collection.title }}</a>
+    {% endif %}
+    / <span>{{ product.title }}</span>
+
+  {% elsif template contains 'collection' %}
+    / <span>{{ collection.title }}</span>
+
+  {% elsif template contains 'blog' %}
+    / <span>{{ blog.title }}</span>
+
+  {% elsif template contains 'article' %}
+    / <a href="{{ blog.url }}">{{ blog.title }}</a>
+    / <span>{{ article.title }}</span>
+
+  {% elsif template contains 'search' %}
+    / <span>Search results for "{{ search.terms }}"</span>
+
+  {% elsif template contains 'cart' %}
+    / <span>Shopping Cart</span>
+
+  {% endif %}
+</nav>
+
+
+
+
+{% schema %}
+  {
+    "name": "Custom custom-breadcrumb",
+    "settings": [],
+    "class": "custom-bundle-addons-breadcrumbs",
+    "presets": [
+      {
+        "name": "Custom custom-breadcrumb"
+      }
+    ]
+  }
+{% endschema %}
+
+{% style %}
+/* ===== OSEBERG colours + fonts (only additions) ===== */
+.custom-breadcrumb {
+  --oseberg-ivory: #F5F1EA;
+  --oseberg-sand: #DED2C3;
+  --oseberg-espresso: #302821;
+  --oseberg-taupe: #A58C76;
+  --oseberg-white: #FFFFFF;
+
+  background: var(--oseberg-ivory);
+  font-family: 'Jost', sans-serif;
+  color: var(--oseberg-taupe);
+}
+
+.custom-breadcrumb a {
+  font-family: 'Jost', sans-serif;
+  color: var(--oseberg-taupe);
+}
+
+.custom-breadcrumb a:hover {
+  color: var(--oseberg-espresso);
+}
+
+.custom-breadcrumb span {
+  font-family: 'Jost', sans-serif;
+  color: var(--oseberg-espresso);
+}
+
+/* ===== Existing code (unchanged, still commented) ===== */
+/* .custom-breadcrumb {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.custom-breadcrumb a {
+  text-decoration: none;
+  color: #0073aa;
+}
+
+.custom-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.custom-breadcrumb span {
+  font-weight: bold;
+  color: #000;
+} */
+{% endstyle %}

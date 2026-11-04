@@ -1,0 +1,181 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+
+<div class="custom-block-img-text-container section-{{ section.id }}-padding" style="background-color: {{ section.settings.bg_color }};">
+<div class="page-width">
+  <h2 class="custom-main-heading">{{ section.settings.main_heading }}</h2>
+  
+  <div class="swiper custom-block-img-text page-width">
+    <div class="swiper-wrapper">
+      {% for block in section.blocks limit: 3 %}
+        <div class="swiper-slide">
+          <div class="slide-content">
+            {% if block.settings.image %}
+              <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.title }}">
+            {% endif %}
+            <p class="slide-title">{{ block.settings.title }}</p>
+            <div class="slide-description">{{ block.settings.description }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <!-- Scrollbar (Only for below 1024px) -->
+    <div class="swiper-scrollbar"></div>
+  </div>
+</div>
+</div>
+
+{% comment %}
+<style>
+  .custom-block-img-text-container {
+    padding: 64px 20px 32px;
+}
+.custom-block-img-text-container .custom-main-heading {
+    margin: 0 0 48px;
+    font-family: 'CircularXXWeb-Regular';
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 26.4px;
+    color: #0e1f2a;
+}
+.custom-block-img-text-container .custom-block-img-text {
+    margin-bottom: 48px;
+}
+.custom-block-img-text-container .custom-block-img-text .swiper-wrapper {
+    width: 100%;
+    gap: 20px;
+}
+.custom-block-img-text-container .custom-block-img-text .swiper-wrapper .swiper-slide {
+    margin: 0px !important;
+    width: calc(33.33% - 13.33px)!important;
+}
+.custom-block-img-text-container .custom-block-img-text .swiper-wrapper .swiper-slide .slide-content img {
+    margin-bottom: 16px;
+}
+.custom-block-img-text-container .custom-block-img-text .swiper-wrapper .swiper-slide .slide-content .slide-title,
+.custom-block-img-text-container .custom-block-img-text .swiper-wrapper .swiper-slide .slide-content .slide-description {
+    font-family: 'Circular-Bold';
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22.4px;
+    text-align: left;
+    color: #0e1f2a;
+    padding: 0 24px;
+    margin-bottom: 8px;
+}
+.custom-block-img-text-container .custom-block-img-text .swiper-wrapper .swiper-slide .slide-content .slide-description {
+    font-weight: 400 !important;
+    font-family: 'CircularXXWeb-Regular';
+    margin: 0px;
+}
+  
+  /* Hide scrollbar on large screens */
+  @media (min-width: 1024px) {
+    .swiper-scrollbar {
+      display: none;
+    }
+  }
+</style>
+{% endcomment %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    new Swiper(".custom-block-img-text", {
+      slidesPerView: 1,
+      spaceBetween: 10,
+      scrollbar: {
+        el: ".swiper-scrollbar",
+        hide: false,
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 10,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 20,
+        }
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Custom Block Img Text",
+  "settings": [
+    {
+      "type": "text",
+      "id": "main_heading",
+      "label": "Main Heading"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#badfdf"
+    },
+     {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Slide Title"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Custom Block Img Text"
+    }
+  ]
+}
+{% endschema %}

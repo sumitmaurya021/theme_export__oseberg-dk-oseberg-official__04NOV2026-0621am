@@ -1,0 +1,299 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<style>
+  .custom-exchange-content .custom-exchange-details .ced-box-wrap .custom-list:after {
+    background-image: linear-gradient(to top,#daeaea,#daeaea00);
+    background-image: linear-gradient(to top,{{ section.settings.bg_color }},{{ section.settings.bg_color }}00);
+  }
+</style>
+<section class="custom-exchange-section section-{{ section.id }}-padding" style="background-color: {{ section.settings.bg_color }};">
+  <div class="page-width">
+    <div class="custom-exchange-container">
+      <div class="custom-exchange-header">
+        <span class="custom-exchange-tag">{{ section.settings.tag }}</span>
+        <h2 class="custom-exchange-title">{{ section.settings.title }}</h2>
+      </div>
+      <div class="custom-exchange-content">
+        <div class="custom-exchange-box">
+          <div class="ce-box-wrap">
+            <p class="custom-exchange-text">{{ section.settings.content }}</p>
+            <a href="{{ section.settings.button_link }}" class="custom-exchange-button">
+              <span title="{{ section.settings.button_label }}">{{ section.settings.button_label }}</span>
+            </a>
+          </div>
+        </div>
+        <div class="custom-exchange-details">
+          <div class="ced-box-wrap">
+            <h3 class="custom-exchange-subtitle">{{ section.settings.info_title }}</h3>
+            <ul class="custom-list">
+              {% for block in section.blocks %}
+                <li class="custom-list-item {% if forloop.index > 3 %}hidden{% endif %}">
+                  {{ block.settings.item_list }}
+                </li>
+              {% endfor %}
+            </ul>
+            {% if section.blocks.size > 3 %}
+              <button class="custom-exchange-toggle" id="toggle-btn">
+                <span title="{{ section.settings.toggle_text }}">{{ section.settings.toggle_text }}</span>
+                {{- 'custom-down-arrow.svg' | inline_asset_content -}}
+              </button>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Exchange Section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#f9f3ee"
+    },
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Tag",
+      "default": "Ombytning"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Opret ombytning"
+    },
+    {
+      "type": "textarea",
+      "id": "content",
+      "label": "Text Content"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Opret ombytning"
+    },
+    {
+      "type": "text",
+      "id": "info_title",
+      "label": "Information Title",
+      "default": "Praktiske oplysninger"
+    },
+    {
+      "type": "text",
+      "id": "toggle_text",
+      "label": "Toggle Button Text",
+      "default": "Read More"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "List",
+      "settings": [
+        {
+          "type": "text",
+          "id": "item_list",
+          "label": "List Item"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Exchange Section"
+    }
+  ]
+}
+{% endschema %}
+{% comment %}
+  <style>
+          .hidden {
+            display: none;
+          }
+    .custom-exchange-box {
+        border: 2px solid #E67342;
+        padding: 20px;
+        border-radius: 10px;
+        height: 250px; /* ✅ फिक्स ऊंचाई सेट करें */
+        overflow: hidden; /* ✅ अगर कंटेंट ज्यादा हो जाए तो कट जाए */
+    }
+        .custom-exchange-section {
+              padding: 50px 0;
+              background-color: #F6F1EC;
+            }
+            .custom-exchange-container {
+              max-width: 1200px;
+              margin: 0 auto;
+            }
+            .custom-exchange-header {
+              text-align: center;
+              margin-bottom: 30px;
+            }
+            .custom-exchange-tag {
+              color: #E67342;
+              text-transform: uppercase;
+              font-size: 14px;
+              display: block;
+              margin-bottom: 5px;
+            }
+            .custom-exchange-title {
+              font-size: 32px;
+              font-weight: bold;
+              color: #222;
+            }
+            .custom-exchange-content {
+              display: flex;
+              flex-direction: column;
+              gap: 20px;
+            }
+            @media (min-width: 768px) {
+              .custom-exchange-content {
+                flex-direction: row;
+                gap: 40px;
+              }
+              .custom-exchange-box {
+                width: 40%;
+
+              }
+              .custom-exchange-details {
+                width: 60%;
+              }
+            }
+            .custom-exchange-box {
+              border: 2px solid #E67342;
+              padding: 20px;
+              border-radius: 10px;
+            }
+            .custom-exchange-text {
+              margin-bottom: 15px;
+              font-size: 16px;
+              color: #222;
+            }
+            .custom-exchange-button {
+              display: inline-block;
+              padding: 12px 20px;
+              background: #E67342;
+              color: white;
+              border-radius: 5px;
+              text-decoration: none;
+              font-weight: bold;
+              transition: 0.3s;
+            }
+            .custom-exchange-button:hover {
+              background: #c85c33;
+            }
+            .custom-exchange-details {
+              padding: 20px;
+            }
+            .custom-exchange-subtitle {
+              font-size: 20px;
+              font-weight: bold;
+              margin-bottom: 10px;
+            }
+            .custom-exchange-list {
+              list-style: none;
+              padding-left: 0;
+            }
+            .custom-exchange-item {
+              margin-bottom: 8px;
+              font-size: 16px;
+              color: #555;
+            }
+            .custom-exchange-toggle {
+              margin-top: 10px;
+              padding: 8px 15px;
+              background: #E67342;
+              color: white;
+              border: none;
+              border-radius: 5px;
+              cursor: pointer;
+            }
+      </style>
+{% endcomment %}
+<script>
+  {% comment %}
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.getElementById("toggle-btn");
+    const hiddenItems = document.querySelectorAll(".custom-list-item.hidden");
+    let isExpanded = false; // Track if list is expanded
+
+    if (toggleBtn) {
+      toggleBtn.addEventListener("click", function () {
+        hiddenItems.forEach(item => item.classList.toggle("hidden"));
+        isExpanded = !isExpanded; // Toggle state
+
+        // Change button text dynamically
+        toggleBtn.textContent = isExpanded ? "Skjul " : "Read More";
+      });
+    }
+  });
+  {% endcomment %}
+
+  document.addEventListener("DOMContentLoaded", function () {
+  const toggleBtn = document.getElementById("toggle-btn");
+  const hiddenItems = document.querySelectorAll(".custom-list-item.hidden");
+  let isExpanded = false; // Track if list is expanded
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", function () {
+      hiddenItems.forEach(item => item.classList.toggle("hidden"));
+      isExpanded = !isExpanded; // Toggle state
+
+      // Change button text dynamically with a span tag and an SVG
+      toggleBtn.innerHTML = isExpanded 
+        ? `<span title="Skjul">Skjul</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true" class="stroke-current" role="img" stroke="currentColor">
+             <path d="M2.92893 11.9289L9.29289 5.56501C9.68342 5.17449 10.3166 5.17449 10.7071 5.56501L17.0711 11.9289" stroke-width="1.5" stroke-linecap="round"/>
+             <title>chevron-up</title>
+           </svg>` 
+        : `<span title="Se mere">Se mere</span> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true" class="stroke-current" role="img" stroke="currentColor">
+             <path d="M17.0711 8.07107L10.7071 14.435C10.3166 14.8256 9.68342 14.8256 9.29289 14.435L2.92893 8.07107" stroke-width="1.5" stroke-linecap="round"/>
+             <title>chevron-down</title>
+           </svg>`; 
+    });
+  }
+});
+
+
+</script>

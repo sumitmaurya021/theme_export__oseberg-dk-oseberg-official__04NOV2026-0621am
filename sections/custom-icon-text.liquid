@@ -1,0 +1,136 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% comment %}<section class="custom-icon-text-section section-{{ section.id }}-padding">
+  <div class="custom-icon-text-container page-width">
+    {% for block in section.blocks %}
+      <div class="icon-text-block" {{ block.shopify_attributes }}>
+        {% if block.settings.icon %}
+          <img src="{{ block.settings.icon | img_url: 'large' }}" alt="Icon">
+        {% endif %}
+        {% if block.settings.text %}<p>{{ block.settings.text }}</p>{% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>{% endcomment %}
+
+<section class="custom-icon-text-section section-{{ section.id }}-padding">
+  <div class="custom-icon-text-container page-width">
+    <div class="swiper custom-swiper-icon">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="swiper-slide icon-text-block">
+            {% if block.settings.icon %}
+              <img src="{{ block.settings.icon | img_url: 'large' }}" alt="Icon">
+            {% endif %}
+            {% if block.settings.text %}<p>{{ block.settings.text }}</p>{% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Icon Text",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon_text",
+      "name": "Icon with Text",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon Image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Icon Text"
+    }
+  ]
+}
+{% endschema %}
+
+
+
+
+<!-- Swiper.js CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+  var swiper = new Swiper(".custom-swiper-icon", {
+    loop: true, // Infinite loop mode
+    autoplay: {
+      delay: 3000, // Auto-slide every 3 seconds
+      disableOnInteraction: false, // Keep autoplay active after user interaction
+    },
+    spaceBetween: 10, // Default spacing between slides
+    slidesPerView: 1, // Default: Show 1 slide on small screens
+
+    breakpoints: {
+      680: {
+        slidesPerView: 2, // Show 2 slides between 680px and 1279px
+        spaceBetween: 20, // Increase space between slides
+      },
+      1280: {
+        slidesPerView: 4, // Show 4 slides for screens 1280px and above
+        spaceBetween: 30, // Further spacing for better layout
+      },
+    },
+
+    navigation: {
+      nextEl: ".swiper-button-next", // Next button
+      prevEl: ".swiper-button-prev", // Previous button
+    },
+
+    pagination: {
+      el: ".swiper-pagination", // Pagination dots (optional)
+      clickable: true, // Allow users to click on pagination dots
+    },
+  });
+});
+
+</script>

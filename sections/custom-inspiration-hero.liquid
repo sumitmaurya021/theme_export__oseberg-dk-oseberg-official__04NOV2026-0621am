@@ -1,0 +1,380 @@
+{%- style -%}
+  #ihero-{{ section.id }} {
+    --ih-eyebrow: {{ section.settings.eyebrow_color }};
+    --ih-title: {{ section.settings.title_color }};
+    --ih-desc: {{ section.settings.desc_color }};
+    --ih-btn-bg: {{ section.settings.button_bg }};
+    --ih-btn-color: {{ section.settings.button_color }};
+    --ih-btn-hover-bg: {{ section.settings.button_hover_bg }};
+    --ih-btn-hover-color: {{ section.settings.button_hover_color }};
+    --ih-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --ih-min-h: {{ section.settings.min_height }}px;
+    --ih-min-h-mobile: {{ section.settings.min_height_mobile }}px;
+    position: relative;
+    background: {{ section.settings.bg_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  #ihero-{{ section.id }} .ih__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  #ihero-{{ section.id }} .ih__bg picture,
+  #ihero-{{ section.id }} .ih__bg img,
+  #ihero-{{ section.id }} .ih__bg svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: {{ section.settings.image_focus }};
+    display: block;
+  }
+
+  /* Left se halka ivory overlay taaki dark text readable rahe */
+  #ihero-{{ section.id }} .ih__bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      to right,
+      rgba(245, 241, 234, var(--ih-overlay)) 0%,
+      rgba(245, 241, 234, calc(var(--ih-overlay) * 0.6)) 40%,
+      rgba(245, 241, 234, 0) 70%
+    );
+  }
+
+  #ihero-{{ section.id }} .ih__inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: {{ section.settings.vertical_align }};
+    min-height: var(--ih-min-h);
+  }
+
+  #ihero-{{ section.id }} .ih__content {
+    width: 100%;
+    max-width: 520px;
+    min-width: 0;
+  }
+
+  #ihero-{{ section.id }} .ih__eyebrow {
+    margin: 0 0 16px;
+    color: var(--ih-eyebrow);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  #ihero-{{ section.id }} .ih__title {
+    margin: 0 0 24px;
+    color: var(--ih-title);
+    font-family: var(--font-serif, 'Playfair Display', Georgia, 'Times New Roman', serif);
+    font-size: clamp(28px, 3.2vw, 48px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  #ihero-{{ section.id }} .ih__desc {
+    margin: 0 0 32px;
+    max-width: 440px;
+    color: var(--ih-desc);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(14px, 1.05vw, 16px);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: normal;
+  }
+
+  #ihero-{{ section.id }} .ih__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    padding: clamp(14px, 1.2vw, 18px) clamp(24px, 2.4vw, 36px);
+    background: var(--ih-btn-bg);
+    color: var(--ih-btn-color);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.15em;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--ih-btn-bg);
+    border-radius: 0;
+    transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  }
+
+  #ihero-{{ section.id }} .ih__button::before,
+  #ihero-{{ section.id }} .ih__button::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  #ihero-{{ section.id }} .ih__button:hover {
+    background: var(--ih-btn-hover-bg);
+    color: var(--ih-btn-hover-color);
+    border-color: var(--ih-btn-hover-bg);
+  }
+
+  /* ---------- Tablet (750px - 989px) ---------- */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #ihero-{{ section.id }} .ih__title { font-size: clamp(32px, 5vw, 44px); }
+    #ihero-{{ section.id }} .ih__content { max-width: 480px; }
+  }
+
+  /* ---------- Mobile (749px and below) ---------- */
+  @media screen and (max-width: 749px) {
+    #ihero-{{ section.id }} .ih__inner {
+      min-height: var(--ih-min-h-mobile);
+      align-items: flex-start;
+      padding-top: 28px;
+      padding-bottom: 28px;
+    }
+
+    #ihero-{{ section.id }} .ih__content { max-width: 100%; }
+    #ihero-{{ section.id }} .ih__title { margin-bottom: 18px; }
+    #ihero-{{ section.id }} .ih__desc { margin-bottom: 24px; max-width: 100%; }
+    #ihero-{{ section.id }} .ih__button { width: 100%; }
+
+    /* Mobile pe text upar hai, isliye overlay upar se */
+    #ihero-{{ section.id }} .ih__bg::after {
+      background: linear-gradient(
+        to bottom,
+        rgba(245, 241, 234, calc(var(--ih-overlay) + 0.25)) 0%,
+        rgba(245, 241, 234, calc(var(--ih-overlay) * 0.7)) 55%,
+        rgba(245, 241, 234, 0) 100%
+      );
+    }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     JS chalega to hi hide hota hai, warna content hamesha visible rahega
+     ============================================ */
+  #ihero-{{ section.id }}.ih-anim .ih__content > * {
+    opacity: 0;
+    transform: translateX(-28px);
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+    transition-delay: calc(var(--ih-ci, 0) * 0.12s), calc(var(--ih-ci, 0) * 0.12s), 0s, 0s, 0s;
+    will-change: opacity, transform;
+  }
+
+  #ihero-{{ section.id }}.ih-anim .ih__bg img,
+  #ihero-{{ section.id }}.ih-anim .ih__bg svg {
+    transform: scale(1.06);
+    transition: transform 2.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  #ihero-{{ section.id }}.ih-anim.is-visible .ih__content > * {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  #ihero-{{ section.id }}.ih-anim.is-visible .ih__bg img,
+  #ihero-{{ section.id }}.ih-anim.is-visible .ih__bg svg {
+    transform: scale(1);
+  }
+
+  #ihero-{{ section.id }}.ih-anim.is-done .ih__content > * {
+    transition-delay: 0s;
+    will-change: auto;
+  }
+
+  /* Mobile: side slide ki jagah halka fade-up */
+  @media screen and (max-width: 749px) {
+    #ihero-{{ section.id }}.ih-anim .ih__content > * { transform: translateY(20px); }
+    #ihero-{{ section.id }}.ih-anim.is-visible .ih__content > * { transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #ihero-{{ section.id }}.ih-anim .ih__content > * {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    #ihero-{{ section.id }}.ih-anim .ih__bg img,
+    #ihero-{{ section.id }}.ih-anim .ih__bg svg {
+      transform: none;
+      transition: none;
+    }
+  }
+{%- endstyle -%}
+
+<div id="ihero-{{ section.id }}" class="custom-inspiration-hero">
+  <div class="ih__bg">
+    {%- if section.settings.image != blank -%}
+      <picture>
+        {%- if section.settings.image_mobile != blank -%}
+          <source
+            media="(max-width: 749px)"
+            srcset="{{ section.settings.image_mobile | image_url: width: 750 }} 750w,
+                    {{ section.settings.image_mobile | image_url: width: 1100 }} 1100w,
+                    {{ section.settings.image_mobile | image_url: width: 1500 }} 1500w"
+            sizes="100vw"
+          >
+        {%- endif -%}
+        <img
+          src="{{ section.settings.image | image_url: width: 2000 }}"
+          srcset="{{ section.settings.image | image_url: width: 750 }} 750w,
+                  {{ section.settings.image | image_url: width: 1100 }} 1100w,
+                  {{ section.settings.image | image_url: width: 1500 }} 1500w,
+                  {{ section.settings.image | image_url: width: 2000 }} 2000w,
+                  {{ section.settings.image | image_url: width: 2400 }} 2400w"
+          sizes="100vw"
+          alt="{{ section.settings.image.alt | default: section.settings.title | escape }}"
+          width="{{ section.settings.image.width }}"
+          height="{{ section.settings.image.height }}"
+          loading="lazy"
+        >
+      </picture>
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag }}
+    {%- endif -%}
+  </div>
+
+  <div class="ih__inner {% unless section.settings.full_width %}page-width{% endunless %}">
+    <div class="ih__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="ih__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.title != blank -%}
+        <h2 class="ih__title">{{ section.settings.title | escape | newline_to_br }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.description != blank -%}
+        <p class="ih__desc">{{ section.settings.description | escape | newline_to_br }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.button_text != blank and section.settings.button_link != blank -%}
+        <a href="{{ section.settings.button_link }}" class="ih__button">{{ section.settings.button_text | escape }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var section = document.getElementById('ihero-{{ section.id }}');
+    if (!section) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    section.querySelectorAll('.ih__content > *').forEach(function (el, i) {
+      el.style.setProperty('--ih-ci', i);
+    });
+
+    section.classList.add('ih-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+          window.setTimeout(function () {
+            section.classList.add('is-done');
+          }, 2200);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    observer.observe(section);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Custom Inspiration Hero",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "header", "content": "Background Image" },
+    { "type": "image_picker", "id": "image", "label": "Image (Desktop)" },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image (Mobile, optional)",
+      "info": "Khaali = desktop image mobile pe bhi dikhegi."
+    },
+    {
+      "type": "select",
+      "id": "image_focus",
+      "label": "Image Focus",
+      "default": "center center",
+      "info": "Crop hone par image ka kaun sa hissa dikhna chahiye.",
+      "options": [
+        { "value": "center center", "label": "Center" },
+        { "value": "center top", "label": "Top" },
+        { "value": "center bottom", "label": "Bottom" },
+        { "value": "left center", "label": "Left" },
+        { "value": "right center", "label": "Right" }
+      ]
+    },
+    { "type": "range", "id": "overlay_opacity", "min": 0, "max": 90, "step": 5, "unit": "%", "label": "Text Light Overlay (readable rakhne ke liye)", "default": 40 },
+
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Small Heading", "default": "Inspiration" },
+    { "type": "textarea", "id": "title", "label": "Title (new line = line break)", "default": "Find inspiration\ntil dit hjem" },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description (new line = line break)",
+      "default": "Oplev hvordan Oseberg-sofaerne kan skabe rammen om et smukt, funktionelt og personligt hjem. Få idéer til indretning, farver og opstillinger – og lad dig inspirere af virkelige hjem."
+    },
+    { "type": "text", "id": "button_text", "label": "Button Text", "default": "Se vores sofaer →" },
+    { "type": "url", "id": "button_link", "label": "Button Link" },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section Background (image na ho tab)", "default": "#F5F1EA" },
+    { "type": "color", "id": "eyebrow_color", "label": "Small Heading Color", "default": "#A58C76" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#302821" },
+    { "type": "color", "id": "desc_color", "label": "Description Color", "default": "#302821" },
+    { "type": "color", "id": "button_bg", "label": "Button Background", "default": "#302821" },
+    { "type": "color", "id": "button_color", "label": "Button Text Color", "default": "#FFFFFF" },
+    { "type": "color", "id": "button_hover_bg", "label": "Button Hover Background", "default": "#A58C76" },
+    { "type": "color", "id": "button_hover_color", "label": "Button Hover Text Color", "default": "#FFFFFF" },
+
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "vertical_align",
+      "label": "Content Vertical Position (Desktop)",
+      "default": "center",
+      "options": [
+        { "value": "flex-start", "label": "Top" },
+        { "value": "center", "label": "Middle" },
+        { "value": "flex-end", "label": "Bottom" }
+      ]
+    },
+    { "type": "range", "id": "min_height", "min": 320, "max": 900, "step": 20, "unit": "px", "label": "Section Height (Desktop / Tablet)", "default": 480 },
+    { "type": "range", "id": "min_height_mobile", "min": 380, "max": 900, "step": 20, "unit": "px", "label": "Section Height (Mobile)", "default": 560 },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": false },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Top", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 48 }
+  ],
+  "presets": [
+    { "name": "Custom Inspiration Hero" }
+  ]
+}
+{% endschema %}

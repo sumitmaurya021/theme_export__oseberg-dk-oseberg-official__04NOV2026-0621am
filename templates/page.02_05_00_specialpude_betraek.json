@@ -1,0 +1,311 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "custom_breadcrumb_section_feTXA9": {
+      "type": "custom-breadcrumb-section",
+      "settings": {
+        "background_color": "#ffffff"
+      }
+    },
+    "custom_rich_main_page_ArNEbc": {
+      "type": "custom-rich-main-page",
+      "blocks": {
+        "heading_Nh7JcP": {
+          "type": "heading",
+          "settings": {
+            "heading": "{{ page.title }}",
+            "heading_size": "h1"
+          }
+        },
+        "text_bePVRj": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Hos House of Tisvilde ved vi, at det ikke kun er sengen, der afgør din nattesøvn – det er også de små detaljer omkring den. Derfor finder du hos os et udvalg af sengetilbehør, der både beskytter, forfiner og forlænger levetiden på din seng. Heriblandt vandtætte og åndbare rullemadrasser, der giver ekstra hygiejne og komfort, blødt og luksuriøst sengetøj i tidløse materialer samt lagner i forskellige pasformer, der altid sikrer et indbydende og velredt udtryk.</p><p>Vores tekstiler og tilbehør er nøje udvalgt for at skabe den perfekte balance mellem funktionalitet, æstetik og holdbarhed. Uanset om du ønsker et praktisk supplement, der gør hverdagen lettere, eller en luksuriøs detalje, der løfter oplevelsen, finder du her tilbehør, der understøtter både dit velvære og dit soveværelses stil.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Nh7JcP",
+        "text_bePVRj"
+      ],
+      "name": "INTRO",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "weekly_recommendation_8i8AVp": {
+      "type": "weekly-recommendation",
+      "settings": {
+        "background_color": "#faf8f5",
+        "section_heading": "Ugens anbefaling",
+        "elevationssenge": "Pudebetræk",
+        "product": "pudebetraek-til-face-hit-beauty-hovedpude-skin-betraek",
+        "tag_text": "Ugens anbefaling",
+        "bottom_note": "House of Tisvilde Company anbefaler",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "choose_size_Azz3Jp": {
+      "type": "choose-size",
+      "blocks": {
+        "size_option_mczg7g": {
+          "type": "size_option",
+          "settings": {
+            "size_label": "Betræk til normale puder",
+            "size_url": "shopify://pages/pudebetraek-60x63"
+          }
+        },
+        "size_option_gqnaq8": {
+          "type": "size_option",
+          "settings": {
+            "size_label": "Specialpude betræk udvalg",
+            "size_url": "shopify://pages/specialpude-betraek-udvalg"
+          }
+        }
+      },
+      "block_order": [
+        "size_option_mczg7g",
+        "size_option_gqnaq8"
+      ],
+      "settings": {
+        "section_heading": "Vælg størrelse",
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "custom_collection_product_8bh7Pk": {
+      "type": "custom-collection-product",
+      "name": "1",
+      "settings": {
+        "subtext_heading": "Vores søvnhack",
+        "main_heading": "Bambus Exclusive Sengetøj",
+        "main_description": "",
+        "collections": [],
+        "show_collection_tabs": true,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "background_color": "#faf8f5",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "custom_collection_product_6y789A": {
+      "type": "custom-collection-product",
+      "name": "2",
+      "settings": {
+        "subtext_heading": "Mønstret detalje",
+        "main_heading": "Blossom serien i bomuldsstin",
+        "main_description": "",
+        "collections": [
+          "minimalistisk-gavl"
+        ],
+        "show_collection_tabs": true,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "background_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "custom_collection_product_JmpwWU": {
+      "type": "custom-collection-product",
+      "name": "3",
+      "settings": {
+        "subtext_heading": "Specialpuder",
+        "main_heading": "Pudebetræk til specialpuder",
+        "main_description": "",
+        "collections": [],
+        "show_collection_tabs": true,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "background_color": "#faf8f5",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "custom_video_section_Nt4wLL": {
+      "type": "custom-video-section",
+      "name": "JULIE VIDEO_SHOWROOM",
+      "settings": {
+        "video_url": "",
+        "border_radius": 20
+      }
+    },
+    "multicolumn_4BmEtk": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_i7YNLd": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Vi modtager din ordre</strong>",
+            "text": "<p>Varen pakkes på vores lager, hvorefter den går videre til fragtfirmaet. Vi har gratis levering til hele landet – også til alle ikke-brofaste øer.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_7JjHUJ": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Hos fragtmand</strong>",
+            "text": "<p>Fragtfirmaet får produktet ind på deres lager, hvorefter de ringer til dig og aftaler en leveringsdag der passer dig. Ved mindre produkter som dyner, lagner m.v. får du tilsendt et trackingnummer fra GLS. </p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_ddBtwF": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Aftal levering</strong>",
+            "text": "<p>På selve dagen ringer fragtmanden også en halv time før, han ankommer, så du har mulighed for at være hjemme. Bemærk at mindre pakker (inkl. topmadrasser) leveres som pakkepost med track and trace.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_i7YNLd",
+        "column_7JjHUJ",
+        "column_ddBtwF"
+      ],
+      "name": "3 GRUNDE",
+      "settings": {
+        "title": "Vi lukker ikke et øje før du sover godt",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "custom_rich_text_img_FG7ACt": {
+      "type": "custom-rich-text-img",
+      "name": "BILLEDE",
+      "settings": {
+        "bg_image": "shopify://shop_images/TERRACOTTA-1copy.jpg",
+        "subtext": "House of Tisvilde",
+        "heading": "Unikt udvalg af sengetøj",
+        "button_text": "Se udvalget",
+        "button_url": "shopify://pages/sengetoj-140x200"
+      }
+    },
+    "custom_img_txt_accordion_P4UKFY": {
+      "type": "custom-img-txt-accordion",
+      "blocks": {
+        "content_block_8kLwk6": {
+          "type": "content_block",
+          "settings": {
+            "heading": "Sengetøj",
+            "description": "<p>Det rette sengetilbehør forlænger ikke kun levetiden på din seng og madras – det forbedrer også din søvnkomfort hver eneste nat. Vores udvalg af rullemadrasser, blødt sengetøj og funktionelle lagner er udvalgt med fokus på åndbarhed, pasform og kvalitet. Du mærker forskellen fra første nat.</p>"
+          }
+        },
+        "accordion_block_w89zFW": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvordan vælger jeg det rigtige sengetøj?",
+            "accordion_content": "<p>Når du vælger sengetøj, er materialet en vigtig faktor. Bomuld, bambus og satin har hver deres egenskaber, men fælles for dem er, at de skal være åndbare, behagelige mod huden og have en kvalitet, der holder vask efter vask. Det rigtige sengetøj kan gøre en mærkbar forskel for din komfort og søvn.</p>"
+          }
+        },
+        "accordion_block_EzTFkh": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvor ofte bør man skifte og vaske sengetøj?",
+            "accordion_content": "<p>Det anbefales at skifte og vaske sengetøj cirka hver 1–2 uge for at holde sengen frisk og hygiejnisk. Regelmæssig vask fjerner sved, hudceller og støv, hvilket bidrager til et sundere sovemiljø og en mere behagelig nattesøvn.</p>"
+          }
+        },
+        "accordion_block_kmfVWQ": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Er sengetøjet Øko-Tex eller bæredygtigt?",
+            "accordion_content": "<p>Ja, vi fører flere varianter i økologiske og certificerede materialer. Spørg os endelig – vi guider dig gerne til det rette valg.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "content_block_8kLwk6",
+        "accordion_block_w89zFW",
+        "accordion_block_EzTFkh",
+        "accordion_block_kmfVWQ"
+      ],
+      "name": "INFO",
+      "settings": {
+        "custom_id": "",
+        "background_color": "#ffffff",
+        "padding_top": 65,
+        "padding_bottom": 65
+      }
+    },
+    "custom_image_with_text_wNLHe9": {
+      "type": "custom-image-with-text",
+      "name": "BOOK SHOWROOM",
+      "settings": {
+        "section_id": "Showroom",
+        "section_color": "#ffffff",
+        "container_color": "#faf8f5",
+        "head_main": "Besøg vores Showroom",
+        "title": "Oplev komforten i virkeligheden – i Tisvildeleje",
+        "description": "Der er noget særligt ved at mærke, teste og opleve en seng i virkeligheden, før man beslutter sig. I vores showroom i Tisvildeleje kan du i rolige omgivelser tage dig god tid til at finde præcis den seng, der passer til dig. Her handler det ikke om hastige valg – men om ro, fornemmelse og personlig vejledning.\nÅbnet alle dage efter aftale.",
+        "button_link": "shopify://pages/book-a-specialist",
+        "button_text": "Book dit besøg nu!",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_breadcrumb_section_feTXA9",
+    "custom_rich_main_page_ArNEbc",
+    "weekly_recommendation_8i8AVp",
+    "choose_size_Azz3Jp",
+    "custom_collection_product_8bh7Pk",
+    "custom_collection_product_6y789A",
+    "custom_collection_product_JmpwWU",
+    "custom_video_section_Nt4wLL",
+    "multicolumn_4BmEtk",
+    "custom_rich_text_img_FG7ACt",
+    "custom_img_txt_accordion_P4UKFY",
+    "custom_image_with_text_wNLHe9"
+  ]
+}

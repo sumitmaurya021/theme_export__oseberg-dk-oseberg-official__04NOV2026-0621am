@@ -1,0 +1,138 @@
+{% comment %}
+  Renders delivery information block.
+  Accepts:
+  - block: {Object} passing the block information.
+  - section_id: {String} id of section to which this snippet belongs.
+
+  Usage:
+  {% render 'delivery-info', block: block, section_id: section.id %}
+{% endcomment %}
+
+{%- if block.settings.show_delivery_info -%}
+  <div class="delivery-info" {{ block.shopify_attributes }}>
+    <!-- Main delivery box -->
+    <div class="delivery-info__main-box">
+      <div class="delivery-info__main-icon">
+        {%- if block.settings.delivery_icon != blank -%}
+          <img src="{{ block.settings.delivery_icon | image_url: width: 32 }}" 
+               alt="Leveringsikon" 
+               width="32" 
+               height="32"
+               loading="lazy">
+        {%- else -%}
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 7V17C3 17.5523 3.44772 18 4 18H6.5C6.5 19.3807 7.61929 20.5 9 20.5C10.3807 20.5 11.5 19.3807 11.5 18H16.5C16.5 19.3807 17.6193 20.5 19 20.5C20.3807 20.5 21.5 19.3807 21.5 18H22C22.5523 18 23 17.5523 23 17V12C23 11.4477 22.5523 11 22 11H19V7C19 6.44772 18.5523 6 18 6H4C3.44772 6 3 6.44772 3 7Z" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="9" cy="18" r="1.5" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="19" cy="18" r="1.5" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        {%- endif -%}
+      </div>
+      
+      {%- if block.settings.delivery_title != blank -%}
+        <h3 class="delivery-info__main-title">{{ block.settings.delivery_title }}</h3>
+      {%- endif -%}
+      
+      {%- if block.settings.delivery_text != blank -%}
+        <div class="delivery-info__main-text">
+          {%- assign heart_color = block.settings.heart_color | default: '#ff0000' -%}
+          {%- assign styled_text = block.settings.delivery_text | replace: '❤', '<span style="color: ' | append: heart_color | append: ';">❤</span>' -%}
+          {{ styled_text }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Two column section -->
+    <div class="delivery-info__columns">
+      {%- if block.settings.show_guarantee -%}
+        <div class="delivery-info__column">
+          <div class="delivery-info__column-icon">
+            {%- if block.settings.guarantee_icon != blank -%}
+              <img src="{{ block.settings.guarantee_icon | image_url: width: 24 }}" 
+                   alt="Garanti ikon" 
+                   width="24" 
+                   height="24"
+                   loading="lazy">
+            {%- else -%}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
+                <path d="M7 8h10M7 12h10M7 16h6" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            {%- endif -%}
+          </div>
+          <h4 class="delivery-info__column-title">
+            {%- if block.settings.guarantee_text != blank -%}
+              {{ block.settings.guarantee_text }}
+            {%- else -%}
+              100 nætters prøve
+            {%- endif -%}
+          </h4>
+          {%- if block.settings.show_guarantee_link -%}
+            {%- if block.settings.guarantee_link_url != blank -%}
+              <a href="{{ block.settings.guarantee_link_url }}" class="delivery-info__learn-more">
+                {%- if block.settings.guarantee_link_text != blank -%}
+                  {{ block.settings.guarantee_link_text }}
+                {%- else -%}
+                  Læs mere
+                {%- endif -%}
+              </a>
+            {%- else -%}
+              <button class="delivery-info__learn-more" type="button">
+                {%- if block.settings.guarantee_link_text != blank -%}
+                  {{ block.settings.guarantee_link_text }}
+                {%- else -%}
+                  Læs mere
+                {%- endif -%}
+              </button>
+            {%- endif -%}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <div class="delivery-info__divider"></div>
+
+      {%- if block.settings.show_rating -%}
+        <div class="delivery-info__column">
+          <div class="delivery-info__column-icon">
+            {%- if block.settings.rating_icon != blank -%}
+              <img src="{{ block.settings.rating_icon | image_url: width: 24 }}" 
+                   alt="Bedømmelse ikon" 
+                   width="24" 
+                   height="24"
+                   loading="lazy">
+            {%- else -%}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="currentColor" stroke-width="2" fill="currentColor"/>
+              </svg>
+            {%- endif -%}
+          </div>
+          <h4 class="delivery-info__column-title">
+            {%- if block.settings.rating_text != blank -%}
+              {{ block.settings.rating_text }}
+            {%- else -%}
+              4.6 af 20.000+ anmeldelser
+            {%- endif -%}
+          </h4>
+          {%- if block.settings.show_rating_link -%}
+            {%- if block.settings.rating_link_url != blank -%}
+              <a href="{{ block.settings.rating_link_url }}" class="delivery-info__learn-more">
+                {%- if block.settings.rating_link_text != blank -%}
+                  {{ block.settings.rating_link_text }}
+                {%- else -%}
+                  Læs mere
+                {%- endif -%}
+              </a>
+            {%- else -%}
+              <button class="delivery-info__learn-more" type="button">
+                {%- if block.settings.rating_link_text != blank -%}
+                  {{ block.settings.rating_link_text }}
+                {%- else -%}
+                  Læs mere
+                {%- endif -%}
+              </button>
+            {%- endif -%}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}

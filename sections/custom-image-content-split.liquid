@@ -1,0 +1,657 @@
+{%- liquid
+  assign card_count = section.blocks.size | at_least: 1
+  assign grid_cols = card_count | at_most: 2
+-%}
+
+{%- style -%}
+  #ic-{{ section.id }} {
+    --ic-eyebrow: {{ section.settings.eyebrow_color }};
+    --ic-title: {{ section.settings.title_color }};
+    --ic-desc: {{ section.settings.desc_color }};
+    --ic-btn-color: {{ section.settings.button_color }};
+    --ic-btn-border: {{ section.settings.button_border_color }};
+    --ic-btn-hover-bg: {{ section.settings.button_hover_bg }};
+    --ic-btn-hover-color: {{ section.settings.button_hover_color }};
+    --ic-label: {{ section.settings.label_color }};
+    --ic-caption: {{ section.settings.caption_color }};
+    --ic-card-ratio: {{ section.settings.card_ratio }};
+    --ic-stack-ratio: {{ section.settings.stack_ratio }};
+    --ic-min-h: {{ section.settings.min_height }}px;
+    --ic-radius: {{ section.settings.card_radius }}px;
+    background: {{ section.settings.bg_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  #ic-{{ section.id }} .ic__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* ---------- Main image ---------- */
+  #ic-{{ section.id }} .ic__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: var(--ic-stack-ratio);
+    overflow: hidden;
+    background: #DED2C3;
+  }
+
+  #ic-{{ section.id }} .ic__media img,
+  #ic-{{ section.id }} .ic__media svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ---------- Content ---------- */
+  #ic-{{ section.id }} .ic__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    padding: 32px 20px 40px;
+  }
+
+  #ic-{{ section.id }} .ic__eyebrow {
+    margin: 0 0 14px;
+    color: var(--ic-eyebrow);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  #ic-{{ section.id }} .ic__title {
+    margin: 0 0 20px;
+    color: var(--ic-title);
+    font-family: var(--font-serif, 'Playfair Display', Georgia, 'Times New Roman', serif);
+    font-size: clamp(30px, 7vw, 46px);
+    font-weight: {{ section.settings.title_weight }};
+    line-height: 1;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  #ic-{{ section.id }} .ic__desc {
+    margin: 0 0 28px;
+    max-width: 480px;
+    color: var(--ic-desc);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(14px, 1.05vw, 16px);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: normal;
+  }
+
+  #ic-{{ section.id }} .ic__desc p {
+    margin: 0 0 8px;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    color: inherit;
+  }
+
+  #ic-{{ section.id }} .ic__desc p:last-child {
+    margin-bottom: 0;
+  }
+
+  #ic-{{ section.id }} .ic__desc strong,
+  #ic-{{ section.id }} .ic__desc b {
+    font-weight: 600;
+  }
+
+  #ic-{{ section.id }} .ic__button-wrap {
+    margin: 0 0 clamp(28px, 3vw, 44px);
+  }
+
+  #ic-{{ section.id }} .ic__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    padding: clamp(13px, 1.1vw, 17px) clamp(22px, 2.2vw, 34px);
+    background: transparent;
+    color: var(--ic-btn-color);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.15em;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--ic-btn-border);
+    border-radius: 0;
+    transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  }
+
+  #ic-{{ section.id }} .ic__button::before,
+  #ic-{{ section.id }} .ic__button::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  #ic-{{ section.id }} .ic__button:hover {
+    background: var(--ic-btn-hover-bg);
+    color: var(--ic-btn-hover-color);
+    border-color: var(--ic-btn-hover-bg);
+  }
+
+  /* ---------- Image cards ---------- */
+  #ic-{{ section.id }} .ic__cards {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns_mobile }}, minmax(0, 1fr));
+    gap: 14px;
+    min-width: 0;
+  }
+
+  #ic-{{ section.id }} .ic__card {
+    display: block;
+    min-width: 0;
+    color: inherit;
+    text-decoration: none;
+    text-align: center;
+  }
+
+  #ic-{{ section.id }} .ic__card-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: var(--ic-card-ratio);
+    overflow: hidden;
+    border-radius: var(--ic-radius);
+    background: #DED2C3;
+  }
+
+  #ic-{{ section.id }} .ic__card-media img,
+  #ic-{{ section.id }} .ic__card-media svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #ic-{{ section.id }} .ic__card-media img {
+    transition: transform 0.6s ease;
+  }
+
+  #ic-{{ section.id }} a.ic__card:hover .ic__card-media img {
+    transform: scale(1.04);
+  }
+
+  #ic-{{ section.id }} .ic__label {
+    margin: 12px 0 0;
+    color: var(--ic-label);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  #ic-{{ section.id }} .ic__caption {
+    margin: 6px 0 0;
+    color: var(--ic-caption);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: normal;
+  }
+
+  /* ---------- Tablet (750px - 989px) : stacked ---------- */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #ic-{{ section.id }} .ic__content {
+      padding: 48px 40px 56px;
+    }
+
+    #ic-{{ section.id }} .ic__title {
+      font-size: clamp(38px, 5.4vw, 52px);
+    }
+
+    #ic-{{ section.id }} .ic__cards {
+      grid-template-columns: repeat({{ grid_cols }}, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    #ic-{{ section.id }} .ic__label {
+      font-size: 12px;
+    }
+  }
+
+  /* ---------- Desktop (990px and up) : 50 / 50 ---------- */
+  @media screen and (min-width: 990px) {
+    #ic-{{ section.id }} .ic__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #ic-{{ section.id }} .ic__media {
+      aspect-ratio: auto;
+      min-height: var(--ic-min-h);
+    }
+
+    #ic-{{ section.id }}.ic--image-right .ic__media {
+      order: 2;
+    }
+
+    #ic-{{ section.id }} .ic__content {
+      padding: clamp(32px, 4vw, 72px) clamp(28px, 4.5vw, 80px);
+    }
+
+    #ic-{{ section.id }} .ic__title {
+      font-size: clamp(36px, 3.5vw, 58px);
+    }
+
+    #ic-{{ section.id }} .ic__cards {
+      grid-template-columns: repeat({{ grid_cols }}, minmax(0, 1fr));
+      gap: clamp(14px, 1.5vw, 24px);
+    }
+
+    #ic-{{ section.id }} .ic__label {
+      margin-top: 16px;
+      font-size: 12px;
+    }
+  }
+
+  /* ---------- Mobile (749px and below) ---------- */
+  @media screen and (max-width: 749px) {
+    #ic-{{ section.id }} .ic__desc {
+      max-width: 100%;
+    }
+  }
+
+  /* Very small phones: button full width */
+  @media screen and (max-width: 479px) {
+    #ic-{{ section.id }} .ic__button {
+      width: 100%;
+    }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     JS chalega to hi hide hota hai, warna content hamesha visible rahega
+     ============================================ */
+
+  /* Main image: slow fade-in + halka zoom-out. Parallax ke liye image thodi badi rakhi hai (sirf desktop) */
+  #ic-{{ section.id }}.ic-anim .ic__media img,
+  #ic-{{ section.id }}.ic-anim .ic__media svg {
+    opacity: 0;
+    scale: 1.05;
+    transition:
+      opacity 1.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+      scale 2.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+    will-change: transform, opacity;
+  }
+
+  #ic-{{ section.id }}.ic-anim.is-visible .ic__media img,
+  #ic-{{ section.id }}.ic-anim.is-visible .ic__media svg {
+    opacity: 1;
+    scale: 1;
+  }
+
+  /* Text + button + cards: fade-up, ek ke baad ek */
+  #ic-{{ section.id }}.ic-anim .ic__content > .ic__eyebrow,
+  #ic-{{ section.id }}.ic-anim .ic__content > .ic__title,
+  #ic-{{ section.id }}.ic-anim .ic__content > .ic__desc,
+  #ic-{{ section.id }}.ic-anim .ic__content > .ic__button-wrap,
+  #ic-{{ section.id }}.ic-anim .ic__card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: calc(0.3s + var(--ic-i, 0) * 0.12s);
+    will-change: opacity, transform;
+  }
+
+  #ic-{{ section.id }}.ic-anim.is-visible .ic__content > .ic__eyebrow,
+  #ic-{{ section.id }}.ic-anim.is-visible .ic__content > .ic__title,
+  #ic-{{ section.id }}.ic-anim.is-visible .ic__content > .ic__desc,
+  #ic-{{ section.id }}.ic-anim.is-visible .ic__content > .ic__button-wrap,
+  #ic-{{ section.id }}.ic-anim.is-visible .ic__card {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Animation ke baad delay hata do, taaki hover turant chale */
+  #ic-{{ section.id }}.ic-anim.is-done .ic__content > *,
+  #ic-{{ section.id }}.ic-anim.is-done .ic__card {
+    transition-delay: 0s;
+  }
+
+  /* Desktop parallax: image container ke andar thodi badi, JS se halka move */
+  @media screen and (min-width: 990px) and (prefers-reduced-motion: no-preference) {
+    #ic-{{ section.id }} .ic__media img {
+      top: -6%;
+      height: 112%;
+    }
+  }
+
+  /* Reduced motion: sab animation off */
+  @media (prefers-reduced-motion: reduce) {
+    #ic-{{ section.id }}.ic-anim .ic__media img,
+    #ic-{{ section.id }}.ic-anim .ic__media svg {
+      opacity: 1;
+      scale: 1;
+      transition: none;
+    }
+
+    #ic-{{ section.id }}.ic-anim .ic__content > .ic__eyebrow,
+    #ic-{{ section.id }}.ic-anim .ic__content > .ic__title,
+    #ic-{{ section.id }}.ic-anim .ic__content > .ic__desc,
+    #ic-{{ section.id }}.ic-anim .ic__content > .ic__button-wrap,
+    #ic-{{ section.id }}.ic-anim .ic__card {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    #ic-{{ section.id }} .ic__card-media img {
+      transition: none;
+    }
+  }
+{%- endstyle -%}
+
+<div id="ic-{{ section.id }}" class="custom-image-content-split{% if section.settings.image_position == 'right' %} ic--image-right{% endif %}">
+  <div class="ic__grid">
+
+    <div class="ic__media">
+      {%- if section.settings.image != blank -%}
+        <img
+          src="{{ section.settings.image | image_url: width: 1400 }}"
+          srcset="{{ section.settings.image | image_url: width: 600 }} 600w,
+                  {{ section.settings.image | image_url: width: 900 }} 900w,
+                  {{ section.settings.image | image_url: width: 1200 }} 1200w,
+                  {{ section.settings.image | image_url: width: 1600 }} 1600w,
+                  {{ section.settings.image | image_url: width: 2000 }} 2000w"
+          sizes="(min-width: 990px) 50vw, 100vw"
+          alt="{{ section.settings.image.alt | default: section.settings.title | escape }}"
+          width="{{ section.settings.image.width }}"
+          height="{{ section.settings.image.height }}"
+          loading="lazy"
+        >
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag }}
+      {%- endif -%}
+    </div>
+
+    <div class="ic__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="ic__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.title != blank -%}
+        <h2 class="ic__title">{{ section.settings.title | escape | newline_to_br }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.description != blank -%}
+        <div class="ic__desc">{{ section.settings.description }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_text != blank and section.settings.button_link != blank -%}
+        <div class="ic__button-wrap">
+          <a href="{{ section.settings.button_link }}" class="ic__button">{{ section.settings.button_text }}</a>
+        </div>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="ic__cards">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              if block.settings.link != blank
+                assign tag = 'a'
+              else
+                assign tag = 'div'
+              endif
+            -%}
+            <{{ tag }}{% if tag == 'a' %} href="{{ block.settings.link }}"{% endif %} class="ic__card" {{ block.shopify_attributes }}>
+              <div class="ic__card-media">
+                {%- if block.settings.image != blank -%}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 800 }}"
+                    srcset="{{ block.settings.image | image_url: width: 300 }} 300w,
+                            {{ block.settings.image | image_url: width: 500 }} 500w,
+                            {{ block.settings.image | image_url: width: 700 }} 700w,
+                            {{ block.settings.image | image_url: width: 900 }} 900w"
+                    sizes="(min-width: 990px) 22vw, (min-width: 750px) 40vw, 45vw"
+                    alt="{{ block.settings.image.alt | default: block.settings.label | escape }}"
+                    width="{{ block.settings.image.width }}"
+                    height="{{ block.settings.image.height }}"
+                    loading="lazy"
+                  >
+                {%- else -%}
+                  {{ 'image' | placeholder_svg_tag }}
+                {%- endif -%}
+              </div>
+
+              {%- if block.settings.label != blank -%}
+                <p class="ic__label">{{ block.settings.label }}</p>
+              {%- endif -%}
+
+              {%- if block.settings.description != blank -%}
+                <p class="ic__caption">{{ block.settings.description }}</p>
+              {%- endif -%}
+            </{{ tag }}>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+  </div>
+</div>
+
+<!-- Scroll fade-in (stagger) + slow parallax on main image (desktop) -->
+<script>
+  (function () {
+    var section = document.getElementById('ic-{{ section.id }}');
+    if (!section) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (reduced.matches || !('IntersectionObserver' in window)) return;
+
+    /* Stagger order: eyebrow, title, desc, button, phir cards */
+    var order = [];
+    var content = section.querySelector('.ic__content');
+    if (content) {
+      Array.prototype.forEach.call(content.children, function (el) {
+        if (el.classList.contains('ic__cards')) return;
+        order.push(el);
+      });
+    }
+    section.querySelectorAll('.ic__card').forEach(function (el) {
+      order.push(el);
+    });
+    order.forEach(function (el, i) {
+      el.style.setProperty('--ic-i', i);
+    });
+
+    section.classList.add('ic-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+
+          /* animation khatam hone ke baad delay hata do, taaki hover smooth rahe */
+          window.setTimeout(function () {
+            section.classList.add('is-done');
+          }, 2600);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    observer.observe(section);
+
+    /* Slow parallax: sirf desktop pe, main image par */
+    var media = section.querySelector('.ic__media');
+    var img = media ? media.querySelector('img') : null;
+    if (!media || !img) return;
+
+    var desktop = window.matchMedia('(min-width: 990px)');
+    var ticking = false;
+
+    function update() {
+      ticking = false;
+
+      if (!desktop.matches || reduced.matches) {
+        img.style.transform = '';
+        return;
+      }
+
+      var rect = media.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+
+      /* viewport ke center se distance ke hisaab se -6% .. +6% ke andar move */
+      var progress = (rect.top + rect.height / 2 - window.innerHeight / 2) / window.innerHeight;
+      var maxShift = rect.height * 0.05;
+      var shift = Math.max(-maxShift, Math.min(maxShift, progress * rect.height * 0.08));
+      img.style.transform = 'translate3d(0,' + shift.toFixed(1) + 'px,0)';
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Custom Image Split",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "header", "content": "Main Image (50%)" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image Position (Desktop)",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    { "type": "range", "id": "min_height", "min": 400, "max": 900, "step": 50, "unit": "px", "label": "Minimum Height (Desktop)", "default": 550 },
+    {
+      "type": "select",
+      "id": "stack_ratio",
+      "label": "Image Shape (Tablet / Mobile)",
+      "default": "4 / 3",
+      "options": [
+        { "value": "16 / 10", "label": "Wide (16:10)" },
+        { "value": "4 / 3", "label": "Landscape (4:3)" },
+        { "value": "1 / 1", "label": "Square (1:1)" },
+        { "value": "4 / 5", "label": "Portrait (4:5)" }
+      ]
+    },
+
+    { "type": "header", "content": "Content (50%)" },
+    { "type": "text", "id": "eyebrow", "label": "Small Heading", "default": "Oseberg Two" },
+    { "type": "textarea", "id": "title", "label": "Title (new line = line break)", "default": "Smaller space.\nSame Oseberg." },
+    {
+      "type": "select",
+      "id": "title_weight",
+      "label": "Title Weight",
+      "default": "700",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "700", "label": "Bold" }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>The Oseberg feeling.<br><strong>Made for smaller spaces.</strong><br>Same design. Same comfort.</p>"
+    },
+    { "type": "text", "id": "button_text", "label": "Button Text", "default": "Discover Oseberg Two →" },
+    { "type": "url", "id": "button_link", "label": "Button Link" },
+
+    { "type": "header", "content": "Image Cards" },
+    {
+      "type": "select",
+      "id": "card_ratio",
+      "label": "Card Image Shape",
+      "default": "3 / 2",
+      "options": [
+        { "value": "3 / 2", "label": "Landscape (3:2)" },
+        { "value": "4 / 3", "label": "Landscape (4:3)" },
+        { "value": "1 / 1", "label": "Square (1:1)" },
+        { "value": "4 / 5", "label": "Portrait (4:5)" }
+      ]
+    },
+    { "type": "range", "id": "card_radius", "min": 0, "max": 24, "step": 2, "unit": "px", "label": "Card Corner Radius", "default": 0 },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Card Columns (Mobile)",
+      "default": "2",
+      "options": [
+        { "value": "1", "label": "1 (stacked)" },
+        { "value": "2", "label": "2 (side by side)" }
+      ]
+    },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "eyebrow_color", "label": "Small Heading Color", "default": "#A58C76" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#302821" },
+    { "type": "color", "id": "desc_color", "label": "Description Color", "default": "#302821" },
+    { "type": "color", "id": "button_color", "label": "Button Text Color", "default": "#302821" },
+    { "type": "color", "id": "button_border_color", "label": "Button Border Color", "default": "#302821" },
+    { "type": "color", "id": "button_hover_bg", "label": "Button Hover Background", "default": "#302821" },
+    { "type": "color", "id": "button_hover_color", "label": "Button Hover Text Color", "default": "#FFFFFF" },
+    { "type": "color", "id": "label_color", "label": "Card Label Color", "default": "#302821" },
+    { "type": "color", "id": "caption_color", "label": "Card Description Color", "default": "#302821" },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Top", "default": 0 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 0 }
+  ],
+  "blocks": [
+    {
+      "type": "image_card",
+      "name": "Image Card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "label", "label": "Title", "default": "Compact" },
+        { "type": "text", "id": "description", "label": "Description (optional)" },
+        { "type": "url", "id": "link", "label": "Link (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Image Split",
+      "blocks": [
+        { "type": "image_card", "settings": { "label": "Compact" } },
+        { "type": "image_card", "settings": { "label": "Expanded" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,187 @@
+<div class="custom-announcement-bar" style="background-color:{{ section.settings.background_color }};">
+  <div class="announcement-left">
+      <div class="announcement-item" style="color:{{ section.settings.color }}">
+        <div class="left-txts">{{ section.settings.left_text_1 }}</div>
+        <div class="left-txts">{{ section.settings.left_text_2 }}</div>
+        <div class="left-txts">{{ section.settings.left_text_3 }}</div>
+        
+
+        <div class="announcement-dropdown">
+          <div class="dropdown-details">
+          {% for block in section.blocks %}
+            {% if block.type == "block" %}
+              <div class="custom-block">
+                <div class="cls-badge">
+                <img src="{{ block.settings.block_image | img_url: 'small' }}" width="28" height="28" alt="">
+                <h4>{{ block.settings.block_heading }}</h4>
+                  </div>
+                <p>{{ block.settings.block_text }}</p>
+              </div>
+            {% elsif block.type == "special_block" %}
+              <div class="custom-content-block">
+                <div class="cls-badge">
+                  <img src="{{ block.settings.fourth_block_image | img_url: 'small' }}" width="28" height="28" alt="">
+                  <h4>{{ block.settings.fourth_block_heading }}</h4>
+                </div>
+                <div class="cls-info">{{ block.settings.fourth_block_text_1 }}</div>
+                <div class="cls-info">{{ block.settings.fourth_block_text_2 }}</div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="announcement-middle" style="color:{{ section.settings.color }}">
+    {{ section.settings.middle_svg }}
+    <span>{{ section.settings.middle_text }}</span>
+  </div>
+
+  <div class="announcement-right" style="color:{{ section.settings.color }}">
+    <div class="right-txts">
+      <a href="{{ section.settings.right_url_1 }}">{{ section.settings.right_text_1 }}</a>
+      <a href="{{ section.settings.right_url_2 }}">{{ section.settings.right_text_2 }}</a>
+      <a href="{{ section.settings.right_url_3 }}">{{ section.settings.right_text_3 }}</a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Announcement Bar",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color"
+    },
+    {
+      "type": "color",
+      "id": "color",
+      "label": "Text Color"
+    },
+    {
+      "type": "header",
+      "content": "Left Section"
+    },
+    {
+      "type": "text",
+      "id": "left_text_1",
+      "label": "Left Text 1"
+    },
+    {
+      "type": "text",
+      "id": "left_text_2",
+      "label": "Left Text 2"
+    },
+    {
+      "type": "text",
+      "id": "left_text_3",
+      "label": "Left Text 3"
+    },
+    {
+      "type": "header",
+      "content": "Middle Section"
+    },
+    {
+      "type": "textarea",
+      "id": "middle_svg",
+      "label": "Middle SVG Code"
+    },
+    {
+      "type": "text",
+      "id": "middle_text",
+      "label": "Middle Text"
+    },
+    {
+      "type": "header",
+      "content": "Right Section"
+    },
+    {
+      "type": "text",
+      "id": "right_text_1",
+      "label": "Right Text 1"
+    },
+    {
+      "type": "url",
+      "id": "right_url_1",
+      "label": "Right Link 1"
+    },
+    {
+      "type": "text",
+      "id": "right_text_2",
+      "label": "Right Text 2"
+    },
+    {
+      "type": "url",
+      "id": "right_url_2",
+      "label": "Right Link 2"
+    },
+    {
+      "type": "text",
+      "id": "right_text_3",
+      "label": "Right Text 3"
+    },
+    {
+      "type": "url",
+      "id": "right_url_3",
+      "label": "Right Link 3"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block",
+      "name": "Dropdown Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "block_image",
+          "label": "Block Image"
+        },
+        {
+          "type": "text",
+          "id": "block_heading",
+          "label": "Block Heading"
+        },
+        {
+          "type": "textarea",
+          "id": "block_text",
+          "label": "Block Text"
+        }
+      ]
+    },
+    {
+      "type": "special_block",
+      "name": "Fourth Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "fourth_block_image",
+          "label": "Fourth Block Image"
+        },
+        {
+          "type": "text",
+          "id": "fourth_block_heading",
+          "label": "Fourth Block Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "fourth_block_text_1",
+          "label": "Fourth Block Text 1"
+        },
+        {
+          "type": "richtext",
+          "id": "fourth_block_text_2",
+          "label": "Fourth Block Text 2"
+        }
+      ]
+    }
+  ],
+    "presets": [
+    {
+      "name": "Custom Announcement Bar"
+    }
+  ]
+}
+{% endschema %}

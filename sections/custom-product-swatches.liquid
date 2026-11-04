@@ -1,0 +1,368 @@
+{%- liquid
+  assign mf = product.metafields.custom
+  assign sw_title = mf.farver_titel.value
+  assign sw_desc = mf.farver_beskrivelse.value
+  assign sw_btn_text = mf.farver_knaptekst.value
+  assign sw_btn_product = mf.farver_knaplink.value
+  assign sw_images = mf.farver_billeder.value
+  assign sw_names = mf.farver_navne.value | strip | newline_to_br | split: '<br />'
+  assign sw_count = sw_images.size
+-%}
+
+{%- if sw_title != blank or sw_count > 0 -%}
+
+{%- style -%}
+  #pswatch-{{ section.id }} {
+    --sw-title: {{ section.settings.title_color }};
+    --sw-desc: {{ section.settings.desc_color }};
+    --sw-name: {{ section.settings.name_color }};
+    --sw-btn-bg: {{ section.settings.button_bg }};
+    --sw-btn-color: {{ section.settings.button_color }};
+    --sw-btn-hover-bg: {{ section.settings.button_hover_bg }};
+    --sw-btn-hover-color: {{ section.settings.button_hover_color }};
+    --sw-radius: {{ section.settings.image_radius }}px;
+    --sw-ratio: {{ section.settings.image_ratio }};
+    background: {{ section.settings.bg_color }};
+    border-top: 1px solid {{ section.settings.border_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  #pswatch-{{ section.id }} .sw__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    align-items: center;
+  }
+
+  /* ---------- Content ---------- */
+  #pswatch-{{ section.id }} .sw__content { min-width: 0; }
+
+  #pswatch-{{ section.id }} .sw__title {
+    margin: 0 0 24px;
+    color: var(--sw-title);
+    font-family: var(--font-serif, 'Playfair Display', Georgia, 'Times New Roman', serif);
+    font-size: clamp(28px, 3.2vw, 48px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  #pswatch-{{ section.id }} .sw__desc {
+    margin: 0 0 32px;
+    max-width: 440px;
+    color: var(--sw-desc);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: clamp(14px, 1.05vw, 16px);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: normal;
+  }
+
+  #pswatch-{{ section.id }} .sw__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    padding: clamp(14px, 1.2vw, 18px) clamp(24px, 2.4vw, 36px);
+    background: var(--sw-btn-bg);
+    color: var(--sw-btn-color);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.15em;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--sw-btn-bg);
+    border-radius: 0;
+    transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  }
+
+  #pswatch-{{ section.id }} .sw__button::before,
+  #pswatch-{{ section.id }} .sw__button::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  #pswatch-{{ section.id }} .sw__button:hover {
+    background: var(--sw-btn-hover-bg);
+    color: var(--sw-btn-hover-color);
+    border-color: var(--sw-btn-hover-bg);
+  }
+
+  /* ---------- Swatches ---------- */
+  #pswatch-{{ section.id }} .sw__swatches {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px 12px;
+    min-width: 0;
+  }
+
+  #pswatch-{{ section.id }} .sw__item { min-width: 0; }
+
+  #pswatch-{{ section.id }} .sw__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: var(--sw-ratio);
+    overflow: hidden;
+    border-radius: var(--sw-radius);
+    background: #DED2C3;
+  }
+
+  #pswatch-{{ section.id }} .sw__media img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  #pswatch-{{ section.id }} .sw__item:hover .sw__media img {
+    transform: scale(1.06);
+  }
+
+  #pswatch-{{ section.id }} .sw__name {
+    margin: 8px 0 0;
+    color: var(--sw-name);
+    font-family: var(--font-sans, 'Jost', 'Helvetica Neue', Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: normal;
+    overflow-wrap: break-word;
+  }
+
+  /* ---------- Tablet (750px - 989px) ---------- */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #pswatch-{{ section.id }} .sw__grid { gap: 40px; }
+    #pswatch-{{ section.id }} .sw__desc { max-width: 560px; }
+    #pswatch-{{ section.id }} .sw__title { font-size: clamp(32px, 5vw, 44px); }
+    #pswatch-{{ section.id }} .sw__swatches {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 20px 12px;
+    }
+  }
+
+  /* ---------- Desktop (990px and up) ---------- */
+  @media screen and (min-width: 990px) {
+    #pswatch-{{ section.id }} .sw__grid {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: clamp(32px, 4vw, 64px);
+    }
+    #pswatch-{{ section.id }} .sw__swatches {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 20px clamp(10px, 1.2vw, 16px);
+    }
+  }
+
+  /* ---------- Mobile (749px and below) ---------- */
+  @media screen and (max-width: 749px) {
+    #pswatch-{{ section.id }} .sw__grid { gap: 28px; }
+    #pswatch-{{ section.id }} .sw__title { margin-bottom: 18px; }
+    #pswatch-{{ section.id }} .sw__desc { margin-bottom: 24px; max-width: 100%; }
+    #pswatch-{{ section.id }} .sw__button { width: 100%; }
+  }
+
+  /* ============================================
+     ANIMATIONS (premium, subtle)
+     JS chalega to hi hide hota hai, warna content hamesha visible rahega
+     ============================================ */
+  #pswatch-{{ section.id }} {
+    --sw-content-x: -28px;
+  }
+
+  #pswatch-{{ section.id }}.sw-anim .sw__content > * {
+    opacity: 0;
+    transform: translateX(var(--sw-content-x));
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+    transition-delay: calc(var(--sw-ci, 0) * 0.12s), calc(var(--sw-ci, 0) * 0.12s), 0s, 0s, 0s;
+    will-change: opacity, transform;
+  }
+
+  #pswatch-{{ section.id }}.sw-anim .sw__item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: calc(0.25s + var(--sw-i, 0) * 0.1s);
+    will-change: opacity, transform;
+  }
+
+  #pswatch-{{ section.id }}.sw-anim.is-visible .sw__content > * {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  #pswatch-{{ section.id }}.sw-anim.is-visible .sw__item {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #pswatch-{{ section.id }}.sw-anim.is-done .sw__content > *,
+  #pswatch-{{ section.id }}.sw-anim.is-done .sw__item {
+    transition-delay: 0s;
+    will-change: auto;
+  }
+
+  /* Mobile: side slide ki jagah halka fade-up */
+  @media screen and (max-width: 749px) {
+    #pswatch-{{ section.id }} { --sw-content-x: 0px; }
+    #pswatch-{{ section.id }}.sw-anim .sw__content > * { transform: translateY(20px); }
+    #pswatch-{{ section.id }}.sw-anim.is-visible .sw__content > * { transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #pswatch-{{ section.id }}.sw-anim .sw__content > *,
+    #pswatch-{{ section.id }}.sw-anim .sw__item {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    #pswatch-{{ section.id }} .sw__media img { transition: none; }
+  }
+{%- endstyle -%}
+
+<div id="pswatch-{{ section.id }}" class="custom-product-swatches">
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+    <div class="sw__grid">
+
+      <div class="sw__content">
+        {%- if sw_title != blank -%}
+          <h2 class="sw__title">{{ sw_title | escape | newline_to_br }}</h2>
+        {%- endif -%}
+
+        {%- if sw_desc != blank -%}
+          <p class="sw__desc">{{ sw_desc | escape | newline_to_br }}</p>
+        {%- endif -%}
+
+        {%- if sw_btn_text != blank and sw_btn_product != blank -%}
+          <a href="{{ sw_btn_product.url }}" class="sw__button">{{ sw_btn_text | escape }}</a>
+        {%- endif -%}
+      </div>
+
+      {%- if sw_count > 0 -%}
+        <div class="sw__swatches">
+          {%- for img in sw_images limit: 10 -%}
+            {%- assign idx = forloop.index0 -%}
+            {%- assign sw_name = sw_names[idx] | strip -%}
+            <div class="sw__item">
+              <div class="sw__media">
+                <img
+                  src="{{ img | image_url: width: 400 }}"
+                  srcset="{{ img | image_url: width: 200 }} 200w,
+                          {{ img | image_url: width: 300 }} 300w,
+                          {{ img | image_url: width: 400 }} 400w,
+                          {{ img | image_url: width: 600 }} 600w"
+                  sizes="(min-width: 990px) 12vw, (min-width: 750px) 15vw, 30vw"
+                  alt="{{ img.alt | default: sw_name | escape }}"
+                  width="{{ img.width }}"
+                  height="{{ img.height }}"
+                  loading="lazy"
+                >
+              </div>
+              {%- if sw_name != blank -%}
+                <p class="sw__name">{{ sw_name | escape }}</p>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var section = document.getElementById('pswatch-{{ section.id }}');
+    if (!section) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    section.querySelectorAll('.sw__content > *').forEach(function (el, i) {
+      el.style.setProperty('--sw-ci', i);
+    });
+    section.querySelectorAll('.sw__item').forEach(function (el, i) {
+      el.style.setProperty('--sw-i', i);
+    });
+
+    section.classList.add('sw-anim');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+          window.setTimeout(function () {
+            section.classList.add('is-done');
+          }, 2200);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    observer.observe(section);
+  })();
+</script>
+
+{%- elsif request.design_mode -%}
+  <div class="page-width" style="padding: 24px 0; text-align: center; opacity: .6;">
+    Produktfarver: farver-metafelterne er tomme for dette produkt.
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Custom Product Swatches",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Text, button, swatches aur names product ke metafields (custom.farver_*) se aate hain." },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#F5F1EA" },
+    { "type": "color", "id": "border_color", "label": "Top Border Color", "default": "#A58C76" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#302821" },
+    { "type": "color", "id": "desc_color", "label": "Description Color", "default": "#302821" },
+    { "type": "color", "id": "name_color", "label": "Swatch Name Color", "default": "#302821" },
+    { "type": "color", "id": "button_bg", "label": "Button Background", "default": "#302821" },
+    { "type": "color", "id": "button_color", "label": "Button Text Color", "default": "#FFFFFF" },
+    { "type": "color", "id": "button_hover_bg", "label": "Button Hover Background", "default": "#A58C76" },
+    { "type": "color", "id": "button_hover_color", "label": "Button Hover Text Color", "default": "#FFFFFF" },
+
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Swatch Shape",
+      "default": "1 / 1",
+      "options": [
+        { "value": "1 / 1", "label": "Square (1:1)" },
+        { "value": "4 / 3", "label": "Landscape (4:3)" },
+        { "value": "4 / 5", "label": "Portrait (4:5)" }
+      ]
+    },
+    { "type": "range", "id": "image_radius", "min": 0, "max": 24, "step": 2, "unit": "px", "label": "Swatch Corner Radius", "default": 0 },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": false },
+
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Top", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 48 }
+  ],
+  "presets": [
+    { "name": "Custom Product Swatches" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,258 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "custom_breadcrumb_section_feTXA9": {
+      "type": "custom-breadcrumb-section",
+      "settings": {
+        "background_color": "#ffffff"
+      }
+    },
+    "custom_rich_main_page_Cjmjjy": {
+      "type": "custom-rich-main-page",
+      "blocks": {
+        "caption_AYzV89": {
+          "type": "caption",
+          "settings": {
+            "caption": "Hvis du ombestemmer dig",
+            "text_style": "caption-with-letter-spacing",
+            "text_size": "medium"
+          }
+        },
+        "heading_xwfcqz": {
+          "type": "heading",
+          "settings": {
+            "heading": "Ombytning",
+            "heading_size": "h1"
+          }
+        },
+        "text_VwBjPH": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Hos os tilbyder vi ikke direkte ombytning. I stedet beder vi dig returnere den vare, du ikke ønsker, og derefter foretage en ny bestilling på det ønskede produkt.</p><p>Det giver dig den hurtigste og mest fleksible løsning, så du ikke skal vente på, at vi modtager og behandler en ombytning, før du får det rigtige produkt.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "caption_AYzV89",
+        "heading_xwfcqz",
+        "text_VwBjPH"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-1",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "rich_text_gHiUAt": {
+      "type": "rich-text",
+      "blocks": {
+        "text_jtwaid": {
+          "type": "text",
+          "settings": {
+            "text": "<h3><strong>Returnering af større produkter</strong></h3><p>For større produkter tilbyder vi ikke almindelig retur med fri fragt. Hvis du ønsker at returnere, er det muligt at booke afhentning med den fragtmand, der har leveret produktet. Returfragten vil i så fald blive opkrævet særskilt. Kontakt os gerne for at aftale nærmere.</p><h3><strong>Returnering af mindre produkter</strong></h3><p>Har du bestilt en forkert størrelse eller fortrudt dit køb, kan du nemt returnere mindre produkter. Du er velkommen til at bytte eller returnere på vores adresse mandag, onsdag og fredag mellem kl. 10.00–13.00.</p><p>Alternativt kan du benytte vores returportal:<br/><strong>House of Tisvilde – Returportal</strong></p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_jtwaid"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-1",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "custom_timeline_slider_ArkjEY": {
+      "type": "custom-timeline-slider",
+      "blocks": {
+        "step_X4Yhm8": {
+          "type": "step",
+          "settings": {
+            "step_number": "1",
+            "step_title": "Opret en ombytning herunder",
+            "step_description": "<p>Ønsker du at ombytte en springmadras, skal du bestille en ombytning herunder. Du bliver guidet gennem hele processen på en enkel og let vis — du skal blot have dine ordreinformationer klar.</p>"
+          }
+        },
+        "step_hebcDa": {
+          "type": "step",
+          "settings": {
+            "step_number": "2",
+            "step_title": "Pak produktet forsvarligt ind",
+            "step_description": "<p>Springmadrassen du vil ombytte, skal skilles ad, samt pakkes forsvarligt ind i plast, så den kan modstå vind og vejr. Mod betaling kan vores fragtmand stå for hele ombytningen.</p>"
+          }
+        },
+        "step_RbExrU": {
+          "type": "step",
+          "settings": {
+            "step_number": "3",
+            "step_title": "Stil springmadrassen ud til afhentning",
+            "step_description": "<p>Du skal selv stille springmadrassen ud til afhentning ved kantsten, da vores fragtmand ikke bærer produktet ned, med mindre denne service er tilkøbt.</p>"
+          }
+        },
+        "step_4Mc3gA": {
+          "type": "step",
+          "settings": {
+            "step_number": "4",
+            "step_title": "Vi kommer og ombytter springmadrassen",
+            "step_description": "<p>På den aftalte dag, vil vi komme og hente den gamle springmadras, og aflevere den nye.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "step_X4Yhm8",
+        "step_hebcDa",
+        "step_RbExrU",
+        "step_4Mc3gA"
+      ],
+      "disabled": true,
+      "settings": {
+        "padding_top": 95,
+        "padding_bottom": 95,
+        "timeline_sub_text": "Ombytning",
+        "timeline_main_text": "Sådan foregår en ombytning",
+        "button_link": "#",
+        "button_label": "Springmadras"
+      }
+    },
+    "custom_exchange_section_KgGgkt": {
+      "type": "custom-exchange-section",
+      "blocks": {
+        "text_XB4xhC": {
+          "type": "text",
+          "settings": {
+            "item_list": "Du har 100 nætters ombytningsret fra modtagelse"
+          }
+        },
+        "text_MmTMJE": {
+          "type": "text",
+          "settings": {
+            "item_list": "Leveringstiden er typisk den samme som sengens leveringstid ved købet."
+          }
+        },
+        "text_7nFAh7": {
+          "type": "text",
+          "settings": {
+            "item_list": "Du kan betale 299,- for at fragtmanden foretager ombytningen for dig."
+          }
+        },
+        "text_DRFzMy": {
+          "type": "text",
+          "settings": {
+            "item_list": "Ved ombytning til Blød vil der forekomme et ekstra gebyr på 500 kr. Yderligere kan der forekomme en længere leveringstid."
+          }
+        },
+        "text_FkmwVN": {
+          "type": "text",
+          "settings": {
+            "item_list": "Ved ombytning til X-fast vil der forekomme et ekstra gebyr på 750 kr,- på samme vilkår som hvis fastheden var medkøbt sengen fra start."
+          }
+        }
+      },
+      "block_order": [
+        "text_XB4xhC",
+        "text_MmTMJE",
+        "text_7nFAh7",
+        "text_DRFzMy",
+        "text_FkmwVN"
+      ],
+      "disabled": true,
+      "settings": {
+        "bg_color": "#ac9d89",
+        "tag": "Ombytning",
+        "title": "Opret ombytning",
+        "content": "Du opretter en ombytning ganske nemt ved at trykke på knappen herunder. Husk at have dine ordreinformationer klar.",
+        "button_link": "",
+        "button_label": "Opret ombytning",
+        "info_title": "Praktiske oplysninger",
+        "toggle_text": "Se mere",
+        "padding_top": 75,
+        "padding_bottom": 75
+      }
+    },
+    "custom_img_txt_accordion_4KVBPc": {
+      "type": "custom-img-txt-accordion",
+      "blocks": {
+        "content_block_rqdFcb": {
+          "type": "content_block",
+          "settings": {
+            "heading": "Ofte stillede spørgsmål",
+            "description": ""
+          }
+        },
+        "accordion_block_b6MtUq": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvor lang tid tager det at bytte?",
+            "accordion_content": "<p>Du kan som udgangspunkt regne med, at en ombytning tager omtrent lige så lang tid som sengens leveringstid. Hvis du vælger en blød version, skal den dog specialfremstilles, og derfor vil tiden være længere.</p>"
+          }
+        },
+        "accordion_block_zdcEcJ": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvad koster en ombytning af fasthed?",
+            "accordion_content": "<p>En ombytning af fasthed er gratis. Hvis du inden for vores 100 dages prøveperiode finder ud af, at du sover for blødt eller for fast, kan du kvit og frit ombytte madraskernen i din seng - madraskernen er nemlig afgørende for din liggekomfort. Hvis du vælger at opgradere din madras til \"xtra fast\" eller \"blød\" fra en anden fasthed, koster det dog ekstra.</p>"
+          }
+        },
+        "accordion_block_DYhdc8": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvad inkluderer en ombytning af fasthed?",
+            "accordion_content": "<p>Når vi ombytter fasthed, ombytter vi selve madraskernen – altså den indre del af sengen, der er afgørende for sengens fasthed. Hvis din seng har en topmadras, bliver den altså ikke skiftet ved ombytningen. Fragtmanden hjælper som udgangspunkt ikke med indbæring og montering, medmindre det er tilkøbt. Fragtmanden tager selvfølgelig den gamle madraskerne med igen, så den skal du ikke bekymre dig om. Bare husk at tage den ud af coveret og pak den ind i plastik, så den er klar, når fragtmanden kommer.</p>"
+          }
+        },
+        "accordion_block_qqQqk4": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvad sker der med ombytningsmadrasserne?",
+            "accordion_content": "<p>De madraskerner, vi får retur efter en ombytning, donerer vi til velgørenhed eller sælger i vores outlet, så god søvn ikke går til spilde. Du vil dog altid modtage en helt ny springmadras.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "content_block_rqdFcb",
+        "accordion_block_b6MtUq",
+        "accordion_block_zdcEcJ",
+        "accordion_block_DYhdc8",
+        "accordion_block_qqQqk4"
+      ],
+      "settings": {
+        "custom_id": "",
+        "background_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_breadcrumb_section_feTXA9",
+    "custom_rich_main_page_Cjmjjy",
+    "rich_text_gHiUAt",
+    "custom_timeline_slider_ArkjEY",
+    "custom_exchange_section_KgGgkt",
+    "custom_img_txt_accordion_4KVBPc"
+  ]
+}

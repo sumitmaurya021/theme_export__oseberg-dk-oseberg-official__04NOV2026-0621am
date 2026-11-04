@@ -1,0 +1,564 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="custom-book-specification-section section-{{ section.id }}-padding">
+  <div class="custom-book-specification page-width">
+    <div class="container">
+      <div class="content">
+        <h2>{{ section.settings.title }}</h2>
+        <div class="description">{{ section.settings.description }}</div>
+        {% if section.settings.enable_popup %}
+          <a href="javascript:void(0);" class="book-btn" id="popupTrigger"><span title="{{ section.settings.button_text }}"> {{ section.settings.button_text }} </span></a>
+          <div id="popupModal" class="popup-modal">
+            <div class="custom-popup-model popup-content">
+              <span class="close-btn">&times;</span>
+              <div class="custom-popup-form">
+                {%- form 'contact', id: 'ContactForm', class: contact_form_class -%}
+                  <input type="text" name="contact[name]" placeholder="Dit navn" required>
+                  <input type="email" name="contact[email]" placeholder="Din e-mail" required>
+                  <input type="tel" name="contact[phone]" placeholder="Dit telefonnummer" pattern="[0-9+\-\s()]{6,20}" required>
+
+                  <label>Vælg dato og tidspunkt for besøg i showroom</label>
+                  <div class="datetime-fields">
+                    <input type="date" name="contact[date]" placeholder="dd-mm-yyyy" required>
+                    <input type="time" name="contact[time]" required>
+                  </div>
+
+                  <textarea name="contact[message]" placeholder="Kommentar" required></textarea>
+                  <button type="submit" class="book-btn btn submit-btn"><span title="Book tid">Book tid</span></button>
+                {%- endform -%}
+              </div>
+            </div>
+          </div>
+        {% else %}
+          {% if section.settings.button_url %}<a href="{{ section.settings.button_url }}" class="btn">{{ section.settings.button_text }}</a>{% endif %}
+        {% endif %}
+      </div>
+      <div class="images">
+        {% if section.settings.main_image %}
+          <img src="{{ section.settings.main_image | image_url }}" alt="Main Image" class="main-image">
+        {% endif %}
+        <div class="sub-images">
+          {% if section.settings.image_1 %}
+            <img src="{{ section.settings.image_1 | image_url }}" alt="Sub Image 1">
+          {% endif %}
+          {% if section.settings.image_2 %}
+            <img src="{{ section.settings.image_2 | image_url }}" alt="Sub Image 2">
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Book Specification",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Få en specialist til at hjælpe dig"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Section Description"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Main Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "First Sub Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Second Sub Image"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_popup",
+      "label": "Enable Popup",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Book Specification"
+    }
+  ]
+}
+{% endschema %}
+
+{% comment %} <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const enablePopup = {{ section.settings.enable_popup | json }};
+    console.log(enablePopup,"enablePopup");
+    if (enablePopup) {
+      const popupTrigger = document.getElementById('popupTrigger');
+      const popupModal = document.getElementById('popupModal');
+      const closeBtn = document.querySelector('.close-btn');
+
+      popupTrigger.addEventListener('click', function() {
+        popupModal.style.display = 'block';
+      });
+
+      closeBtn.addEventListener('click', function() {
+        popupModal.style.display = 'none';
+      });
+
+      window.addEventListener('click', function(event) {
+        if (event.target === popupModal) {
+          popupModal.style.display = 'none';
+        }
+      });
+    }
+  });
+</script> {% endcomment %}
+
+{% comment %} <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const form = document.querySelector('.custom-popup-form form');
+  if (!form) return;
+
+  const submitBtn = form.querySelector(".submit-btn");
+
+  // Create error box
+  let errorBox = document.createElement("div");
+  errorBox.style.color = "red";
+  errorBox.style.marginBottom = "15px";
+  errorBox.style.fontSize = "14px";
+  form.prepend(errorBox);
+
+  // Start disabled
+  submitBtn.disabled = true;
+
+  // Helper: get missing field labels
+  function getMissingFields() {
+  const labels = {
+    "contact[name]":    "Dit navn",
+    "contact[email]":   "Din e-mail",
+    "contact[phone]":   "Dit telefonnummer",
+    "contact[date]":    "Dato",
+    "contact[time]":    "Tid",
+    "contact[message]": "Kommentar"
+  };
+
+  const missing = [];
+  const fields = form.querySelectorAll("input[required], textarea[required]");
+  fields.forEach(function (field) {
+    if (!field.value.trim()) {
+      missing.push(labels[field.name] || field.placeholder || field.name);
+    }
+  });
+  return missing;
+}
+
+  // Update button state and error message on every input
+  form.addEventListener("input", function () {
+    if (form.checkValidity()) {
+      submitBtn.disabled = false;
+      errorBox.textContent = "";
+    } else {
+      submitBtn.disabled = true;
+    }
+  });
+
+  // Show missing fields when clicking the disabled button
+  const btnWrapper = document.createElement("div");
+  btnWrapper.style.display = "inline-block";
+  btnWrapper.style.cursor = "pointer";
+  submitBtn.parentNode.insertBefore(btnWrapper, submitBtn);
+  btnWrapper.appendChild(submitBtn);
+
+  btnWrapper.addEventListener("click", function () {
+    if (submitBtn.disabled) {
+      const missing = getMissingFields();
+      if (missing.length > 0) {
+        errorBox.textContent = "Please fill out the following fields: " + missing.join(", ");
+      }
+    }
+  });
+
+  // On actual submit
+  form.addEventListener("submit", function (e) {
+    if (!form.checkValidity()) {
+      e.preventDefault();
+      const missing = getMissingFields();
+      errorBox.textContent = "Please fill out the following fields: " + missing.join(", ");
+      return;
+    }
+
+    errorBox.textContent = "";
+    setTimeout(function () {
+      window.location.href = "/pages/book-a-specialist-confirm";
+    }, 1000);
+  });
+
+});
+</script> {% endcomment %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  var enablePopup = {{ section.settings.enable_popup | json }};
+
+  if (enablePopup) {
+    var popupTrigger = document.getElementById('popupTrigger');
+    var popupModal   = document.getElementById('popupModal');
+    var closeBtn     = document.querySelector('.close-btn');
+
+    if (popupTrigger && popupModal) {
+      popupTrigger.addEventListener('click', function () {
+        popupModal.style.display = 'block';
+      });
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function () {
+        popupModal.style.display = 'none';
+      });
+    }
+
+    window.addEventListener('click', function (event) {
+      if (event.target === popupModal) {
+        popupModal.style.display = 'none';
+      }
+    });
+  }
+
+  // ── FORM VALIDATION
+  var form = document.querySelector('.custom-popup-form form');
+  if (!form) return;
+
+  var submitBtn = form.querySelector('.submit-btn');
+
+  // Error message box at top of form
+  var errorBox = document.createElement('div');
+  errorBox.style.color        = 'red';
+  errorBox.style.marginBottom = '15px';
+  errorBox.style.fontSize     = '14px';
+  form.prepend(errorBox);
+
+  // Disable submit by default
+  submitBtn.disabled = true;
+
+  // Phone field — block letters while typing
+  var phoneField = form.querySelector('input[name="contact[phone]"]');
+  if (phoneField) {
+    phoneField.addEventListener('keypress', function (e) {
+      if (!/[0-9+\-\s()]/.test(e.key)) {
+        e.preventDefault();
+      }
+    });
+
+    phoneField.addEventListener('paste', function (e) {
+      var pasted = (e.clipboardData || window.clipboardData).getData('text');
+      if (!/^[0-9+\-\s()]+$/.test(pasted)) {
+        e.preventDefault();
+      }
+    });
+  }
+
+  // Friendly labels for missing fields
+  var labels = {
+    'contact[name]'   : 'Dit navn',
+    'contact[email]'  : 'Din e-mail',
+    'contact[phone]'  : 'Dit telefonnummer (kun tal)',
+    'contact[date]'   : 'Dato',
+    'contact[time]'   : 'Tid',
+    'contact[message]': 'Kommentar'
+  };
+
+  function getMissingFields() {
+    var missing = [];
+    var fields  = form.querySelectorAll('input[required], textarea[required]');
+    fields.forEach(function (field) {
+      if (!field.value.trim() || !field.checkValidity()) {
+        missing.push(labels[field.name] || field.placeholder || field.name);
+      }
+    });
+    return missing;
+  }
+
+  function isPhoneValid() {
+    if (!phoneField) return true;
+    return /^[0-9+\-\s()]{6,20}$/.test(phoneField.value);
+  }
+
+  // Re-check button state on every keystroke
+  form.addEventListener('input', function () {
+    if (form.checkValidity() && isPhoneValid()) {
+      submitBtn.disabled   = false;
+      errorBox.textContent = '';
+    } else {
+      submitBtn.disabled = true;
+    }
+  });
+
+  // Wrap button so clicks reach it even when disabled
+  var btnWrapper = document.createElement('div');
+  btnWrapper.style.display = 'inline-block';
+  btnWrapper.style.cursor  = 'pointer';
+  submitBtn.parentNode.insertBefore(btnWrapper, submitBtn);
+  btnWrapper.appendChild(submitBtn);
+
+  btnWrapper.addEventListener('click', function () {
+    if (submitBtn.disabled) {
+      var missing = getMissingFields();
+      if (missing.length > 0) {
+        errorBox.textContent = 'Udfyld venligst følgende felter: ' + missing.join(', ');
+      }
+    }
+  });
+
+  // Final check on submit
+  form.addEventListener('submit', function (e) {
+    if (!form.checkValidity() || !isPhoneValid()) {
+      e.preventDefault();
+      var missing = getMissingFields();
+      errorBox.textContent = 'Udfyld venligst følgende felter: ' + missing.join(', ');
+      return;
+    }
+
+    errorBox.textContent = '';
+    setTimeout(function () {
+      window.location.href = '/pages/book-a-specialist-confirm';
+    }, 1000);
+  });
+
+});
+</script>
+
+<style>
+  .custom-book-specification .submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  .custom-rich-main-page-container .rich-text__heading {
+    font-size: 32px !important;
+    line-height: 1.2 !important;
+    font-weight: 700 !important;
+  }
+  .custom-book-specification .container {
+    display: flex;
+    justify-content: space-between;
+    gap: 100px;
+  }
+  .custom-book-specification .content {
+    width: 50%;
+  }
+  .custom-book-specification .images {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .custom-book-specification img{
+    border-radius:30px;
+    overflow:hidden;
+  }
+  .custom-book-specification .main-image {
+    width: 100%;
+    height: auto;
+  }
+  .custom-book-specification .images .sub-images {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+  .custom-book-specification .sub-images img {
+    width: calc(50% - 5px);
+  }
+  .custom-book-specification .content h2 {
+    margin: 0;
+    font-family: 'Circular-Bold';
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  .custom-book-specification .content .description {
+    margin-bottom: 30px;
+  }
+  .custom-book-specification .content .description p {
+    font-family: 'Circular-Regular';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.4;
+    color: #121212bf;
+  }
+  .custom-popup-form form .book-btn {
+    display: block;
+    margin: auto;
+  }
+  .custom-book-specification .book-btn {
+    display: inline-block;
+    margin: 0;
+    padding: 12px 20px;
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 500;
+    background: var(--color-primary);
+    color: var(--color-white);
+    border-radius: 50px;
+    text-decoration: none;
+    overflow: hidden;
+    position: relative;
+  }
+  .custom-book-specification .book-btn span {
+    transition: all .3s;
+    position: relative;
+    top: 0;
+  }
+  .custom-book-specification .book-btn span::before {
+    content: attr(title);
+    position: absolute;
+    transform: translateY(40px);
+    left: 0;
+    right: 0;
+    transition: all .3s;
+    text-align: center;
+  }
+  .custom-book-specification .book-btn:hover span {
+    top: -40px;
+  }
+  .popup-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+  }
+  .close-btn {
+    width: 20px;
+    height: 20px;
+    font-size: 30px;
+    line-height: 30px;
+    font-weight: 700;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    bottom: 100%;
+    color: #fff;
+    right: max(calc(100vw - 580px)/2, 20px);
+  }
+  .custom-popup-model {
+    margin: 40px auto 20px;
+    width: 100%;
+    max-width: 500px;
+    height: 90%;
+  }
+  .custom-popup-form {
+    background-color: #fff;
+    height: auto;
+    padding: 40px;
+  }
+  .custom-popup-form form input,
+  .custom-popup-form form textarea {
+    width: 100%;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #6c8484 !important;
+    border: 0px;
+    padding: 10px 10px 10px 0;
+    font-family: 'Circular';
+    font-size: 16px;
+    font-weight: 400;
+    color: #121212bf;
+  }
+  .custom-popup-form form textarea {
+    resize: none;
+  }
+  .custom-popup-form form input:focus-visible,
+  .custom-popup-form form textarea:focus-visible {
+    box-shadow: unset;
+    outline: unset;
+  }
+  .custom-popup-form form input::placeholder,
+  .custom-popup-form form textarea::placeholder {
+    opacity: 1 !important;
+  }
+  .custom-popup-form form label {
+    font-family: 'Circular-Regular';
+    font-size: 16px;
+    line-height: 1;
+    color: #000;
+  }
+  .custom-book-specification form .submit-btn {
+    border: 0;
+    min-width: 160px;
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 1024px) {
+    .custom-book-specification .container {
+      flex-direction: column;
+      gap: 40px;
+    }
+    .custom-book-specification .content,
+    .custom-book-specification .images {
+      width: 100%;
+    }
+  }
+  @media screen and (max-width: 749px) {
+    .close-btn {
+      top: 10px;
+    }
+    .custom-popup-model {
+      margin: 50px 20px 20px 20px;
+      width: auto;
+    }
+    .custom-popup-form {
+      padding: 40px 30px;
+    }
+  }
+</style>

@@ -1,0 +1,346 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "custom_breadcrumb_section_feTXA9": {
+      "type": "custom-breadcrumb-section",
+      "settings": {
+        "background_color": "#ffffff"
+      }
+    },
+    "custom_rich_main_page_Cjmjjy": {
+      "type": "custom-rich-main-page",
+      "blocks": {
+        "caption_AYzV89": {
+          "type": "caption",
+          "settings": {
+            "caption": "Hvis du ombestemmer dig",
+            "text_style": "caption-with-letter-spacing",
+            "text_size": "medium"
+          }
+        },
+        "heading_xwfcqz": {
+          "type": "heading",
+          "settings": {
+            "heading": "Returnering",
+            "heading_size": "h1"
+          }
+        },
+        "text_VwBjPH": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Søvn er personlig, og den rette komfort afhænger af dine individuelle behov. Har du ikke fundet den rigtige fasthed i din springmadras første gang, kan du nemt ombytte til en anden – så du opnår den bedst mulige søvnkomfort og roligere nætter.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "caption_AYzV89",
+        "heading_xwfcqz",
+        "text_VwBjPH"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-1",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "custom_image_with_text_yLwHUU": {
+      "type": "custom-image-with-text",
+      "disabled": true,
+      "settings": {
+        "section_id": "",
+        "section_color": "#bddede",
+        "container_color": "#f9f3ee",
+        "section_image": "shopify://shop_images/REM.jpg",
+        "head_main": "100 nætters prøve",
+        "title": "Still in doubt? Try SengeMatch™",
+        "description": "Sleeping well should be easy. That’s why we’ve developed SengeMatch™, which, based on personalized questions and our experience with more than 150,000+ beds sold, finds and adapts a bed that’s just right for you.",
+        "button_link": "#",
+        "button_text": "",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "custom_timeline_slider_ArkjEY": {
+      "type": "custom-timeline-slider",
+      "blocks": {
+        "step_X4Yhm8": {
+          "type": "step",
+          "settings": {
+            "step_number": "1",
+            "step_title": "Opret en ombytning herunder",
+            "step_description": "<p>Ønsker du at ombytte en springmadras, skal du bestille en ombytning herunder. Du bliver guidet gennem hele processen på en enkel og let vis — du skal blot have dine ordreinformationer klar.</p>"
+          }
+        },
+        "step_hebcDa": {
+          "type": "step",
+          "settings": {
+            "step_number": "2",
+            "step_title": "Pak produktet forsvarligt ind",
+            "step_description": "<p>Springmadrassen du vil ombytte, skal skilles ad, samt pakkes forsvarligt ind i plast, så den kan modstå vind og vejr. Mod betaling kan vores fragtmand stå for hele ombytningen.</p>"
+          }
+        },
+        "step_RbExrU": {
+          "type": "step",
+          "settings": {
+            "step_number": "3",
+            "step_title": "Stil springmadrassen ud til afhentning",
+            "step_description": "<p>Du skal selv stille springmadrassen ud til afhentning ved kantsten, da vores fragtmand ikke bærer produktet ned, med mindre denne service er tilkøbt.</p>"
+          }
+        },
+        "step_4Mc3gA": {
+          "type": "step",
+          "settings": {
+            "step_number": "4",
+            "step_title": "Vi kommer og ombytter springmadrassen",
+            "step_description": "<p>På den aftalte dag, vil vi komme og hente den gamle springmadras, og aflevere den nye.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "step_X4Yhm8",
+        "step_hebcDa",
+        "step_RbExrU",
+        "step_4Mc3gA"
+      ],
+      "disabled": true,
+      "settings": {
+        "padding_top": 95,
+        "padding_bottom": 95,
+        "timeline_sub_text": "Ombytning",
+        "timeline_main_text": "Sådan foregår en ombytning",
+        "button_link": "#",
+        "button_label": "Springmadras"
+      }
+    },
+    "custom_exchange_section_KgGgkt": {
+      "type": "custom-exchange-section",
+      "blocks": {
+        "text_XB4xhC": {
+          "type": "text",
+          "settings": {
+            "item_list": "Du har 100 nætters ombytningsret fra modtagelse"
+          }
+        },
+        "text_MmTMJE": {
+          "type": "text",
+          "settings": {
+            "item_list": "Leveringstiden er typisk den samme som sengens leveringstid ved købet."
+          }
+        },
+        "text_7nFAh7": {
+          "type": "text",
+          "settings": {
+            "item_list": "Du kan betale 299,- for at fragtmanden foretager ombytningen for dig."
+          }
+        },
+        "text_DRFzMy": {
+          "type": "text",
+          "settings": {
+            "item_list": "Ved ombytning til Blød vil der forekomme et ekstra gebyr på 500 kr. Yderligere kan der forekomme en længere leveringstid."
+          }
+        },
+        "text_FkmwVN": {
+          "type": "text",
+          "settings": {
+            "item_list": "Ved ombytning til X-fast vil der forekomme et ekstra gebyr på 750 kr,- på samme vilkår som hvis fastheden var medkøbt sengen fra start."
+          }
+        }
+      },
+      "block_order": [
+        "text_XB4xhC",
+        "text_MmTMJE",
+        "text_7nFAh7",
+        "text_DRFzMy",
+        "text_FkmwVN"
+      ],
+      "disabled": true,
+      "settings": {
+        "bg_color": "#f9f3ee",
+        "tag": "Ombytning",
+        "title": "Opret ombytning",
+        "content": "Du opretter en ombytning ganske nemt ved at trykke på knappen herunder. Husk at have dine ordreinformationer klar.",
+        "button_link": "",
+        "button_label": "Opret ombytning",
+        "info_title": "Praktiske oplysninger",
+        "toggle_text": "Se mere",
+        "padding_top": 75,
+        "padding_bottom": 75
+      }
+    },
+    "multirow_EBbQUY": {
+      "type": "multirow",
+      "blocks": {
+        "row_EXCaJQ": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/hf_20260330_093434_5c6685fe-e00a-4b84-8fe1-9169d38fbdcd.png",
+            "caption": "Retunering af",
+            "heading": "Store produkter",
+            "text": "<p><strong>Hvis du fortryder dit køb (fortrydelsesret)</strong></p><p>Du har 14 dages fortrydelsesret, når du handler på tisvildecompany.dk. Dette er så du efter modtagelsen har tid til at inspicere varerne og sikre, at de er fyldestgørende i forhold til de krav du har hertil.</p><p>Fortrydelsesfristen udløber 14 dage efter den dag du:</p><p>1. Har modtaget din vare.</p><p>2. Får den sidste vare i fysisk besiddelse, når det drejer sig om en aftale om</p><p>flere forskellige varer, som er bestilt i én ordre, og som leveres enkeltvis.</p><p>3. Får det sidste parti, eller den sidste del i fysisk besiddelse, når det drejer sig om en aftale om levering af en vare, der består af flere partier eller dele.</p><p>Du skal indenfor 14 dage efter modtagelse give os meddelelse om, at du ønsker at fortryde dit køb. Meddelelsen skal gives ved e-mail til kundeservice@tisvildecompany.dk. I din meddelelse skal du gøre os tydeligt opmærksom på, at du ønsker at udnytte din fortrydelsesret. Eller du kan udfylde formularen på returneringssiden.</p><p>Du kan ikke fortryde ved blot at nægte modtagelse af varen uden samtidig at give os tydelig besked om dette.</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "row_npCQxA": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/hf_20260427_080750_cab5e1df-cbf9-42e6-8743-a8806d2ed3fc.png",
+            "caption": "Undtget varer af",
+            "heading": "Fortrydelsesretten",
+            "text": "<h3><strong>Varer undtaget fortrydelsesretten</strong></h3><p>Følgende varetyper er undtaget fortrydelsesretten:</p><p>1. Levering af varer, som er fremstillet efter forbrugerens specifikationer eller har fået et tydeligt personligt præg.</p><p>2. Varer købt som beset, eksempelvis udstillingsmodeller eller varer købt ved lagersalg.</p><p>Varens stand, når du sender den retur</p><p>Du hæfter kun for eventuel forringelse af varens værdi, som skyldes anden håndtering, end hvad der er nødvendigt for at fastslå varens art, egenskaber og den måde, den fungerer på.</p><p>Med andre ord kan du prøve varen på samme måde, som hvis du prøvede den i en fysisk butik. Hvis varen er prøvet udover hvad der er beskrevet ovenfor, betragter vi den som brugt, hvilket betyder, at du ved fortrydelse af købet kun får en del eller intet af købsbeløbet retur, afhængig af varens handelsmæssige værdi.</p><p>For at modtage hele købsbeløbet retur må du altså gøre det samme, som man kan i en fysisk butik. Du må afprøve varen, men ikke tage den i egentlig brug. Efter vores opfattelse har du taget varen i brug, når du fjerner plastikemballagen, idet du har mulighed for at fastslå varens art, egenskaber og den måde varen fungerer på, selvom den er dækket af plastik.</p><p>Det er muligt at booke den fragtmand der har leveret produktet til at sende retur eller man kan selv aflevere efter aftale - og så adresse mm ind - kontakt information  </p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "row_ybVG9K": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/hf_20260305_112229_3_e7758431-b0b2-4c61-aae9-e39fb15e874b.png",
+            "caption": "Retunering af",
+            "heading": "Små produkter",
+            "text": "<p><strong>Små produkter </strong><br/>Der gælder ovenstående også, vi tager ikke sengetøj retur der har været pakket ud af emballagen Man kan benytte returportal til at sende retur med - eller egen fragtaftale , vi afhenter ikke ved pakkeshops, der skal sendes til aderssen, retur udgiften bliver fratrukket refunderings beløbet </p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "row_EXCaJQ",
+        "row_npCQxA",
+        "row_ybVG9K"
+      ],
+      "name": "t:sections.multirow.presets.name",
+      "settings": {
+        "image_height": "medium",
+        "desktop_image_width": "medium",
+        "heading_size": "h1",
+        "text_style": "body",
+        "button_style": "secondary",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "image_layout": "alternate-left",
+        "section_color_scheme": "",
+        "row_color_scheme": "",
+        "mobile_content_alignment": "left",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "custom_img_txt_accordion_4KVBPc": {
+      "type": "custom-img-txt-accordion",
+      "blocks": {
+        "content_block_rqdFcb": {
+          "type": "content_block",
+          "settings": {
+            "heading": "Ofte stillede spørgsmål",
+            "description": ""
+          }
+        },
+        "accordion_block_b6MtUq": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvordan retunerer jeg hvis fortryder mit køb af seng? - og større møbler",
+            "accordion_content": "<p>Skulle du mod forventning fortryde dit køb, finder vi selvfølgelig også ud af det. Vi har gjort det lettest muligt for dig at returnere dine produkter, så du skal blot ind på vores returneringsside<strong>, som du finder her</strong>. Når returneringen er bestilt via vores returneringsside, afhenter vi sengen på din adresse. Praktiske oplysninger ved returnering:</p><ul><li><strong>Varen skal være ren og pæn.</strong> En fuld tilbagebetaling af købsbeløbet er mulig, så længe varen har været beskyttet mod smuds, snavs, parfume, hår og lignende. Vi forventer derfor altid brug af lagen, så sengen fremstår så ny og ren som muligt.</li><li><strong>Returordren pakkes i original emballage før afhentning</strong>. Ved returnering skal sengen pakkes ind i original emballage, hvorefter den skal stilles frem til fragtmanden på afhentningsdagen.</li><li><strong>Tilkøb nedpakning og emballering for 950 kr</strong>. Hvis ikke du har originalemballagen eller ikke selv ønsker at pakke sengen ned, kan du for 950 kr. tilføje emballering og nedpakning, når du udfylder returneringsformularen. Så vil fragtmanden pakke sengen ned, når han kommer for at afhente den på din adresse. </li></ul><p>Bemærk venligst, at vi ved returnering vurderes hver enkelt seng. Værdiforringelsen fratrækkes købsbeløbet. Det ikke er muligt selv at returnere til vores lager.</p>"
+          }
+        },
+        "accordion_block_zdcEcJ": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvordan fortryder jeg mit køb? - andet end seng/større møbler",
+            "accordion_content": "<p>Skulle du mod forventning fortryde dit køb, finder vi selvfølgelig også ud af det. Vi har gjort det lettest muligt for dig at returnere dine produkter, så du skal blot ind på vores returneringsside, som du <strong>finder her</strong>.</p>"
+          }
+        },
+        "accordion_block_DYhdc8": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvad koster det at retunere?",
+            "accordion_content": "<p>Pris ved returnering afhænger af forholdene for returneringen<br/><br/><strong>Reklamation:</strong> Er reklamationen berettiget, refunderer vi naturligvis dine (rimelige) fragtomkostninger. Vær blot opmærksom på tiden for reklamationen. Du skal reklamere indenfor ”rimelig tid” efter, at du har opdaget manglen ved varen. Hvis du reklamerer indenfor to måneder efter, at manglen er opdaget, vil reklamationen altid være rettidig.<br/>Bemærk at sengen skal pakkes ind i original emballage ved returnering. Hvis ikke du har originalemballagen eller ikke selv ønsker at pakke sengen ned, kan du for 950 kr. tilføje emballering og nedpakning, når du udfylder returneringsformularen. Så vil fragtmanden pakke sengen ned, når han kommer for at afhente den på din adresse. Denne eventuelle udgift er den eneste du afholder selv, ved en reklamation.</p><p><strong>Fortrydelsesret:</strong> Hvis du benytter din fortrydelsesret, skal du selv afholde udgifterne for tilbagelevering af varen. Din fortrydelsesret gælder i 14 dage efter du har modtaget produktet. Du skal sende din ordre retur til os uden unødig forsinkelse og senest 14 dage efter, du har meddelt os, at du ønsker at fortryde dit køb. Husk altid at medsende en kopi af din faktura, så vi kan finde ordren i vores system.<br/>Visse varer kan i kraft af deres art ikke returneres med normal post. Dette gælder for senge, madrasser, sovesofaer og lignende. Udgifterne for returnering af disse varer forventes højst at beløbe sig til ca. 2000 DKK.</p>"
+          }
+        },
+        "accordion_block_qqQqk4": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvad sker der med ombytningsmadrasserne?",
+            "accordion_content": "<p>Ja det kan du efter aftale. Ring eller skriv til os på nedenstående, så finder vi en løsning.<br/><br/><strong>Telefon: </strong>39 47 22 22<br/><br/><strong>E-mail:</strong>kundeservice@tisvildecompany.dk</p>"
+          }
+        },
+        "accordion_block_JbCW36": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Jeg har sendt en vare retur, hvornår kan jeg forvente at få mine penge retur?",
+            "accordion_content": "<p>Vi tilbagebetaler beløbet så snart vi har modtaget varen og gennemgået at standen er som forventet.<br/><br/>Vi gennemfører tilbagebetalingen med samme betalingsmiddel, som du benyttede ved den oprindelige transaktion, medmindre du udtrykkeligt har indvilget i noget andet.</p>"
+          }
+        },
+        "accordion_block_Fia9RP": {
+          "type": "accordion_block",
+          "settings": {
+            "accordion_heading": "Hvad gør jeg hvis jeg modtager en defekt ved modeagelse?",
+            "accordion_content": "<p>Skulle det ske, at produktet har en defekt ved modtagelse, er vi selvfølgelig ansvarlige for at få dette udbedret. Så snart du opdager fejlen, skal du kontakte os på <a href=\"mailto:kundeservice@Tisvildehouse.dk\">kundeservice@tisvildecompany.dk</a> og anmelde din reklamation.</p><p>Sørg gerne for at vedlægge billeder, så vi nemmere kan hjælpe dig. Fragtmanden har ingenting at gøre med reklamationer, men vi sidder klar til at hjælpe dig, så snart vi hører fra dig.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "content_block_rqdFcb",
+        "accordion_block_b6MtUq",
+        "accordion_block_zdcEcJ",
+        "accordion_block_DYhdc8",
+        "accordion_block_qqQqk4",
+        "accordion_block_JbCW36",
+        "accordion_block_Fia9RP"
+      ],
+      "settings": {
+        "custom_id": "",
+        "background_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "custom_image_with_text_7zdnMp": {
+      "type": "custom-image-with-text",
+      "disabled": true,
+      "settings": {
+        "section_id": "",
+        "section_color": "#ffffff",
+        "container_color": "#f9f3ee",
+        "section_image": "shopify://shop_images/REM.jpg",
+        "head_main": "100 nætters prøve",
+        "title": "Still in doubt? Try SengeMatch™",
+        "description": "Sleeping well should be easy. That’s why we’ve developed SengeMatch™, which, based on personalized questions and our experience with more than 150,000+ beds sold, finds and adapts a bed that’s just right for you.",
+        "button_link": "#",
+        "button_text": "",
+        "padding_top": 40,
+        "padding_bottom": 100
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_breadcrumb_section_feTXA9",
+    "custom_rich_main_page_Cjmjjy",
+    "custom_image_with_text_yLwHUU",
+    "custom_timeline_slider_ArkjEY",
+    "custom_exchange_section_KgGgkt",
+    "multirow_EBbQUY",
+    "custom_img_txt_accordion_4KVBPc",
+    "custom_image_with_text_7zdnMp"
+  ]
+}

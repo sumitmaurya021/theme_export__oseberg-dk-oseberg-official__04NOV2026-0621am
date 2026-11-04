@@ -1,0 +1,293 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<div class="size-selector-section section-{{ section.id }}-padding">
+  <div class="page-width">
+    <div class="size-selector-wrapper">
+
+      <div class="size-selector">
+        {% if section.settings.section_heading != blank %}
+          <div class="section-heading">
+            {{ section.settings.section_heading }}
+          </div>
+        {% endif %}
+
+        <div class="swiper size-swiper-{{ section.id }}">
+          <div class="swiper-wrapper">
+            {% for block in section.blocks %}
+              {% if block.settings.size_label != blank and block.settings.size_url != blank %}
+                <div class="swiper-slide size-slide">
+                  <a href="{{ block.settings.size_url }}" class="size-option">
+                    {{ block.settings.size_label }}
+                  </a>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!--
+        Track has a zero-width space (&#8203;) inside so base.css :empty rule
+        does NOT match it — fixes "display:none" being applied by base.css
+      -->
+      <div class="size-scrollbar-track" id="size-track-{{ section.id }}">&#8203;<div class="size-scrollbar-thumb" id="size-thumb-{{ section.id }}">&#8203;</div></div>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+(function() {
+  function initSizeSwiper() {
+    var track = document.getElementById('size-track-{{ section.id }}');
+    var thumb = document.getElementById('size-thumb-{{ section.id }}');
+
+    function updateThumb(swiper, progress) {
+      var p = (progress !== undefined) ? progress : swiper.progress;
+      var totalSlides = swiper.slides.length;
+      if (totalSlides === 0) return;
+
+      var trackWidth = track.offsetWidth;
+      if (trackWidth === 0) return;
+
+      var thumbWidth = Math.max(trackWidth / totalSlides, 24);
+      var maxLeft = trackWidth - thumbWidth;
+      var left = Math.min(Math.max(p * maxLeft, 0), maxLeft);
+
+      thumb.style.width = thumbWidth + 'px';
+      thumb.style.transform = 'translateX(' + left + 'px)';
+
+      var containerWidth = swiper.el.offsetWidth;
+      var totalWidth = swiper.virtualSize;
+      if (totalWidth <= containerWidth) {
+        track.style.opacity = '0';
+        track.style.pointerEvents = 'none';
+      } else {
+        track.style.opacity = '1';
+        track.style.pointerEvents = 'auto';
+      }
+    }
+
+    var swiper = new Swiper('.size-swiper-{{ section.id }}', {
+      slidesPerView: 'auto',
+      spaceBetween: 0,
+      freeMode: true,
+      grabCursor: true,
+      mousewheel: { forceToAxis: true },
+      on: {
+        progress: function(swiper, progress) { updateThumb(swiper, progress); },
+        resize:   function()                 { updateThumb(this); }
+      }
+    });
+
+    setTimeout(function() {
+      updateThumb(swiper);
+    }, 100);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSizeSwiper);
+  } else {
+    initSizeSwiper();
+  }
+})();
+
+document.addEventListener('DOMContentLoaded', function () {
+  const currentUrl = window.location.href;
+
+  document.querySelectorAll('.size-option').forEach(link => {
+    if (link.href === currentUrl) {
+      link.classList.add('active-size');
+    }
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Size Selector",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section heading",
+      "default": "Vælg størrelse"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "size_option",
+      "name": "Size Option",
+      "settings": [
+        {
+          "type": "text",
+          "id": "size_label",
+          "label": "Size title",
+          "default": "90x200"
+        },
+        {
+          "type": "url",
+          "id": "size_url",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Size Selector Section",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+{% stylesheet %}
+
+.size-selector-section .size-option.active-size {
+  background: #a37e2c;
+  font-weight: 700;
+  color: #fff;
+  border-radius: 100px;
+}
+
+.size-selector-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.size-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.size-selector-wrapper .swiper {
+  margin: 0;
+}
+
+.section-heading {
+  font-family: 'Circular';
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 0px 20px;
+  white-space: nowrap;
+  color: var(--color-black);
+  flex-shrink: 0;
+}
+
+.size-swiper-{{ section.id }} {
+  width: 100%;
+  overflow: hidden !important;
+}
+
+.swiper-slide.size-slide {
+  width: auto !important;
+}
+
+.size-option {
+  display: block;
+  padding: 0px 16px;
+  text-decoration: none;
+  color: #121212bf;
+  font-family: 'Circular';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 30px;
+  white-space: nowrap;
+  cursor: grab;
+}
+
+.size-option:active {
+  cursor: grabbing;
+}
+
+.size-scrollbar-track,
+.size-scrollbar-thumb {
+  display: block !important;
+}
+
+.size-scrollbar-track {
+  position: relative;
+  width: 100%;
+  height: 2px;
+  background-color: #e0e0e0;
+  margin-top: 8px;
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  font-size: 0;
+  line-height: 0;
+}
+
+.size-scrollbar-thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #111;
+  border-radius: 2px;
+  transition: transform 0.08s linear;
+  will-change: transform;
+  font-size: 0;
+  line-height: 0;
+}
+
+.swiper-scrollbar {
+  display: none !important;
+}
+
+@media screen and (max-width: 767px) {
+  .size-selector-section {
+    padding-top: 20px !important;
+    padding-bottom: 0 !important;
+  }
+  .size-selector {
+    align-items: flex-start;
+  }
+  .section-heading {
+    padding: 0 20px 0 0;
+    padding-top: 4px;
+  }
+  .size-scrollbar-track {
+    margin-top: 14px;
+    margin-bottom: 8px;
+  }
+}
+{% endstylesheet %}
